@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class BController {
 
-    @GetMapping("test")
-    public String home(){
-        return "test";
-    }
+	@GetMapping("test")
+	public String home() {
+		return "test";
+	}
 
 }

@@ -17,9 +17,83 @@
 
  :star: <u>코드는 각자 브랜치에서 작업해주세요!!!</u>
 
-:star:master로 바로 push를 자제합시다!!
+ :star: ​master로 바로 push를 자제합시다!!
 
 
+
+#### Method 규칙
+
+1. DAO 클래스에 선언하는 메소드명은 DML(**select, insert, delete, update**)을 메소드명에 포함시킵니다. 
+
+   (https://www.oracle.com/java/technologies/dataaccessobject.html> 참고)
+
+   예)  <span style="color:green">void **<u>insert</u>**Member(MemberDto mDto);</span>
+
+   ​       List<MemberDto> **<u>select</u>**Member();
+
+   
+
+2. Service 인터페이스에 선언하는 메소드명은 수행하는 기능을 메소드명에 포함시킵니다.
+
+   예) <span style="color:green">void addMember(MemberDto mDto);</span>
+
+​             List<MemberDto> getAllMember();            
+
+
+
+### Structure
+
+-----
+
+#### Directory
+
+```java
+koitt03_JDP/src
+    /test
+	/main
+		/java
+			/com
+    			/koitt
+    				/tim
+    					/dto
+    					/dao
+    					/controller
+    					/service
+		/resources
+			/mapper
+		/webapp
+			/resources
+				/css
+				/js
+				/images
+				/WEB-INF
+					ㄴweb.xml
+					/spring
+						/appServlet
+							ㄴ servlet-context.xml
+						ㄴroot-context.xml
+					/views
+ ㄴpom.xml                    
+ 
+```
+
+#### Data
+
+* DTO - DAO - Service - ServcieImpl - Contoller 구조 사용합니다.
+
+  * DTO : **class**
+
+  * DAO : **interface** 
+
+     :arrow_backward: *?Mapper.xml   (*경로는 src/main/resources/mapper 입니다.*)
+
+  * Service: **interface**
+
+     :arrow_backward: ServcieImpl : **class**
+     
+  * Controller: **class**
+  
+  
 
 ### Devlopment Environment
 
@@ -33,7 +107,7 @@
 
 
 
-### GUIDE
+### Setting Guide
 
 ----
 
@@ -172,32 +246,4 @@ JCL을 제외시켰기 때문에 기존에 JCL을 통해 로그를 남기던 코
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Directory Structure
-
----
 
