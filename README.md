@@ -79,7 +79,7 @@ koitt03_JDP/src
 
 #### Data
 
-* DTO - DAO - Service - ServcieImpl - Contoller 구조 사용합니다.
+* DTO - DAO - Service - ServiceImpl - Contoller 구조 사용합니다.
 
   * DTO : **class**
 
@@ -115,7 +115,7 @@ koitt03_JDP/src
 
 * **Hikari CP**: DB Connection Pool 라이브러리
 
-* **Oralce ojdbc6**: Oracle jdbc 라이브러리
+* **Oracle ojdbc6**: Oracle jdbc 라이브러리
 
 * **MyBatis**: DB Mapping 라이브러리
 
