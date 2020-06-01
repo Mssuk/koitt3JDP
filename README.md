@@ -101,7 +101,7 @@ koitt03_JDP/src
 
 * 개발 OS: Windows7, Windows10
 * 개발 언어: Java , JavaScript, JSP, HTML5 , CSS ..
-* 개발 IDE: Eclipse 2020, Intellij
+* 개발 IDE: Eclipse 2019, Intellij
 * DB: Oracle database 11g
 * 개발/빌드 도구  : JDK 1.8, Spring Framework, Sql Developer, Maven
 
@@ -203,7 +203,7 @@ JCL을 제외시켰기 때문에 기존에 JCL을 통해 로그를 남기던 코
 <dependency>
     <groupId>com.zaxxer</groupId>
     <artifactId>HikariCP</artifactId>
-    <version>3.2.0</version>
+    <version>3.4.5</version>
 </dependency>
 <!-- Mybatis -->
 <dependency>

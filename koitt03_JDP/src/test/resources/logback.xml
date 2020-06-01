@@ -1,34 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
+<configuration scan="true" scanPeriod="30 seconds">
 
-  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-    <layout class="ch.qos.logback.classic.PatternLayout">
-    <pattern>%d{HH:mm:ss.SSS} [%thread] %-4level [%logger.%method:%line]- %msg%n</pattern>
-    </layout>
-  </appender>  
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern> %d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %magenta(%-4relative) --- [ %thread{10} ] %cyan(%logger{20}) : %msg%n </pattern>
+        </encoder>
+    </appender>
 
-    <appender name="LOGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">		
-		 <file>c:\LogExample\logexample2.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-		<fileNamePattern>my-web.%d{yyyy-MM-dd}.log</fileNamePattern>
-		<!-- 30일 지난 파일은 삭제한다.  -->
-		 <maxHistory>30</maxHistory>
-		</rollingPolicy>		
-		<encoder>
-		<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-4level [%logger.%method:%line] - %msg %n</pattern>
-		</encoder> 			
-	</appender>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>labatory.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>labatory.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
 
-    <!-- 	RULES for logging DEBUG < INFO < WARN < ERROR < FATAL.-->
-    <logger name="myweb" additivity="false">
-        <level value="INFO"/>
-        <appender-ref ref="LOGFILE"/>
-        <appender-ref ref="CONSOLE"/>
-    </logger>    
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-4relative --- [ %thread{10} ] %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
 
-  	<root>
-		<level value="INFO" />
-		<appender-ref ref="CONSOLE" />
-	</root>
+    <logger name="org.springframework" level="info"/>
+    <logger name="org.hibernate" level="debug"/>
+
+    <root level="debug">
+        <appender-ref ref="CONSOLE"/> <!-- Console에 로그를 출력하고자 할 때 사용 -->
+        <appender-ref ref="FILE"/> <!-- File로 로그를 남기고자 할 때 사용 -->
+    </root>
 
 </configuration>
