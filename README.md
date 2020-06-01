@@ -25,7 +25,7 @@
 
 1. DAO 클래스에 선언하는 메소드명은 DML(**select, insert, delete, update**)을 메소드명에 포함시킵니다. 
 
-   (https://www.oracle.com/java/technologies/dataaccessobject.html> 참고)
+   (https://www.oracle.com/java/technologies/dataaccessobject.html 참고)
 
    <span style="color:green">void <u>**insert**</u>Member(MemberDto mDto);</span>
 
