@@ -27,7 +27,7 @@
 
    (https://www.oracle.com/java/technologies/dataaccessobject.html> 참고)
 
-   예)  <span style="color:green">void <u>insert</u>Member(MemberDto mDto);</span>
+   <span style="color:green">void <u>insert</u>Member(MemberDto mDto);</span>
 
    ​       List<MemberDto> <u>select</u>Member();
 
@@ -35,7 +35,7 @@
 
 2. Service 인터페이스에 선언하는 메소드명은 수행하는 기능을 메소드명에 포함시킵니다.
 
-   예) <span style="color:green">void addMember(MemberDto mDto);</span>
+   <span style="color:green">void addMember(MemberDto mDto);</span>
 
    ​      List<MemberDto> getAllMember();            
 
