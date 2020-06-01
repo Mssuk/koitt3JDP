@@ -17,9 +17,83 @@
 
  :star: <u>코드는 각자 브랜치에서 작업해주세요!!!</u>
 
-:star:master로 바로 push를 자제합시다!!
+ :star: ​master로 바로 push를 자제합시다!!
 
 
+
+#### Method 규칙
+
+1. DAO 클래스에 선언하는 메소드명은 DML(**select, insert, delete, update**)을 메소드명에 포함시킵니다. 
+
+   (https://www.oracle.com/java/technologies/dataaccessobject.html> 참고)
+
+   <span style="color:green">void <u>insert</u>Member(MemberDto mDto);</span>
+
+   ​       List<MemberDto> <u>select</u>Member();
+
+   
+
+2. Service 인터페이스에 선언하는 메소드명은 수행하는 기능을 메소드명에 포함시킵니다.
+
+   <span style="color:green">void addMember(MemberDto mDto);</span>
+
+   ​      List<MemberDto> getAllMember();            
+
+
+
+### Structure
+
+-----
+
+#### Directory
+
+```java
+koitt03_JDP/src
+    /test
+    /main
+	/java
+	    /com
+    		/koitt
+    		    /tim
+    			/dto
+    			/dao
+    			/controller
+    			/service
+	/resources
+	    /mapper
+	/webapp
+	    /resources
+		/css
+		/js
+		/images
+		/WEB-INF
+		    ㄴweb.xml
+		    /spring
+			/appServlet
+			    ㄴ servlet-context.xml
+			    ㄴroot-context.xml
+		    /views
+ ㄴpom.xml                    
+ 
+```
+
+#### Data
+
+* DTO - DAO - Service - ServiceImpl - Contoller 구조 사용합니다.
+
+  * DTO : **class**
+
+  * DAO : **interface** 
+
+     :arrow_backward: ?Mapper.xml   (*경로는 src/main/resources/mapper 입니다.*)
+
+  * Service: **interface**
+
+     :arrow_backward: ServcieImpl : **class**
+     
+  * Controller: **class**
+  
+  
 
 ### Devlopment Environment
 
@@ -33,7 +107,7 @@
 
 
 
-### GUIDE
+### Setting Guide
 
 ----
 
@@ -41,13 +115,15 @@
 
 * **Hikari CP**: DB Connection Pool 라이브러리
 
-* **Oralce ojdbc6**: Oracle jdbc 라이브러리
+* **Oracle ojdbc6**: Oracle jdbc 라이브러리
 
 * **MyBatis**: DB Mapping 라이브러리
 
 * **Spring Framwork**: 5.2.4 RELEASE
 
 * **Jackson** : JSON 데이터 구조 처리 라이브러리
+
+* **logback**: log 라이브러리 ( System.out.println() 대신 쓰는걸 권장함. logger.debug() )
 
   
 
@@ -112,11 +188,13 @@
     <version>1.7.25</version>
 </dependency>
 
-<!-- 앞서 언급했듯이 spring-context에서는 기본적으로 commons-logging 라이브러리를 사용하고 있으므로 Logback 라이브러리로 대체하기 위해서는 spring-context 라이브러리를 추가할 때 commons-logging 라이브러리를 제외 시켜야 합니다.
+<!-- spring-context에서는 기본적으로 commons-logging 라이브러리를 사용하고 있으므로 
+Logback 라이브러리로 대체하기 위해서는 spring-context 라이브러리를 추가할 때 
+commons-logging 라이브러리를 제외 시켜야 합니다.
 JCL을 제외시켰기 때문에 기존에 JCL을 통해 로그를 남기던 코드들은 에러를 발생 시킬 것입니다.
 그래서 필요한 것이 jcl-over-slf4j 라이브러리이며, 일종의 다리 역할을 합니다.
 실제로는 SLF4J을 구현한 logback-classic 라이브러리가 로그를 남기게 됩니다.
-(https://victorydntmd.tistory.com/173)
+(출처: https://victorydntmd.tistory.com/173)
 -->
 
 
@@ -172,32 +250,4 @@ JCL을 제외시켰기 때문에 기존에 JCL을 통해 로그를 남기던 코
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Directory Structure
-
----
 
