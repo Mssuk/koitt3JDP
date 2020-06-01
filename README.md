@@ -27,9 +27,9 @@
 
    (https://www.oracle.com/java/technologies/dataaccessobject.html> 참고)
 
-   <span style="color:green">void <u>insert</u>Member(MemberDto mDto);</span>
+   <span style="color:green">void <u>**insert**</u>Member(MemberDto mDto);</span>
 
-   ​       List<MemberDto> <u>select</u>Member();
+   ​       List<MemberDto> <u>**select**</u>Member();
 
    
 
