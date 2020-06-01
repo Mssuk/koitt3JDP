@@ -7,14 +7,27 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
+	
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+	    <property name="username" value="ora_user"/>
+	    <property name="password" value="1234"/>
+	</bean>
 		
-		
-		
+	    <!-- 커넥션 pool을 사용할 dataSource bean 셋팅-->
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <constructor-arg ref="hikariConfig"></constructor-arg>
+    </bean>
+    	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
- 	    <!-- mybatis 설정파일이 스프링 시작될때 같이 실행되도록 설정하기  -->
-		<property name="configLocation" value="classpath:/mybatis-config.xml"/>
+	    <property name="dataSource" ref="dataSource"></property>
+	    
+		<property name="typeAliasesPackage" value="com.koitt.tim.dto"/>
+		<property name="mapperLocations" value="classpath:mapper/**/*.xml"/>
 	</bean>
 
-	
+	<!-- base-package 에 정의된 package 내 클래스 및 xml을 SQL 처리를 위한 mapper로 인식-->
+    <mybatis-spring:scan base-package="com.koitt.tim.dao"/>
 		
 </beans>
