@@ -89,7 +89,7 @@ koitt03_JDP/src
 
   * Service: **interface**
 
-     :arrow_backward: ServcieImpl : **class**
+     :arrow_backward: ServiceImpl : **class**
      
   * Controller: **class**
   
