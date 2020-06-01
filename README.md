@@ -27,9 +27,9 @@
 
    (https://www.oracle.com/java/technologies/dataaccessobject.html> 참고)
 
-   예)  <span style="color:green">void **<u>insert</u>**Member(MemberDto mDto);</span>
+   예)  <span style="color:green">void <u>insert</u>Member(MemberDto mDto);</span>
 
-   ​       List<MemberDto> **<u>select</u>**Member();
+   ​       List<MemberDto> <u>select</u>Member();
 
    
 
@@ -37,7 +37,7 @@
 
    예) <span style="color:green">void addMember(MemberDto mDto);</span>
 
-​             List<MemberDto> getAllMember();            
+   ​             List<MemberDto> getAllMember();            
 
 
 
@@ -50,29 +50,29 @@
 ```java
 koitt03_JDP/src
     /test
-	/main
-		/java
-			/com
-    			/koitt
-    				/tim
-    					/dto
-    					/dao
-    					/controller
-    					/service
-		/resources
-			/mapper
-		/webapp
-			/resources
-				/css
-				/js
-				/images
-				/WEB-INF
-					ㄴweb.xml
-					/spring
-						/appServlet
-							ㄴ servlet-context.xml
-						ㄴroot-context.xml
-					/views
+    /main
+	/java
+	    /com
+    		/koitt
+    		    /tim
+    			/dto
+    			/dao
+    			/controller
+    			/service
+	/resources
+	    /mapper
+	/webapp
+	    /resources
+		/css
+		/js
+		/images
+		/WEB-INF
+		    ㄴweb.xml
+		    /spring
+			/appServlet
+			    ㄴ servlet-context.xml
+			    ㄴroot-context.xml
+		    /views
  ㄴpom.xml                    
  
 ```
@@ -85,7 +85,7 @@ koitt03_JDP/src
 
   * DAO : **interface** 
 
-     :arrow_backward: *?Mapper.xml   (*경로는 src/main/resources/mapper 입니다.*)
+     :arrow_backward: ?Mapper.xml   (*경로는 src/main/resources/mapper 입니다.*)
 
   * Service: **interface**
 
