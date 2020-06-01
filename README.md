@@ -37,7 +37,7 @@
 
    예) <span style="color:green">void addMember(MemberDto mDto);</span>
 
-   ​             List<MemberDto> getAllMember();            
+   ​      List<MemberDto> getAllMember();            
 
 
 
@@ -123,6 +123,8 @@ koitt03_JDP/src
 
 * **Jackson** : JSON 데이터 구조 처리 라이브러리
 
+* **logback**: log 라이브러리 ( System.out.println() 대신 쓰는걸 권장함. logger.debug() )
+
   
 
 >  pom.xml 설정
@@ -186,11 +188,13 @@ koitt03_JDP/src
     <version>1.7.25</version>
 </dependency>
 
-<!-- 앞서 언급했듯이 spring-context에서는 기본적으로 commons-logging 라이브러리를 사용하고 있으므로 Logback 라이브러리로 대체하기 위해서는 spring-context 라이브러리를 추가할 때 commons-logging 라이브러리를 제외 시켜야 합니다.
+<!-- spring-context에서는 기본적으로 commons-logging 라이브러리를 사용하고 있으므로 
+Logback 라이브러리로 대체하기 위해서는 spring-context 라이브러리를 추가할 때 
+commons-logging 라이브러리를 제외 시켜야 합니다.
 JCL을 제외시켰기 때문에 기존에 JCL을 통해 로그를 남기던 코드들은 에러를 발생 시킬 것입니다.
 그래서 필요한 것이 jcl-over-slf4j 라이브러리이며, 일종의 다리 역할을 합니다.
 실제로는 SLF4J을 구현한 logback-classic 라이브러리가 로그를 남기게 됩니다.
-(https://victorydntmd.tistory.com/173)
+(출처: https://victorydntmd.tistory.com/173)
 -->
 
 
