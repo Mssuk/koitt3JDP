@@ -1,9 +1,10 @@
-package com.koitt.tim;
+package com.koitt.tim.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@org.springframework.stereotype.Controller
-public class Controller {
+@Controller
+public class BController {
 
     @GetMapping("test")
     public String home(){
