@@ -16,7 +16,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> getProductList() {
-
         return pDao.selectProduct();
     }
 
