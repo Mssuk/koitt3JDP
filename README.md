@@ -10,7 +10,7 @@
 
 ----
 
-* **File naming**: snake_case (<span style="color:red">**html, css , jsp**</span> 파일만 해당합니다.)
+* **File naming**: snake_case (<span style="color:red">**html, css , jsp**</span> 파일만 해당합니다. )
 * **default naming**: CamelCase (java class, method, javascript ...... )
 
 
