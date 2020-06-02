@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
+@RequestMapping("product")
 public class ProductController {
 
     @Autowired
@@ -27,8 +28,8 @@ public class ProductController {
 
     @RequestMapping("detail")
     public String productDetail(String pro_num,Model model){
-        ProductDto pDto;
-
+        ProductDto pDto = pServ.getProductChoice(pro_num);
+        model.addAttribute("dto",pDto);
         return "product/detail";
     }
 
