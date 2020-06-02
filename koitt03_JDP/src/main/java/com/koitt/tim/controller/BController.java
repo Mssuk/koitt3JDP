@@ -19,7 +19,6 @@ public class BController {
 	@GetMapping("test")
 	public String home(Model model) {
 		model.addAttribute("list", adminService.getMallInfo());
-		logger.error("hello world");
 		return "test";
 	}
 
