@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-		<div id="footerWrap">
+<div id="footerWrap">
 		<div id="footer">
 			<div id="fnb">
 				<ul>
@@ -14,7 +13,7 @@
 			</div>
 			
 			<div id="finfo">
-				<div id="flogo"><img src="/images/txt/flogo.gif" alt="JARDIN THE COFFEE CREATOR, SINCE 1984" /></div>
+				<div id="flogo"><img src="../images/txt/flogo.gif" alt="JARDIN THE COFFEE CREATOR, SINCE 1984" /></div>
 				<address>
 					<ul>
 						<li>㈜쟈뎅</li>
@@ -27,7 +26,7 @@
 					</ul>
 				</address>
 
-				<div id="inicis"><img src="/images/ico/ico_inicis.png" alt="이니시스 결제시스템" /></div>
+				<div id="inicis"><img src="../images/ico/ico_inicis.png" alt="이니시스 결제시스템" /></div>
 			</div>
 		</div>
 	</div>
