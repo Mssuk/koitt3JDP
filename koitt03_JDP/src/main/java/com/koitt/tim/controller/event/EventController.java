@@ -11,6 +11,7 @@ public class EventController {
 
 	@RequestMapping("event")
 	public String event(Model model) {
+
 		return "event/event";
 	}
 
