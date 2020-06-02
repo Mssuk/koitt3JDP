@@ -39,6 +39,16 @@
 
    ​      List<MemberDto> getAllMember();            
 
+####  Contoller path 규칙
+
+모든 경로는 폴더(패키지)이름으로 시작합니다
+
+예) localhost:8181/**event**/.. **/mypage/** **/membership/**
+
+
+
+* gitkeep 파일은 폴더보존용이니 폴더에 다른 파일 있으면 지우셔도 됩니다
+
 
 
 ### Structure
