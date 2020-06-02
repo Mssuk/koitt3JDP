@@ -27,4 +27,11 @@ public class ProductController {
         return "product/list";
     }
 
+    @RequestMapping("detail")
+    public String productDetail(String pro_num,Model model){
+        ProductDto pDto;
+
+        return "product/detail";
+    }
+
 }

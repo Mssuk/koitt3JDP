@@ -8,6 +8,8 @@
         select * from PRODUCT
     </select>
 
-
+    <select id="selectProductOne" resultType="ProductDto">
+        select * from PRODUCT where PRO_NUM=#{pro_num}
+    </select>
 
 </mapper>

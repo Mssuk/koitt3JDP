@@ -15,7 +15,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> getProductList() {
-        System.out.println(pDao.selectProduct());
+
         return pDao.selectProduct();
     }
+
+    @Override
+    public ProductDto getProductChoice() {
+        return pDao.selectProductOne();
+    }
+
+
 }

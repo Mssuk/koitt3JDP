@@ -220,7 +220,7 @@
                         <!-- 반복 -->
                         <c:forEach var="dto" items="${dtos}">
                         <li>
-                            <a href="detail">
+                            <a href="detail?pro_num=${dto.pro_num}">
                                 <div class="img"><img src="images/img/${dto.front_image1}" alt="제품이미지" /></div>
                                 <div class="name">쟈뎅 바리스타 벨벳<br/>${dto.product_name}</div>
                                 <div class="price">${dto.product_price}원</div>
