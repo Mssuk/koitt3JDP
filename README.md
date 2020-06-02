@@ -23,7 +23,7 @@
 
 #### Method 규칙
 
-1. DAO 클래스에 선언하는 메소드명은 DML(**select, insert, delete, update**)을 메소드명에 포함시킵니다. 
+1. DAO 클래스에 선언하는 메소드명은 DML(**select, insert, delete, update**)을 메소드명에 포함시킵니다.
 
    (https://www.oracle.com/java/technologies/dataaccessobject.html 참고)
 
@@ -31,13 +31,23 @@
 
    ​       List<MemberDto> <u>**select**</u>Member();
 
-   
+
 
 2. Service 인터페이스에 선언하는 메소드명은 수행하는 기능을 메소드명에 포함시킵니다.
 
    <span style="color:green">void addMember(MemberDto mDto);</span>
 
    ​      List<MemberDto> getAllMember();            
+
+####  Contoller path 규칙
+
+모든 경로는 폴더(패키지)이름으로 시작합니다
+
+예) localhost:8181/**event**/.. **/mypage/** **/membership/**
+
+
+
+* gitkeep 파일은 폴더보존용이니 폴더에 다른 파일 있으면 지우셔도 됩니다
 
 
 
@@ -74,7 +84,7 @@ koitt03_JDP/src
 			    ㄴroot-context.xml
 		    /views
  ㄴpom.xml                    
- 
+
 ```
 
 #### Data
@@ -83,17 +93,17 @@ koitt03_JDP/src
 
   * DTO : **class**
 
-  * DAO : **interface** 
+  * DAO : **interface**
 
      :arrow_backward: ?Mapper.xml   (*경로는 src/main/resources/mapper 입니다.*)
 
   * Service: **interface**
 
      :arrow_backward: ServiceImpl : **class**
-     
+
   * Controller: **class**
-  
-  
+
+
 
 ### Devlopment Environment
 
@@ -125,7 +135,7 @@ koitt03_JDP/src
 
 * **logback**: log 라이브러리 ( System.out.println() 대신 쓰는걸 권장함. logger.debug() )
 
-  
+
 
 >  pom.xml 설정
 
@@ -188,8 +198,8 @@ koitt03_JDP/src
     <version>1.7.25</version>
 </dependency>
 
-<!-- spring-context에서는 기본적으로 commons-logging 라이브러리를 사용하고 있으므로 
-Logback 라이브러리로 대체하기 위해서는 spring-context 라이브러리를 추가할 때 
+<!-- spring-context에서는 기본적으로 commons-logging 라이브러리를 사용하고 있으므로
+Logback 라이브러리로 대체하기 위해서는 spring-context 라이브러리를 추가할 때
 commons-logging 라이브러리를 제외 시켜야 합니다.
 JCL을 제외시켰기 때문에 기존에 JCL을 통해 로그를 남기던 코드들은 에러를 발생 시킬 것입니다.
 그래서 필요한 것이 jcl-over-slf4j 라이브러리이며, 일종의 다리 역할을 합니다.
@@ -248,6 +258,3 @@ JCL을 제외시켰기 때문에 기존에 JCL을 통해 로그를 남기던 코
 </dependency>
 
 ```
-
-
-
