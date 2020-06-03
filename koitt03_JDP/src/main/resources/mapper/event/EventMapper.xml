@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.koitt.tim.dao.event.EventDao">
+
+	<select id="event_view" resultType="EventDto">
+		select * from ( select ROWNUM rnum, e.* from(
+		select *
+		from event
+		where to_char(event_end,'yyyy-MM-dd') <![CDATA[ >= ]]> to_char(sysdate,'yyyy-MM-dd')
+		ORDER BY event_start desc) e)
+		where event_num=#{param1}
+	</select>
+
+    <select id="selectEvent" resultType="EventDto">
+        select *
+        from (select ROWNUM rnum, e.*
+              from (
+                       select *
+                       from event
+                       where to_char(event_end, 'yyyy-MM-dd') <![CDATA[ >= ]]> to_char(sysdate, 'yyyy-MM-dd')
+                       ORDER BY event_start desc) e)
+        where rnum <![CDATA[ >= ]]> #{p1}
+          and rnum <![CDATA[ <= ]]> #{p2}
+    </select>
+
+    <select id="selectEventS" resultType="EventDto">
+
+    </select>
+
+
+    <select id="selectFinEvent" resultType="EventDto">
+        select *
+        from event
+        where    <![CDATA[
+               to_char(event_end, 'yyyy-MM-dd') < to_char(sysdate, 'yyyy-MM-dd')
+        ORDER BY event_start desc
+        ]]>
+    </select>
+
+    <select id="selectListCount" resultType="int">
+        select count(*)
+        from EVENT
+    </select>
+
+</mapper>        
