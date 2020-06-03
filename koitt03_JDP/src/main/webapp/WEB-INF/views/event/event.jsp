@@ -59,7 +59,7 @@
 						<div class="allPageMoving1">
 
 						<a href="event?page=1" class="n"><img src="../images/btn/btn_pre2.gif" alt="처음으로"/></a>
-						<a href="#" class="pre"><img src="../images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
+						<a href="event?1" class="pre"><img src="../images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
 						<c:forEach var="i" items="${pageNumbering}">
 							<c:choose>
 								<c:when test="${pageNum == i}">
@@ -83,6 +83,13 @@
 						<div class="search">
 							<ul>
 								<li class="web"><img src="../images/txt/txt_search.gif" alt="search" /></li>
+								<li class="se">
+									<select name="search">
+										<option value="all" />전체</option>
+										<option value="tit" />제목</option>
+										<option value="con" />내용</option>
+									</select>
+								</li>
 								<li><input type="text" class="searchInput" name="txt" placeholder="키워드를 입력하세요"/></li>
 								<li class="web"><input type="submit" value="" title="검색" ></li>
 								<li class="mobile"><input type="submit" value="" title="검색" ></li>

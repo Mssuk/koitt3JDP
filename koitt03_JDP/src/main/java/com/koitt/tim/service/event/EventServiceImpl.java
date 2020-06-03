@@ -12,12 +12,11 @@ import com.koitt.tim.dto.event.EventDto;
 @Service
 public class EventServiceImpl implements EventService {
 
-    @Autowired
-    EventDao edao;
+	@Autowired
+	EventDao edao;
 
 	private static final int ROW_LIMIT = 5; // 밑에 (1,2,3,4,5) 이거 몇개씩 보여줄건지
 	private static final int PAGE_LIMIT = 10; // 한페이지에 글 몇개 보여줄건지
-
 
 	// 이벤트뷰
 	@Override
@@ -26,112 +25,64 @@ public class EventServiceImpl implements EventService {
 		return edao.event_view(event_num);
 	}
 
+	@Override
+	public List<EventDto> selectEvent(int pageNum) {
 
-//	@Override
-//	public List<EventDto> selectEvent(Model model) {
-//		HttpServletRequest request = (HttpServletRequest) model.getAttribute("request");
-//		// 검색변수
-//		int page = 1;// 최초기본 1페이지 세팅
-//		int limit = 10;// 1페이지=게시글 10개
-//		String searchflag = request.getParameter("searchflag");
-//		String search = request.getParameter("search");// 전체 제목 내용
-//		String text = request.getParameter("text");// 검색어
-//
-//		if (search == null)
-//			search = "";
-//		if (text == null)
-//			text = "";
-//		// page가 넘어온게 있을경우..ex)4..
-//		if (request.getParameter("page") != null) {
-//			page = Integer.parseInt(request.getParameter("page"));
-//		}
-//		// 전체 게시글 count(*) //검색창 추가로 변수 2개 추가
-//		int listcount = getlistCount(search, text);
-//		// 최대 페이지 수
-//		int maxpage = (int) ((double) listcount / limit + 0.95);
-//		// 처음페이지
-//		int startpage = (((int) ((double) page / limit + 0.95)) - 1) * limit + 1;
-//		// 마지막페이지
-//		int endpage = maxpage; // 총 페이지 개수가 1~10까지는 maxpage가 endpage가 됨.
-//		// 11페이지 이후 endpage
-//		if (endpage > startpage + limit - 1)
-//			endpage = startpage + limit - 1;
-//
-//		// 하단 페이지 번호를 위한 5개의 변수
-//		model.addAttribute("listcount", listcount);
-//		model.addAttribute("page", page);
-//		model.addAttribute("maxpage", maxpage);
-//		model.addAttribute("startpage", startpage);
-//		model.addAttribute("endpage", endpage);
-//
-//		// search를 사용하면 넘어가는 것
-//		if (search != "") {
-//			searchflag = "1";
-//			model.addAttribute("searchflag", searchflag);
-//			model.addAttribute("search", search);
-//			model.addAttribute("text", text);
-//		}
-//		return edao.selectEvent(page, limit, search, text);
-//	}
+		// 시작 글넘버
+		int startNum = (pageNum - 1) * PAGE_LIMIT + 1;
+		int endNum = startNum + PAGE_LIMIT - 1;
 
-    @Override
-    public List<EventDto> selectEvent(int pageNum) {
+		// 끝 글넘버
+		return edao.selectEvent(startNum, endNum);
+	}
 
-        //시작 글넘버
-        int startNum = (pageNum - 1) * PAGE_LIMIT + 1;
-        int endNum = startNum + PAGE_LIMIT - 1;
+	// 페이지리스트
+	@Override
+	public List<Integer> getPageList(int pageNum) {
 
-        //끝 글넘버
-        return edao.selectEvent(startNum, endNum);
-    }
+		List<Integer> pageList = new ArrayList<>();
 
-    @Override
-    public List<Integer> getPageList(int pageNum) {
+		// 총 게시굴 갯수
+		double totalCnt = this.getListCount();
+		// 총 게시글로 마지막페이지 계산
+		int lastPageNum = getLastNum(totalCnt);
 
-        List<Integer> pageList = new ArrayList<>();
+		// 현재 페이지를 기준으로 마지막 페이지번호 계산 (예. 현재 6페이지면 6,7,8,9,10 이 나타남)
+		int realLastNum = Math.min(lastPageNum, pageNum + 1);
 
-        //총 게시굴 갯수
-        double totalCnt = this.getListCount();
-        //총 게시글로 마지막페이지 계산
-        int lastPageNum = getLastNum(totalCnt);
+		// 시작페이지 번호 설정 (현재 페이지를 기준으로)
+		int realStartNum = (pageNum > 1) ? pageNum - 1 : 1;
 
-        //현재 페이지를 기준으로 마지막 페이지번호 계산 (예. 현재 6페이지면 6,7,8,9,10 이 나타남)
-        int realLastNum = Math.min(lastPageNum, pageNum + 1);
+		// 페이지 번호 할당
+		for (int i = realStartNum; i <= realLastNum; i++) {
+			pageList.add(i);
+		}
+		return pageList;
+	}
 
-        //시작페이지 번호 설정 (현재 페이지를 기준으로)
-        int realStartNum = (pageNum > 1) ? pageNum - 1 : 1;
+	// 총 게시글 갯수
+	@Override
+	public int getListCount() {
+		return edao.selectListCount();
+	}
 
-        //페이지 번호 할당
-        for(int i = realStartNum; i<=realLastNum; i++){
-            pageList.add(i);
-        }
-        return pageList;
-    }
+	// 마지막 페이지 계산
+	@Override
+	public int getLastNum(double cnt) {
+		return (int) (Math.ceil(cnt / PAGE_LIMIT));
+	}
 
-    //총 게시글 갯수
-    @Override
-    public int getListCount() {
-        return edao.selectListCount();
-    }
+	@Override
+	public int getlistCount(String search, String text) {
 
-    //마지막 페이지 계산
-    @Override
-    public int getLastNum(double cnt) {
-        return (int) (Math.ceil(cnt / PAGE_LIMIT));
-    }
+		// return edao.getlistCount(search, text);
+		return 0;
+	}
 
-
-    @Override
-    public List<EventDto> selectFinEvent() {
-        // TODO Auto-generated method stub
-        return edao.selectFinEvent();
-    }
-
-    @Override
-    public int getlistCount(String search, String text) {
-
-        //return edao.getlistCount(search, text);
-        return 0;
-    }
+	@Override
+	public List<EventDto> selectFinEvent() {
+		// TODO Auto-generated method stub
+		return edao.selectFinEvent();
+	}
 
 }
