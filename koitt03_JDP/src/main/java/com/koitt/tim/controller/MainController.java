@@ -8,7 +8,7 @@ public class MainController {
 
 	@GetMapping(path = { "/", "main" })
 	public String main() {
-		return "main/main";
+		return "main";
 	}
 
 }
