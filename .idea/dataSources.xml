@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="JARDIN" uuid="defffd5e-d0e5-428a-9fb0-6a35adf23032">
+    <data-source source="LOCAL" name="JARDIN" uuid="e515dd57-05ea-44d0-8d33-6d2f1c5bd156">
+      <driver-ref>oracle</driver-ref>
+      <synchronize>true</synchronize>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@gongsam.dlinkddns.com:3334:orcl</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="jardin_sub" uuid="1510e26a-7065-4488-88f0-f8f9e36a1b2d">
       <driver-ref>oracle</driver-ref>
       <synchronize>true</synchronize>
       <auto-commit>false</auto-commit>
