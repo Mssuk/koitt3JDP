@@ -2,6 +2,7 @@ package com.koitt.tim.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
@@ -11,4 +12,8 @@ public class MainController {
 		return "main";
 	}
 
+	@RequestMapping("header")
+	public String footer() {
+		return "common/header";
+	}
 }
