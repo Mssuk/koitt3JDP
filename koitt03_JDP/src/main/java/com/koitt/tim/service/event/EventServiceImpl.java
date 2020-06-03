@@ -25,7 +25,7 @@ public class EventServiceImpl implements EventService {
 		String searchflag = request.getParameter("searchflag");
 		String search = request.getParameter("search");// 전체 제목 내용
 		String text = request.getParameter("text");// 검색어
-
+		// null방지
 		if (search == null)
 			search = "";
 		if (text == null)
@@ -34,6 +34,10 @@ public class EventServiceImpl implements EventService {
 		if (request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
+		// 받아올 글번호>>>
+		int startrow = (page - 1) * limit + 1;
+		int endrow = startrow + limit - 1;
+
 		// 전체 게시글 count(*) //검색창 추가로 변수 2개 추가
 		int listcount = getlistCount(search, text);
 		// 최대 페이지 수
@@ -60,7 +64,7 @@ public class EventServiceImpl implements EventService {
 			model.addAttribute("search", search);
 			model.addAttribute("text", text);
 		}
-		return edao.selectEvent(page, limit, search, text);
+		return edao.selectEvent(page, limit, search, text, startrow, endrow);
 	}
 
 	@Override

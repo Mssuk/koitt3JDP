@@ -3,7 +3,7 @@ package com.koitt.tim.dto.event;
 import java.sql.Timestamp;
 
 public class EventDto {
-
+	private int rnum;// 이전글,다음글용 변수
 	private String event_num;// 글번호
 	private String coupon_num;// 쿠폰번호
 	private String event_title;// 제목
@@ -13,6 +13,14 @@ public class EventDto {
 	private Timestamp event_regist;// 등록일
 	private Timestamp event_start;// 시작일
 	private Timestamp event_end;// 종료일
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 
 	public String getEvent_num() {
 		return event_num;

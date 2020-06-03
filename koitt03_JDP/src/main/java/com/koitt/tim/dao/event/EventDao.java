@@ -10,7 +10,7 @@ import com.koitt.tim.dto.event.EventDto;
 public interface EventDao {
 	List<EventDto> selectFinEvent();
 
-	List<EventDto> selectEvent(int page, int limit, String search, String text);
+	List<EventDto> selectEvent(int page, int limit, String search, String text, int startrow, int endrow);
 
 	int getlistCount(String search, String text);
 }
