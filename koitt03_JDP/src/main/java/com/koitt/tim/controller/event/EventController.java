@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.service.event.EventService;
 
@@ -25,8 +26,6 @@ public class EventController {
 
 		// 정해진 범위의 페이지를 불러옵니다
 		List<EventDto> dtos = eServ.selectEvent(pageNum);
-
-		// 하단에 1,2,3,4,5 범위를 불러옵니다.
 
 		// 하단에 1,2,3,4,5 범위를 불러옵니다.
 		List<Integer> pageNumbering = eServ.getPageList(pageNum);
@@ -52,8 +51,14 @@ public class EventController {
 
 	@RequestMapping("event_view")
 	public String event_view(Model model, @RequestParam("event_num") String event_num) {
-		EventDto dto = eServ.event_view(event_num);
+		EventDto dto = eServ.eventView(event_num);
+		EventDto dto2 = eServ.eventViewPre(dto.getRnum());
+		EventDto dto3 = eServ.eventViewNext(dto.getRnum());
+		CouponDto coupon = eServ.couponView(dto.getCoupon_num());
 		model.addAttribute("dto", dto);
+		model.addAttribute("pre", dto2);
+		model.addAttribute("next", dto3);
+		model.addAttribute("coupon", coupon);
 		return "event/event_view";
 	}
 }
