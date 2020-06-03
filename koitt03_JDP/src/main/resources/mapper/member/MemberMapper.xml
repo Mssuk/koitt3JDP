@@ -6,7 +6,7 @@
 	</select>
 
 	<select id="selectOneMember" resultType="MemberDto">
-		select * from member where id=#{mId}
+		select * from member where id=#{id}
 	</select>
 
 </mapper>

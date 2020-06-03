@@ -8,9 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../common/header.jsp"/>
-<script src="/resources/js/jquery.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/getSessionInfo.js"></script>
 
-<%session.setAttribute("adtmin", "이준희"); %>
+<%--<%session.setAttribute("adtmin", "abcd1234"); %>--%>
 <!-- container -->
 <div id="container">
 
@@ -96,7 +97,7 @@
                     <ul>
                         <li>수정 내용을 회원정보에도 반영합니다.&nbsp;&nbsp;</li>
                         <li>
-                            <button><a onclick="memberCheck()">회원정보반영</a></button>
+                            <button><a onclick=memberCheck('${mDto}')>회원정보반영</a></button>
                         </li>
 
                     </ul>

@@ -14,5 +14,5 @@ public interface MemberDao {
 	List<MemberDto> selectAllMember();
 
 	// 멤버 한 명 가져옴
-	MemberDto selectOneMember();
+	MemberDto selectOneMember(String id);
 }
