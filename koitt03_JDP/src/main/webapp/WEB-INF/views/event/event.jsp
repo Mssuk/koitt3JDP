@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+    
 <jsp:include page="../common/header.jsp" />
 	<!-- container -->
 	<div id="container">
@@ -7,21 +10,13 @@
 		<div id="location">
 			<ol>
 				<li><a href="#">HOME</a></li>
-				<li><a href="#">EVENT</a></li>
+				<li><a href="event">EVENT</a></li>
 				<li class="last">진행중 이벤트</li>
 			</ol>
 		</div>
 		
 		<div id="outbox">		
-			<div id="left">
-				<div id="title2">EVENT<span>이벤트</span></div>
-				<ul>	
-					<li><a href="#" id="leftNavi1">진행중 이벤트</a></li>
-					<li><a href="#" id="leftNavi2">종료된 이벤트</a></li>
-					<li class="last"><a href="#" id="leftNavi3">당첨자 발표</a></li>
-				</ul>			
-			</div><script type="text/javascript">initSubmenu(1,0);</script>
-
+			<jsp:include page="event_left_bar.jsp" />
 
 			<!-- contents -->
 			<div id="contents">
@@ -31,47 +26,30 @@
 					<!-- list -->
 					<div class="eventList">
 						<ul>
-							<!-- 반복 -->
-							<li>
-								<div class="img">
-									<a href="#"><img src="../images/img/sample_event.jpg" alt="진행중 이벤트" /></a>
-								</div>
-								<div class="txt">
-									<div class="subject">까페모리 봄바람 커피한잔 30% 할인 이벤트!!까페모리 봄바람 커피한잔 30% 할인 이벤트!!</div>
-									<div class="day">이벤트 기간 : 2014-04-01 ~ 2014-04-29</div>
-								</div>
-							</li>
-							<!-- //반복 -->
-
-							<li>
-								<div class="img">
-									<a href="#"><img src="../images/img/sample_event.jpg" alt="진행중 이벤트" /></a>
-								</div>
-								<div class="txt">
-									<div class="subject">까페모리 봄바람 커피한잔 30% 할인 이벤트!!</div>
-									<div class="day">이벤트 기간 : 2014-04-01 ~ 2014-04-29</div>
-								</div>
-							</li>
-
-							<li>
-								<div class="img">
-									<a href="#"><img src="../images/img/sample_event.jpg" alt="진행중 이벤트" /></a>
-								</div>
-								<div class="txt">
-									<div class="subject">까페모리 봄바람 커피한잔 30% 할인 이벤트!!</div>
-									<div class="day">이벤트 기간 : 2014-04-01 ~ 2014-04-29</div>
-								</div>
-							</li>
-
-							<li>
-								<div class="img">
-									<a href="#"><img src="../images/img/sample_event.jpg" alt="진행중 이벤트" /></a>
-								</div>
-								<div class="txt">
-									<div class="subject">까페모리 봄바람 커피한잔 30% 할인 이벤트!!</div>
-									<div class="day">이벤트 기간 : 2014-04-01 ~ 2014-04-29</div>
-								</div>
-							</li>
+							<!-- 없을때 -->
+							<c:choose>
+								<c:when test="${list==null }">
+									<li>
+										<div><span>진행중인 이벤트가 없습니다.</span></div>
+									</li>
+								</c:when>
+								<c:otherwise>
+									<!-- 반복 -->
+									<c:forEach var="dtos" items="${list }">
+										<li>
+											<a href="event_view?event_num=${dtos.event_num }">
+											<div class="img">
+												<img src="../images/img/${dtos.event_image1 }" alt="진행중 이벤트" />
+											</div>
+											<div class="txt">
+												<div class="subject">${dtos.event_title }</div>
+												<div class="day">이벤트 기간 : <fmt:formatDate value="${dtos.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dtos.event_end }" pattern="yyyy-MM-dd"/></div>
+											</div>
+											</a>
+										</li>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 						</ul>
 					</div>
 					<!-- //list -->
@@ -80,34 +58,44 @@
 						<!-- 페이징이동1 -->
 						<div class="allPageMoving1">
 
-						<a href="#" class="n"><img src="../images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="#" class="pre"><img src="../images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
-						<strong>1</strong>
-						<a href="#">2</a>
-						<a href="#">3</a>
-						<a href="#">4</a>
-						<a href="#">5</a>
-						<a href="#" class="next"><img src="../images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="#" class="n"><img src="../images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
+						<a href="event?page=1" class="n"><img src="../images/btn/btn_pre2.gif" alt="처음으로"/></a>
+						<a href="event?1" class="pre"><img src="../images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
+						<c:forEach var="i" items="${pageNumbering}">
+							<c:choose>
+								<c:when test="${pageNum == i}">
+									<strong>${i}</strong>
+							</c:when>
+								<c:otherwise>
+									<a href="#">${i}</a>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+
+						<a href="#" class="next"><img src="../images/btn/btn_next1.gif" alt="뒤페이지로"/></a>
+							<a href="event?page=${maxPage}" class="n"><img src="../images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
 
 						</div>
 						<!-- //페이징이동1 -->
 					</div>
 					
 					<!-- 검색 -->
-					<div class="searchWrap">
+					<form class="searchWrap" name="search_bot" method="post" action="event_view">
 						<div class="search">
 							<ul>
 								<li class="web"><img src="../images/txt/txt_search.gif" alt="search" /></li>
 								<li class="se">
-									<select>
-										<option value="" />제목</option>
+									<select name="search">
+										<option value="all" />전체</option>
+										<option value="tit" />제목</option>
+										<option value="con" />내용</option>
 									</select>
 								</li>
-								<li><input type="text" class="searchInput" /></li>
-								<li class="web"><a href="#"><img src="../images/btn/btn_search.gif" alt="검색" /></a></li>
-								<li class="mobile"><a href="#"><img src="../images/btn/btn_search_m.gif" alt="검색" /></a></li>
+								<li><input type="text" class="searchInput" name="txt" placeholder="키워드를 입력하세요"/></li>
+								<li class="web"><input type="submit" value="" title="검색" ></li>
+								<li class="mobile"><input type="submit" value="" title="검색" ></li>
 							</ul>
 						</div>
-					</div>
+					</form>
 					<!-- //검색 -->
 
 				</div>
