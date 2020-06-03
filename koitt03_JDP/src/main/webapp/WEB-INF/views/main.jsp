@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="../common/header.jsp"/>
+<jsp:include page="common/header.jsp"/>
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -366,4 +366,4 @@ $(document).ready(function() {
 	</div>
 	<!-- //mainSection -->
 
-<jsp:include page="../common/footer.jsp"/>
+<jsp:include page="common/footer.jsp"/>
