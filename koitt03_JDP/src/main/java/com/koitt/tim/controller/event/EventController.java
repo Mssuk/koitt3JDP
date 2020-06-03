@@ -21,8 +21,6 @@ public class EventController {
 
 	// normal
 	@RequestMapping("event")
-	public String event(Model model) {
-
 	public String eventList(Model model, @RequestParam(value = "page", defaultValue = "1") int pageNum) {
 
 		// 정해진 범위의 페이지를 불러옵니다
