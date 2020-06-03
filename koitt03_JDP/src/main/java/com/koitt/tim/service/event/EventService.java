@@ -10,7 +10,8 @@ public interface EventService {
 
 	List<EventDto> selectFinEvent();
 
-	List<EventDto> selectEvent(Model model);
+	//List<EventDto> selectEvent(Model model);
+	List<EventDto> selectEvent(int pageNum);
 
 	int getlistCount(String search, String text);
 }

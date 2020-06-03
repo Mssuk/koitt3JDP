@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.service.event.EventService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("event")
@@ -21,9 +22,13 @@ public class EventController {
 	EventService eServ;
 
 	@RequestMapping("event")
-	public String eventList(Model model, HttpServletRequest request) {
-		model.addAttribute("request", request);
-		List<EventDto> dtos = eServ.selectEvent(model);
+	public String eventList(Model model, @RequestParam(value="page", defaultValue = "1") int pageNum) {
+
+		//정해진 범위의 페이지를 불러옵니다
+		List<EventDto> dtos = eServ.selectEvent(pageNum);
+		//하단에 1,2,3,4,5 범위를 불러옵니다.
+
+
 		model.addAttribute("list", dtos);
 		return "event/event";
 	}
