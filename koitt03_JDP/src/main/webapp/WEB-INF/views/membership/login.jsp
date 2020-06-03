@@ -2,10 +2,9 @@
 	pageEncoding="UTF-8"%>
 
 <jsp:include page="../common/header.jsp" />
-<script src="/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script>
 	function idCheck(form){
-
 
 		//id 란
 		var $idran = $('#idran');
