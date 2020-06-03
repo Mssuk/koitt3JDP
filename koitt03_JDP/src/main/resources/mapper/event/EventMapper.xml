@@ -22,9 +22,12 @@
                to_char(event_end,'yyyy-MM-dd') < to_char(sysdate,'yyyy-MM-dd') ORDER BY event_start desc
             ]]>
 	</select>
-	<select id="getlistCount" resultType="Integer">
-		
-		
-		
+	<select id="event_view" resultType="EventDto">
+		select * from ( select ROWNUM rnum, e.* from(
+		select *
+		from event
+		where to_char(event_end,'yyyy-MM-dd') <![CDATA[ >= ]]> to_char(sysdate,'yyyy-MM-dd')
+		ORDER BY event_start desc) e)
+		where event_num=#{param1}
 	</select>
 </mapper>        

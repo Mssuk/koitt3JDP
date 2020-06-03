@@ -37,13 +37,15 @@
 									<!-- 반복 -->
 									<c:forEach var="dtos" items="${list }">
 										<li>
+											<a href="event_view?event_num=${dtos.event_num }">
 											<div class="img">
-												<a href="#"><img src="../images/img/${dtos.event_image1 }" alt="진행중 이벤트" /></a>
+												<img src="../images/img/${dtos.event_image1 }" alt="진행중 이벤트" />
 											</div>
 											<div class="txt">
 												<div class="subject">${dtos.event_title }</div>
 												<div class="day">이벤트 기간 : <fmt:formatDate value="${dtos.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dtos.event_end }" pattern="yyyy-MM-dd"/></div>
 											</div>
+											</a>
 										</li>
 									</c:forEach>
 								</c:otherwise>
@@ -73,14 +75,7 @@
 						<div class="search">
 							<ul>
 								<li class="web"><img src="../images/txt/txt_search.gif" alt="search" /></li>
-								<li class="se">
-									<select name="search">
-										<option value="all" />전체</option>
-										<option value="tit" />제목</option>
-										<option value="cont" />내용</option>
-									</select>
-								</li>
-								<li><input type="text" class="searchInput" name="txt" /></li>
+								<li><input type="text" class="searchInput" name="txt" placeholder="키워드를 입력하세요"/></li>
 								<li class="web"><input type="submit" value="" title="검색" ></li>
 								<li class="mobile"><input type="submit" value="" title="검색" ></li>
 							</ul>
