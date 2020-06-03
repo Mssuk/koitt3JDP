@@ -11,5 +11,12 @@ public class MainController {
 		return "";
 	}
 
+<<<<<<< Updated upstream
 
+=======
+	@RequestMapping("main")
+	public String main() {
+		return "main/main";
+	}
+>>>>>>> Stashed changes
 }
