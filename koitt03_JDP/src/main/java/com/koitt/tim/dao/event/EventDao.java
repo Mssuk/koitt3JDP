@@ -8,7 +8,9 @@ import com.koitt.tim.dto.event.EventDto;
 
 @Repository
 public interface EventDao {
-	List<EventDto> selectEvent();
-
 	List<EventDto> selectFinEvent();
+
+	List<EventDto> selectEvent(int page, int limit, String search, String text);
+
+	int getlistCount(String search, String text);
 }

@@ -3,6 +3,8 @@ package com.koitt.tim.controller.event;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +21,9 @@ public class EventController {
 	EventService eServ;
 
 	@RequestMapping("event")
-	public String eventList(Model model) {
-		List<EventDto> dtos = eServ.selectEvent();
-		System.out.println(dtos.get(0).getEvent_num());
+	public String eventList(Model model, HttpServletRequest request) {
+		model.addAttribute("request", request);
+		List<EventDto> dtos = eServ.selectEvent(model);
 		model.addAttribute("list", dtos);
 		return "event/event";
 	}
