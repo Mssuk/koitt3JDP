@@ -6,12 +6,16 @@
 
 <mapper namespace="com.koitt.tim.dao.event.EventDao">
 	<select id="selectEvent" resultType="EventDto">
-		select*from event where    <![CDATA[
-               to_char(event_end,'yyyy-MM-dd') >= to_char(sysdate,'yyyy-MM-dd') ORDER BY event_start desc
-            ]]>
+	select * from ( select ROWNUM rnum, e.* from(
+	select *
+	from event
+	where to_char(event_end,'yyyy-MM-dd') <![CDATA[ >= ]]> to_char(sysdate,'yyyy-MM-dd')
+	ORDER BY event_start desc) e)
+	where rnum <![CDATA[ >= ]]> #{p1} and rnum <![CDATA[ <= ]]> #{p2}
 	</select>
+
 	<select id="selectFinEvent" resultType="EventDto">
-		select*from event where    <![CDATA[
+		select * from event where    <![CDATA[
                to_char(event_end,'yyyy-MM-dd') < to_char(sysdate,'yyyy-MM-dd') ORDER BY event_start desc
             ]]>
 	</select>
