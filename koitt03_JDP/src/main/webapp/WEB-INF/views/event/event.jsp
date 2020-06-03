@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+    
 <jsp:include page="../common/header.jsp" />
 	<!-- container -->
 	<div id="container">
@@ -7,21 +10,13 @@
 		<div id="location">
 			<ol>
 				<li><a href="#">HOME</a></li>
-				<li><a href="#">EVENT</a></li>
+				<li><a href="event">EVENT</a></li>
 				<li class="last">진행중 이벤트</li>
 			</ol>
 		</div>
 		
 		<div id="outbox">		
-			<div id="left">
-				<div id="title2">EVENT<span>이벤트</span></div>
-				<ul>	
-					<li><a href="#" id="leftNavi1">진행중 이벤트</a></li>
-					<li><a href="#" id="leftNavi2">종료된 이벤트</a></li>
-					<li class="last"><a href="#" id="leftNavi3">당첨자 발표</a></li>
-				</ul>			
-			</div><script type="text/javascript">initSubmenu(1,0);</script>
-
+			<jsp:include page="event_left_bar.jsp" />
 
 			<!-- contents -->
 			<div id="contents">
@@ -31,47 +26,28 @@
 					<!-- list -->
 					<div class="eventList">
 						<ul>
-							<!-- 반복 -->
-							<li>
-								<div class="img">
-									<a href="#"><img src="../images/img/sample_event.jpg" alt="진행중 이벤트" /></a>
-								</div>
-								<div class="txt">
-									<div class="subject">까페모리 봄바람 커피한잔 30% 할인 이벤트!!까페모리 봄바람 커피한잔 30% 할인 이벤트!!</div>
-									<div class="day">이벤트 기간 : 2014-04-01 ~ 2014-04-29</div>
-								</div>
-							</li>
-							<!-- //반복 -->
-
-							<li>
-								<div class="img">
-									<a href="#"><img src="../images/img/sample_event.jpg" alt="진행중 이벤트" /></a>
-								</div>
-								<div class="txt">
-									<div class="subject">까페모리 봄바람 커피한잔 30% 할인 이벤트!!</div>
-									<div class="day">이벤트 기간 : 2014-04-01 ~ 2014-04-29</div>
-								</div>
-							</li>
-
-							<li>
-								<div class="img">
-									<a href="#"><img src="../images/img/sample_event.jpg" alt="진행중 이벤트" /></a>
-								</div>
-								<div class="txt">
-									<div class="subject">까페모리 봄바람 커피한잔 30% 할인 이벤트!!</div>
-									<div class="day">이벤트 기간 : 2014-04-01 ~ 2014-04-29</div>
-								</div>
-							</li>
-
-							<li>
-								<div class="img">
-									<a href="#"><img src="../images/img/sample_event.jpg" alt="진행중 이벤트" /></a>
-								</div>
-								<div class="txt">
-									<div class="subject">까페모리 봄바람 커피한잔 30% 할인 이벤트!!</div>
-									<div class="day">이벤트 기간 : 2014-04-01 ~ 2014-04-29</div>
-								</div>
-							</li>
+							<!-- 없을때 -->
+							<c:choose>
+								<c:when test="${list==null }">
+									<li>
+										<div><span>진행중인 이벤트가 없습니다.</span></div>
+									</li>
+								</c:when>
+								<c:otherwise>
+									<!-- 반복 -->
+									<c:forEach var="dtos" items="${list }">
+										<li>
+											<div class="img">
+												<a href="#"><img src="../images/img/${dtos.event_image1 }" alt="진행중 이벤트" /></a>
+											</div>
+											<div class="txt">
+												<div class="subject">${dtos.event_title }</div>
+												<div class="day">이벤트 기간 : <fmt:formatDate value="${dtos.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dtos.event_end }" pattern="yyyy-MM-dd"/></div>
+											</div>
+										</li>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 						</ul>
 					</div>
 					<!-- //list -->
@@ -93,21 +69,23 @@
 					</div>
 					
 					<!-- 검색 -->
-					<div class="searchWrap">
+					<form class="searchWrap" name="search_bot" method="post">
 						<div class="search">
 							<ul>
 								<li class="web"><img src="../images/txt/txt_search.gif" alt="search" /></li>
 								<li class="se">
-									<select>
-										<option value="" />제목</option>
+									<select name="search">
+										<option value="all" />전체</option>
+										<option value="tit" />제목</option>
+										<option value="cont" />내용</option>
 									</select>
 								</li>
-								<li><input type="text" class="searchInput" /></li>
-								<li class="web"><a href="#"><img src="../images/btn/btn_search.gif" alt="검색" /></a></li>
-								<li class="mobile"><a href="#"><img src="../images/btn/btn_search_m.gif" alt="검색" /></a></li>
+								<li><input type="text" class="searchInput" name="txt" /></li>
+								<li class="web"><input type="submit" value="" title="검색" ></li>
+								<li class="mobile"><input type="submit" value="" title="검색" ></li>
 							</ul>
 						</div>
-					</div>
+					</form>
 					<!-- //검색 -->
 
 				</div>

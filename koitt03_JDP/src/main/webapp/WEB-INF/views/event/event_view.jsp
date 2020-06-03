@@ -14,15 +14,7 @@
 		</div>
 		
 		<div id="outbox">		
-			<div id="left">
-				<div id="title2">EVENT<span>이벤트</span></div>
-				<ul>	
-					<li><a href="#" id="leftNavi1">진행중 이벤트</a></li>
-					<li><a href="#" id="leftNavi2">종료된 이벤트</a></li>
-					<li class="last"><a href="#" id="leftNavi3">당첨자 발표</a></li>
-				</ul>			
-			</div><script type="text/javascript">initSubmenu(2,0);</script>
-
+			<jsp:include page="event_left_bar.jsp" />
 
 			<!-- contents -->
 			<div id="contents">
@@ -97,7 +89,7 @@
 						<ul>
 							<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
 							<li class="txt">
-								<a href="password.html" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
+								<a href="password.jsp" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
 							</li>
 						</ul>
 					</div>
@@ -119,76 +111,45 @@
 			<!-- //contents -->
 
 
-<script type="text/javascript" src="../js/jquery.fancybox-1.3.4.pack.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/jquery.fancybox-1.3.4.css" />
-<script type="text/javascript">
-$(function(){
-	
-	var winWidth = $(window).width();
-	if(winWidth > 767){
-		var layerCheck = 540;
-	}else{
-		var layerCheck = 320;
-	}
-
-	$(".passwordBtn").fancybox({
-		'autoDimensions'    : false,
-		'showCloseButton'	: false,
-		'width' : layerCheck,
-		'padding' : 0,
-		'type'			: 'iframe',
-		'onComplete' : function() {
-			$('#fancybox-frame').load(function() { // wait for frame to load and then gets it's height
-			$('#fancybox-content').height($(this).contents().find('body').height());
+			<script type="text/javascript" src="../js/jquery.fancybox-1.3.4.pack.js"></script>
+			<link rel="stylesheet" type="text/css" href="../css/jquery.fancybox-1.3.4.css" />
+			<script type="text/javascript">
+			$(function(){
+				
+				var winWidth = $(window).width();
+				if(winWidth > 767){
+					var layerCheck = 540;
+				}else{
+					var layerCheck = 320;
+				}
+			
+				$(".passwordBtn").fancybox({
+					'autoDimensions'    : false,
+					'showCloseButton'	: false,
+					'width' : layerCheck,
+					'padding' : 0,
+					'type'			: 'iframe',
+					'onComplete' : function() {
+						$('#fancybox-frame').load(function() { // wait for frame to load and then gets it's height
+						$('#fancybox-content').height($(this).contents().find('body').height());
+						});
+					}
+				});
+			
+			
 			});
-		}
-	});
-
-
-});
-</script>
+			</script>
 
 		</div>
+		<!-- quickmenu -->
+		<jsp:include page="../common/quickmenu.jsp" />
+		<!-- //quickmenu -->
+
 	</div>
 	<!-- //container -->
 
 
 
 
-	<div id="footerWrap">
-		<div id="footer">
-			<div id="fnb">
-				<ul>
-					<li class="left"><a href="#">개인정보취급방침</a></li>
-					<li><a href="#">이용약관</a></li>
-					<li class="left"><a href="#">이메일무단수집거부</a></li>
-					<li><a href="#">고객센터</a></li>
-					<li class="left brand"><a href="#">쟈뎅 브랜드 사이트</a></li>
-				</ul>
-			</div>
-			
-			<div id="finfo">
-				<div id="flogo"><img src="../images/txt/flogo.gif" alt="JARDIN THE COFFEE CREATOR, SINCE 1984" /></div>
-				<address>
-					<ul>
-						<li>㈜쟈뎅</li>
-						<li>대표자 윤영노</li>
-						<li class="tnone">주소 서울시 강남구 논현동 4-21번지 영 빌딩</li>
-						<li class="webnone">소비자상담실 02)546-3881</li>
-						<li>사업자등록번호 211-81-24727</li>
-						<li class="tnone">통신판매신고 제 강남 – 1160호</li>
-						<li class="copy">COPYRIGHT © 2014 JARDIN <span>ALL RIGHTS RESERVED.</span></li>
-					</ul>
-				</address>
-
-				<div id="inicis"><img src="../images/ico/ico_inicis.png" alt="이니시스 결제시스템" /></div>
-			</div>
-		</div>
-	</div>
-
-
-
-</div>
-</div>
-</body>
-</html>
+<!--footer입니다. -->
+<jsp:include page="../common/footer.jsp" />
