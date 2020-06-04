@@ -769,6 +769,14 @@
 .search{width:380px; margin:0 auto; text-align:center; overflow:hidden;}
 .search ul li{float:left; }
 .search ul li.se{margin:0 12px 0 0;}
+.search ul li.web input{
+	display: inline-block;
+	width: 56px;
+	height: 20px;
+	background-image:url('../images/btn/btn_search.gif');
+	background-repeat: no-repeat;
+	border: none;
+}
 
 
 /* SELECT CHANGE */
@@ -1186,6 +1194,14 @@ span.searchStyleSelectBox.changed{background-color: #fff;}
 /* search */
 .search{width:auto; max-width:228px; margin:0 auto;}
 .search ul li.se{margin:0 5px 0 0;}
+.search ul li.mobile input{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background-image:url('../images/btn/btn_search_m.gif');
+	background-repeat: no-repeat;
+	border: none;
+}
 .searchStyleSelectBoxInner{padding:0 8px 0 4px;}
 
 

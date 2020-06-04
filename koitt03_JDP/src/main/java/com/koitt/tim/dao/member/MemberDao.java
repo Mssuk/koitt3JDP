@@ -15,4 +15,5 @@ public interface MemberDao {
 
 	// 멤버 한 명 가져옴
 	MemberDto selectOneMember(String id);
+
 }

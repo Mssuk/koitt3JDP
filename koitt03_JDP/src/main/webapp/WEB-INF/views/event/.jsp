@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <jsp:include page="../common/header.jsp" />
 
-	
 	<!-- container -->
 	<div id="container">
 
@@ -12,28 +9,27 @@
 			<ol>
 				<li><a href="#">HOME</a></li>
 				<li><a href="#">EVENT</a></li>
-				<li class="last">진행중 이벤트</li>
+				<li class="last">종료된 이벤트</li>
 			</ol>
 		</div>
 		
 		<div id="outbox">		
 			<jsp:include page="event_left_bar.jsp" />
 
-
 			<!-- contents -->
 			<div id="contents">
 				<div id="mypage">
-					<h2><strong>진행중 이벤트</strong><span>쟈뎅샵의 특별한 혜택이 가득한 이벤트에 참여해 보세요.</span></h2>
+					<h2><strong>종료된 이벤트</strong><span>쟈뎅샵의 특별한 혜택이 가득했던 이벤트 목록을 확인하실 수 있습니다.</span></h2>
 					
 					<div class="viewDivMt">
 						<div class="viewHead">
 							<div class="subject">
 								<ul>
-									<li>${dto.event_title }</li>
+									<li><span class="finishbtn">종료</span>&nbsp;까페모리 봄바람 커피한잔 30% 할인 이벤트!!</li>
 								</ul>
 							</div>
 							<div class="day">
-								<p class="txt">이벤트 기간<span> <fmt:formatDate value="${dtos.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dtos.event_end }" pattern="yyyy-MM-dd"/></span></p>
+								<p class="txt">이벤트 기간<span>2014-04-01 ~ 2014-04-29</span></p>
 							</div>
 						</div>
 
@@ -71,19 +67,7 @@
 
 
 					<!-- 댓글-->
-					<div class="replyWrite">
-						<ul>
-							<li class="in">
-								<p class="txt">총 <span class="orange">3</span> 개의 댓글이 달려있습니다.</p>
-								<p class="password">비밀번호&nbsp;&nbsp;<input type="password" class="replynum" /></p>
-								<textarea class="replyType"></textarea>
-							</li>
-							<li class="btn"><a href="#" class="replyBtn">등록</a></li>
-						</ul>
-						<p class="ntic">※ 비밀번호를 입력하시면 댓글이 비밀글로 등록 됩니다.</p>
-					</div>
-
-					<div class="replyBox">
+					<div class="replyBox finReply">
 						<ul>
 							<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
 							<li class="txt"><textarea class="replyType"></textarea></li>
@@ -105,7 +89,7 @@
 						<ul>
 							<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
 							<li class="txt">
-								<a href="password.html" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
+								<a href="password.jsp" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
 							</li>
 						</ul>
 					</div>
@@ -127,34 +111,34 @@
 			<!-- //contents -->
 
 
-<script type="text/javascript" src="../js/jquery.fancybox-1.3.4.pack.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/jquery.fancybox-1.3.4.css" />
-<script type="text/javascript">
-$(function(){
-	
-	var winWidth = $(window).width();
-	if(winWidth > 767){
-		var layerCheck = 540;
-	}else{
-		var layerCheck = 320;
-	}
-
-	$(".passwordBtn").fancybox({
-		'autoDimensions'    : false,
-		'showCloseButton'	: false,
-		'width' : layerCheck,
-		'padding' : 0,
-		'type'			: 'iframe',
-		'onComplete' : function() {
-			$('#fancybox-frame').load(function() { // wait for frame to load and then gets it's height
-			$('#fancybox-content').height($(this).contents().find('body').height());
+			<script type="text/javascript" src="../js/jquery.fancybox-1.3.4.pack.js"></script>
+			<link rel="stylesheet" type="text/css" href="../css/jquery.fancybox-1.3.4.css" />
+			<script type="text/javascript">
+			$(function(){
+				
+				var winWidth = $(window).width();
+				if(winWidth > 767){
+					var layerCheck = 540;
+				}else{
+					var layerCheck = 320;
+				}
+			
+				$(".passwordBtn").fancybox({
+					'autoDimensions'    : false,
+					'showCloseButton'	: false,
+					'width' : layerCheck,
+					'padding' : 0,
+					'type'			: 'iframe',
+					'onComplete' : function() {
+						$('#fancybox-frame').load(function() { // wait for frame to load and then gets it's height
+						$('#fancybox-content').height($(this).contents().find('body').height());
+						});
+					}
+				});
+			
+			
 			});
-		}
-	});
-
-
-});
-</script>
+			</script>
 
 		</div>
 		<!-- quickmenu -->
