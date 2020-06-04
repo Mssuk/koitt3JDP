@@ -33,12 +33,31 @@
 								</ul>
 							</div>
 							<div class="day">
-								<p class="txt">이벤트 기간<span> <fmt:formatDate value="${dtos.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dtos.event_end }" pattern="yyyy-MM-dd"/></span></p>
+								<p class="txt">이벤트 기간<span> <fmt:formatDate value="${dto.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dto.event_end }" pattern="yyyy-MM-dd"/></span></p>
 							</div>
 						</div>
 
 						<div class="viewContents">
-							<img src="../images/img/sample_event_view.jpg" alt="" />
+								<c:if test="${dto.event_image2!=null }">
+									<img src="../images/img/${dto.event_image2}" alt="" />
+								</c:if>
+								<c:if test="${dto.event_content!=null }">
+									${dto.event_content}
+								</c:if>
+								<c:if test="${dto.coupon_num!=null }">
+								<ul class="coupon_box">
+									<li>
+											<p><em>${coupon.coupon_pay }</em>원</p>
+											<p>${coupon.coupon_name }</p>
+											<p><fmt:formatDate value="${coupon.endday }" pattern="yyyy-MM-dd"/>까지 사용가능</p>
+								    </li>
+								    <li>
+										<a href="#" class="download">
+											<span>다운로드</span>
+										</a>
+								    </li>
+							    </ul>
+								</c:if>
 						</div>
 					</div>
 
@@ -55,13 +74,27 @@
 							<tbody>
 								<tr>
 									<th class="pre">PREV</th>
-									<td><a href="#">상품 재입고는 언제 되나요?</a></td>
+									<c:choose>
+										<c:when test="${pre!=null }">
+											<td><a href="event_view?event_num=${pre.event_num }&rnum=${pre.rnum }">${pre.event_title }</a></td>
+										</c:when>
+										<c:otherwise>
+											<td>이전 글이 없습니다.</td>
+										</c:otherwise>
+									</c:choose>
 									<td>&nbsp;</td>
 								</tr>
 
 								<tr>
 									<th class="next">NEXT</th>
-									<td>다음 글이 없습니다.</td>
+									<c:choose>
+										<c:when test="${next!=null }">
+											<td><a href="event_view?event_num=${next.event_num }&rnum=${next.rnum }">${next.event_title }</a></td>
+										</c:when>
+										<c:otherwise>
+											<td>다음 글이 없습니다.</td>
+										</c:otherwise>
+									</c:choose>
 									<td>&nbsp;</td>
 								</tr>
 							</tbody>
@@ -116,7 +149,7 @@
 					<div class="btnArea">
 						<div class="bRight">
 							<ul>
-								<li><a href="#" class="sbtnMini mw">목록</a></li>
+								<li><a href="javascript:history.go(-1)" class="sbtnMini mw">목록</a></li>
 							</ul>
 						</div>
 					</div>
