@@ -28,7 +28,7 @@ public class ProductController {
     }
 
     @RequestMapping("detail")
-    public String productDetail(String pro_num,Model model){
+    public String productDetail(String pro_num, Model model){
         ProductDto pDto = pServ.getProductChoice(pro_num);
         model.addAttribute("dto",pDto);
         return "product/detail";

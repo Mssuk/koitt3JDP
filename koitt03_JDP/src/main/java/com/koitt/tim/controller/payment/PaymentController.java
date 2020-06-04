@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -29,28 +30,15 @@ public class PaymentController {
 
 
     @RequestMapping("/payment")
-    public String payment(HttpSession session, String pro_num, Model model) throws Exception{
-
+    public String payment(HttpSession session, String pro_num, Model model, @RequestParam("spinner") int spin) throws Exception{
         ProductDto pDto = paymentServ.selectOne(pro_num);
         MemberDto mDto = paymentServ.selectOneMember((String) session.getAttribute("adtmin"));
         ObjectMapper objectMapper = new ObjectMapper();
         String mDtoValue = objectMapper.writeValueAsString(mDto);
+        model.addAttribute("spin",spin);
         model.addAttribute("dto",pDto);
         model.addAttribute("mDto", mDtoValue);
         return "payment/payment";
-    }
-
-    @ResponseBody
-    @RequestMapping("/paymentId")
-    public ResponseEntity<?> payId(String adtmin){
-        logger.info(adtmin);
-
-
-
-
-
-
-        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
 

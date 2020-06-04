@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.koitt.tim.dao.basket.BasketDao">
+
+
+
+
+
+<!--    <select id="selectProduct" resultType="com.koitt.tim.dto.product.ProductDto">-->
+<!--        select * from PRODUCT-->
+<!--    </select>-->
+
+<!--    <select id="selectProductOne" resultType="ProductDto">-->
+<!--        select * from PRODUCT where PRO_NUM=#{pro_num}-->
+<!--    </select>-->
+
+</mapper>

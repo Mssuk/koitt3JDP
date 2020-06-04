@@ -10,6 +10,7 @@
 <jsp:include page="../common/header.jsp"/>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/getSessionInfo.js"></script>
+<script src="/js/getSessionInfo1.js"></script>
 
 <%--<%session.setAttribute("adtmin", "abcd1234"); %>--%>
 <!-- container -->
@@ -55,7 +56,7 @@
 
                                 <ul class="goods">
                                     <li>
-                                        <a href="#">${dto.product_name}</a>
+                                        <a href="/product/detail?pro_num=${dto.pro_num}">${dto.product_name}</a>
                                     </li>
                                 </ul>
                             </td>
@@ -66,8 +67,12 @@
                                 <br/><span class="pointscore">${dto.point} Point</span>
                                 <!-- //회원일 시 -->
                             </td>
-                            <td>1 개</td>
-                            <td>123,400 원</td>
+                            <%
+
+                            %>
+                            <td>${spin} 개</td>
+                            <c:set var="total" value="${dto.product_price * spin}"/>
+                            <td>${total} 원</td>
                         </tr>
 
 
@@ -76,9 +81,9 @@
                 </div>
                 <div class="poroductTotal">
                     <ul>
-                        <li>상품 합계금액 <strong>1,132,310</strong> 원</li>
+                        <li>상품 합계금액 <strong>${total}</strong> 원</li>
                         <li>+ 배송비 <strong>2,500</strong> 원</li>
-                        <li>= 총 합계 <strong>1,134,810</strong> 원</li>
+                        <li>= 총 합계 <strong>${total +2500}</strong> 원</li>
                     </ul>
                 </div>
                 <!-- //주문 상품 -->
@@ -88,12 +93,8 @@
                 <h3 class="diviLeft">주문자 주소 입력</h3>
                 <div class="diviRight">
                     <%
-
-
                         if (!(session == null || !request.isRequestedSessionIdValid())) {
-
                     %>
-
                     <ul>
                         <li>수정 내용을 회원정보에도 반영합니다.&nbsp;&nbsp;</li>
                         <li>
@@ -125,11 +126,11 @@
                             <td>
                                 <ul class="pta">
                                     <li>
-                                        <input type="text" class="w134"/>&nbsp;
+                                        <input type="text" id="orderAddress1" class="w134"/>&nbsp;
                                     </li>
                                     <li><a href="../member/zip.html" class="addressBtn"><span>우편번호 찾기</span></a></li>
-                                    <li class="pt5"><input type="text" class="addressType2"/></li>
-                                    <li class="pt5"><input type="text" class="addressType2"/></li>
+                                    <li class="pt5"><input type="text" id="orderAddress2" class="addressType2"/></li>
+                                    <li class="pt5"><input type="text" id="orderAddress3" class="addressType2"/></li>
                                 </ul>
                             </td>
                         </tr>
@@ -137,9 +138,9 @@
                             <th scope="row"><span>이메일</span></th>
                             <td>
                                 <ul class="pta">
-                                    <li><input type="text" class="w134"/></li>
+                                    <li><input type="text" id="orderEmail1" class="w134"/></li>
                                     <li><span class="valign">&nbsp;@&nbsp;</span></li>
-                                    <li class="r10"><input type="text" class="w134"/></li>
+                                    <li class="r10"><input type="text" id="orderEmail2" class="w134"/></li>
                                     <li>
                                         <select id="emailList">
                                             <option value="#" selected="selected">직접입력</option>
@@ -168,19 +169,8 @@
                             <td>
                                 <ul class="pta">
                                     <li>
-                                        <select>
-                                            <option value="010" selected="selected">010</option>
-                                            <option value="011">011</option>
-                                            <option value="016">016</option>
-                                            <option value="017">017</option>
-                                            <option value="018">018</option>
-                                            <option value="019">019</option>
-                                        </select>
+                                        <input type="text" id="orderTel" class="w74" maxlength="30"/>
                                     </li>
-                                    <li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-                                    <li><input type="text" class="w74" maxlength="4"/> <span class="valign">-</span>&nbsp;
-                                    </li>
-                                    <li class="r10"><input type="text" class="w74" maxlength="4"/></li>
                                 </ul>
                             </td>
                         </tr>
@@ -189,36 +179,14 @@
                             <td>
                                 <ul class="pta">
                                     <li>
-                                        <select>
-                                            <option value="02" selected="selected">02</option>
-                                            <option value="031">031</option>
-                                            <option value="032">032</option>
-                                            <option value="033">033</option>
-                                            <option value="041">041</option>
-                                            <option value="042">042</option>
-                                            <option value="043">043</option>
-                                            <option value="051">051</option>
-                                            <option value="052">052</option>
-                                            <option value="053">053</option>
-                                            <option value="054">054</option>
-                                            <option value="055">055</option>
-                                            <option value="061">061</option>
-                                            <option value="062">062</option>
-                                            <option value="063">063</option>
-                                            <option value="064">064</option>
-                                            <option value="070">070</option>
-                                        </select>
+                                        <input type="text" id="orderTel2" class="w74" maxlength="30"/>
                                     </li>
-                                    <li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-                                    <li><input type="text" class="w74" maxlength="4"/> <span class="valign">-</span>&nbsp;
-                                    </li>
-                                    <li><input type="text" class="w74" maxlength="4"/></li>
                                 </ul>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row"><span>비밀번호</span></th>
-                            <td><input type="password" class="w134"/></td>
+                            <td><input type="password" id="orderPw" class="w134"/></td>
                         </tr>
                         </tbody>
                     </table>
@@ -229,9 +197,14 @@
                 <!-- 수취자 주소 입력 -->
                 <h3 class="dep">
                     수취자 주소 입력
-
-                    <input type="checkbox" id="infosame"/>
+                    <%
+                        if (!(session == null || !request.isRequestedSessionIdValid())) {
+                    %>
+                    <a id="infosame" onclick="memberCheck1('${mDto}')" >
                     <label for="infosame">회원정보와 동일</label>
+                    <%
+                        }
+                    %>
                 </h3>
                 <div class="checkDiv">
                     <table summary="수취자 주소를 입력할 수 있는 란으로 이름, 주소, 이메일, 휴대폰 번호, 전화번호 순으로 입력 하실수 있습니다." class="checkTable"
@@ -244,7 +217,7 @@
                         <tbody>
                         <tr>
                             <th scope="row"><span>이름</span></th>
-                            <td><input type="text" class="w134" value="홍길동"/></td>
+                            <td><input type="text" class="w134" id="payeeName"/></td>
                         </tr>
 
                         <tr>
@@ -252,11 +225,11 @@
                             <td>
                                 <ul class="pta">
                                     <li>
-                                        <input type="text" class="w134"/>&nbsp;
+                                        <input type="text" id="payeeAddress1" class="w134"/>&nbsp;
                                     </li>
                                     <li><a href="../member/zip.html" class="addressBtn"><span>우편번호 찾기</span></a></li>
-                                    <li class="pt5"><input type="text" class="addressType2"/></li>
-                                    <li class="pt5"><input type="text" class="addressType2"/></li>
+                                    <li class="pt5"><input type="text" id="payeeAddress2" class="addressType2"/></li>
+                                    <li class="pt5"><input type="text" id="payeeAddress3" class="addressType2"/></li>
                                 </ul>
                             </td>
                         </tr>
@@ -265,19 +238,8 @@
                             <td>
                                 <ul class="pta">
                                     <li>
-                                        <select>
-                                            <option value="010" selected="selected">010</option>
-                                            <option value="011">011</option>
-                                            <option value="016">016</option>
-                                            <option value="017">017</option>
-                                            <option value="018">018</option>
-                                            <option value="019">019</option>
-                                        </select>
+                                        <input type="text" id="payeeTel" class="w74" maxlength="30"/>
                                     </li>
-                                    <li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-                                    <li><input type="text" class="w74" maxlength="4"/> <span class="valign">-</span>&nbsp;
-                                    </li>
-                                    <li class="r10"><input type="text" class="w74" maxlength="4"/></li>
                                 </ul>
                             </td>
                         </tr>
@@ -286,36 +248,14 @@
                             <td>
                                 <ul class="pta">
                                     <li>
-                                        <select>
-                                            <option value="02" selected="selected">02</option>
-                                            <option value="031">031</option>
-                                            <option value="032">032</option>
-                                            <option value="033">033</option>
-                                            <option value="041">041</option>
-                                            <option value="042">042</option>
-                                            <option value="043">043</option>
-                                            <option value="051">051</option>
-                                            <option value="052">052</option>
-                                            <option value="053">053</option>
-                                            <option value="054">054</option>
-                                            <option value="055">055</option>
-                                            <option value="061">061</option>
-                                            <option value="062">062</option>
-                                            <option value="063">063</option>
-                                            <option value="064">064</option>
-                                            <option value="070">070</option>
-                                        </select>
+                                        <input type="text" id="payeePhone" class="w74" maxlength="30"/>
                                     </li>
-                                    <li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-                                    <li><input type="text" class="w74" maxlength="4"/> <span class="valign">-</span>&nbsp;
-                                    </li>
-                                    <li><input type="text" class="w74" maxlength="4"/></li>
                                 </ul>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row"><span>배송시 <u>요구사항</u></span></th>
-                            <td><textarea class="demandtta"></textarea></td>
+                            <td><textarea class="demandtta" id="payeeDemmand" ></textarea></td>
                         </tr>
                         </tbody>
                     </table>
@@ -336,7 +276,7 @@
                         <tbody>
                         <tr>
                             <th scope="row"><span>총 주문금액</span></th>
-                            <td>1,132,310 원</td>
+                            <td>${total} 원</td>
                         </tr>
                         <tr>
                             <th scope="row"><span>배송비</span></th>
@@ -351,7 +291,7 @@
                                         <span class="valign"><strong>원</strong></span>
                                     </li>
                                     <li class="r10"><span class="valign">( 보유 쿠폰 내역 : 7장 )&nbsp;</span></li>
-                                    <li><a href="coupon_list.html" class="nbtn">쿠폰목록</a></li>
+                                    <li><a onclick="couponBook()" class="nbtn">쿠폰목록</a></li>
                                 </ul>
                             </td>
                         </tr>
@@ -431,7 +371,6 @@
                     </ul>
                 </div>
                 <!-- //총 주문금액 -->
-
 
                 <!-- 결제수단 선택 -->
                 <h3 class="dep">결제수단 선택</h3>
