@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koitt.tim.dao.coupon.CouponDao">
-	<select id="selectAllCoupon" resultType="CouponDto">
-		select * from coupon
+	<select id="selectAllMemCoupon" resultType="CouponDto">
+		select * from COUPON natural join COUPON_MEMBER
+	</select>
+
+	<select id="selectCountCoupon" resultType="int">
+		select count(*) from COUPON_MEMBER
+	</select>
+
+	<select id="selectAllMemberCoupon" resultType="MemberCouponDto">
+		select * from COUPON_MEMBER
+
 	</select>
 </mapper>

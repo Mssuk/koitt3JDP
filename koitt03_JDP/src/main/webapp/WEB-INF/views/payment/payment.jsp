@@ -11,6 +11,7 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/js/getSessionInfo.js"></script>
 <script src="/js/getSessionInfo1.js"></script>
+<script src="/js/couponBook.js"></script>
 
 <%--<%session.setAttribute("adtmin", "abcd1234"); %>--%>
 <!-- container -->
@@ -290,8 +291,9 @@
                                         <input type="text" class="w134"/>&nbsp;&nbsp;
                                         <span class="valign"><strong>원</strong></span>
                                     </li>
-                                    <li class="r10"><span class="valign">( 보유 쿠폰 내역 : 7장 )&nbsp;</span></li>
-                                    <li><a onclick="couponBook()" class="nbtn">쿠폰목록</a></li>
+                                    <li class="r10"><span class="valign">( 보유 쿠폰 내역 : ${couponCount} 장 )&nbsp;</span></li>
+
+                                    <li><a onclick='couponBook(${memberCouponList})' class="nbtn">쿠폰목록</a></li>
                                 </ul>
                             </td>
                         </tr>
@@ -319,7 +321,7 @@
                             <th scope="row"><span>총 결제금액</span></th>
                             <td>
                                 <ul class="pta">
-                                    <li><span class="valign"><strong>1,133,810 원</strong> (총주문금액 1,132,310원 + 배송비 2500원 - 포인트 1,000 = 1,133,801원)></span>
+                                    <li><span class="valign"><strong> 원</strong> (총주문금액 1,132,310원 + 배송비 2500원 - 포인트 1,000 = 1,133,801원)></span>
                                     </li>
                                 </ul>
                             </td>

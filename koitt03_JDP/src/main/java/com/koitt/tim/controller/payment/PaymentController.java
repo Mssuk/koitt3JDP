@@ -3,6 +3,8 @@
 package com.koitt.tim.controller.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.koitt.tim.dto.coupon.CouponDto;
+import com.koitt.tim.dto.member.MemberCouponDto;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.product.ProductDto;
 import com.koitt.tim.service.payment.PaymentService;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Member;
+import java.util.List;
 
 @Controller
 @RequestMapping("payment")
@@ -34,11 +38,27 @@ public class PaymentController {
         ProductDto pDto = paymentServ.selectOne(pro_num);
         MemberDto mDto = paymentServ.selectOneMember((String) session.getAttribute("adtmin"));
         ObjectMapper objectMapper = new ObjectMapper();
-        String mDtoValue = objectMapper.writeValueAsString(mDto);
+        String mDtoValue = objectMapper.writeValueAsString(mDto);   //JSON으로 바꿔줌.
+        int count = paymentServ.couponListSum();
+        List<MemberCouponDto> memberCoupondtos = paymentServ.getMemberCouponDto();
+        String mcDtoValue = objectMapper.writeValueAsString(memberCoupondtos);
+
+
+        model.addAttribute("memberCouponList",mcDtoValue);
+
+        model.addAttribute("couponCount",count);
         model.addAttribute("spin",spin);
         model.addAttribute("dto",pDto);
         model.addAttribute("mDto", mDtoValue);
         return "payment/payment";
+    }
+
+    @RequestMapping("/Child")
+    public String couponBook(Model model){
+
+        List<CouponDto> getCouponList = paymentServ.getCouponList();
+        model.addAttribute("cList",getCouponList);
+        return "payment/Child";
     }
 
 
