@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.service.admin.AdminService;
@@ -29,10 +30,15 @@ public class AdminController {
 		return adminService.getAllMembers();
 	}
 
-//eventList 갖고 옴
+	// eventList 갖고 옴
 	@GetMapping("elist/{start}/{end}")
 	public List<EventDto> elist(@PathVariable("start") int start, @PathVariable("end") int end) {
 		return adminService.getAllEvents(start, end);
 	}
 
+	// couponList 갖고 옴
+	@GetMapping("coulist")
+	public List<CouponDto> coulist() {
+
+	}
 }
