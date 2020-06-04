@@ -77,7 +77,10 @@
 	</select>
 	<!-- 글보기>쿠폰있으면 가져오기 -->
 	<select id="selectCoupon" resultType="CouponDto">
-		select * from coupon where coupon_num=#{param}
+		select * from coupon where coupon_num=#{param1}
 	</select>
-
+	<!-- 글보기>댓글가져오기 -->
+	<select id="selectEventReply" resultType="EventReplyDto">
+		select * from EVENT_REPLY where event_num=#{param1}
+	</select>
 </mapper>        

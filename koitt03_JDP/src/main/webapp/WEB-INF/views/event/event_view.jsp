@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <jsp:include page="../common/header.jsp" />
 
 	
@@ -102,45 +103,137 @@
 					</div>
 					<!-- //이전다음글 -->
 
-
+					
 					<!-- 댓글-->
-					<div class="replyWrite">
+					<form class="replyWrite" name="reply" action="event_reply" method="post">
 						<ul>
 							<li class="in">
-								<p class="txt">총 <span class="orange">3</span> 개의 댓글이 달려있습니다.</p>
-								<p class="password">비밀번호&nbsp;&nbsp;<input type="password" class="replynum" /></p>
-								<textarea class="replyType"></textarea>
+								<input type="text" name="event_num" value="${dto.event_num }" hidden="">
+								<input type="text" name="id" value="${id }" hidden="">
+								<p class="txt">총 <span class="orange">${reply_count }</span> 개의 댓글이 달려있습니다.</p>
+								<p class="password">비밀번호&nbsp;&nbsp;<input type="password" class="replynum" name="pw" /></p>
+								<textarea class="replyType" name="event_re_content"></textarea>
 							</li>
-							<li class="btn"><a href="#" class="replyBtn">등록</a></li>
+							<li class="btn"><input type="submit" class="replyBtn" value="등록" style="border:none;cursor: pointer;"></li>
 						</ul>
 						<p class="ntic">※ 비밀번호를 입력하시면 댓글이 비밀글로 등록 됩니다.</p>
-					</div>
+					</form>
 
 					<div class="replyBox">
-						<ul>
-							<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-							<li class="txt"><textarea class="replyType"></textarea></li>
-							<li class="btn">
-								<a href="#" class="rebtn">수정</a>
-								<a href="#" class="rebtn">삭제</a>
-							</li>
-						</ul>
-
-						<ul>
-							<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-							<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
-							<li class="btn">
-								<a href="#" class="rebtn">수정</a>
-								<a href="#" class="rebtn">삭제</a>
-							</li>
-						</ul>
-
-						<ul>
-							<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-							<li class="txt">
-								<a href="password.html" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
-							</li>
-						</ul>
+						<c:choose>
+						<%--댓글이 있는가?--%>
+							<c:when test="${replyList==null }">
+								<ul>
+									<li>등록된 댓글이 없습니다.</li>
+								</ul>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="re_dtos" items="replyList">
+									<%--로그인한아이디가 있는가?--%>
+									<c:choose>
+										<c:when test="${id==null}">
+											<c:choose>
+												<c:when test="${re_dtos.pw!=null }">
+													<%--비번이 있음 --%>
+													<ul class="${re_dtos.event_re_num }">
+														<li class="name">${re_dtos.id} <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+														<li class="txt">
+														<a href="password" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
+														</li>
+													</ul>	
+													<%--비번을 맞춤 --%>
+													<ul class="${re_dtos.event_re_num }">
+														<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+														<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
+													</ul>							
+												</c:when>
+												<c:otherwise>
+													<%--비번이없음 --%>
+													<ul>
+														<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+														<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
+													</ul>
+												</c:otherwise>
+											</c:choose>		
+										</c:when>
+										<c:otherwise>
+											<c:if test="${id!=re_dtos.id }">
+										<%--아이디가 로그인한 아이디와 다름 --%>
+											<c:choose>
+											<c:when test="${re_dtos.pw!=null }">
+												<%--비번이 있음 --%>
+												<ul class="${re_dtos.event_re_num }">
+													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+													<li class="txt">
+													<a href="password" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
+													</li>
+												</ul>	
+												<%--비번을 맞춤 --%>
+												<ul class="${re_dtos.event_re_num }">
+													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+													<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
+												</ul>							
+											</c:when>
+											<c:otherwise>
+												<%--비번이없음 --%>
+												<ul>
+													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+													<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
+												</ul>
+											</c:otherwise>
+											</c:choose>							
+										</c:if>
+										<c:if test="${id==re_dtos.id }">
+											<%--아이디가 같음 --%>
+											<c:choose>
+											<c:when test="${re_dtos.pw!=null }">
+												<%--비번이 있음 --%>
+												<ul class="repl_pw_view">
+													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+													<li class="txt">
+													<a href="password" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
+													</li>
+												</ul>	
+												<ul class="hide_reply">
+													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+													<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
+													<li class="btn">
+														<a href="#" class="rebtn">수정</a>
+														<a href="#" class="rebtn">삭제</a>
+													</li>
+												</ul>							
+											</c:when>
+											<c:otherwise>
+												<%--비번이없음 --%>
+												<form action="reply_modify" name="reply_modify" method="post" class="${re_dtos.event_re_num }">
+													<ul>
+														<li class="name">jjabcde <input type="text" value="id" name="id" hidden="">
+														<input type="text" value="id" name="event_re_num" hidden="">
+														<span>[2014-03-04&nbsp;&nbsp;15:01:59]</span>
+														</li>
+														<li class="txt"><textarea name="event_re_content" class="replyType">"대박!!! 이거 저한테 완전 필요한 이벤트였어요!!"</textarea></li>
+														<li class="btn">
+														<input type="submit" class="rebtn" value="수정" style="border:none;cursor: pointer;padding-top: 0px;">
+														<a href="deleteEvReply?event_re_num=${re_dtos.event_re_num }" class="rebtn">삭제</a>
+														</li>
+													</ul>	
+												</form>
+												<ul class="${re_dtos.event_re_num }">
+													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+													<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
+													<li class="btn">
+														<a href="re_modify_view(${re_dtos.event_re_num })" class="rebtn">수정</a>
+														<a href="deleteEvReply?event_re_num=${re_dtos.event_re_num }" class="rebtn">삭제</a>
+													</li>
+												</ul>
+											</c:otherwise>
+											</c:choose>				
+										</c:if>
+										</c:otherwise>									
+									</c:choose>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<!-- //댓글 -->
 

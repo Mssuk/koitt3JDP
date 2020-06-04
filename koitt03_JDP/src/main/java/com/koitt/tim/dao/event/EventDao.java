@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
+import com.koitt.tim.dto.event.EventReplyDto;
 
 @Repository
 public interface EventDao {
@@ -28,6 +29,9 @@ public interface EventDao {
 
 	// 쿠폰
 	CouponDto selectCoupon(String coupon_num);
+
+	// 댓글가져오기
+	List<EventReplyDto> selectEventReply(String event_num);
 
 	// 페이지 나눠서 글 갖고옴(search)-----------------------------------------------
 	List<EventDto> selectSearchEvent(@Param("p1") int start, @Param("p2") int end, @Param("opt") String search,

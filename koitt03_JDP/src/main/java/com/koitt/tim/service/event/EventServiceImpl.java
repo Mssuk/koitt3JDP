@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.koitt.tim.dao.event.EventDao;
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
+import com.koitt.tim.dto.event.EventReplyDto;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -16,7 +17,6 @@ public class EventServiceImpl implements EventService {
 	@Autowired
 	EventDao edao;
 
-	private static final int ROW_LIMIT = 5; // 밑에 (1,2,3,4,5) 이거 몇개씩 보여줄건지
 	private static final int PAGE_LIMIT = 10; // 한페이지에 글 몇개 보여줄건지
 
 	// 마지막 페이지 계산
@@ -94,6 +94,13 @@ public class EventServiceImpl implements EventService {
 	public CouponDto couponView(String coupon_num) {
 		// TODO Auto-generated method stub
 		return edao.selectCoupon(coupon_num);
+	}
+
+	// 댓글불러오기
+	@Override
+	public List<EventReplyDto> selectEventReply(String event_num) {
+		// TODO Auto-generated method stub
+		return edao.selectEventReply(event_num);
 	}
 
 }

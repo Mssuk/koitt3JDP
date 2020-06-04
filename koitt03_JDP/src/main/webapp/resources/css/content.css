@@ -835,7 +835,7 @@ span.searchStyleSelectBox.changed{background-color: #fff;}
     font-weight: bold;
 }
 .viewContents .coupon_box li a.download span{
-    width:280px;
+    width:278px;
     height:50px;
     line-height:50px;
     margin: 0 auto;
@@ -846,7 +846,7 @@ span.searchStyleSelectBox.changed{background-color: #fff;}
     border: 1px solid #f7703c;
     display:inline-block;
     margin-top: 40px;
-    margin-left: -10px;
+    margin-left: -11px;
 }
 /************* MEDIA QUERY  TABLET ************/
 @media all and (max-width: 999px){

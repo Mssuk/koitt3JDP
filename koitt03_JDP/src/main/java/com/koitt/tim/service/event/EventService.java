@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
+import com.koitt.tim.dto.event.EventReplyDto;
 
 public interface EventService {
 
@@ -18,6 +19,9 @@ public interface EventService {
 
 	// 쿠폰가져오기
 	CouponDto couponView(String coupon_num);
+
+	// 댓글가져오기
+	List<EventReplyDto> selectEventReply(String event_num);
 
 	// 글목록보기(search)-----------------------------------
 	List<EventDto> selectEvent(int pageNum, String search, String text);

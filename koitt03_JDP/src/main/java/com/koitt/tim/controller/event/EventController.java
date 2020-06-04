@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
+import com.koitt.tim.dto.event.EventReplyDto;
 import com.koitt.tim.service.event.EventService;
 
 @Controller
@@ -26,10 +27,15 @@ public class EventController {
 		EventDto dto2 = eServ.eventViewPre(dto.getRnum());
 		EventDto dto3 = eServ.eventViewNext(dto.getRnum());
 		CouponDto coupon = eServ.couponView(dto.getCoupon_num());
+		List<EventReplyDto> re_dtos = eServ.selectEventReply(dto.getEvent_num());
 		model.addAttribute("dto", dto);
 		model.addAttribute("pre", dto2);
 		model.addAttribute("next", dto3);
 		model.addAttribute("coupon", coupon);
+		if (re_dtos.size() != 0) {
+			model.addAttribute("replyList", re_dtos);
+			System.out.println(re_dtos.get(0).getEvent_re_num());
+		}
 		return "event/event_view";
 	}
 
