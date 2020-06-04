@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="koitt3JDP:Web exploded">
+    <output-path>$PROJECT_DIR$/koitt03_JDP/target/artifacts/koitt3JDP_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="koitt3JDP/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="koitt3JDP" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

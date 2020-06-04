@@ -37,7 +37,7 @@
 									<!-- 반복 -->
 									<c:forEach var="dtos" items="${list }">
 										<li>
-											<a href="event_view?event_num=${dtos.event_num }">
+											<a href="event_view?event_num=${dtos.event_num }&rnum=${dtos.rnum}" title="${dtos.event_title }">
 											<div class="img">
 												<img src="../images/img/${dtos.event_image1 }" alt="진행중 이벤트" />
 											</div>
@@ -58,8 +58,15 @@
 						<!-- 페이징이동1 -->
 						<div class="allPageMoving1">
 
-						<a href="event?page=1" class="n"><img src="../images/btn/btn_pre2.gif" alt="처음으로"/></a>
-						<a href="event?1" class="pre"><img src="../images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
+						<a href="event?page=1" class="n" title="맨앞으로"><img src="../images/btn/btn_pre2.gif" alt="처음으로"/></a>
+						<c:choose>
+								<c:when test="${pageNum!=1 }">
+									<a href="event?page=${pageNum-1 }" class="pre"><img src="../images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
+								</c:when>
+								<c:otherwise>
+									<a href="#" class="pre" title="앞페이지가 없습니다."><img src="../images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
+								</c:otherwise>
+						</c:choose>
 						<c:forEach var="i" items="${pageNumbering}">
 							<c:choose>
 								<c:when test="${pageNum == i}">
@@ -70,16 +77,24 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-
-						<a href="#" class="next"><img src="../images/btn/btn_next1.gif" alt="뒤페이지로"/></a>
-							<a href="event?page=${maxPage}" class="n"><img src="../images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
+							<c:choose>
+								<c:when test="${pageNum!=maxPage }">
+									<a href="event?page=${pageNum+1 }" class="next"><img src="../images/btn/btn_next1.gif" alt="뒤페이지로"/></a>
+								</c:when>
+								<c:otherwise>
+									<a href="#" class="next" title="뒤페이지가 없습니다."><img src="../images/btn/btn_next1.gif" alt="뒤페이지로"/></a>
+								</c:otherwise>
+							</c:choose>
+								
+								<a href="event?page=${maxPage}" class="n" title="맨 뒤로"><img src="../images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
+							
 
 						</div>
 						<!-- //페이징이동1 -->
 					</div>
 					
 					<!-- 검색 -->
-					<form class="searchWrap" name="search_bot" method="post" action="event_view">
+					<form class="searchWrap" name="search_bot" method="post" action="event_search">
 						<div class="search">
 							<ul>
 								<li class="web"><img src="../images/txt/txt_search.gif" alt="search" /></li>
