@@ -32,13 +32,14 @@ public class AdminController {
 
 	// eventList 갖고 옴
 	@GetMapping("elist/{start}/{end}")
-	public List<EventDto> elist(@PathVariable("start") int start, @PathVariable("end") int end) {
-		return adminService.getAllEvents(start, end);
+	public List<EventDto> elist(@PathVariable("start") int startPage, @PathVariable("end") int endPage) {
+
+		return adminService.getAllEvents(startPage, endPage);
 	}
 
-	// couponList 갖고 옴
-	@GetMapping("coulist")
-	public List<CouponDto> coulist() {
+	// couponList 갖고옴
+	public List<CouponDto> couplist() {
+		return adminService.getAllCoupons();
 
 	}
 }
