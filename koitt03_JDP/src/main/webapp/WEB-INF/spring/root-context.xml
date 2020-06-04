@@ -7,7 +7,6 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 
 	   <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>

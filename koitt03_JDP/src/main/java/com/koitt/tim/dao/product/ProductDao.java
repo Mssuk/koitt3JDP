@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface ProductDao {
     List<ProductDto> selectProduct();
+    ProductDto selectProductOne(String pro_num);
+
 }

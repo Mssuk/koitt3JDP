@@ -1,3 +1,4 @@
+//이준희
 package com.koitt.tim.service.product;
 
 import com.koitt.tim.dao.product.ProductDao;
@@ -15,7 +16,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> getProductList() {
-        System.out.println(pDao.selectProduct());
         return pDao.selectProduct();
     }
+
+    @Override
+    public ProductDto getProductChoice(String pro_num) {
+        ProductDto pDto = pDao.selectProductOne(pro_num);
+        pDto.setPoint();
+        return pDto;
+    }
+
+
 }

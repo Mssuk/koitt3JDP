@@ -1,3 +1,4 @@
+//이준희
 package com.koitt.tim.dto.product;
 
 import java.sql.Timestamp;
@@ -23,6 +24,15 @@ public class ProductDto {
     private String back_image;
     private Timestamp registration_date;
     private Timestamp update_date;
+    private int point;
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint() {
+        this.point = product_price/100;
+    }
 
     public String getPro_num() {
         return pro_num;
