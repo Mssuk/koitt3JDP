@@ -19,15 +19,6 @@ public interface EventService {
 	// 쿠폰가져오기
 	CouponDto couponView(String coupon_num);
 
-	// 글 목록보기(no search)-----------------------------
-	List<EventDto> selectEvent(int pageNum);
-
-	// 밑에 나타나는 페이지 넘버링
-	List<Integer> getPageList(int pageNum);
-
-	// 전체글 리스트 카운트
-	int getListCount();
-
 	// 글목록보기(search)-----------------------------------
 	List<EventDto> selectEvent(int pageNum, String search, String text);
 
