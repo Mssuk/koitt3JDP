@@ -6,7 +6,7 @@
 
 <mapper namespace="com.koitt.tim.dao.event.EventDao">
 
-
+ 	<!-- 이벤트글 리스트 no search-->
     <select id="selectEvent" resultType="EventDto">
         select *
         from (select ROWNUM rnum, e.*
@@ -18,22 +18,47 @@
         where rnum <![CDATA[ >= ]]> #{p1}
           and rnum <![CDATA[ <= ]]> #{p2}
     </select>
-
-
-    <select id="selectFinEvent" resultType="EventDto">
-        select *
+	<!-- 이벤트글 개수  no search-->
+    <select id="selectListCount" resultType="int">
+        select count(*)
         from event
-        where    <![CDATA[
-               to_char(event_end, 'yyyy-MM-dd') < to_char(sysdate, 'yyyy-MM-dd')
+        where
+        to_char(event_end, 'yyyy-MM-dd') <![CDATA[>= ]]> to_char(sysdate, 'yyyy-MM-dd')
+        ORDER BY event_start desc
+    </select>
+    
+    <!-- 이벤트글 리스트 search-->
+    <select id="selectSearchEvent" resultType="EventDto">
+       select *from (select ROWNUM rnum, e.*from (select *from event where (to_char(event_end, 'yyyy-MM-dd') <![CDATA[>= ]]>to_char(sysdate, 'yyyy-MM-dd'))
+          <choose>
+          	<when test="p3!=null and p3.equals('all')">
+          	 and (event_title like '%#{p4}%' or event_content like '%#{p4}%') 
+          	</when>
+          	<when test="p3!=null and p3.equals('tit')">
+          	 and event_title like '%#{p4}%'
+          	</when>
+          	<when test="p3!=null and p3.equals('con')">
+          	 and event_content like '%#{p4}%'
+          	</when>
+          	<otherwise>
+          	 
+          	</otherwise>
+          </choose>
+            ORDER BY event_start desc) e)
+      	  where rnum <![CDATA[ >= ]]> #{p1}
+          and rnum <![CDATA[ <= ]]> #{p2}
+    </select>
+	<!-- 이벤트글 개수 search-->
+    <select id="selectSearchListCount" resultType="int">
+        select count(*)
+        from event
+        where <![CDATA[
+        to_char(event_end, 'yyyy-MM-dd') >= to_char(sysdate, 'yyyy-MM-dd')
         ORDER BY event_start desc
         ]]>
     </select>
-
-    <select id="selectListCount" resultType="int">
-        select count(*)
-        from EVENT
-    </select>
     
+    <!-- 글보기>현재글 -->
 	<select id="selectEventView" resultType="EventDto">
 		select * from ( select ROWNUM rnum, e.* from(
 		select *
@@ -42,6 +67,7 @@
 		ORDER BY event_start desc) e)
 		where event_num=#{param1}
 	</select>
+	<!-- 글보기>이전글 -->
 	<select id="selectEventPre" resultType="EventDto">
 		select * from ( select ROWNUM rnum, e.* from(
 		select *
@@ -50,6 +76,7 @@
 		ORDER BY event_start desc) e)
 		where rnum=(#{rnum}-1)
 	</select>
+	<!-- 글보기>다음글 -->
 	<select id="selectEventNext" resultType="EventDto">
 		select * from ( select ROWNUM rnum, e.* from(
 		select *
@@ -58,6 +85,7 @@
 		ORDER BY event_start desc) e)
 		where rnum=(#{rnum}+1)
 	</select>
+	<!-- 글보기>쿠폰있으면 가져오기 -->
 	<select id="selectCoupon" resultType="CouponDto">
 		select * from coupon where coupon_num=#{param}
 	</select>

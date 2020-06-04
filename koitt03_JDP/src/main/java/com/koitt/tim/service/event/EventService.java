@@ -7,8 +7,7 @@ import com.koitt.tim.dto.event.EventDto;
 
 public interface EventService {
 
-	List<EventDto> selectFinEvent();
-
+	// 글보기
 	EventDto eventView(String event_num);
 
 	// 이전글
@@ -17,22 +16,26 @@ public interface EventService {
 	// 다음글
 	EventDto eventViewNext(int rnum);
 
-	// 글 목록보기(no search)
+	// 쿠폰가져오기
+	CouponDto couponView(String coupon_num);
+
+	// 글 목록보기(no search)-----------------------------
 	List<EventDto> selectEvent(int pageNum);
 
 	// 밑에 나타나는 페이지 넘버링
 	List<Integer> getPageList(int pageNum);
 
-	// 마지막페이지 번호를 알려줌
-	int getLastNum(double cnt);
-
-	// 전체글 리스트 카운트(no search)
+	// 전체글 리스트 카운트
 	int getListCount();
 
+	// 글목록보기(search)-----------------------------------
+	List<EventDto> selectEvent(int pageNum, String search, String text);
+
+	List<Integer> getPageList(int pageNum, String search, String text);
+
 	// 전체글 리스트 카운트(search)
-	int getlistCount(String search, String text);
+	int getListCount(String search, String text);
 
-	// 쿠폰가져오기
-	CouponDto couponView(String coupon_num);
-
+	// 마지막페이지 번호를 알려줌
+	int getLastNum(double cnt);
 }
