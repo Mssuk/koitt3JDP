@@ -23,11 +23,13 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
+	// memberList 갖고옴
 	@GetMapping("mlist")
 	public List<MemberDto> mlist() {
 		return adminService.getAllMembers();
 	}
 
+//eventList 갖고 옴
 	@GetMapping("elist/{start}/{end}")
 	public List<EventDto> elist(@PathVariable("start") int start, @PathVariable("end") int end) {
 		return adminService.getAllEvents(start, end);

@@ -13,7 +13,7 @@ public interface AdminService {
 	// All Members
 	List<MemberDto> getAllMembers();
 
-	// All Events
+	// All Event Posts
 	List<EventDto> getAllEvents(int start, int end);
 
 }
