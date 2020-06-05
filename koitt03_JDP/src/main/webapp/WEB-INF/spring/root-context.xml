@@ -30,5 +30,9 @@
 
 	<!-- base-package 에 정의된 package 내 클래스 및 xml을 SQL 처리를 위한 mapper로 인식-->
     <mybatis-spring:scan base-package="com.koitt.tim.dao"/>
-		
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+    </bean>
+    
 </beans>

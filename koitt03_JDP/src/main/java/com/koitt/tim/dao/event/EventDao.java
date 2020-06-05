@@ -40,4 +40,12 @@ public interface EventDao {
 
 	// 전체 개수 카운트(no search)
 	int selectSearchListCount(@Param("p1") String search, @Param("p2") String txt);
+
+
+	//admin---------------------------------------------------------------------------------------
+	//이벤트 insert
+	void insertEvent(EventDto eDto);
+
+	//모든 이벤트 가지고 오기
+	List<EventDto> selectEventforA();
 }

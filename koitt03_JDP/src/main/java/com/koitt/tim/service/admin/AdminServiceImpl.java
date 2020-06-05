@@ -17,8 +17,8 @@ import com.koitt.tim.dto.member.MemberDto;
 @Service
 public class AdminServiceImpl implements AdminService {
 
-	@Autowired
-	private MallDao mallDao;
+//	@Autowired
+//	private MallDao mallDao;
 	@Autowired
 	private MemberDao memberDao;
 	@Autowired
@@ -38,12 +38,18 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<EventDto> getAllEvents(int start, int end) {
-		return eventDao.selectEvent(start, end);
+		//return eventDao.selectEvent(start, end);
+		return eventDao.selectEventforA();
 	}
 
 	@Override
 	public List<CouponDto> getAllCoupons() {
 		return couponDao.selectAllCoupon();
+	}
+
+	@Override
+	public void insertEvent(EventDto eDto) {
+		eventDao.insertEvent(eDto);
 	}
 
 }
