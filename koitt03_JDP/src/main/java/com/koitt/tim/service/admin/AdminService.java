@@ -19,4 +19,7 @@ public interface AdminService {
 
 	// All Coupons
 	List<CouponDto> getAllCoupons();
+
+	// insert Event
+	void insertEvent(EventDto eDto);
 }

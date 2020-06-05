@@ -2,8 +2,11 @@
 
 package com.koitt.tim.controller.admin;
 
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
+import com.koitt.tim.utils.CommonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,8 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
+	CommonUtils utils = new CommonUtils();
+
 	// memberList 갖고옴
 	@GetMapping("mlist")
 	public List<MemberDto> mlist() {
@@ -42,7 +47,7 @@ public class AdminController {
 	@GetMapping("elist/{start}/{end}")
 	public List<EventDto> elist(@PathVariable("start") int startPage, @PathVariable("end") int endPage) {
 
-		return adminService.getAllEvents(startPage, endPage);
+		return adminService.getAllEvents(startPage,endPage);
 	}
 
 	// couponList 갖고옴
@@ -54,16 +59,21 @@ public class AdminController {
 
 	@PostMapping(value = "/elist", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<?> uploadFile(MultipartFile thumbnailImg, MultipartFile contextImg, String startDate,
-			String endDate, String startTime, String endTime, String editorHtml, String coupon) {
+			String endDate, String startTime, String endTime, String eventTitle, String editorHtml, String coupon) throws IOException {
 
-		logger.info("{}", thumbnailImg.getOriginalFilename());
-		logger.info("{}", contextImg.getOriginalFilename());
-		logger.info("{}", startDate);
-		logger.info("{}", endDate);
-		logger.info("{}", startTime);
-		logger.info("{}", endTime);
-		logger.info("{}", editorHtml);
-		logger.info("{}", coupon);
+		Timestamp startT = utils.timeConcat(startDate, startTime);
+		Timestamp endT = utils.timeConcat(endDate, endTime);
+
+		EventDto eDto = new EventDto();
+		eDto.setCoupon_num(coupon);
+		eDto.setEvent_start(startT);
+		eDto.setEvent_end(endT);
+		eDto.setEvent_title(eventTitle);
+		eDto.setEvent_content(editorHtml);
+		eDto.setEvent_image1(utils.FileUploader(thumbnailImg));
+		eDto.setEvent_image2(utils.FileUploader(contextImg));
+
+		adminService.insertEvent(eDto);
 
 		return ResponseEntity.ok().build();
 	}
