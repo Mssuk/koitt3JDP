@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.koitt.tim.dto.member.MemberCouponDto" %><%--
   Created by IntelliJ IDEA.
   User: user
   Date: 2020-06-01
@@ -99,7 +100,7 @@
                     <ul>
                         <li>수정 내용을 회원정보에도 반영합니다.&nbsp;&nbsp;</li>
                         <li>
-                            <button><a onclick=memberCheck('${mDto}')>회원정보반영</a></button>
+                            <a onclick=memberCheck('${mDto}')>회원정보반영</a>
                         </li>
 
                     </ul>
@@ -293,7 +294,8 @@
                                     </li>
                                     <li class="r10"><span class="valign">( 보유 쿠폰 내역 : ${couponCount} 장 )&nbsp;</span></li>
 
-                                    <li><a onclick='couponBook(${memberCouponList})' class="nbtn">쿠폰목록</a></li>
+
+                                    <li><a  onclick="couponBook(<%=session.getAttribute("admin")%>)" class="nbtn">쿠폰목록</a></li>
                                 </ul>
                             </td>
                         </tr>

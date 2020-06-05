@@ -27,8 +27,6 @@ import java.util.List;
 @RequestMapping("payment")
 public class PaymentController {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @Autowired
     private PaymentService paymentServ;
 
@@ -36,7 +34,7 @@ public class PaymentController {
     @RequestMapping("/payment")
     public String payment(HttpSession session, String pro_num, Model model, @RequestParam("spinner") int spin) throws Exception{
         ProductDto pDto = paymentServ.selectOne(pro_num);
-        MemberDto mDto = paymentServ.selectOneMember((String) session.getAttribute("adtmin"));
+        MemberDto mDto = paymentServ.selectOneMember((String) session.getAttribute("admin"));
         ObjectMapper objectMapper = new ObjectMapper();
         String mDtoValue = objectMapper.writeValueAsString(mDto);   //JSON으로 바꿔줌.
         int count = paymentServ.couponListSum();
@@ -45,7 +43,6 @@ public class PaymentController {
 
 
         model.addAttribute("memberCouponList",mcDtoValue);
-
         model.addAttribute("couponCount",count);
         model.addAttribute("spin",spin);
         model.addAttribute("dto",pDto);
@@ -54,7 +51,7 @@ public class PaymentController {
     }
 
     @RequestMapping("/Child")
-    public String couponBook(Model model){
+    public String couponBook(HttpSession session, Model model){
 
         List<CouponDto> getCouponList = paymentServ.getCouponList();
         model.addAttribute("cList",getCouponList);

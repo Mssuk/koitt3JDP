@@ -22,7 +22,7 @@ public class ProductController {
     @RequestMapping("list")
     public String productList(HttpSession session, Model model){
         List<ProductDto> list=pServ.getProductList();
-        session.setAttribute("adtmin","abcd1234");
+        session.setAttribute("admin","abcd1234");
         model.addAttribute("dtos",list);
         return "product/list";
     }
