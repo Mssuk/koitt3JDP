@@ -12,18 +12,18 @@
 <head>
     <title>Title</title>
     <script type="text/javascript">
-        function setParent(){
-            console.log('hi');
-            // var list = [];
-            // var coupons = document.getElementsByName("chBox");
-            // coupons.forEach( (x) => {
-            //     if(x.checked === true){
-            //         list.push(x);
-            //     }
-            // })
-            // console.log(list);
+        function setParent() {
 
-            //opener.document.getElementById("pInput").value = document.getElementById("choiceCoupon").value;
+            var list = [];
+            var coupons = document.getElementsByName("chBox");
+            coupons.forEach((c) => {
+                if (c.checked === true) {
+                    list.push(c.value);
+                }
+            })
+            var sum = list.reduce((a, b) => a + b);
+
+            opener.document.getElementById("pInput").value = sum;
 
         }
 
@@ -33,27 +33,26 @@
 </head>
 <body>
 
-    <jsp:include page="../common/header.jsp"/>
+<jsp:include page="../common/header.jsp"/>
 
-    <table border="1">
-        <tr>
-            <th>쿠폰번호</th>
-            <th>쿠폰 명</th>
-            <th>할인가격</th>
-            <th>선택</th>
-        </tr>
-        <c:forEach var="cList" items="${cList}">
+<table border="1">
+    <tr>
+        <th>쿠폰번호</th>
+        <th>쿠폰 명</th>
+        <th>할인가격</th>
+        <th>선택</th>
+    </tr>
+    <c:forEach var="cList" items="${cList}">
         <tr>
             <td>${cList.coupon_num}</td>
             <td>${cList.coupon_name}</td>
             <td>${cList.coupon_pay}</td>
             <td><input type="checkbox" name="chBox" id="choiceCoupon" value="${cList.coupon_pay}"></td>
-
         </tr>
-        </c:forEach>
-    </table>
-    <input type="button" value="전송" onclick="setParent()">
-    <input type="button" value="창닫기" onclick="window.close()">
+    </c:forEach>
+</table>
+<input type="button" value="전송" onclick="setParent()">
+<input type="button" value="창닫기" onclick="window.close()">
 
 </body>
 </html>

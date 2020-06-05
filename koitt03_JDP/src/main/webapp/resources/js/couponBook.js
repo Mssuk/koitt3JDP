@@ -1,7 +1,4 @@
-function couponBook(id){
-
-
-    console.log(id);
+function couponBook(id, test){
 
     var openWin;
 

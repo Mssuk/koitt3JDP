@@ -285,6 +285,12 @@
                             <td>2,500 원 (선불)</td>
                         </tr>
                         <tr>
+                            <script>
+                                function test(param) {
+                                    var couponList = param;
+                                }
+
+                            </script>
                             <th scope="row"><span>쿠폰 할인</span></th>
                             <td>
                                 <ul class="pta">
@@ -295,7 +301,7 @@
                                     <li class="r10"><span class="valign">( 보유 쿠폰 내역 : ${couponCount} 장 )&nbsp;</span></li>
 
 
-                                    <li><a  onclick="couponBook('<%=session.getAttribute("admin")%>')" class="nbtn">쿠폰목록</a></li>
+                                    <li><a  onclick="couponBook('<%=session.getAttribute("admin")%>', test)" class="nbtn">쿠폰목록</a></li>
                                 </ul>
                             </td>
                         </tr>
