@@ -61,19 +61,19 @@ public class AdminController {
 	public ResponseEntity<?> uploadFile(MultipartFile thumbnailImg, MultipartFile contextImg, String startDate,
 			String endDate, String startTime, String endTime, String eventTitle, String editorHtml, String coupon) throws IOException {
 
-		Timestamp startT = utils.timeConcat(startDate, startTime);
-		Timestamp endT = utils.timeConcat(endDate, endTime);
-
-		EventDto eDto = new EventDto();
-		eDto.setCoupon_num(coupon);
-		eDto.setEvent_start(startT);
-		eDto.setEvent_end(endT);
-		eDto.setEvent_title(eventTitle);
-		eDto.setEvent_content(editorHtml);
-		eDto.setEvent_image1(utils.FileUploader(thumbnailImg));
-		eDto.setEvent_image2(utils.FileUploader(contextImg));
-
-		adminService.insertEvent(eDto);
+//		Timestamp startT = utils.timeConcat(startDate, startTime);
+//		Timestamp endT = utils.timeConcat(endDate, endTime);
+//
+//		EventDto eDto = new EventDto();
+//		eDto.setCoupon_num(coupon);
+//		eDto.setEvent_start(startT);
+//		eDto.setEvent_end(endT);
+//		eDto.setEvent_title(eventTitle);
+//		eDto.setEvent_content(editorHtml);
+//		eDto.setEvent_image1(utils.FileUploader(thumbnailImg));
+//		eDto.setEvent_image2(utils.FileUploader(contextImg));
+//
+//		adminService.insertEvent(eDto);
 
 		return ResponseEntity.ok().build();
 	}

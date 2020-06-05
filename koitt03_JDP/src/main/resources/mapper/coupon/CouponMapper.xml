@@ -12,6 +12,10 @@
 
 	<select id="selectAllMemberCoupon" resultType="CouponDto">
 		select * from COUPON_MEMBER
+	</select>
 
+	<!-- 쿠폰리스트 다불러오는거 -->
+	<select id="selectAllCoupon" resultType="CouponDto">
+		select * from COUPON
 	</select>
 </mapper>

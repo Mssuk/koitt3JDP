@@ -11,11 +11,20 @@
 <html>
 <head>
     <title>Title</title>
+    <script type="text/javascript">
+        function setParent(){
+            opener.document.getElementById("pInput").value = document.getElementById("choiceCoupon").value;
+
+        }
+
+
+    </script>
+
 </head>
 <body>
 
     <jsp:include page="../common/header.jsp"/>
-    <form id="cListForm" method="get">
+
     <table border="1">
         <tr>
             <th>쿠폰번호</th>
@@ -32,7 +41,8 @@
         </tr>
         </c:forEach>
     </table>
-    </form>
+    <input type="button" value="전송" onclick="setParent()">
+    <input type="button" value="창닫기" onclick="window.close()">
 
 </body>
 </html>
