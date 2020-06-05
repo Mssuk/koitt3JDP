@@ -37,12 +37,12 @@ public class PaymentController {
         MemberDto mDto = paymentServ.selectOneMember((String) session.getAttribute("admin"));
         ObjectMapper objectMapper = new ObjectMapper();
         String mDtoValue = objectMapper.writeValueAsString(mDto);   //JSON으로 바꿔줌.
-        int count = paymentServ.couponListSum();
-        List<MemberCouponDto> memberCoupondtos = paymentServ.getMemberCouponDto();
-        String mcDtoValue = objectMapper.writeValueAsString(memberCoupondtos);
+        int count = paymentServ.couponListSum((String)session.getAttribute("admin"));
 
 
-        model.addAttribute("memberCouponList",mcDtoValue);
+
+
+
         model.addAttribute("couponCount",count);
         model.addAttribute("spin",spin);
         model.addAttribute("dto",pDto);
@@ -51,9 +51,9 @@ public class PaymentController {
     }
 
     @RequestMapping("/Child")
-    public String couponBook(HttpSession session, Model model){
+    public String couponBook( Model model,String id){
 
-        List<CouponDto> getCouponList = paymentServ.getCouponList();
+        List<CouponDto> getCouponList = paymentServ.getCouponList(id);
         model.addAttribute("cList",getCouponList);
         return "payment/Child";
     }

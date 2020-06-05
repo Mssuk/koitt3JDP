@@ -26,8 +26,8 @@
         <c:forEach var="cList" items="${cList}">
         <tr>
             <td>${cList.coupon_num}</td>
-            <td>${cList.id}</td>
-            <td>${cList.}</td>
+            <td>${cList.coupon_name}</td>
+            <td>${cList.coupon_pay}</td>
             <td><input type="checkbox" id="choiceCoupon"></td>
         </tr>
         </c:forEach>

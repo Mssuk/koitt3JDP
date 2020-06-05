@@ -36,12 +36,12 @@ public class PaymentServiceImpl implements PaymentService {
         return memberDao.selectOneMember(member_id);
     }
 
-    public List<CouponDto> getCouponList(){
-        return couponDao.selectAllMemCoupon();
+    public List<CouponDto> getCouponList(String id){
+        return couponDao.selectAllMemCoupon(id);
     }
 
-    public int couponListSum(){
-        return couponDao.selectCountCoupon();
+    public int couponListSum(String id){
+        return couponDao.selectCountCoupon(id);
     }
 
     public List<MemberCouponDto> getMemberCouponDto(){

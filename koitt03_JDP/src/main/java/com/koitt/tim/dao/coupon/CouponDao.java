@@ -14,9 +14,9 @@ public interface CouponDao {
 	// 모든 쿠폰을 갖고 옴
 	List<CouponDto> selectAllCoupon();
 
-	List<CouponDto> selectAllMemCoupon();
+	List<CouponDto> selectAllMemCoupon(String id);
 
-	int selectCountCoupon();
+	int selectCountCoupon(String id);
 
 	List<MemberCouponDto> selectAllMemberCoupon();
 }

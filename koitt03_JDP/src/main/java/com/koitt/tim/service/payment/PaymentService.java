@@ -12,13 +12,12 @@ import java.util.List;
 
 public interface PaymentService {
 
-    List<MemberCouponDto> getMemberCouponDto();
 
     ProductDto selectOne(String pro_num);
 
-    int couponListSum();
+    int couponListSum(String id);
 
     MemberDto selectOneMember(String member_id);
 
-    List<CouponDto> getCouponList();
+    List<CouponDto> getCouponList(String id);
 }
