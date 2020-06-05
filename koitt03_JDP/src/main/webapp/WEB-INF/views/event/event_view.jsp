@@ -127,8 +127,89 @@
 								</ul>
 							</c:when>
 							<c:otherwise>
-								<c:forEach var="re_dtos" items="reply_list">
-												
+								<c:forEach var="re_dtos" items="${reply_list }">
+									<%--로그인한아이디가 있는가?--%>
+									<c:set var="name"       value="${resultInfo.name}" />
+									<c:set var="totalLength" value="${fn:length(name) }" />
+									<c:set var="first"      value="${fn:substring(name, 0, 1) }" />
+									<c:set var="last"      value="${fn:substring(name, 2, totalLength) }" />
+									<c:choose>
+										<c:when test="${id==null}">
+											<c:choose>
+@ -156,34 +197,14 @@
+												</c:otherwise>
+											</c:choose>		
+										</c:when>
+										<c:otherwise>
+											<c:if test="${id!=re_dtos.id }">
+										<%--아이디가 로그인한 아이디와 다름 --%>
+											<c:choose>
+											<c:when test="${re_dtos.pw!=null }">
+												<%--비번이 있음 --%>
+												<ul class="${re_dtos.event_re_num }">
+													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+													<li class="txt">
+													<a href="password" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
+													</li>
+												</ul>	
+												<%--비번을 맞춤 --%>
+												<ul class="${re_dtos.event_re_num }">
+													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+													<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
+												</ul>							
+											</c:when>
+											<c:otherwise>
+												<%--비번이없음 --%>
+												<ul>
+													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+													<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
+												</ul>
+											</c:otherwise>
+											</c:choose>							
+										</c:if>
+										<c:when test="${id=='admin' }">
+											<%--관리자 --%>
+											<ul>
+												<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+												<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
+											</ul>
+										</c:when>
+										<c:when test="${id==re_dtos.id }">
+											<%--아이디가 같음 --%>
+											<c:choose>
+											<c:when test="${re_dtos.pw!=null }">
+@ -228,7 +249,32 @@
+												</ul>
+											</c:otherwise>
+											</c:choose>				
+										</c:if>
+										</c:when>
+										<c:otherwise>
+										<%--아이디가 로그인한 아이디와 다름 --%>
+											<c:choose>
+											<c:when test="${re_dtos.pw!=null }">
+												<%--비번이 있음 --%>
+												<ul class="${re_dtos.event_re_num }">
+													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+													<li class="txt">
+													<a href="password" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
+													</li>
+												</ul>	
+												<%--비번을 맞춤 --%>
+												<ul class="${re_dtos.event_re_num }">
+													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+													<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
+												</ul>							
+											</c:when>
+											<c:otherwise>
+												<%--비번이없음 --%>
+												<ul>
+													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+													<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
+												</ul>
+											</c:otherwise>
+											</c:choose>							
+										</c:otherwise>									
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
