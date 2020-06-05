@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.koitt.tim.dao.event.EventDao;
-import com.koitt.tim.dto.coupon.CouponDto;
+import com.koitt.tim.dto.event.EventCouponBean;
 import com.koitt.tim.dto.event.EventDto;
-import com.koitt.tim.dto.event.EventReplyDto;
+import com.koitt.tim.dto.event.EventReplyBean;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -69,36 +69,25 @@ public class EventServiceImpl implements EventService {
 		return pageList;
 	}
 
-	// 이벤트 뷰-------------------------------------
+	// 이벤트 뷰,쿠폰-------------------------------------
 	@Override
-	public EventDto eventView(String event_num) {
-		return edao.selectEventView(event_num);
+	public EventCouponBean selectEventView(String event_num) {
+		EventCouponBean couponBean = new EventCouponBean();
+		couponBean.setEventDto(edao.selectEventView(event_num));
+		couponBean.setCouponDto(edao.selectEventCoupon(event_num));
+		return couponBean;
 	}
 
-	// 이전글
+	// 이전글,다음글
 	@Override
-	public EventDto eventViewPre(int rnum) {
+	public List<EventDto> selectEventPreNext(int rnum) {
 		// TODO Auto-generated method stub
-		return edao.selectEventPre(rnum);
-	}
-
-	// 다음글
-	@Override
-	public EventDto eventViewNext(int rnum) {
-		// TODO Auto-generated method stub
-		return edao.selectEventNext(rnum);
-	}
-
-	// 쿠폰가져오기
-	@Override
-	public CouponDto couponView(String coupon_num) {
-		// TODO Auto-generated method stub
-		return edao.selectCoupon(coupon_num);
+		return edao.selectEventPreNext(rnum);
 	}
 
 	// 댓글불러오기
 	@Override
-	public List<EventReplyDto> selectEventReply(String event_num) {
+	public List<EventReplyBean> selectEventReply(String event_num) {
 		// TODO Auto-generated method stub
 		return edao.selectEventReply(event_num);
 	}

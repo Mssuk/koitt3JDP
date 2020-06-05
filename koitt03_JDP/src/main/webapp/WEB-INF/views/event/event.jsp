@@ -28,32 +28,36 @@
 					<c:choose>
 						<c:when test="${searchflag==null }">
 							<div class="eventList">
-						<ul>
+						
 							<!-- 없을때 -->
 							<c:choose>
 								<c:when test="${list==null }">
+									<ul>
 									<li>
 										<div><span>진행중인 이벤트가 없습니다.</span></div>
 									</li>
+									</ul>
 								</c:when>
 								<c:otherwise>
 									<!-- 반복 -->
 									<c:forEach var="dtos" items="${list }">
-										<li>
-											<a href="event_view?event_num=${dtos.event_num }&rnum=${dtos.rnum}" title="${dtos.event_title }">
-											<div class="img">
-												<img src="../images/img/${dtos.event_image1 }" alt="진행중 이벤트" />
-											</div>
-											<div class="txt">
-												<div class="subject">${dtos.event_title }</div>
-												<div class="day">이벤트 기간 : <fmt:formatDate value="${dtos.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dtos.event_end }" pattern="yyyy-MM-dd"/></div>
-											</div>
-											</a>
-										</li>
+										<ul>
+											<li>
+												<a href="event_view?event_num=${dtos.event_num }" title="${dtos.event_title }">
+												<div class="img">
+													<img src="../images/img/${dtos.event_image1 }" alt="진행중 이벤트" />
+												</div>
+												<div class="txt">
+													<div class="subject">${dtos.event_title }</div>
+													<div class="day">이벤트 기간 : <fmt:formatDate value="${dtos.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dtos.event_end }" pattern="yyyy-MM-dd"/></div>
+												</div>
+												</a>
+											</li>
+										</ul>
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
-						</ul>
+					
 					</div>
 					<!-- //list -->
 

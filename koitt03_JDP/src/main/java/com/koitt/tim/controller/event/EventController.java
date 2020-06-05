@@ -9,9 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.koitt.tim.dto.coupon.CouponDto;
+import com.koitt.tim.dto.event.EventCouponBean;
 import com.koitt.tim.dto.event.EventDto;
-import com.koitt.tim.dto.event.EventReplyDto;
+import com.koitt.tim.dto.event.EventReplyBean;
 import com.koitt.tim.service.event.EventService;
 
 @Controller
@@ -23,18 +23,19 @@ public class EventController {
 
 	@RequestMapping("event_view")
 	public String event_view(Model model, @RequestParam("event_num") String event_num) {
-		EventDto dto = eServ.eventView(event_num);
-		EventDto dto2 = eServ.eventViewPre(dto.getRnum());
-		EventDto dto3 = eServ.eventViewNext(dto.getRnum());
-		CouponDto coupon = eServ.couponView(dto.getCoupon_num());
-		List<EventReplyDto> re_dtos = eServ.selectEventReply(dto.getEvent_num());
-		model.addAttribute("dto", dto);
-		model.addAttribute("pre", dto2);
-		model.addAttribute("next", dto3);
-		model.addAttribute("coupon", coupon);
+		// 이벤트,쿠폰
+		EventCouponBean viewBean = eServ.selectEventView(event_num);
+		// 이전글,다음글
+		List<EventDto> preNext = eServ.selectEventPreNext(viewBean.getEventDto().getRnum());
+		// 댓글,멤버정보
+		List<EventReplyBean> re_dtos = eServ.selectEventReply(viewBean.getEventDto().getEvent_num());
+		model.addAttribute("event_view", viewBean.getEventDto());
+		if (viewBean.getCouponDto() != null) {
+			model.addAttribute("coupon", viewBean.getCouponDto());
+		}
+		model.addAttribute("pn_list", preNext);
 		if (re_dtos.size() != 0) {
-			model.addAttribute("replyList", re_dtos);
-			System.out.println(re_dtos.get(0).getEvent_re_num());
+			model.addAttribute("reply_list", re_dtos);
 		}
 		return "event/event_view";
 	}

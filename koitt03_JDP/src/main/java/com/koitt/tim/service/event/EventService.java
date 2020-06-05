@@ -2,26 +2,20 @@ package com.koitt.tim.service.event;
 
 import java.util.List;
 
-import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
-import com.koitt.tim.dto.event.EventReplyDto;
+import com.koitt.tim.dto.event.EventReplyBean;
+import com.koitt.tim.dto.event.EventCouponBean;
 
 public interface EventService {
 
-	// 글보기
-	EventDto eventView(String event_num);
+	// 글보기,쿠폰
+	EventCouponBean selectEventView(String ev_num);
 
-	// 이전글
-	EventDto eventViewPre(int rnum);
-
-	// 다음글
-	EventDto eventViewNext(int rnum);
-
-	// 쿠폰가져오기
-	CouponDto couponView(String coupon_num);
+	// 이전글,다음글
+	List<EventDto> selectEventPreNext(int rnum);
 
 	// 댓글가져오기
-	List<EventReplyDto> selectEventReply(String event_num);
+	List<EventReplyBean> selectEventReply(String event_num);
 
 	// 글목록보기(search)-----------------------------------
 	List<EventDto> selectEvent(int pageNum, String search, String text);
