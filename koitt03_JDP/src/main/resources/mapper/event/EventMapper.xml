@@ -14,12 +14,18 @@
 		<collection property="memberDto" resultMap="eventMemberMap"/>
 	</resultMap>
 
+
     <!-- 이벤트글 리스트 search-->
     <select id="selectSearchEvent" resultMap="eventMap">
        select *from (select ROWNUM rnum, e.*from (select *from event where (to_char(event_end, 'yyyy-MM-dd') <![CDATA[>= ]]>to_char(sysdate, 'yyyy-MM-dd'))
           <choose>
+
           	<when test="opt!='' and opt.equals('all') and key!=''">
           	 and (event_title like '%' || #{key} || '%' or event_content like '%' || #{key} || '%') 
+
+          	<when test="p3!=null and p3.equals('all')">
+          	 and (event_title like '%#{p4}%' or event_content like '%#{p4}%')
+
           	</when>
           	<when test="opt!='' and opt.equals('tit') and key!=''">
           	 and event_title like '%' || #{key} || '%'
@@ -28,6 +34,7 @@
           	 and event_content like '%' || #{key} || '%'
           	</when>
           	<otherwise>
+
           	</otherwise>
           </choose>
             ORDER BY event_start desc,event_regist desc) e)
@@ -55,7 +62,7 @@
           	</otherwise>
         </choose>
     </select>
-    
+
     <!-- 글보기>현재글 -->
 	<select id="selectEventView" resultMap="eventMap">
 		select * from ( select ROWNUM rnum, e.* from(
@@ -83,5 +90,24 @@
 	<!-- 글보기>댓글,멤버가져오기 -->
 	<select id="selectEventReply" resultMap="eventReplyBean">
 		select * from EVENT_REPLY re,member mem where event_num=#{param1} and re.id=mem.id
+	</select>
+
+	<!-- event insert-->
+	<insert id="insertEvent" parameterType="EventDto">
+		insert into EVENT values
+		(concat('ev',lpad(ev_seq.nextval,3,0)),
+		 #{coupon_num, jdbcType=VARCHAR},
+		 #{event_title},
+		 #{event_content},
+		 #{event_image1},
+		 #{event_image2, jdbcType=VARCHAR},
+		 sysdate,
+		 #{event_start},
+		 #{event_end})
+	</insert>
+
+	<!-- 지난날짜까지 모두 다 select -->
+	<select id="selectEventforA" resultType="EventDto">
+		select * from EVENT
 	</select>
 </mapper>        
