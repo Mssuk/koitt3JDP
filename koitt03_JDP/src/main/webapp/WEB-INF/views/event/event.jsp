@@ -45,7 +45,7 @@
 											<li>
 												<a href="event_view?event_num=${dtos.event_num }" title="${dtos.event_title }">
 												<div class="img">
-													<img src="../images/img/${dtos.event_image1 }" alt="진행중 이벤트" />
+													<img src="${dtos.event_image1 }" alt="진행중 이벤트" />
 												</div>
 												<div class="txt">
 													<div class="subject">${dtos.event_title }</div>

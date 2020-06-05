@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.koitt.tim.dto.event.EventCouponBean;
 import com.koitt.tim.dto.event.EventDto;
+import com.koitt.tim.dto.event.EventPreNextBean;
 import com.koitt.tim.dto.event.EventReplyBean;
 import com.koitt.tim.service.event.EventService;
 
@@ -26,16 +27,17 @@ public class EventController {
 		// 이벤트,쿠폰
 		EventCouponBean viewBean = eServ.selectEventView(event_num);
 		// 이전글,다음글
-		List<EventDto> preNext = eServ.selectEventPreNext(viewBean.getEventDto().getRnum());
+		EventPreNextBean preNext = eServ.selectEventPreNext(viewBean.getEventDto().getRnum());
 		// 댓글,멤버정보
 		List<EventReplyBean> re_dtos = eServ.selectEventReply(viewBean.getEventDto().getEvent_num());
-		model.addAttribute("event_view", viewBean.getEventDto());
-		if (viewBean.getCouponDto() != null) {
-			model.addAttribute("coupon", viewBean.getCouponDto());
-		}
+		// 댓글개수
+		int reCount = eServ.getReplyCount(event_num);
+		model.addAttribute("event_view", viewBean);
 		model.addAttribute("pn_list", preNext);
+		model.addAttribute("reply_count", reCount);
 		if (re_dtos.size() != 0) {
 			model.addAttribute("reply_list", re_dtos);
+			System.out.println(re_dtos.get(0).getName());
 		}
 		return "event/event_view";
 	}

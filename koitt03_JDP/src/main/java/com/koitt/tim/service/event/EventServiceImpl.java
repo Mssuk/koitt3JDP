@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.koitt.tim.dao.event.EventDao;
 import com.koitt.tim.dto.event.EventCouponBean;
 import com.koitt.tim.dto.event.EventDto;
+import com.koitt.tim.dto.event.EventPreNextBean;
 import com.koitt.tim.dto.event.EventReplyBean;
 
 @Service
@@ -80,9 +81,11 @@ public class EventServiceImpl implements EventService {
 
 	// 이전글,다음글
 	@Override
-	public List<EventDto> selectEventPreNext(int rnum) {
-		// TODO Auto-generated method stub
-		return edao.selectEventPreNext(rnum);
+	public EventPreNextBean selectEventPreNext(int rnum) {
+		EventPreNextBean preNextBean = new EventPreNextBean();
+		preNextBean.setEventPre(edao.selectEventPre(rnum));
+		preNextBean.setEventNext(edao.selectEventNext(rnum));
+		return preNextBean;
 	}
 
 	// 댓글불러오기
@@ -90,6 +93,12 @@ public class EventServiceImpl implements EventService {
 	public List<EventReplyBean> selectEventReply(String event_num) {
 		// TODO Auto-generated method stub
 		return edao.selectEventReply(event_num);
+	}
+	// 댓글개수
+
+	@Override
+	public int getReplyCount(String event_num) {
+		return edao.selectReplyCount(event_num);
 	}
 
 }

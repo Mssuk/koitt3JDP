@@ -34,7 +34,7 @@
 								</ul>
 							</div>
 							<div class="day">
-								<p class="txt">이벤트 기간<span> <fmt:formatDate value="${event_view.eventDto.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${event_view.event.event_end }" pattern="yyyy-MM-dd"/></span></p>
+								<p class="txt">이벤트 기간<span> <fmt:formatDate value="${event_view.eventDto.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${event_view.eventDto.event_end }" pattern="yyyy-MM-dd"/></span></p>
 							</div>
 						</div>
 
@@ -73,68 +73,30 @@
 							<col width="100px" />
 							</colgroup>
 							<tbody>
-								<c:choose>
-									<c:when test="${pn_list.size()==0 }">
-										<tr>
-											<th class="pre">PREV</th>
+								<tr>
+									<th class="pre">PREV</th>
+									<c:choose>
+										<c:when test="${pn_list.eventPre==null }">
 											<td>이전 글이 없습니다.</td>
-											<td>&nbsp;</td>
-										</tr>	
-										<tr>
-											<th class="next">NEXT</th>
-											<td>다음 글이 없습니다.</td>
-											<td>&nbsp;</td>
-										</tr>
-									</c:when>
-									<c:when test="${pn_list.size()==1 }">
+										</c:when>
+										<c:otherwise>
+											<td><a href="event_view?event_num=${pn_list.eventPre.event_num }">${pn_list.eventPre.event_title }</a></td>
+										</c:otherwise>
+									</c:choose>
+									<td>&nbsp;</td>
+									</tr>	
+									<tr>
+										<th class="next">NEXT</th>
 										<c:choose>
-											<c:when test="${pn_list.rnum<event_view.eventDto.rnum }">
-												<tr>
-													<th class="pre">PREV</th>
-													<td>이전 글이 없습니다.</td>
-													<td>&nbsp;</td>
-												</tr>	
-												<tr>
-													<th class="next">NEXT</th>
-													<td><a href="event_view?event_num=${pn_list.get(0).event_num }">${pn_list.get(0).event_title }</a></td>
-													<td>&nbsp;</td>
-												</tr>
-											</c:when>
-											<c:otherwise>
-												<tr>
-													<th class="pre">PREV</th>
-													<td><a href="event_view?event_num=${pn_list.get(0).event_num }">${pn_list.get(0).event_title }</a></td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<th class="next">NEXT</th>
-													<td>다음 글이 없습니다.</td>
-													<td>&nbsp;</td>
-												</tr>
-											</c:otherwise>
+										<c:when test="${pn_list.eventNext==null }">
+											<td>다음 글이 없습니다.</td>
+										</c:when>
+										<c:otherwise>
+											<td><a href="event_view?event_num=${pn_list.eventNext.event_num }">${pn_list.eventNext.event_title }</a></td>
+										</c:otherwise>
 										</c:choose>
-									</c:when>
-									<c:otherwise>
-										<c:if test="${pn_list.get(0).rnum>pn_list.get(1).rnum }">
-											<c:set var="pre" value="${pn_list.get(0) }"/>
-											<c:set var="next" value="${pn_list.get(1) }"/>
-										</c:if>
-										<c:if test="${pn_list.get(0).rnum<pn_list.get(1).rnum }">
-											<c:set var="next" value="${pn_list.get(0) }"/>
-											<c:set var="pre" value="${pn_list.get(1) }"/>
-										</c:if>
-										<tr>
-											<th class="pre">PREV</th>
-											<td><a href="event_view?event_num=${pre.event_num }">${pre.event_title }</a></td>
-											<td>&nbsp;</td>
-										</tr>	
-										<tr>
-											<th class="next">NEXT</th>
-											<td><a href="event_view?event_num=${next.event_num }">${next.event_title }</a></td>
-											<td>&nbsp;</td>
-										</tr>
-									</c:otherwise>
-								</c:choose>
+										<td>&nbsp;</td>
+									</tr>
 							</tbody>
 						</table>
 					</div>
@@ -159,124 +121,14 @@
 					<div class="replyBox">
 						<c:choose>
 						<%--댓글이 있는가?--%>
-							<c:when test="${replyList==null }">
+							<c:when test="${reply_list.size()==0 }">
 								<ul>
 									<li>등록된 댓글이 없습니다.</li>
 								</ul>
 							</c:when>
 							<c:otherwise>
-								<c:forEach var="re_dtos" items="replyList">
-									<%--로그인한아이디가 있는가?--%>
-									<c:set var="name"       value="${resultInfo.name}" />
-									<c:set var="totalLength" value="${fn:length(name) }" />
-									<c:set var="first"      value="${fn:substring(name, 0, 1) }" />
-									<c:set var="last"      value="${fn:substring(name, 2, totalLength) }" />
-									<c:choose>
-										<c:when test="${id==null}">
-											<c:choose>
-												<c:when test="${re_dtos.pw!=null }">
-													<%--비번이 있음 --%>
-													<ul class="${re_dtos.event_re_num }">
-														<li class="name">${re_dtos.id} <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-														<li class="txt">
-														<a href="password" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
-														</li>
-													</ul>	
-													<%--비번을 맞춤 --%>
-													<ul class="${re_dtos.event_re_num }">
-														<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-														<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
-													</ul>							
-												</c:when>
-												<c:otherwise>
-													<%--비번이없음 --%>
-													<ul>
-														<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-														<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
-													</ul>
-												</c:otherwise>
-											</c:choose>		
-										</c:when>
-										<c:when test="${id=='admin' }">
-											<%--관리자 --%>
-											<ul>
-												<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-												<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
-											</ul>
-										</c:when>
-										<c:when test="${id==re_dtos.id }">
-											<%--아이디가 같음 --%>
-											<c:choose>
-											<c:when test="${re_dtos.pw!=null }">
-												<%--비번이 있음 --%>
-												<ul class="repl_pw_view">
-													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-													<li class="txt">
-													<a href="password" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
-													</li>
-												</ul>	
-												<ul class="hide_reply">
-													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-													<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
-													<li class="btn">
-														<a href="#" class="rebtn">수정</a>
-														<a href="#" class="rebtn">삭제</a>
-													</li>
-												</ul>							
-											</c:when>
-											<c:otherwise>
-												<%--비번이없음 --%>
-												<form action="reply_modify" name="reply_modify" method="post" class="${re_dtos.event_re_num }">
-													<ul>
-														<li class="name">jjabcde <input type="text" value="id" name="id" hidden="">
-														<input type="text" value="id" name="event_re_num" hidden="">
-														<span>[2014-03-04&nbsp;&nbsp;15:01:59]</span>
-														</li>
-														<li class="txt"><textarea name="event_re_content" class="replyType">"대박!!! 이거 저한테 완전 필요한 이벤트였어요!!"</textarea></li>
-														<li class="btn">
-														<input type="submit" class="rebtn" value="수정" style="border:none;cursor: pointer;padding-top: 0px;">
-														<a href="deleteEvReply?event_re_num=${re_dtos.event_re_num }" class="rebtn">삭제</a>
-														</li>
-													</ul>	
-												</form>
-												<ul class="${re_dtos.event_re_num }">
-													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-													<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
-													<li class="btn">
-														<a href="re_modify_view(${re_dtos.event_re_num })" class="rebtn">수정</a>
-														<a href="deleteEvReply?event_re_num=${re_dtos.event_re_num }" class="rebtn">삭제</a>
-													</li>
-												</ul>
-											</c:otherwise>
-											</c:choose>				
-										</c:when>
-										<c:otherwise>
-										<%--아이디가 로그인한 아이디와 다름 --%>
-											<c:choose>
-											<c:when test="${re_dtos.pw!=null }">
-												<%--비번이 있음 --%>
-												<ul class="${re_dtos.event_re_num }">
-													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-													<li class="txt">
-													<a href="password" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
-													</li>
-												</ul>	
-												<%--비번을 맞춤 --%>
-												<ul class="${re_dtos.event_re_num }">
-													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-													<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
-												</ul>							
-											</c:when>
-											<c:otherwise>
-												<%--비번이없음 --%>
-												<ul>
-													<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-													<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
-												</ul>
-											</c:otherwise>
-											</c:choose>							
-										</c:otherwise>									
-									</c:choose>
+								<c:forEach var="re_dtos" items="reply_list">
+												
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
