@@ -7,45 +7,39 @@ import org.springframework.stereotype.Repository;
 
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
+import com.koitt.tim.dto.event.EventReplyBean;
 
 @Repository
 public interface EventDao {
 
-	// List<EventDto> selectEvent(int page, int limit, String search, String text,
-	// int startrow, int endrow);
+	// 글보기,쿠폰----------------------------------------------------------------
+	EventDto selectEventView(String event_num);
 
-	// 페이지 나눠서 글 갖고옴
-	List<EventDto> selectEvent(@Param("p1") int start, @Param("p2") int end);
+	CouponDto selectEventCoupon(String event_num);
 
-	EventDto event_view(String ev_num);
-
-	// 전체 개수 카운트(no search)
-	int selectListCount();
-
-	// 글보기----------------------------------------------------------------
-	EventDto selectEventView(String ev_num);
-
-	// 이전글
+	// 이전글,다음글
 	EventDto selectEventPre(@Param("rnum") int rnum);
 
-	// 다음글
 	EventDto selectEventNext(@Param("rnum") int rnum);
 
-	// 쿠폰
-	CouponDto selectCoupon(String coupon_num);
+	// 댓글,회원정보가져오기
+	List<EventReplyBean> selectEventReply(String event_num);
+
+	// 댓글 가져오기
+	int selectReplyCount(String event_num);
 
 	// 페이지 나눠서 글 갖고옴(search)-----------------------------------------------
-	List<EventDto> selectSearchEvent(@Param("p1") int start, @Param("p2") int end, @Param("p3") String search,
-			@Param("p4") String txt);
+	List<EventDto> selectSearchEvent(@Param("p1") int start, @Param("p2") int end, @Param("opt") String search,
+			@Param("key") String txt);
 
 	// 전체 개수 카운트(no search)
-	int selectSearchListCount(@Param("p1") String search, @Param("p2") String txt);
+	int selectSearchListCount(@Param("opt") String search, @Param("key") String txt);
 
-
-	//admin---------------------------------------------------------------------------------------
-	//이벤트 insert
+	// admin---------------------------------------------------------------------------------------
+	// 이벤트 insert
 	void insertEvent(EventDto eDto);
 
-	//모든 이벤트 가지고 오기
+	// 모든 이벤트 가지고 오기
 	List<EventDto> selectEventforA();
+
 }

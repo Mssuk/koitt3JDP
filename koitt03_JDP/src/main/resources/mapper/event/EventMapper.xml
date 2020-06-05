@@ -5,46 +5,36 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.koitt.tim.dao.event.EventDao">
+	<resultMap type="MemberDto" id="eventMemberMap"/>
+	<resultMap type="CouponDto" id="couponMap"/>
+	<resultMap type="EventDto" id="eventMap"/>
+	<resultMap type="EventReplyDto" id="replyMap"/>
+	<resultMap type="EventReplyBean" id="eventReplyBean"/>
 
- 	<!-- 이벤트글 리스트 no search-->
-    <select id="selectEvent" resultType="EventDto">
-        select *
-        from (select ROWNUM rnum, e.*
-              from (
-                       select *
-                       from event
-                       where to_char(event_end, 'yyyy-MM-dd') <![CDATA[ >= ]]> to_char(sysdate, 'yyyy-MM-dd')
-                       ORDER BY event_start desc) e)
-        where rnum <![CDATA[ >= ]]> #{p1}
-          and rnum <![CDATA[ <= ]]> #{p2}
-    </select>
-	<!-- 이벤트글 개수  no search-->
-    <select id="selectListCount" resultType="int">
-        select count(*)
-        from event
-        where
-        to_char(event_end, 'yyyy-MM-dd') <![CDATA[>= ]]> to_char(sysdate, 'yyyy-MM-dd')
-        ORDER BY event_start desc
-    </select>
 
     <!-- 이벤트글 리스트 search-->
-    <select id="selectSearchEvent" resultType="EventDto">
+    <select id="selectSearchEvent" resultMap="eventMap">
        select *from (select ROWNUM rnum, e.*from (select *from event where (to_char(event_end, 'yyyy-MM-dd') <![CDATA[>= ]]>to_char(sysdate, 'yyyy-MM-dd'))
           <choose>
-          	<when test="p3!=null and p3.equals('all')">
-          	 and (event_title like '%#{p4}%' or event_content like '%#{p4}%')
+
+          	<when test="opt!='' and opt.equals('all') and key!=''">
+          	 and (event_title like '%' || #{key} || '%' or event_content like '%' || #{key} || '%') 
+			</when>
+          	<when test="opt!=null and opt.equals('all')">
+          	 and (event_title like '%#{key}%' or event_content like '%#{key}%')
+
           	</when>
-          	<when test="p3!=null and p3.equals('tit')">
-          	 and event_title like '%#{p4}%'
+          	<when test="opt!='' and opt.equals('tit') and key!=''">
+          	 and event_title like '%' || #{key} || '%'
           	</when>
-          	<when test="p3!=null and p3.equals('con')">
-          	 and event_content like '%#{p4}%'
+          	<when test="opt!='' and opt.equals('con') and key!=''">
+          	 and event_content like '%' || #{key} || '%'
           	</when>
           	<otherwise>
 
           	</otherwise>
           </choose>
-            ORDER BY event_start desc) e)
+            ORDER BY event_start desc,event_regist desc) e)
       	  where rnum <![CDATA[ >= ]]> #{p1}
           and rnum <![CDATA[ <= ]]> #{p2}
     </select>
@@ -52,45 +42,67 @@
     <select id="selectSearchListCount" resultType="int">
         select count(*)
         from event
-        where <![CDATA[
-        to_char(event_end, 'yyyy-MM-dd') >= to_char(sysdate, 'yyyy-MM-dd')
-        ORDER BY event_start desc
-        ]]>
+        where 
+        to_char(event_end, 'yyyy-MM-dd')<![CDATA[ >= ]]> to_char(sysdate, 'yyyy-MM-dd')
+    	<choose>
+          	<when test="opt!='' and opt.equals('all') and key!=''">
+          	and (event_title like '%' || #{key} || '%' or event_content like '%' || #{key} ||'%') 
+          	</when>
+          	<when test="opt!='' and opt.equals('tit') and key!=''">
+          	 and event_title like '%' || #{key} || '%'
+          	</when>
+          	<when test="opt!='' and opt.equals('con') and key!=''">
+          	 and event_content like '%' || #{key} || '%'
+          	</when>
+          	<otherwise>
+          	 
+          	</otherwise>
+        </choose>
     </select>
 
     <!-- 글보기>현재글 -->
-	<select id="selectEventView" resultType="EventDto">
+	<select id="selectEventView" resultMap="eventMap">
 		select * from ( select ROWNUM rnum, e.* from(
 		select *
 		from event
 		where to_char(event_end,'yyyy-MM-dd') <![CDATA[ >= ]]> to_char(sysdate,'yyyy-MM-dd')
-		ORDER BY event_start desc) e)
+		ORDER BY event_start desc,event_regist desc) e)
 		where event_num=#{param1}
 	</select>
-	<!-- 글보기>이전글 -->
-	<select id="selectEventPre" resultType="EventDto">
-		select * from ( select ROWNUM rnum, e.* from(
-		select *
-		from event
-		where to_char(event_end,'yyyy-MM-dd') <![CDATA[ >= ]]> to_char(sysdate,'yyyy-MM-dd')
-		ORDER BY event_start desc) e)
-		where rnum=(#{rnum}-1)
+	<!-- 글보기 쿠폰 -->
+	<select id="selectEventCoupon" resultMap="couponMap">
+		select c.* from event e,coupon c where e.event_num=#{param} and e.coupon_num=c.coupon_num
 	</select>
-	<!-- 글보기>다음글 -->
-	<select id="selectEventNext" resultType="EventDto">
+	
+	
+	<!-- 글보기>이전글 -->
+	<select id="selectEventPre" resultMap="eventMap">
 		select * from ( select ROWNUM rnum, e.* from(
 		select *
 		from event
 		where to_char(event_end,'yyyy-MM-dd') <![CDATA[ >= ]]> to_char(sysdate,'yyyy-MM-dd')
-		ORDER BY event_start desc) e)
+		ORDER BY event_start desc,event_regist desc) e)
 		where rnum=(#{rnum}+1)
 	</select>
-	<!-- 글보기>쿠폰있으면 가져오기 -->
-	<select id="selectCoupon" resultType="CouponDto">
-		select * from coupon where coupon_num=#{param}
+	<!-- 다음글 -->
+	<select id="selectEventNext" resultMap="eventMap">
+		select * from ( select ROWNUM rnum, e.* from(
+		select *
+		from event
+		where to_char(event_end,'yyyy-MM-dd') <![CDATA[ >= ]]> to_char(sysdate,'yyyy-MM-dd')
+		ORDER BY event_start desc,event_regist desc) e)
+		where rnum=(#{rnum}-1)
 	</select>
-
-
+	
+	
+	<!-- 글보기>댓글,멤버가져오기 -->
+	<select id="selectEventReply" resultMap="eventReplyBean">
+		select re.*,mem.name from EVENT_REPLY re,member mem where event_num=#{param1} and re.id=mem.id order by re.event_re_regist desc
+	</select>
+	<!-- 댓글개수 -->
+	<select id="selectReplyCount" resultType="int">
+		select count(*) from EVENT_REPLY where event_num=#{param1}
+	</select>
 	<!-- event insert-->
 	<insert id="insertEvent" parameterType="EventDto">
 		insert into EVENT values

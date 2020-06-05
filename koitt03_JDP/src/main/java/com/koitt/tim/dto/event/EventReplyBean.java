@@ -1,6 +1,7 @@
 package com.koitt.tim.dto.event;
 
-public class EventReplyDto {
+public class EventReplyBean {
+	private String name;// 이름
 	private String event_re_num;// 글번호
 	private String id;// 회원id
 	private String event_num;// 이벤트번호
@@ -8,6 +9,14 @@ public class EventReplyDto {
 	private String event_re_content;// 글내용
 	private String event_re_regist;// 작성일
 	private String event_re_modify;// 수정일
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getEvent_re_num() {
 		return event_re_num;
@@ -64,5 +73,4 @@ public class EventReplyDto {
 	public void setEvent_re_modify(String event_re_modify) {
 		this.event_re_modify = event_re_modify;
 	}
-
 }
