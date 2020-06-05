@@ -13,7 +13,17 @@
     <title>Title</title>
     <script type="text/javascript">
         function setParent(){
-            opener.document.getElementById("pInput").value = document.getElementById("choiceCoupon").value;
+            console.log('hi');
+            // var list = [];
+            // var coupons = document.getElementsByName("chBox");
+            // coupons.forEach( (x) => {
+            //     if(x.checked === true){
+            //         list.push(x);
+            //     }
+            // })
+            // console.log(list);
+
+            //opener.document.getElementById("pInput").value = document.getElementById("choiceCoupon").value;
 
         }
 
@@ -37,7 +47,8 @@
             <td>${cList.coupon_num}</td>
             <td>${cList.coupon_name}</td>
             <td>${cList.coupon_pay}</td>
-            <td><input type="checkbox" id="choiceCoupon"></td>
+            <td><input type="checkbox" name="chBox" id="choiceCoupon" value="${cList.coupon_pay}"></td>
+
         </tr>
         </c:forEach>
     </table>

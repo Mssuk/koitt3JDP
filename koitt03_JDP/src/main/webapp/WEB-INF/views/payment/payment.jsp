@@ -289,7 +289,7 @@
                             <td>
                                 <ul class="pta">
                                     <li class="r10">
-                                        <input type="text" class="w134"/>&nbsp;&nbsp;
+                                        <input type="text" class="w134" id="pInput"/>&nbsp;&nbsp;
                                         <span class="valign"><strong>원</strong></span>
                                     </li>
                                     <li class="r10"><span class="valign">( 보유 쿠폰 내역 : ${couponCount} 장 )&nbsp;</span></li>
