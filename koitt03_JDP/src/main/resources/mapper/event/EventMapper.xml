@@ -109,7 +109,7 @@
 		(concat('ev',lpad(ev_seq.nextval,3,0)),
 		 #{coupon_num, jdbcType=VARCHAR},
 		 #{event_title},
-		 #{event_content},
+		 #{event_content, jdbcType=VARCHAR},
 		 #{event_image1},
 		 #{event_image2, jdbcType=VARCHAR},
 		 sysdate,

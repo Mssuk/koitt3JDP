@@ -1,5 +1,4 @@
-<%@ page import="java.util.List" %>
-<%@ page import="com.koitt.tim.dto.member.MemberCouponDto" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: user
   Date: 2020-06-01
