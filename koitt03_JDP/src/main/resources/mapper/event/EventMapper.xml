@@ -119,6 +119,6 @@
 
 	<!-- 지난날짜까지 모두 다 select -->
 	<select id="selectEventforA" resultType="EventDto">
-		select * from EVENT
+		select * from EVENT order by event_num desc
 	</select>
 </mapper>        

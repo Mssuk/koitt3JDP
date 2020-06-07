@@ -3,6 +3,7 @@ package com.koitt.tim.service.admin;
 import java.util.List;
 
 import com.koitt.tim.dto.admin.MallDto;
+import com.koitt.tim.dto.board.NoticeDto;
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
@@ -22,4 +23,7 @@ public interface AdminService {
 
 	// insert Event
 	void insertEvent(EventDto eDto);
+
+	// All Notice posts
+	List<NoticeDto> getAllNotices();
 }

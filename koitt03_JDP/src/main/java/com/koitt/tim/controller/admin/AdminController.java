@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.koitt.tim.dto.board.NoticeDto;
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
@@ -79,5 +80,17 @@ public class AdminController {
 		adminService.insertEvent(eDto);
 
 		return ResponseEntity.ok().build();
+	}
+
+	// notice 가져옴
+	@GetMapping("nlist")
+	public List<NoticeDto> nlist() {
+		return adminService.getAllNotices();
+	}
+
+	// notice 저장
+	@PostMapping("nlist")
+	public String nlist(NoticeDto nDto) {
+		return "ok";
 	}
 }
