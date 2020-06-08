@@ -121,21 +121,21 @@
 					<div class="replyBox">
 						<c:choose>
 						<%--댓글이 있는가?--%>
-							<c:when test="${reply_list.size()==0 }">
+							<c:when test="${reply_list==null }">
 								<ul>
 									<li>등록된 댓글이 없습니다.</li>
 								</ul>
 							</c:when>
 							<c:otherwise>
 									<c:forEach var="re_dtos" items="${reply_list }">
-									<form action="modify" method="post" name="${re_dtos. }">
+									<form action="modify" method="post" name="modify_re">
 									<ul>
-										<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-										<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
-										<c:if test="${re_dtos }">
+										<li class="name">${re_dtos.member.name } <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
+										<li class="txt">${re_dtos.reply.event_title }</li>
+										<c:if test="${re_dtos.reply.id==id }">
 											<li class="btn">
-												<input type="button" onclick="re_modify_view(${re_dtos.event_re_num })" class="rebtn" value="수정">
-												<a href="deleteEvReply?event_re_num=${re_dtos.event_re_num }" class="rebtn">삭제</a>
+												<input type="button" onclick="re_modify_view(${re_dtos.reply.event_re_num })" class="rebtn" value="수정">
+												<a href="deleteEvReply?event_re_num=${re_dtos.reply.event_re_num }" class="rebtn">삭제</a>
 											</li>
 										</c:if>
 									</ul>	

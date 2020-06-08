@@ -10,7 +10,8 @@
 	<resultMap type="EventDto" id="eventMap"/>
 	<resultMap type="EventReplyDto" id="replyMap"/>
 	<resultMap type="EventReplyBean" id="eventReplyBean">
-		<collection property=""></collection>
+		<collection property="reply" resultMap="replyMap"/>
+		<collection property="member" resultMap="eventMemberMap"/>
 	</resultMap>
 
 
@@ -23,7 +24,7 @@
           	 and (event_title like '%' || #{key} || '%' or event_content like '%' || #{key} || '%') 
 			</when>
           	<when test="opt!=null and opt.equals('all')">
-          	 and (event_title like '%#{key}%' or event_content like '%#{key}%')
+          	 and (event_title like '%'|| #{key}|| '%' or event_content like '%'|| #{key}|| '%')
 
           	</when>
           	<when test="opt!='' and opt.equals('tit') and key!=''">

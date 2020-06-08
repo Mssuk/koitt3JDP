@@ -40,8 +40,8 @@
 								</c:when>
 								<c:otherwise>
 									<!-- 반복 -->
-									<c:forEach var="dtos" items="${list }">
 										<ul>
+									<c:forEach var="dtos" items="${list }">
 											<li>
 												<a href="event_view?event_num=${dtos.event_num }" title="${dtos.event_title }">
 												<div class="img">
@@ -53,8 +53,8 @@
 												</div>
 												</a>
 											</li>
-										</ul>
 									</c:forEach>
+										</ul>
 								</c:otherwise>
 							</c:choose>
 					
