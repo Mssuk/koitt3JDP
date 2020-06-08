@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -19,15 +20,15 @@ public class ProductController {
     ProductService pServ;
 
     @RequestMapping("list")
-    public String productList(Model model){
+    public String productList(HttpSession session, Model model){
         List<ProductDto> list=pServ.getProductList();
-
+        session.setAttribute("admin","abcd1234");
         model.addAttribute("dtos",list);
         return "product/list";
     }
 
     @RequestMapping("detail")
-    public String productDetail(String pro_num,Model model){
+    public String productDetail(String pro_num, Model model){
         ProductDto pDto = pServ.getProductChoice(pro_num);
         model.addAttribute("dto",pDto);
         return "product/detail";

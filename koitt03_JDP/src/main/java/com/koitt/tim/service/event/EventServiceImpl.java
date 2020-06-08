@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.koitt.tim.dao.event.EventDao;
+import com.koitt.tim.dto.event.EventCouponBean;
 import com.koitt.tim.dto.event.EventDto;
+import com.koitt.tim.dto.event.EventPreNextBean;
+import com.koitt.tim.dto.event.EventReplyBean;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -15,35 +18,39 @@ public class EventServiceImpl implements EventService {
 	@Autowired
 	EventDao edao;
 
-	private static final int ROW_LIMIT = 5; // 밑에 (1,2,3,4,5) 이거 몇개씩 보여줄건지
 	private static final int PAGE_LIMIT = 10; // 한페이지에 글 몇개 보여줄건지
 
-	// 이벤트뷰
+	// 마지막 페이지 계산
 	@Override
-	public EventDto event_view(String event_num) {
-
-		return edao.event_view(event_num);
+	public int getLastNum(double cnt) {
+		return (int) (Math.ceil(cnt / PAGE_LIMIT));
 	}
 
+	// -------------------------------검색구현
+	// 이벤트 목록(search)
 	@Override
-	public List<EventDto> selectEvent(int pageNum) {
-
+	public List<EventDto> selectEvent(int pageNum, String search, String text) {
 		// 시작 글넘버
 		int startNum = (pageNum - 1) * PAGE_LIMIT + 1;
 		int endNum = startNum + PAGE_LIMIT - 1;
 
 		// 끝 글넘버
-		return edao.selectEvent(startNum, endNum);
+		return edao.selectSearchEvent(startNum, endNum, search, text);
 	}
 
-	// 페이지리스트
+	// 검색용 카운트
 	@Override
-	public List<Integer> getPageList(int pageNum) {
+	public int getListCount(String search, String text) {
+		return edao.selectSearchListCount(search, text);
+	}
 
+	// 페이지리스트(search)
+	@Override
+	public List<Integer> getPageList(int pageNum, String search, String text) {
 		List<Integer> pageList = new ArrayList<>();
 
 		// 총 게시굴 갯수
-		double totalCnt = this.getListCount();
+		double totalCnt = this.getListCount(search, text);
 		// 총 게시글로 마지막페이지 계산
 		int lastPageNum = getLastNum(totalCnt);
 
@@ -52,7 +59,10 @@ public class EventServiceImpl implements EventService {
 
 		// 시작페이지 번호 설정 (현재 페이지를 기준으로)
 		int realStartNum = (pageNum > 1) ? pageNum - 1 : 1;
-
+		if (realLastNum <= 0)
+			realLastNum = 1;
+		if (realStartNum <= 0)
+			realStartNum = 1;
 		// 페이지 번호 할당
 		for (int i = realStartNum; i <= realLastNum; i++) {
 			pageList.add(i);
@@ -60,29 +70,35 @@ public class EventServiceImpl implements EventService {
 		return pageList;
 	}
 
-	// 총 게시글 갯수
+	// 이벤트 뷰,쿠폰-------------------------------------
 	@Override
-	public int getListCount() {
-		return edao.selectListCount();
+	public EventCouponBean selectEventView(String event_num) {
+		EventCouponBean couponBean = new EventCouponBean();
+		couponBean.setEventDto(edao.selectEventView(event_num));
+		couponBean.setCouponDto(edao.selectEventCoupon(event_num));
+		return couponBean;
 	}
 
-	// 마지막 페이지 계산
+	// 이전글,다음글
 	@Override
-	public int getLastNum(double cnt) {
-		return (int) (Math.ceil(cnt / PAGE_LIMIT));
+	public EventPreNextBean selectEventPreNext(int rnum) {
+		EventPreNextBean preNextBean = new EventPreNextBean();
+		preNextBean.setEventPre(edao.selectEventPre(rnum));
+		preNextBean.setEventNext(edao.selectEventNext(rnum));
+		return preNextBean;
 	}
 
+	// 댓글불러오기
 	@Override
-	public int getlistCount(String search, String text) {
-
-		// return edao.getlistCount(search, text);
-		return 0;
-	}
-
-	@Override
-	public List<EventDto> selectFinEvent() {
+	public List<EventReplyBean> selectEventReply(String event_num) {
 		// TODO Auto-generated method stub
-		return edao.selectFinEvent();
+		return edao.selectEventReply(event_num);
+	}
+	// 댓글개수
+
+	@Override
+	public int getReplyCount(String event_num) {
+		return edao.selectReplyCount(event_num);
 	}
 
 }

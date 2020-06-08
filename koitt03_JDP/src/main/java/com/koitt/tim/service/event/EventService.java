@@ -2,30 +2,33 @@ package com.koitt.tim.service.event;
 
 import java.util.List;
 
+import com.koitt.tim.dto.event.EventCouponBean;
 import com.koitt.tim.dto.event.EventDto;
+import com.koitt.tim.dto.event.EventPreNextBean;
+import com.koitt.tim.dto.event.EventReplyBean;
 
 public interface EventService {
 
-	List<EventDto> selectFinEvent();
+	// 글보기,쿠폰
+	EventCouponBean selectEventView(String event_num);
 
-	// List<EventDto> selectEvent(Model model);
+	// 이전글,다음글
+	EventPreNextBean selectEventPreNext(int rnum);
 
-	EventDto event_view(String event_num);
-	//List<EventDto> selectEvent(Model model);
-	
-	//글 목록보기(no search)
-	List<EventDto> selectEvent(int pageNum);
+	// 댓글가져오기
+	List<EventReplyBean> selectEventReply(String event_num);
 
-	//밑에 나타나는 페이지 넘버링
-	List<Integer> getPageList(int pageNum);
+	// 댓글개수
+	int getReplyCount(String event_num);
 
-	//마지막페이지 번호를 알려줌
+	// 글목록보기(search)-----------------------------------
+	List<EventDto> selectEvent(int pageNum, String search, String text);
+
+	List<Integer> getPageList(int pageNum, String search, String text);
+
+	// 전체글 리스트 카운트(search)
+	int getListCount(String search, String text);
+
+	// 마지막페이지 번호를 알려줌
 	int getLastNum(double cnt);
-
-	//전체글 리스트 카운트(no search)
-	int getListCount();
-
-	//전체글 리스트 카운트(search)
-	int getlistCount(String search, String text);
-
 }

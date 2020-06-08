@@ -9,7 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.koitt.tim.dto.event.EventCouponBean;
 import com.koitt.tim.dto.event.EventDto;
+import com.koitt.tim.dto.event.EventPreNextBean;
+import com.koitt.tim.dto.event.EventReplyBean;
 import com.koitt.tim.service.event.EventService;
 
 @Controller
@@ -19,41 +22,54 @@ public class EventController {
 	@Autowired
 	EventService eServ;
 
-	// normal
+	@RequestMapping("event_view")
+	public String event_view(Model model, @RequestParam("event_num") String event_num) {
+		// 이벤트,쿠폰
+		EventCouponBean viewBean = eServ.selectEventView(event_num);
+		// 이전글,다음글
+		EventPreNextBean preNext = eServ.selectEventPreNext(viewBean.getEventDto().getRnum());
+		// 댓글,멤버정보
+		List<EventReplyBean> re_dtos = eServ.selectEventReply(viewBean.getEventDto().getEvent_num());
+		// 댓글개수
+		int reCount = eServ.getReplyCount(event_num);
+		model.addAttribute("event_view", viewBean);
+		model.addAttribute("pn_list", preNext);
+		model.addAttribute("reply_count", reCount);
+		if (re_dtos.size() != 0) {
+			model.addAttribute("reply_list", re_dtos);
+			System.out.println(re_dtos.get(0).getName());
+		}
+		return "event/event_view";
+	}
+
+	// search
 	@RequestMapping("event")
-	public String eventList(Model model, @RequestParam(value = "page", defaultValue = "1") int pageNum) {
-
+	public String event(Model model, @RequestParam(value = "page", defaultValue = "1") int pageNum,
+			@RequestParam(value = "search", defaultValue = "") String search,
+			@RequestParam(value = "text", defaultValue = "") String text) {
 		// 정해진 범위의 페이지를 불러옵니다
-		List<EventDto> dtos = eServ.selectEvent(pageNum);
-
+		List<EventDto> dtos = eServ.selectEvent(pageNum, search, text);
 		// 하단에 1,2,3,4,5 범위를 불러옵니다.
-
-		// 하단에 1,2,3,4,5 범위를 불러옵니다.
-		List<Integer> pageNumbering = eServ.getPageList(pageNum);
+		List<Integer> pageNumbering = eServ.getPageList(pageNum, search, text);
 		// 마지막 페이지 번호
-		int maxPage = eServ.getLastNum(eServ.getListCount());
-
-		model.addAttribute("list", dtos);
+		int maxPage = eServ.getLastNum(eServ.getListCount(search, text));
+		if (dtos.size() != 0) {
+			model.addAttribute("list", dtos);
+		}
 		model.addAttribute("pageNumbering", pageNumbering);
-
 		// 마지막페이지 번호입니다.
 		model.addAttribute("maxPage", maxPage);
 		// 현재 페이지를 알려줍니다
 		model.addAttribute("pageNum", pageNum);
+		if (dtos != null && text != "") {
+			// 검색여부
+			model.addAttribute("searchflag", "yes");
+			// 검색옵션
+			model.addAttribute("text", text);
+			// 검색어
+			model.addAttribute("search", search);
+		}
 		return "event/event";
 	}
 
-	@RequestMapping("fin_event")
-	public String eventFinList(Model model) {
-		List<EventDto> dtos = eServ.selectFinEvent();
-		model.addAttribute("list", dtos);
-		return "event/fin_event";
-	}
-
-	@RequestMapping("event_view")
-	public String event_view(Model model, @RequestParam("event_num") String event_num) {
-		EventDto dto = eServ.event_view(event_num);
-		model.addAttribute("dto", dto);
-		return "event/event_view";
-	}
 }
