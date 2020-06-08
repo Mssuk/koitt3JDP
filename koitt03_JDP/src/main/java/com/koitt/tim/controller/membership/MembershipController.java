@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.service.membership.MembershipService;
 
 @Controller
@@ -56,6 +55,7 @@ public class MembershipController {
 		return "redirect:/main";
 	}
 
+	// 구현 예정
 	@RequestMapping("idsearch")
 	public String idsearch() {
 
@@ -84,7 +84,6 @@ public class MembershipController {
 	public String signUp(Model model) {
 
 		return "";
-
 	}
 
 }
