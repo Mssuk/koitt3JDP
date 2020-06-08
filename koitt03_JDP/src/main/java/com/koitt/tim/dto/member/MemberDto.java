@@ -8,7 +8,8 @@ public class MemberDto {
 	private String id;
 	private String name;
 	private String pw;
-	private String email;
+	private String email1;
+	private String email2;
 	private String email_check;
 	private String address1;
 	private String address2;
@@ -46,12 +47,12 @@ public class MemberDto {
 		this.pw = pw;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getEmail1() {
+		return email1;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmail1(String email1) {
+		this.email1 = email1;
 	}
 
 	public String getEmail_check() {
@@ -148,6 +149,14 @@ public class MemberDto {
 
 	public void setDelete_date(Timestamp delete_date) {
 		this.delete_date = delete_date;
+	}
+
+	public String getEmail2() {
+		return email2;
+	}
+
+	public void setEmail2(String email2) {
+		this.email2 = email2;
 	}
 
 }

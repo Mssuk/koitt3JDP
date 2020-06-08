@@ -2,13 +2,16 @@ package com.koitt.tim.controller.membership;
 
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.service.membership.MembershipService;
@@ -21,15 +24,9 @@ public class MembershipController {
 	MembershipService membershipService;
 
 	@RequestMapping("login")
-	public String login(MemberDto mDto, Model model) {
+	public String login() {
 
 		return "membership/login";
-	}
-
-	@RequestMapping("logout")
-	public String logout(HttpSession session){
-		session.invalidate();
-		return "redirect:/main";
 	}
 
 	@RequestMapping("loginCheck")
@@ -39,12 +36,18 @@ public class MembershipController {
 		String id = obj.get("id");
 		String pw = obj.get("pw");
 
-		System.out.println(id + "," + pw);
+		// System.out.println(id + "," + pw);
 
 		int result = membershipService.loginCheck(id, pw);
 
 		return result;
 //		return "membership/id_check";
+	}
+
+	@RequestMapping("logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/main";
 	}
 
 	@RequestMapping(value = "loginOk", method = RequestMethod.POST)
@@ -66,25 +69,22 @@ public class MembershipController {
 	}
 
 	@RequestMapping("join2")
-	public String join2(){
+	public String join2() {
 
 		return "membership/join2";
 	}
 
-	@RequestMapping(value="join3", method = RequestMethod.GET)
-	public String join3(){
+	@RequestMapping("join3")
+	public String join3() {
 
 		return "membership/join3";
 	}
 
-	@RequestMapping("joinCheck")
-	public String joinCheck(){
+	@RequestMapping(value = "signUp", method = RequestMethod.POST)
+	public String signUp(Model model) {
 
-		return "redirect:join4";
+		return "";
 
 	}
 
 }
-
-
-

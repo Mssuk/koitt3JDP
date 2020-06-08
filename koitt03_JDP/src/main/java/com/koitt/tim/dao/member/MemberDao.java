@@ -16,4 +16,7 @@ public interface MemberDao {
 	// 멤버 한 명 가져옴
 	MemberDto selectOneMember(String id);
 
+	// 멤버 등록
+	public void insertMember(MemberDto dto);
+
 }

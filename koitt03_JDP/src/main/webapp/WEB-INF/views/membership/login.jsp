@@ -18,7 +18,7 @@
 
 		var jsonData = JSON.stringify(Obj);
 
-		console.log(jsonData);
+// 		console.log(jsonData);
 
 		$.ajax({
 			url:`loginCheck`,
@@ -28,7 +28,7 @@
 			dataType:'json',
 			success: function (data) {
 				if(data == 0){
-					$login_ch.text('아이디가 없습니다.');
+					$login_ch.text('아이디를 확인해주세요');
 				}else if(data == 1){
 					form.submit();
 				}else if(data == 2){

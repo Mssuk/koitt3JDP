@@ -1,10 +1,12 @@
 package com.koitt.tim.service.membership;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.koitt.tim.dao.member.MemberDao;
 import com.koitt.tim.dto.member.MemberDto;
+import org.springframework.ui.Model;
 
 @Service
 public class MembershipServiceImpl implements MembershipService {
@@ -31,5 +33,12 @@ public class MembershipServiceImpl implements MembershipService {
 		}
 		return result;
 	}
+
+	@Override
+	public String signUp(Model model) {
+
+		return null;
+	}
+
 
 }

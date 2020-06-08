@@ -7,8 +7,8 @@
 
 	<div id="location">
 		<ol>
-			<li><a href="#">HOME</a></li>
-			<li><a href="#">MEMBERSHIP</a></li>
+			<li><a href="/main">HOME</a></li>
+			<li><a href="location:void(0)">MEMBERSHIP</a></li>
 			<li class="last">회원가입</li>
 		</ol>
 	</div>

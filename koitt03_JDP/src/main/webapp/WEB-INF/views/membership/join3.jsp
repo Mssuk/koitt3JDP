@@ -7,30 +7,59 @@
     function id_ch() {
         var ch_id = /^[a-zA-Z0-9][_]{4,16}$/;
         // 4~16자 까지 가능, 영문, 숫자와 특수기호(_)만 사용 가능
-        var va = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()\-_=+\\\|\[\]{};:\'",.<>\/?]).{8,20}$/;
-        // ^(?=.*[a-z] [.]=1개씩비교  [*]=모든문자에서  a-z있는지 확인.
-
+        
         if (join.id.value == "") {
             alert('아이디를 입력해주세요');
             join.id.focus();
             return false;
         }
 
-        if (!(join.id.value.length >= 4 && join.j_id.value.length <= 16)) {
-            alert("4~16자리로 입력해주세요");
-            join.j_id.value = "";
-            join.j_id.focus();
+        else if (!(join.id.value.length >= 4 && join.id.value.length <= 16)) {
+            alert('4~16자리로 입력해주세요');
+            join.id.value = "";
+            join.id.focus();
             return false;
         }
 
+        else if(join.id.value == "abcd1234"){
+            alert('아이디가 존재합니다.')
+            join.id.value="";
+            join.id.focus();
+            return false;
+        }
+        
+        else{
+			alert('사용가능한 ID입니다.')
+            }
+    }
 
+    //var va = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()\-_=+\\\|\[\]{};:\,.<>\/?]).{8,20}$/;
+    // ^(?=.*[a-z] [.]=1개씩비교  [*]=모든문자에서  a-z있는지 확인.
+    function page_ch(){
+        if(join.name.value == "") {
+            alert('이름을 입력하세요');
+            return false;
+    	}
+        if(join.pw.value == ""){
+            alert('비밀번호를 입력하세요');
+            return fasle;
+        }
+        if(join.pw2.value == ""){
+			alert('비밀번호 확인란을 입력하세요');
+			return false;
+            }
+        if(join.email_check.value==""){
+            alert('이메일 수신 여부를 입력하세요')
+            return false;
+        }
+    }
 </script>
 <div id="container">
 
     <div id="location">
         <ol>
-            <li><a href="#">HOME</a></li>
-            <li><a href="#">MEMBERSHIP</a></li>
+            <li><a href="/main">HOME</a></li>
+            <li><a href="location:void(0)">MEMBERSHIP</a></li>
             <li class="last">회원가입</li>
         </ol>
     </div>
@@ -55,6 +84,7 @@
 
 
         <!-- contents -->
+        <form action="signUp" name="signUp" id=""></form>
         <div id="contents">
             <div id="member">
                 <h2>
@@ -81,7 +111,7 @@
                             <span>회원정보</span> <span>입력</span>
                         </p>
                         <p class="ck">
-                            <img src="../images/bg/bg_step.png" alt="현재위치"/>
+                            <img src="/images/bg/bg_step.png" alt="현재위치"/>
                         </p>
                     </div>
 
@@ -102,7 +132,7 @@
                 </div>
 
                 <!-- 입력 시작 --->
-                <form action="" method="post" name="join">
+                <form action="signUp" method="post" name="join">
                     <div class="memberbd">
                         <table
                                 summary="이름, 아이디, 비밀번호, 비밀번호 확인, 이메일, 이메일수신여부, 주소, 휴대폰, 유선전화, 생년월일 순으로 회원가입 정보를 등록할수 있습니다."
@@ -144,7 +174,7 @@
                                 <th scope="row"><span>비밀번호 확인 *</span></th>
                                 <td>
                                     <ul class="pta">
-                                        <li class="r10"><input type="password" class="w134" name="pw2" ie="pw2"/></li>
+                                        <li class="r10"><input type="password" class="w134" name="pw2" id="pw2"/></li>
                                         <li><span class="mvalign orange" id="alert-danger">* 비밀번호가 일치하지 않습니다.</span>
                                         </li>
                                         <li><span class="mvalign black" id="alert-success">* 비밀번호가 일치합니다.</span></li>
@@ -168,8 +198,6 @@
                                                     }
                                                 });
                                             });
-
-                                            출처: https://hongku.tistory.com/249 [IT에 취.하.개.]
                                         </script>
                                     </ul>
                                 </td>
@@ -178,9 +206,9 @@
                                 <th scope="row"><span>이메일</span></th>
                                 <td>
                                     <ul class="pta">
-                                        <li><input type="text" class="w134"/></li>
+                                        <li><input type="text" class="w134" name="email1"/></li>
                                         <li><span class="valign">&nbsp;@&nbsp;</span></li>
-                                        <li class="r10"><input type="text" class="w134"/></li>
+                                        <li class="r10"><input type="text" class="w134" name="email2"/></li>
                                         <li><select id="emailList">
                                             <option value="#" selected="selected">직접입력</option>
                                             <option value="naver.com">naver.com</option>
@@ -199,6 +227,13 @@
                                             <option value="gmail.com">gmail.com</option>
                                             <option value="empas.com">empas.com</option>
                                         </select>&nbsp;&nbsp;&nbsp;
+                                        <!-- selct 선택하면 email창에 자동으로 입력되는 함수 
+                                        <script>
+                                        	$(function (){
+                                            	
+                                            	}) 
+                                        </script>
+                                         -->
                                         </li>
                                     </ul>
                                 </td>
@@ -223,8 +258,7 @@
                                 <td>
                                     <ul class="pta">
                                         <li><input type="text" class="w134"/>&nbsp;</li>
-                                        <li><a href="zip.html" class="addressBtn"><span>우편번호
-													찾기</span></a></li>
+                                        <li><a href="zip.html" class="addressBtn"><span>우편번호 찾기</span></a></li>
                                         <li class="pt5"><input type="text" class="addressType"/></li>
                                         <li class="cb"><span class="mvalign">※ 상품 배송 시 받으실
 												주소입니다. 주소를 정확히 적어 주세요.</span></li>
@@ -390,8 +424,8 @@
                             <div class="bCenter">
                                 <ul>
                                     <li><a href="#" class="nbtnbig">취소하기</a></li>
-                                    <li><a href="joinCheck" role="submit" class="sbtnMini">가입하기</a></li>
-                                </ul>
+                                    <li><button role="button" onclick="page_ch()">가입하기</button></li>
+                                    <!--<li><a href="" role="submit" class="sbtnMini">가입하기</a></li>-->                                </ul>
                             </div>
                         </div>
                         <!-- //Btn Area -->
@@ -401,8 +435,7 @@
 
             <script type="text/javascript"
                     src="../js/jquery.fancybox-1.3.4.pack.js"></script>
-            <link rel="stylesheet" type="text/css"
-                  href="../css/jquery.fancybox-1.3.4.css"/>
+            <link rel="stylesheet" type="text/css" href="/css/jquery.fancybox-1.3.4.css"/>
             <script type="text/javascript">
                 $(function () {
 

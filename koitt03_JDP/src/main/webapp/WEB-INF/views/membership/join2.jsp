@@ -8,18 +8,16 @@
         var chkbox = document.getElementsByName('agree');
 
         var chk = false;
-        for (var i = 0; i < chkbox.length; i++) {
-            if (chkbox[i].checked) {
+            if (chkbox[0].checked && chkbox[1].checked && chkbox[2].checked) {
                 chk = true;
             } else {
                 chk = false;
             }
-        }
-        if (chk) {
+
+        if (chk)
             form.submit();
-        } else {
-            alert("모든 약관에 동의해 주세요.")
-        }
+        else
+            alert('모든 약관에 동의해 주세요.');
     }
 
 </script>
@@ -28,8 +26,8 @@
 
     <div id="location">
         <ol>
-            <li><a href="#">HOME</a></li>
-            <li><a href="#">MEMBERSHIP</a></li>
+            <li><a href="/main">HOME</a></li>
+            <li><a href="location:void(0)">MEMBERSHIP</a></li>
             <li class="last">회원가입</li>
         </ol>
     </div>
@@ -106,7 +104,7 @@
                         이용약관 동의 <span>(필수동의)</span>
                     </div>
                     <!-- form -->
-                    <form action="join3" name="form" method="get">
+                    <form action="join3" name="form" method="post">
                         <div class="agreeBox">
                             <div class="agreeContent">
 
