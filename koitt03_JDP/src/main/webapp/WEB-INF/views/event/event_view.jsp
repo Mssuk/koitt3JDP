@@ -4,6 +4,36 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <jsp:include page="../common/header.jsp" />
+<script type="text/javascript">
+				
+$(document).ready(function(){
+	//댓글수정열기
+	$(".modi").click(function(){
+		$(this).parent().hide();
+		var index=$(".modi").index(this);
+		$(".modi_f").eq(index).show();
+	});
+	$(".reset_re").click(function(){
+		var index2=$(".reset_re").index(this);
+		$(".modi_f").eq(index2).hide();
+		$(".modi").eq(index2).parent().show();
+	});
+	
+	
+});
+	
+	//댓글유효성
+	function reply_ok(){
+		var croodx = '<%=(String)session.getAttribute("id")%>';
+		if(croodx=='null'){
+			alert('로그인 후 등록가능합니다.');
+			return false;
+		}
+		
+		reply.submit();
+	}
+	
+</script>
 
 	
 	<!-- container -->
@@ -113,32 +143,54 @@
 								<p class="password">비밀번호&nbsp;&nbsp;<input type="password" class="replynum" name="pw" /></p>
 								<textarea class="replyType" name="event_re_content"></textarea>
 							</li>
-							<li class="btn"><input type="submit" class="replyBtn" value="등록" style="border:none;cursor: pointer;"></li>
+							<li class="btn"><input type="button" onclick="reply_ok()" class="replyBtn" value="등록" style="border:none;cursor: pointer;"></li>
 						</ul>
 						<p class="ntic">※ 비밀번호를 입력하시면 댓글이 비밀글로 등록 됩니다.</p>
 					</form>
 
 					<div class="replyBox">
 						<c:choose>
-						<%--댓글이 있는가?--%>
+						<%--관리자인가?--%>
 							<c:when test="${reply_list==null }">
 								<ul>
 									<li>등록된 댓글이 없습니다.</li>
 								</ul>
 							</c:when>
+							<c:when test="${id=='admin' }">
+								<c:forEach var="re_dtos" items="${reply_list }">
+								<ul>
+									<li class="name">${re_dtos.name } <span>[<fmt:formatDate value="${re_dtos.event_re_modify }" pattern="yyyy-MM-dd  HH:mm:ss"/>]</span></li>
+									<li class="txt">${re_dtos.event_re_content }</li>
+								</ul>	
+								</c:forEach>
+							</c:when>
 							<c:otherwise>
 									<c:forEach var="re_dtos" items="${reply_list }">
 									<form action="modify" method="post" name="modify_re">
 									<ul>
-										<li class="name">${re_dtos.member.name } <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-										<li class="txt">${re_dtos.reply.event_title }</li>
-										<c:if test="${re_dtos.reply.id==id }">
-											<li class="btn">
-												<input type="button" onclick="re_modify_view(${re_dtos.reply.event_re_num })" class="rebtn" value="수정">
-												<a href="deleteEvReply?event_re_num=${re_dtos.reply.event_re_num }" class="rebtn">삭제</a>
+										<li class="name">${re_dtos.name } <span>[<fmt:formatDate value="${re_dtos.event_re_modify }" pattern="yyyy-MM-dd  HH:mm:ss"/>]</span></li>
+									    <c:choose>
+									    	<c:when test="${re_dtos.pw!=null }">
+												<li class="txt"><a href="password.html" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a></li>
+									    	</c:when>
+									    	<c:otherwise>
+											    <li class="txt">${re_dtos.event_re_content }</li>
+									    	</c:otherwise>
+									    </c:choose>
+<%-- 										<c:if test="${re_dtos.id==id }"> --%>
+											<li class="btn bt01">
+												<a href="javascript:;" onclick="return false;" class="rebtn modi" >수정</a>
+												<a href="#" onclick="deleteEvReply?event_re_num=${re_dtos.event_re_num }" class="rebtn">삭제</a>
 											</li>
-										</c:if>
+<%-- 										</c:if> --%>
 									</ul>	
+									<ul class="modi_f" style="display: none;">
+										<li style="margin:10px 0;"></li>	
+									    <li><textarea style="width:98%">${re_dtos.event_re_content }</textarea></li>
+									    <li class="btn bt02">
+											<input type="submit" value="저장" class="rebtn" style="border:none;cursor: pointer;">
+											<a href="javascript:;" onclick="return false;" class="rebtn reset_re">취소</a>
+									</ul>
 									</form>
 									</c:forEach>							
 							</c:otherwise>

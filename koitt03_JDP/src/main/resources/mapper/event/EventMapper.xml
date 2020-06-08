@@ -9,10 +9,7 @@
 	<resultMap type="CouponDto" id="couponMap"/>
 	<resultMap type="EventDto" id="eventMap"/>
 	<resultMap type="EventReplyDto" id="replyMap"/>
-	<resultMap type="EventReplyBean" id="eventReplyBean">
-		<collection property="reply" resultMap="replyMap"/>
-		<collection property="member" resultMap="eventMemberMap"/>
-	</resultMap>
+	<resultMap type="EventReplyBean" id="eventReplyBean"/>
 
 
     <!-- 이벤트글 리스트 search-->
@@ -21,17 +18,13 @@
           <choose>
 
           	<when test="opt!='' and opt.equals('all') and key!=''">
-          	 and (event_title like '%' || #{key} || '%' or event_content like '%' || #{key} || '%') 
+          	 and (event_title like '%' || #{key} || '%' or event_content like '%' || #{key} || '%' ) 
 			</when>
-          	<when test="opt!=null and opt.equals('all')">
-          	 and (event_title like '%'|| #{key}|| '%' or event_content like '%'|| #{key}|| '%')
-
-          	</when>
           	<when test="opt!='' and opt.equals('tit') and key!=''">
-          	 and event_title like '%' || #{key} || '%'
+          	 and event_title like  '%' || #{key} || '%' 
           	</when>
           	<when test="opt!='' and opt.equals('con') and key!=''">
-          	 and event_content like '%' || #{key} || '%'
+          	 and event_content like  '%' || #{key} || '%' 
           	</when>
           	<otherwise>
 
@@ -49,13 +42,13 @@
         to_char(event_end, 'yyyy-MM-dd')<![CDATA[ >= ]]> to_char(sysdate, 'yyyy-MM-dd')
     	<choose>
           	<when test="opt!='' and opt.equals('all') and key!=''">
-          	and (event_title like '%' || #{key} || '%' or event_content like '%' || #{key} ||'%') 
+          	and (event_title like  '%' || #{key} || '%'  or event_content like  '%' || #{key} || '%' ) 
           	</when>
           	<when test="opt!='' and opt.equals('tit') and key!=''">
-          	 and event_title like '%' || #{key} || '%'
+          	 and event_title like  '%' || #{key} || '%' 
           	</when>
           	<when test="opt!='' and opt.equals('con') and key!=''">
-          	 and event_content like '%' || #{key} || '%'
+          	 and event_content like  '%' || #{key} || '%' 
           	</when>
           	<otherwise>
           	 

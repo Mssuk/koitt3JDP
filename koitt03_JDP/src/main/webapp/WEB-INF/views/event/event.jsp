@@ -101,7 +101,7 @@
 					</div>
 					
 					<!-- 검색 -->
-					<form class="searchWrap" name="search_bot" method="post" action="event_search">
+					<form class="searchWrap" name="search_bot" method="post" action="event">
 						<div class="search">
 							<ul>
 								<li class="web"><img src="../images/txt/txt_search.gif" alt="search" /></li>

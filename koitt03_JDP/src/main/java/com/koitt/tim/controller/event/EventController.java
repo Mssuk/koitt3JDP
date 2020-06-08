@@ -37,7 +37,6 @@ public class EventController {
 		model.addAttribute("reply_count", reCount);
 		if (re_dtos.size() != 0) {
 			model.addAttribute("reply_list", re_dtos);
-			System.out.println(re_dtos.get(0).getMember().getName());
 		}
 		return "event/event_view";
 	}
