@@ -18,6 +18,7 @@ public class EventServiceImpl implements EventService {
 	@Autowired
 	EventDao edao;
 
+	private static final int ROW_LIMIT = 5; // 밑에 몇개씩 보여줄건지
 	private static final int PAGE_LIMIT = 10; // 한페이지에 글 몇개 보여줄건지
 
 	// 마지막 페이지 계산
@@ -54,17 +55,21 @@ public class EventServiceImpl implements EventService {
 		// 총 게시글로 마지막페이지 계산
 		int lastPageNum = getLastNum(totalCnt);
 
-		// 현재 페이지를 기준으로 마지막 페이지번호 계산 (예. 현재 6페이지면 6,7,8,9,10 이 나타남)
-		int realLastNum = Math.min(lastPageNum, pageNum + 1);
+		// 시작 페이지 번호 설정
+		int startPageNum = ((int) (Math.ceil((double) pageNum / ROW_LIMIT) - 1) * ROW_LIMIT) + 1;
 
-		// 시작페이지 번호 설정 (현재 페이지를 기준으로)
-		int realStartNum = (pageNum > 1) ? pageNum - 1 : 1;
-		if (realLastNum <= 0)
-			realLastNum = 1;
-		if (realStartNum <= 0)
-			realStartNum = 1;
+		// 현재 페이지를 기준으로 마지막 페이지번호 계산 (예. 현재 6페이지면 6,7,8,9,10 이 나타남)
+		int realLastNum = (lastPageNum > startPageNum + ROW_LIMIT - 1) ? startPageNum + ROW_LIMIT - 1 : lastPageNum;
+
+//		// 시작페이지 번호 설정 (현재 페이지를 기준으로)
+//		int realStartNum = (pageNum > 1) ? pageNum - 1 : 1;
+//		if (realLastNum <= 0)
+//			realLastNum = 1;
+//		if (realStartNum <= 0)
+//			realStartNum = 1;
+
 		// 페이지 번호 할당
-		for (int i = realStartNum; i <= realLastNum; i++) {
+		for (int i = startPageNum; i <= realLastNum; i++) {
 			pageList.add(i);
 		}
 		return pageList;
