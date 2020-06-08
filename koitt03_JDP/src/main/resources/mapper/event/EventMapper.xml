@@ -9,7 +9,9 @@
 	<resultMap type="CouponDto" id="couponMap"/>
 	<resultMap type="EventDto" id="eventMap"/>
 	<resultMap type="EventReplyDto" id="replyMap"/>
-	<resultMap type="EventReplyBean" id="eventReplyBean"/>
+	<resultMap type="EventReplyBean" id="eventReplyBean">
+		<collection property=""></collection>
+	</resultMap>
 
 
     <!-- 이벤트글 리스트 search-->
