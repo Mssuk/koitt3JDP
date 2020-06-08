@@ -65,10 +65,6 @@
 		ORDER BY event_start desc,event_regist desc) e)
 		where event_num=#{param1}
 	</select>
-	<!-- 글보기 쿠폰 -->
-	<select id="selectEventCoupon" resultMap="couponMap">
-		select c.* from event e,coupon c where e.event_num=#{param} and e.coupon_num=c.coupon_num
-	</select>
 	
 	
 	<!-- 글보기>이전글 -->
@@ -90,6 +86,91 @@
 		where rnum=(#{rnum}-1)
 	</select>
 	
+	<!-- 글보기 쿠폰 -->
+	<select id="selectEventCoupon" resultMap="couponMap">
+		select c.* from event e,coupon c where e.event_num=#{param} and e.coupon_num=c.coupon_num
+	</select>
+	
+	
+	<!-- 종료이벤트 -->
+	<!-- 이벤트글 리스트 search-->
+    <select id="selectFinSearchEvent" resultMap="eventMap">
+       select *from (select ROWNUM rnum, e.*from (select *from event where (to_char(event_end, 'yyyy-MM-dd') <![CDATA[< ]]>to_char(sysdate, 'yyyy-MM-dd'))
+          <choose>
+
+          	<when test="opt!='' and opt.equals('all') and key!=''">
+          	 and (event_title like '%' || #{key} || '%' or event_content like '%' || #{key} || '%' ) 
+			</when>
+          	<when test="opt!='' and opt.equals('tit') and key!=''">
+          	 and event_title like  '%' || #{key} || '%' 
+          	</when>
+          	<when test="opt!='' and opt.equals('con') and key!=''">
+          	 and event_content like  '%' || #{key} || '%' 
+          	</when>
+          	<otherwise>
+
+          	</otherwise>
+          </choose>
+            ORDER BY event_start desc,event_regist desc) e)
+      	  where rnum <![CDATA[ >= ]]> #{p1}
+          and rnum <![CDATA[ <= ]]> #{p2}
+    </select>
+	<!-- 이벤트글 개수 search-->
+    <select id="selectFinSearchListCount" resultType="int">
+        select count(*)
+        from event
+        where 
+        to_char(event_end, 'yyyy-MM-dd')<![CDATA[ < ]]> to_char(sysdate, 'yyyy-MM-dd')
+    	<choose>
+          	<when test="opt!='' and opt.equals('all') and key!=''">
+          	and (event_title like  '%' || #{key} || '%'  or event_content like  '%' || #{key} || '%' ) 
+          	</when>
+          	<when test="opt!='' and opt.equals('tit') and key!=''">
+          	 and event_title like  '%' || #{key} || '%' 
+          	</when>
+          	<when test="opt!='' and opt.equals('con') and key!=''">
+          	 and event_content like  '%' || #{key} || '%' 
+          	</when>
+          	<otherwise>
+          	 
+          	</otherwise>
+        </choose>
+    </select>
+
+    <!-- 글보기>현재글 -->
+	<select id="selectFinEventView" resultMap="eventMap">
+		select * from ( select ROWNUM rnum, e.* from(
+		select *
+		from event
+		where to_char(event_end,'yyyy-MM-dd') <![CDATA[ < ]]> to_char(sysdate,'yyyy-MM-dd')
+		ORDER BY event_start desc,event_regist desc) e)
+		where event_num=#{param1}
+	</select>
+	
+	
+	<!-- 글보기>이전글 -->
+	<select id="selectFinEventPre" resultMap="eventMap">
+		select * from ( select ROWNUM rnum, e.* from(
+		select *
+		from event
+		where to_char(event_end,'yyyy-MM-dd') <![CDATA[ < ]]> to_char(sysdate,'yyyy-MM-dd')
+		ORDER BY event_start desc,event_regist desc) e)
+		where rnum=(#{rnum}+1)
+	</select>
+	<!-- 다음글 -->
+	<select id="selectFinEventNext" resultMap="eventMap">
+		select * from ( select ROWNUM rnum, e.* from(
+		select *
+		from event
+		where to_char(event_end,'yyyy-MM-dd') <![CDATA[ < ]]> to_char(sysdate,'yyyy-MM-dd')
+		ORDER BY event_start desc,event_regist desc) e)
+		where rnum=(#{rnum}-1)
+	</select>
+	
+	
+	
+	
+	
 	
 	<!-- 글보기>댓글,멤버가져오기 -->
 	<select id="selectEventReply" resultMap="eventReplyBean">
@@ -99,6 +180,10 @@
 	<select id="selectReplyCount" resultType="int">
 		select count(*) from EVENT_REPLY where event_num=#{param1}
 	</select>
+	
+	
+	
+	
 	<!-- event insert-->
 	<insert id="insertEvent" parameterType="EventDto">
 		insert into EVENT values

@@ -23,14 +23,19 @@ $(document).ready(function(){
 });
 	
 	//댓글유효성
-	function reply_ok(){
+	function reply_ok(aa){
+		var k=aa;
 		var croodx = '<%=(String)session.getAttribute("id")%>';
-		if(croodx=='null'){
-			alert('로그인 후 등록가능합니다.');
+// 		if(croodx=='null'){
+// 			alert('로그인 후 등록가능합니다.');
+// 			return false;
+// 		}
+		if(event_reply.event_re_content.value==''){
+			alert('내용을 입력해주세요');
 			return false;
 		}
 		
-		reply.submit();
+		event_reply.submit();
 	}
 	
 </script>
@@ -49,7 +54,7 @@ $(document).ready(function(){
 		
 		<div id="outbox">		
 			<jsp:include page="event_left_bar.jsp" />
-
+			<script type="text/javascript">initSubmenu(1,0);</script>
 
 			<!-- contents -->
 			<div id="contents">
@@ -70,15 +75,17 @@ $(document).ready(function(){
 
 						<div class="viewContents">
 								<c:if test="${event_view.eventDto.event_image2!=null }">
-									<img src="../images/img/${dto.event_image2}" alt="" />
+									<img src="${event_view.eventDto.event_image2}" alt="" />
 								</c:if>
+								<br><br>
 								<c:if test="${event_view.eventDto.event_content!=null }">
 									${event_view.eventDto.event_content}
 								</c:if>
+								<br><br>
 								<c:if test="${event_view.eventDto.coupon_num!=null }">
 								<ul class="coupon_box">
 									<li>
-											<p><em>${event_view.couponDto.coupon_pay }</em>원</p>
+											<p><em><fmt:formatNumber value="${event_view.couponDto.coupon_pay }" pattern="#,###" /></em>원</p>
 											<p>${event_view.couponDto.coupon_name }</p>
 											<p><fmt:formatDate value="${event_view.couponDto.endday }" pattern="yyyy-MM-dd"/>까지 사용가능</p>
 								    </li>
@@ -134,10 +141,10 @@ $(document).ready(function(){
 
 					
 					<!-- 댓글-->
-					<form class="replyWrite" name="reply" action="event_reply" method="post">
+					<form class="replyWrite" name="event_reply" action="event_reply" method="post">
 						<ul>
 							<li class="in">
-								<input type="text" name="event_num" value="${dto.event_num }" hidden="">
+								<input type="text" name="event_num" value="${event_view.eventDto.event_num }" hidden="">
 								<input type="text" name="id" value="${id }" hidden="">
 								<p class="txt">총 <span class="orange">${reply_count }</span> 개의 댓글이 달려있습니다.</p>
 								<p class="password">비밀번호&nbsp;&nbsp;<input type="password" class="replynum" name="pw" /></p>
@@ -166,7 +173,7 @@ $(document).ready(function(){
 							</c:when>
 							<c:otherwise>
 									<c:forEach var="re_dtos" items="${reply_list }">
-									<form action="modify" method="post" name="modify_re">
+									<form action="modify" method="post" name="${re_dtos.event_re_num }">
 									<ul>
 										<li class="name">${re_dtos.name } <span>[<fmt:formatDate value="${re_dtos.event_re_modify }" pattern="yyyy-MM-dd  HH:mm:ss"/>]</span></li>
 									    <c:choose>
@@ -180,15 +187,15 @@ $(document).ready(function(){
 <%-- 										<c:if test="${re_dtos.id==id }"> --%>
 											<li class="btn bt01">
 												<a href="javascript:;" onclick="return false;" class="rebtn modi" >수정</a>
-												<a href="#" onclick="deleteEvReply?event_re_num=${re_dtos.event_re_num }" class="rebtn">삭제</a>
+												<a href="#" onclick="javascript: form.action='/manage/delete';" class="rebtn">삭제</a>
 											</li>
 <%-- 										</c:if> --%>
 									</ul>	
 									<ul class="modi_f" style="display: none;">
-										<li style="margin:10px 0;"></li>	
+										<li style="margin:10px 0;"><input type="text" value="${re_dtos.id }" hidden=""></li>	
 									    <li><textarea style="width:98%">${re_dtos.event_re_content }</textarea></li>
 									    <li class="btn bt02">
-											<input type="submit" value="저장" class="rebtn" style="border:none;cursor: pointer;">
+											<input type="submit" value="저장" onclick="javascript: form.action='/manage/update';" class="rebtn" style="border:none;cursor: pointer;">
 											<a href="javascript:;" onclick="return false;" class="rebtn reset_re">취소</a>
 									</ul>
 									</form>

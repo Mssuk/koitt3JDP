@@ -11,6 +11,12 @@ import com.koitt.tim.dto.event.EventReplyBean;
 
 @Repository
 public interface EventDao {
+	// 페이지 나눠서 글 갖고옴(search)-----------------------------------------------
+	List<EventDto> selectSearchEvent(@Param("p1") int start, @Param("p2") int end, @Param("opt") String search,
+			@Param("key") String txt);
+
+	// 전체 개수 카운트(no search)
+	int selectSearchListCount(@Param("opt") String search, @Param("key") String txt);
 
 	// 글보기,쿠폰----------------------------------------------------------------
 	EventDto selectEventView(String event_num);
@@ -28,12 +34,23 @@ public interface EventDao {
 	// 댓글 가져오기
 	int selectReplyCount(String event_num);
 
+	// ----------------------종료
 	// 페이지 나눠서 글 갖고옴(search)-----------------------------------------------
-	List<EventDto> selectSearchEvent(@Param("p1") int start, @Param("p2") int end, @Param("opt") String search,
+	List<EventDto> selectFinSearchEvent(@Param("p1") int start, @Param("p2") int end, @Param("opt") String search,
 			@Param("key") String txt);
 
 	// 전체 개수 카운트(no search)
-	int selectSearchListCount(@Param("opt") String search, @Param("key") String txt);
+	int selectFinSearchListCount(@Param("opt") String search, @Param("key") String txt);
+
+	// 글보기,쿠폰----------------------------------------------------------------
+	EventDto selectFinEventView(String event_num);
+
+	CouponDto selectFinEventCoupon(String event_num);
+
+	// 이전글,다음글
+	EventDto selectFinEventPre(@Param("rnum") int rnum);
+
+	EventDto selectFinEventNext(@Param("rnum") int rnum);
 
 	// admin---------------------------------------------------------------------------------------
 	// 이벤트 insert

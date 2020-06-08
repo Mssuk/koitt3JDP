@@ -45,6 +45,7 @@ public class EventServiceImpl implements EventService {
 		return edao.selectSearchListCount(search, text);
 	}
 
+	// 진행중이벤트
 	// 페이지리스트(search)
 	@Override
 	public List<Integer> getPageList(int pageNum, String search, String text) {
@@ -60,13 +61,6 @@ public class EventServiceImpl implements EventService {
 
 		// 현재 페이지를 기준으로 마지막 페이지번호 계산 (예. 현재 6페이지면 6,7,8,9,10 이 나타남)
 		int realLastNum = (lastPageNum > startPageNum + ROW_LIMIT - 1) ? startPageNum + ROW_LIMIT - 1 : lastPageNum;
-
-//		// 시작페이지 번호 설정 (현재 페이지를 기준으로)
-//		int realStartNum = (pageNum > 1) ? pageNum - 1 : 1;
-//		if (realLastNum <= 0)
-//			realLastNum = 1;
-//		if (realStartNum <= 0)
-//			realStartNum = 1;
 
 		// 페이지 번호 할당
 		for (int i = startPageNum; i <= realLastNum; i++) {
@@ -104,6 +98,66 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public int getReplyCount(String event_num) {
 		return edao.selectReplyCount(event_num);
+	}
+
+	// 종료된-검색구현
+	// 이벤트 목록(search)
+	@Override
+	public List<EventDto> selectFinEvent(int pageNum, String search, String text) {
+		// 시작 글넘버
+		int startNum = (pageNum - 1) * PAGE_LIMIT + 1;
+		int endNum = startNum + PAGE_LIMIT - 1;
+
+		// 끝 글넘버
+		return edao.selectFinSearchEvent(startNum, endNum, search, text);
+	}
+
+	// 검색용 카운트
+	@Override
+	public int getFinListCount(String search, String text) {
+		return edao.selectFinSearchListCount(search, text);
+	}
+
+	// 진행중이벤트
+	// 페이지리스트(search)
+	@Override
+	public List<Integer> getFinPageList(int pageNum, String search, String text) {
+		List<Integer> pageList = new ArrayList<>();
+
+		// 총 게시굴 갯수
+		double totalCnt = this.getFinListCount(search, text);
+		// 총 게시글로 마지막페이지 계산
+		int lastPageNum = getLastNum(totalCnt);
+
+		// 시작 페이지 번호 설정
+		int startPageNum = ((int) (Math.ceil((double) pageNum / ROW_LIMIT) - 1) * ROW_LIMIT) + 1;
+
+		// 현재 페이지를 기준으로 마지막 페이지번호 계산 (예. 현재 6페이지면 6,7,8,9,10 이 나타남)
+		int realLastNum = (lastPageNum > startPageNum + ROW_LIMIT - 1) ? startPageNum + ROW_LIMIT - 1 : lastPageNum;
+
+		// 페이지 번호 할당
+		for (int i = startPageNum; i <= realLastNum; i++) {
+			pageList.add(i);
+		}
+		return pageList;
+	}
+
+	// 이벤트 뷰,쿠폰-------------------------------------
+	@Override
+	public EventCouponBean selectFinEventView(String event_num) {
+		EventCouponBean couponBean = new EventCouponBean();
+		couponBean.setEventDto(edao.selectFinEventView(event_num));
+		couponBean.setCouponDto(edao.selectEventCoupon(event_num));
+		return couponBean;
+	}
+
+	// 이전글,다음글
+	@Override
+	public EventPreNextBean selectFinEventPreNext(int rnum) {
+		EventPreNextBean preNextBean = new EventPreNextBean();
+		preNextBean.setEventPre(edao.selectFinEventPre(rnum));
+		preNextBean.setEventNext(edao.selectFinEventNext(rnum));
+		return preNextBean;
 	}
 
 }
