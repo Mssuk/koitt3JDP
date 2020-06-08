@@ -60,4 +60,9 @@ public class AdminServiceImpl implements AdminService {
 		return noticeDao.selectAllNotice();
 	}
 
+	@Override
+	public void insertNotice(NoticeDto nDto) {
+		noticeDao.insertNotice(nDto);
+	}
+
 }

@@ -26,4 +26,7 @@ public interface AdminService {
 
 	// All Notice posts
 	List<NoticeDto> getAllNotices();
+
+	// insert Notice
+	void insertNotice(NoticeDto nDto);
 }
