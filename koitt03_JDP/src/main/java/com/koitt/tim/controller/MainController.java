@@ -16,4 +16,9 @@ public class MainController {
 	public String footer() {
 		return "common/header";
 	}
+
+	@GetMapping("test")
+	public String test() {
+		return "test";
+	}
 }

@@ -111,7 +111,7 @@
 		(concat('ev',lpad(ev_seq.nextval,3,0)),
 		 #{coupon_num, jdbcType=VARCHAR},
 		 #{event_title},
-		 #{event_content},
+		 #{event_content, jdbcType=VARCHAR},
 		 #{event_image1},
 		 #{event_image2, jdbcType=VARCHAR},
 		 sysdate,
@@ -121,6 +121,6 @@
 
 	<!-- 지난날짜까지 모두 다 select -->
 	<select id="selectEventforA" resultType="EventDto">
-		select * from EVENT
+		select * from EVENT order by event_num desc
 	</select>
 </mapper>        

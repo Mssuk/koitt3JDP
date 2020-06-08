@@ -7,12 +7,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-    @Bean
-    public MultipartResolver multipartResolver() {
-        org.springframework.web.multipart.commons.CommonsMultipartResolver multipartResolver
-                = new org.springframework.web.multipart.commons.CommonsMultipartResolver();
+	@Bean
+	public MultipartResolver multipartResolver() {
+		org.springframework.web.multipart.commons.CommonsMultipartResolver multipartResolver = new org.springframework.web.multipart.commons.CommonsMultipartResolver();
 
-        multipartResolver.setMaxUploadSize(10485760); // 1024 * 1024 * 10
-        return multipartResolver;
-    }
+		multipartResolver.setMaxUploadSize(10485760); // 1024 * 1024 * 10
+		return multipartResolver;
+	}
+
 }
