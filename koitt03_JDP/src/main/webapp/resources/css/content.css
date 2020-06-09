@@ -806,48 +806,16 @@ span.searchStyleSelectBox.changed{background-color: #fff;}
 
 
 /* 뷰페이지 쿠폰*/
-.viewContents .coupon_box{
-	width: 280px;
-    margin: 0 auto;
-    height: 150px;
-    border: 1px solid black;
-    text-align: left;
-    padding: 10px;
-    line-height: 10px;
-    box-sizing: border-box;
-}
-.viewContents .coupon_box li{
-	display: inline-block;
-	line-height: 20px;
-}
+.viewContents .coupon_box{width: 280px; margin: 0 auto; height: 150px; border: 1px solid black; text-align: left; padding: 10px; line-height: 10px;box-sizing: border-box;}
+.viewContents .coupon_box li{display: inline-block;	line-height: 20px;}
+.viewContents .coupon_box li p:nth-child(2){font-size: 1.4em;font-weight: bold;height: 50px;}
+.viewContents .coupon_box li p em{text-align: center;   font-size: 2em;   line-height: 40px;   color: #f7703c;   font-weight: bold;}
+.viewContents .coupon_box li a.download span{width:278px; height:50px;  line-height:50px;margin: 0 auto;text-align: center;font-size:1.2em;color: #f7703c;font-weight: bold;border: 1px solid #f7703c;display:inline-block; margin-top: 40px;margin-left: -11px;}
 
-.viewContents .coupon_box li p:nth-child(2){
-	font-size: 1.4em;
-	font-weight: bold;
-	height: 50px;
-}
+/*뷰페이지 이미지*/
+.viewContents img{max-width:100%;margin: 0 auto;min-width:280px;}
 
-.viewContents .coupon_box li p em{
-	text-align: center;
-    font-size: 2em;
-    line-height: 40px;
-    color: #f7703c;
-    font-weight: bold;
-}
-.viewContents .coupon_box li a.download span{
-    width:278px;
-    height:50px;
-    line-height:50px;
-    margin: 0 auto;
-	text-align: center;
-    font-size:1.2em;
-    color: #f7703c;
-    font-weight: bold;
-    border: 1px solid #f7703c;
-    display:inline-block;
-    margin-top: 40px;
-    margin-left: -11px;
-}
+
 /************* MEDIA QUERY  TABLET ************/
 @media all and (max-width: 999px){
 

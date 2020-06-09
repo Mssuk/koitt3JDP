@@ -18,7 +18,7 @@
 		
 		<div id="outbox">		
 			<jsp:include page="event_left_bar.jsp" />
-
+			<script type="text/javascript">initSubmenu(1,0);</script>
 			<!-- contents -->
 			<div id="contents">
 				<div id="mypage">
@@ -40,8 +40,8 @@
 								</c:when>
 								<c:otherwise>
 									<!-- 반복 -->
-									<c:forEach var="dtos" items="${list }">
 										<ul>
+									<c:forEach var="dtos" items="${list }">
 											<li>
 												<a href="event_view?event_num=${dtos.event_num }" title="${dtos.event_title }">
 												<div class="img">
@@ -53,8 +53,8 @@
 												</div>
 												</a>
 											</li>
-										</ul>
 									</c:forEach>
+										</ul>
 								</c:otherwise>
 							</c:choose>
 					
@@ -101,7 +101,7 @@
 					</div>
 					
 					<!-- 검색 -->
-					<form class="searchWrap" name="search_bot" method="post" action="event_search">
+					<form class="searchWrap" name="search_bot" method="post" action="event">
 						<div class="search">
 							<ul>
 								<li class="web"><img src="../images/txt/txt_search.gif" alt="search" /></li>

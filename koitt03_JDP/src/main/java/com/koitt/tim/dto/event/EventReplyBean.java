@@ -1,22 +1,16 @@
 package com.koitt.tim.dto.event;
 
+import java.sql.Timestamp;
+
 public class EventReplyBean {
-	private String name;// 이름
 	private String event_re_num;// 글번호
 	private String id;// 회원id
 	private String event_num;// 이벤트번호
 	private String pw;// 글 비밀번호
 	private String event_re_content;// 글내용
-	private String event_re_regist;// 작성일
-	private String event_re_modify;// 수정일
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	private Timestamp event_re_regist;// 작성일
+	private Timestamp event_re_modify;// 수정일
+	private String name;
 
 	public String getEvent_re_num() {
 		return event_re_num;
@@ -58,19 +52,28 @@ public class EventReplyBean {
 		this.event_re_content = event_re_content;
 	}
 
-	public String getEvent_re_regist() {
+	public Timestamp getEvent_re_regist() {
 		return event_re_regist;
 	}
 
-	public void setEvent_re_regist(String event_re_regist) {
+	public void setEvent_re_regist(Timestamp event_re_regist) {
 		this.event_re_regist = event_re_regist;
 	}
 
-	public String getEvent_re_modify() {
+	public Timestamp getEvent_re_modify() {
 		return event_re_modify;
 	}
 
-	public void setEvent_re_modify(String event_re_modify) {
+	public void setEvent_re_modify(Timestamp event_re_modify) {
 		this.event_re_modify = event_re_modify;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }

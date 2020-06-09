@@ -17,7 +17,7 @@
 		
 		<div id="outbox">		
 			<jsp:include page="event_left_bar.jsp" />
-
+			<script type="text/javascript">initSubmenu(3,0);</script>
 			<!-- contents -->
 			<div id="contents">
 				<div id="mypage">
