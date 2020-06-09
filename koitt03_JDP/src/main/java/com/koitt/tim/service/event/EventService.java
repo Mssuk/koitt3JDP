@@ -2,10 +2,13 @@ package com.koitt.tim.service.event;
 
 import java.util.List;
 
+import com.koitt.tim.dto.board.WinDto;
 import com.koitt.tim.dto.event.EventCouponBean;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.event.EventPreNextBean;
 import com.koitt.tim.dto.event.EventReplyBean;
+import com.koitt.tim.dto.event.EventReplyDto;
+import com.koitt.tim.dto.event.WinPreNextBean;
 
 public interface EventService {
 
@@ -35,7 +38,7 @@ public interface EventService {
 	// 마지막페이지 번호를 알려줌
 	int getLastNum(double cnt);
 
-	// 종료된이벤트
+	// 종료된이벤트------------------------------------------------------------------
 	// 글보기,쿠폰
 	EventCouponBean selectFinEventView(String event_num);
 
@@ -49,5 +52,25 @@ public interface EventService {
 
 	// 전체글 리스트 카운트(search)
 	int getFinListCount(String search, String text);
+
+	// 댓글작성-------------------------------
+	int insertEventReply(EventReplyDto eventReplyDto);
+
+	// 댓글수정
+	int updateEventReply(EventReplyDto eventReplyDto);
+
+	// 댓글삭제
+	int deleteEventReply(String event_re_num);
+
+	// ------------------------------------------------------------------------------------
+	// 당첨자 발표 리스트
+	List<WinDto> selectWins(int pageNum, String search, String text);
+
+	List<Integer> getWinPageList(int pageNum, String search, String text);
+
+	// 전체글 리스트 카운트(search)
+	int getWinListCount(String search, String text);
+
+	WinPreNextBean selectWinPreNext(String w_num);
 
 }

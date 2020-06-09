@@ -52,6 +52,15 @@ public interface EventDao {
 
 	EventDto selectFinEventNext(@Param("rnum") int rnum);
 
+	// 댓글등록------------------------------------------------------
+	void insertEventReply(@Param("id") String id, @Param("event_num") String event_num, @Param("pw") String pw,
+			@Param("event_re_content") String event_re_content);
+
+	void updateEventReply(@Param("event_re_content") String event_re_content,
+			@Param("event_re_num") String event_re_num);
+
+	void deleteEventReply(@Param("event_re_num") String event_re_num);
+
 	// admin---------------------------------------------------------------------------------------
 	// 이벤트 insert
 	void insertEvent(EventDto eDto);

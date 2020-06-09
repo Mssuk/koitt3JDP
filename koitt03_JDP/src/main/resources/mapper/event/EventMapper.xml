@@ -182,6 +182,27 @@
 	</select>
 	
 	
+	<!-- event reply insert -->
+	<insert id="insertEventReply">
+		insert into EVENT_REPLY values
+		(concat('ere',lpad(ev_re_seq.nextval,3,0)),
+		#{id},
+		#{event_num, jdbcType=VARCHAR},
+		#{pw},
+		#{event_re_content, jdbcType=VARCHAR},
+		sysdate,
+		sysdate
+		)
+	</insert>
+	<!-- event reply insert -->
+	<update id="updateEventReply">
+		update EVENT_REPLY set event_re_content=#{event_re_content} where event_re_num=#{event_re_num}
+	</update>
+	<!-- event reply insert -->
+	<delete id="deleteEventReply">
+		delete from EVENT_REPLY where event_re_num=#{event_re_num}
+	</delete>
+	
 	
 	
 	<!-- event insert-->
