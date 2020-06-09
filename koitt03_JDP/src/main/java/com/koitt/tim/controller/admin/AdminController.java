@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.koitt.tim.dto.product.ProductDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,8 +87,13 @@ public class AdminController {
 	// notice 저장
 	@PostMapping("nlist")
 	public ResponseEntity<?> nlist(@RequestBody NoticeDto nDto) {
-		System.out.println(nDto);
 		adminService.insertNotice(nDto);
 		return ResponseEntity.ok().build();
+	}
+
+	//product 가져옴
+	@GetMapping("plist")
+	public List<ProductDto> pList(){
+		return adminService.getAllProducts();
 	}
 }

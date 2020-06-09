@@ -2,6 +2,11 @@ package com.koitt.tim.service.admin;
 
 import java.util.List;
 
+import com.koitt.tim.dao.category.CategoryDao;
+import com.koitt.tim.dao.product.ProductDao;
+import com.koitt.tim.dto.category.CategoryDept1Dto;
+import com.koitt.tim.dto.category.CategoryDept2Dto;
+import com.koitt.tim.dto.product.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +33,10 @@ public class AdminServiceImpl implements AdminService {
 	private CouponDao couponDao;
 	@Autowired
 	private NoticeDao noticeDao;
+	@Autowired
+	private ProductDao productDao;
+	@Autowired
+	private CategoryDao categoryDao;
 
 	@Override
 	public MallDto getMallInfo() {
@@ -64,5 +73,20 @@ public class AdminServiceImpl implements AdminService {
 	public void insertNotice(NoticeDto nDto) {
 		noticeDao.insertNotice(nDto);
 	}
+
+	@Override
+	public List<ProductDto> getAllProducts() {
+		return productDao.selectProduct();
+	}
+	@Override
+	public List<CategoryDept1Dto> getAllCate1() {
+		return categoryDao.selectAllDept1();
+	}
+
+	@Override
+	public List<CategoryDept2Dto> getAllCate2() {
+		return categoryDao.selectAlLDept2();
+	}
+
 
 }
