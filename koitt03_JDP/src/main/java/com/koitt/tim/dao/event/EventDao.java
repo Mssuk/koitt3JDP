@@ -15,7 +15,7 @@ public interface EventDao {
 	List<EventDto> selectSearchEvent(@Param("p1") int start, @Param("p2") int end, @Param("opt") String search,
 			@Param("key") String txt);
 
-	// 전체 개수 카운트(search)
+	// 전체 개수 카운트(no search)
 	int selectSearchListCount(@Param("opt") String search, @Param("key") String txt);
 
 	// 글보기,쿠폰----------------------------------------------------------------
@@ -39,7 +39,7 @@ public interface EventDao {
 	List<EventDto> selectFinSearchEvent(@Param("p1") int start, @Param("p2") int end, @Param("opt") String search,
 			@Param("key") String txt);
 
-	// 전체 개수 카운트(search)
+	// 전체 개수 카운트(no search)
 	int selectFinSearchListCount(@Param("opt") String search, @Param("key") String txt);
 
 	// 글보기,쿠폰----------------------------------------------------------------

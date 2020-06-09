@@ -198,21 +198,19 @@ $(document).ready(function(){
 							</c:when>
 							<c:when test="${id=='admin' }">
 								<c:forEach var="re_dtos" items="${reply_list }">
-								<c:set var="name" value="${re_dtos.name }"/>
 								<ul>
-									<li class="name"><c:out value="${fn:substring(name, 0, 1) }**"/><span>[<fmt:formatDate value="${re_dtos.event_re_modify }" pattern="yyyy-MM-dd  HH:mm:ss"/>]</span></li>
+									<li class="name">${re_dtos.name } <span>[<fmt:formatDate value="${re_dtos.event_re_modify }" pattern="yyyy-MM-dd  HH:mm:ss"/>]</span></li>
 									<li class="txt">${re_dtos.event_re_content }</li>
 								</ul>	
 								</c:forEach>
 							</c:when>
 							<c:otherwise>
 									<c:forEach var="re_dtos" items="${reply_list }">
-									<c:set var="name" value="${re_dtos.name }"/>
 									<form action="" method="post" name="${re_dtos.event_re_num }">
 												<input type="text" value="${re_dtos.event_re_num }" name="event_re_num" hidden="">
 												<input type="text" value="${re_dtos.event_num }"name="event_num"  hidden="">
 									<ul id="${re_dtos.event_re_num }">
-										<li class="name"><c:out value="${fn:substring(name, 0, 1) }**"/> <span>[<fmt:formatDate value="${re_dtos.event_re_modify }" pattern="yyyy-MM-dd  HH:mm:ss"/>]</span></li>
+										<li class="name">${re_dtos.name } <span>[<fmt:formatDate value="${re_dtos.event_re_modify }" pattern="yyyy-MM-dd  HH:mm:ss"/>]</span></li>
 									    <c:choose>
 									    	<c:when test="${re_dtos.pw!=null&&re_dtos.id!=id }">
 												<li class="txt"><a href="password.html" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a></li>
