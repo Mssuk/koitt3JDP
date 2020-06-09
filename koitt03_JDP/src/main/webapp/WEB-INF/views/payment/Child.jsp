@@ -7,28 +7,36 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<script src="/js/couponBook.js"></script>
+<script src="/js/setParent.js"></script>
 <html>
 <head>
     <title>Title</title>
-    <script type="text/javascript">
-        function setParent() {
+<%--    <script type="text/javascript">--%>
+<%--        function setParent() {--%>
 
-            var list = [];
-            var coupons = document.getElementsByName("chBox");
-            coupons.forEach((c) => {
-                if (c.checked === true) {
-                    list.push(c.value);
-                }
-            })
-            var sum = list.reduce((a, b) => a + b);
+<%--            var list = [];--%>
+<%--            var coupons = document.getElementsByName("chBox");--%>
 
-            opener.document.getElementById("pInput").value = sum;
-
-        }
+<%--            coupons.forEach((c) => {--%>
+<%--                if (c.checked === true) {--%>
+<%--                    list.push(parseInt(c.value));--%>
+<%--                }--%>
+<%--            })--%>
+<%--            var sum = list.reduce((a, b) => a + b);--%>
 
 
-    </script>
+<%--            opener.document.getElementById("pInput").value = sum;--%>
+<%--            opener.document.getElementById("pInput1").value = sum;--%>
+
+<%--            var sum2 = origin2 + coupon2 ;--%>
+<%--            alert(sum2);--%>
+<%--            const $sum3 = $('#sum3');--%>
+<%--            $sum3.val(sum2);--%>
+<%--        }--%>
+
+
+<%--    </script>--%>
 
 </head>
 <body>

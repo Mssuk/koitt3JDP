@@ -97,6 +97,7 @@
                             </ul>
                             <script>
                                 function spinner() {
+
                                     const spin = document.getElementById("spinner").value;
                                     location.href= '/payment/payment?pro_num=${dto.pro_num}'+'&spinner='+spin;
                                 }

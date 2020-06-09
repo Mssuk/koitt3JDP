@@ -1,21 +1,46 @@
-<%--
+<%--        이준희
   Created by IntelliJ IDEA.
   User: user
   Date: 2020-06-01
-  Time: 오후 3:32
+  Time: 오후 2:11
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <jsp:include page="../common/header.jsp"/>
+
 <script src="/js/jquery.min.js"></script>
 <script src="/js/getSessionInfo.js"></script>
 <script src="/js/getSessionInfo1.js"></script>
 <script src="/js/couponBook.js"></script>
+<script>
+    function setParent() {
+
+    var list = [];
+    var coupons = document.getElementsByName("chBox");
+
+    coupons.forEach((c) => {
+    if (c.checked === true) {
+    list.push(parseInt(c.value));
+    }
+    })
+    var sum = list.reduce((a, b) => a + b);
+
+
+    opener.document.getElementById("pInput").value = sum;
+    opener.document.getElementById("pInput1").value = sum;
+
+
+
+
+}
+
+</script>
 
 <%--<%session.setAttribute("adtmin", "abcd1234"); %>--%>
 <!-- container -->
-<div id="container">
+<div id="container" onload="javascript:getProduct();">
 
     <div id="location">
         <ol>
@@ -43,6 +68,7 @@
                             <col width="14%"/>
                             <col width="16%" class="tw28"/>
                         </colgroup>
+
                         <thead>
                         <th scope="col">상품명</th>
                         <th scope="col" class="tnone">가격/포인트</th>
@@ -61,18 +87,31 @@
                                     </li>
                                 </ul>
                             </td>
+<%--                            <script>--%>
+<%--                                $(document).ready(function(${pDto}){--%>
+
+<%--                                    const productDto = JSON.parse(${pDto});--%>
+<%--                                    var pinValue=${spin};--%>
+
+<%--                                    const $proDto_price = $('.proDto_price');--%>
+<%--                                    $proDto_price.val(productDto.product_price);--%>
+
+<%--                                    const $proDto_total = $('.proDto_total');--%>
+<%--                                    $proDto_total.val(productDto.product_price * pinValue);--%>
+
+<%--                                    }--%>
+<%--                                );--%>
+
+<%--                            </script>--%>
                             <td class="tnone">
                                 ${dto.product_price} 원
-
                                 <!-- 회원일 시 -->
                                 <br/><span class="pointscore">${dto.point} Point</span>
                                 <!-- //회원일 시 -->
                             </td>
-                            <%
 
-                            %>
                             <td>${spin} 개</td>
-                            <c:set var="total" value="${dto.product_price * spin}"/>
+                           <c:set var="total" value="${dto.product_price * spin}"/>
                             <td>${total} 원</td>
                         </tr>
 
@@ -284,12 +323,8 @@
                             <td>2,500 원 (선불)</td>
                         </tr>
                         <tr>
-                            <script>
-                                function test(param) {
-                                    var couponList = param;
-                                }
 
-                            </script>
+
                             <th scope="row"><span>쿠폰 할인</span></th>
                             <td>
                                 <ul class="pta">
@@ -299,11 +334,14 @@
                                     </li>
                                     <li class="r10"><span class="valign">( 보유 쿠폰 내역 : ${couponCount} 장 )&nbsp;</span></li>
 
+                                    <li><a onclick="couponBook('${dto.pro_num}','${spin}')">쿠폰목록</a></li>
 
-                                    <li><a  onclick="couponBook('<%=session.getAttribute("admin")%>', test)" class="nbtn">쿠폰목록</a></li>
+<%--                                <li><a href="coupon_list?pro_num=${dto.pro_num}&&id='<%=session.getAttribute("admin")%>'&&spin=${spin}">쿠폰목록</a></li>--%>
+<%--
                                 </ul>
                             </td>
                         </tr>
+
 
                         <!-- 회원 일시 -->
                         <tr>
@@ -316,22 +354,33 @@
                                     </li>
                                     <li>
                                         <span class="valign">( 사용 가능 포인트 : </span>
-                                        <span class="orange">15,000</span>
+                                        <span class="orange">여기에 포인트</span>
                                         <span class="valign"> Point)</span>
                                     </li>
                                 </ul>
                             </td>
                         </tr>
                         <!-- //회원 일시 -->
+<%--                        <script type="text/javascript">--%>
+<%--                            var origin2 = ${total};--%>
+<%--                            var coupon2 = document.getElementById("pInput").value;--%>
+
+
+<%--                            document.getElementById('sum3').value = origin2+coupon2;--%>
+
+<%--                        </script>--%>
 
                         <tr>
                             <th scope="row"><span>총 결제금액</span></th>
                             <td>
                                 <ul class="pta">
-                                    <li><span class="valign"><strong> 원</strong> (총주문금액 1,132,310원 + 배송비 2500원 - 포인트 1,000 = 1,133,801원)></span>
+                                    <li><span class="valign"><strong> 원</strong> (총주문금액 ${total}원 + 배송비 2,500 원 - 쿠폰 xxx 원 - 포인트 xxx 원)
+
+
                                     </li>
                                 </ul>
                             </td>
+
                         </tr>
 
                         </tbody>
