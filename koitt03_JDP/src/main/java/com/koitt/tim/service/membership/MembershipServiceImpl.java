@@ -32,4 +32,13 @@ public class MembershipServiceImpl implements MembershipService {
 		return result;
 	}
 
+	@Override
+	public int signUp(MemberDto mdto) {
+		memberDao.insertMember(mdto.getName(), mdto.getId(), mdto.getPw(), mdto.getEmail1(), mdto.getEmail2(),mdto.getEmail_check(),mdto.getAddress1(),
+				mdto.getAddress2(), mdto.getAddress3(), mdto.getPhone(), mdto.getSms(),mdto.getTel(),mdto.getBirth(),mdto.getCalender_check(),mdto.getPoint(),mdto.getJoin_date());
+		
+
+		return 0;
+	}
+
 }

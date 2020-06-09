@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koitt.tim.dao.member.MemberDao">
+
 	<select id="selectAllMember" resultType="MemberDto">
 		select * from member
 	</select>
@@ -9,5 +10,10 @@
 		select * from member where id=#{id}
 	</select>
 
+	<insert id="insertMember" parameterType="MemberDto">
+		insert into member
+			value(#{name},#{id},#{pw},#{email},#{email_check}, #{address1},#{address2},#{address3},
+		         #{phone}, #{sms}, #{tel}, #{birth}, #{calender_check}, #{point}, #{join_date}, null)
+	</insert>
 
 </mapper>
