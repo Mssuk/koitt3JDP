@@ -4,15 +4,18 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.koitt.tim.dto.member.MemberDto;
+import com.koitt.tim.dto.member.SjoinStringDto;
 import com.koitt.tim.service.membership.MembershipService;
 
 @Controller
@@ -21,6 +24,7 @@ public class MembershipController {
 
 	@Autowired
 	MembershipService membershipService;
+	SqlSession sql;
 
 	@RequestMapping("login")
 	public String login() {
@@ -81,9 +85,11 @@ public class MembershipController {
 	}
 
 	@RequestMapping(value = "signUp", method = RequestMethod.POST)
-	public String signUp(Model model) {
+	public String signUp(MemberDto mdto, SjoinStringDto jdto, ModelMap model) {
 
-		return "";
+		System.out.println(mdto);
+		membershipService.signUp(mdto);
+
+		return "membership/join4";
 	}
-
 }

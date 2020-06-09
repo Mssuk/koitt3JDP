@@ -1,12 +1,10 @@
 package com.koitt.tim.service.membership;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.koitt.tim.dao.member.MemberDao;
 import com.koitt.tim.dto.member.MemberDto;
-import org.springframework.ui.Model;
 
 @Service
 public class MembershipServiceImpl implements MembershipService {
@@ -35,10 +33,12 @@ public class MembershipServiceImpl implements MembershipService {
 	}
 
 	@Override
-	public String signUp(Model model) {
+	public int signUp(MemberDto mdto) {
+		memberDao.insertMember(mdto.getName(), mdto.getId(), mdto.getPw(), mdto.getEmail1(), mdto.getEmail2(),mdto.getEmail_check(),mdto.getAddress1(),
+				mdto.getAddress2(), mdto.getAddress3(), mdto.getPhone(), mdto.getSms(),mdto.getTel(),mdto.getBirth(),mdto.getCalender_check(),mdto.getPoint(),mdto.getJoin_date());
+		
 
-		return null;
+		return 0;
 	}
-
 
 }
