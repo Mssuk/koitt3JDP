@@ -66,5 +66,4 @@ public class WinDto {
 	public void setW_hit(int w_hit) {
 		this.w_hit = w_hit;
 	}
-
 }
