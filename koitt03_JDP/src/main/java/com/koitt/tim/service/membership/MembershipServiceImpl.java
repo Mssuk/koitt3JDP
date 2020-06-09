@@ -32,4 +32,12 @@ public class MembershipServiceImpl implements MembershipService {
 		return result;
 	}
 
+	@Override
+	public int signUp(MemberDto mdto) {
+		memberDao.insertMember(mdto);
+
+
+		return 0;
+	}
+
 }
