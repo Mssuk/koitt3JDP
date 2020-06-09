@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koitt.tim.dao.board.WinDao">
+
+<!-- 당첨자글 전체불러오기 -->
+	<select id="selectWins" resultType="WinDto">
+		 select *from (select ROWNUM rnum, e.*from (select *from 
+          <choose>
+
+          	<when test="opt!='' and opt.equals('all') and key!=''">
+          	 and (w_title like '%' || #{key} || '%' or w_content like '%' || #{key} || '%' ) 
+			</when>
+          	<when test="opt!='' and opt.equals('tit') and key!=''">
+          	 and w_title like  '%' || #{key} || '%' 
+          	</when>
+          	<when test="opt!='' and opt.equals('con') and key!=''">
+          	 and w_content like  '%' || #{key} || '%' 
+          	</when>
+          	<otherwise>
+
+          	</otherwise>
+          </choose>
+            ORDER BY w_regist desc) e)
+      	  where rnum <![CDATA[ >= ]]> #{p1}
+          and rnum <![CDATA[ <= ]]> #{p2}
+	</select>
+
+	<!-- 당첨자글 개수 search-->
+    <select id="getWinListCount" resultType="int">
+        select count(*)
+        from win
+        where 
+    	<choose>
+          	<when test="opt!='' and opt.equals('all') and key!=''">
+          	(w_title like  '%' || #{key} || '%'  or w_content like  '%' || #{key} || '%' ) 
+          	</when>
+          	<when test="opt!='' and opt.equals('tit') and key!=''">
+          	 w_title like  '%' || #{key} || '%' 
+          	</when>
+          	<when test="opt!='' and opt.equals('con') and key!=''">
+          	 w_content like  '%' || #{key} || '%' 
+          	</when>
+          	<otherwise>
+          	 
+          	</otherwise>
+        </choose>
+    </select>
+
+
+
+</mapper>

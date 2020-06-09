@@ -75,8 +75,7 @@ public class EventController {
 		}
 		return "event/event";
 	}
-
-	// =======================종료
+	// 종료된이벤트
 
 	@RequestMapping("fin_event_view")
 	public String fin_event_view(Model model, @RequestParam("event_num") String event_num) {
@@ -126,5 +125,4 @@ public class EventController {
 		}
 		return "event/fin_event";
 	}
-
 }
