@@ -78,6 +78,7 @@ public class AdminServiceImpl implements AdminService {
 	public List<ProductDto> getAllProducts() {
 		return productDao.selectProduct();
 	}
+
 	@Override
 	public List<CategoryDept1Dto> getAllCate1() {
 		return categoryDao.selectAllDept1();
@@ -85,7 +86,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<CategoryDept2Dto> getAllCate2() {
-		return categoryDao.selectAlLDept2();
+		return categoryDao.selectAllDept2();
 	}
 
 

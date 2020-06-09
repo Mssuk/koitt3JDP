@@ -13,5 +13,6 @@ public interface CategoryDao {
     List<CategoryDept1Dto> selectAllDept1();
 
     //Dept2 all
-    List<CategoryDept2Dto> selectAlLDept2();
+    List<CategoryDept2Dto> selectAllDept2();
+    
 }

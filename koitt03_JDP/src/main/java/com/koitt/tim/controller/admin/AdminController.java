@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.koitt.tim.dto.category.CategoryDept1Dto;
+import com.koitt.tim.dto.category.CategoryDept2Dto;
 import com.koitt.tim.dto.product.ProductDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,5 +97,17 @@ public class AdminController {
 	@GetMapping("plist")
 	public List<ProductDto> pList(){
 		return adminService.getAllProducts();
+	}
+
+	//Category 1 가져옴
+	@GetMapping("plist/category/1")
+	public List<CategoryDept1Dto> pC1List(){
+		return adminService.getAllCate1();
+	}
+
+	//Category 2 가져옴
+	@GetMapping("plist/category/2")
+	public List<CategoryDept2Dto> pC2List(){
+		return adminService.getAllCate2();
 	}
 }

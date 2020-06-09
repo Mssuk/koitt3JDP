@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koitt.tim.dao.category.CategoryDao">
-    <select id="selectAllDept1" resultType="CategoryDept1Dto">
-        select * from CATEGORY_DEPT1;
-    </select>
 
     <select id="selectAllDept2" resultType="CategoryDept2Dto">
-        select * from CATEGORY_DEPT2;
+        select * from CATEGORY_DEPT2
     </select>
+
+    <select id="selectAllDept1" resultType="CategoryDept1Dto">
+        select * from CATEGORY_DEPT1
+    </select>
+
+    <!-- 카테고리 조인-->
+
 
 
 
