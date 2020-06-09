@@ -4,5 +4,10 @@
 	<select id="selectAllNotice" resultType="NoticeDto">
 		select * from notice
 	</select>
+	
+	<insert id="insertNotice" parameterType="NoticeDto">
+		insert into notice values
+		(notice_seq.nextval, #{n_title}, #{n_content}, sysdate ,0)
+	</insert>
 
 </mapper>

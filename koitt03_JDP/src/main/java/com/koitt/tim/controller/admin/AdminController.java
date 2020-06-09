@@ -6,17 +6,15 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.koitt.tim.dto.category.CategoryDept1Dto;
+import com.koitt.tim.dto.category.CategoryDept2Dto;
+import com.koitt.tim.dto.product.ProductDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.koitt.tim.dto.board.NoticeDto;
@@ -90,7 +88,26 @@ public class AdminController {
 
 	// notice 저장
 	@PostMapping("nlist")
-	public String nlist(NoticeDto nDto) {
-		return "ok";
+	public ResponseEntity<?> nlist(@RequestBody NoticeDto nDto) {
+		adminService.insertNotice(nDto);
+		return ResponseEntity.ok().build();
+	}
+
+	//product 가져옴
+	@GetMapping("plist")
+	public List<ProductDto> pList(){
+		return adminService.getAllProducts();
+	}
+
+	//Category 1 가져옴
+	@GetMapping("plist/category/1")
+	public List<CategoryDept1Dto> pC1List(){
+		return adminService.getAllCate1();
+	}
+
+	//Category 2 가져옴
+	@GetMapping("plist/category/2")
+	public List<CategoryDept2Dto> pC2List(){
+		return adminService.getAllCate2();
 	}
 }
