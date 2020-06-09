@@ -12,6 +12,7 @@ $(document).ready(function(){
 		$(this).parent().hide();
 		var index=$(".modi").index(this);
 		$(".modi_f").eq(index).show();
+		$(".modi").not(index).parent().show();
 	});
 	$(".reset_re").click(function(){
 		var index2=$(".reset_re").index(this);
