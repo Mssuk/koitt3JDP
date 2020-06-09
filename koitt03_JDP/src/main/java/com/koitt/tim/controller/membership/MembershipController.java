@@ -72,6 +72,20 @@ public class MembershipController {
 		return "membership/join1";
 	}
 
+	@RequestMapping(value = "signUp", method = RequestMethod.POST)
+	public String signUp(MemberDto mdto, SjoinStringDto jdto, ModelMap model) throws Exception{
+
+		mdto.setBirth(mdto.getBirth1(), mdto.getBirth2(), mdto.getBirth3());
+		mdto.setPhone(mdto.getPhone1(), mdto.getPhone2(), mdto.getPhone3());
+		mdto.setEmail(mdto.getEmail1(), mdto.getEmail2());
+		mdto.setTel(mdto.getTel1(), mdto.getTel2(), mdto.getTel3());
+		System.out.println(mdto);
+
+		membershipService.signUp(mdto);
+
+		return "membership/join4";
+	}
+
 	@RequestMapping("join2")
 	public String join2() {
 
@@ -82,14 +96,5 @@ public class MembershipController {
 	public String join3() {
 
 		return "membership/join3";
-	}
-
-	@RequestMapping(value = "signUp", method = RequestMethod.POST)
-	public String signUp(MemberDto mdto, SjoinStringDto jdto, ModelMap model) {
-
-		System.out.println(mdto);
-		membershipService.signUp(mdto);
-
-		return "membership/join4";
 	}
 }

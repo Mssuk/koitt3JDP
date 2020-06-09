@@ -14,9 +14,9 @@
 		var ch_id = /^[a-zA-Z][0-9][_]{4,16}$/;
 	    // 4~16자 까지 가능, 영문, 숫자와 특수기호(_)만 사용 가능
 	    var ch_yn = 1;
-	    
+
         var id = document.getElementById("id");
-	        
+
 		if (join.id.value == "") {
 			alert('아이디를 입력해주세요');
 			join.id.focus();
@@ -102,7 +102,7 @@
 			<ul>
 				<li><a href="/membership/login" id="leftNavi1">로그인</a></li>
 				<li><a href="location:void(0)" id="leftNavi2">회원가입</a></li>
-				<li><a href="#" id="leftNavi3">아이디/<span>비밀번호 찾기</span></a></li>
+				<li><a href="/membership/idsearch" id="leftNavi3">아이디/<span>비밀번호 찾기</span></a></li>
 				<li><a href="#" id="leftNavi4">회원약관</a></li>
 				<li><a href="#" id="leftNavi5">개인정보<span>취급방침</span></a></li>
 				<li class="last"><a href="#" id="leftNavi6">이메일무단<span>수집거부</span></a></li>
@@ -247,7 +247,7 @@
 											<li><span class="valign">&nbsp;@&nbsp;</span></li>
 											<li class="r10"><input type="text" class="w134"
 												name="email2" /></li>
-											<li><select id="emailList">
+											<li><select id="emailList" name="email29">
 													<option value="#" selected="selected">직접입력</option>
 													<option value="naver.com">naver.com</option>
 													<option value="daum.net">daum.net</option>
@@ -281,11 +281,11 @@
 									<td>
 										<p>쟈뎅에서 진행되는 이벤트와 쇼핑에 대한 정보를 이메일로 받아보시겠습니까?</p>
 										<ul class="question">
-											<li><input type="radio" name="receive" id="receive_yes"
-												class="radio_t" checked="checked" name="email_check"/><label for="receive_yes">예</label>
+											<li><input type="radio" id="receive_yes"
+												class="radio_t" checked="checked" name="email_check" value="y"/><label for="receive_yes">예</label>
 											</li>
-											<li><input type="radio" name="receive" id="receive_no"
-												class="radio_t" name="email_check"/><label for="receive_no">아니오</label></li>
+											<li><input type="radio" id="receive_no"
+												class="radio_t" name="email_check" value="n"/><label for="receive_no">아니오</label></li>
 										</ul>
 										<p class="gray">* 거래관련 정보는 고객님의 거래안전을 위하여 이메일 수신거부와 관계없이
 											발송됩니다.</p>
@@ -327,10 +327,10 @@
 											<li class="pt5">
 												<ul class="baseQues">
 													<li><input type="radio" name="sms" id="sms_yes"
-														class="radio_t" checked="checked" name="sms"/><label for="sms_yes">예</label>
+														class="radio_t" checked="checked" value="y"/><label for="sms_yes">예</label>
 													</li>
 													<li><input type="radio" name="sms" id="sms_no"
-														class="radio_t" /><label for="sms_no" name="sms">아니오</label></li>
+														class="radio_t" value="n"/><label for="sms_no" >아니오</label></li>
 												</ul>
 											</li>
 										</ul>
@@ -376,7 +376,7 @@
 														//<![CDATA[
 														for (var i = 1940; i <= 2014; i++) {
 															document
-																	.write("<option value=''>"
+																	.write("<option value="+i+">"
 																			+ i
 																			+ "년"
 																			+ "</option>");
@@ -392,13 +392,13 @@
 														for (var i = 1; i <= 12; i++) {
 															if (i < 10) {
 																document
-																		.write("<option value=''>0"
+																		.write("<option value="+i+">0"
 																				+ i
 																				+ "월"
 																				+ "</option>");
 															} else {
 																document
-																		.write("<option value=''>"
+																		.write("<option value="+i+">"
 																				+ i
 																				+ "월"
 																				+ "</option>");
@@ -414,21 +414,17 @@
 													<option value='' selected="selected">선택하세요</option>
 													<script type="text/javascript">
 														//<![CDATA[
-
-
-														for (var i = 1; i <= 31; i++) {
-															console.log('sdfsdfsdf');
+                                                        var i;
+														for (i = 1; i <= 31; i++) {
 															if (i < 10) {
-											/*					document
-																		.write("<option value=`${i}`>0"
+																document
+																		.write("<option value="+i+">0"
 																				+ i
 																				+ "일"
 																				+ "</option>");
-																*/
-																document.write(`<option value=${i}>0${i}일</option>`)
 															} else {
 																document
-																		.write("<option value=i>"
+																		.write("<option value="+i+">"
 																				+ i
 																				+ "일"
 																				+ "</option>");
@@ -441,11 +437,11 @@
 											<li class="r20">&nbsp;<span class="valign">일</span></li>
 											<li class="pt5">
 												<ul class="baseQues">
-													<li><input type="radio" name="birth" id="solar"
-														class="radio_t" checked="checked" name="calender_check"/><label for="solar">양력</label>
+													<li><input type="radio" name="calender_check" id="solar"
+														class="radio_t" checked="checked" value="solar"/><label for="solar">양력</label>
 													</li>
-													<li><input type="radio" name="birth" id="lunar"
-														class="radio_t" name="calender_check"/><label for="lunar">음력</label></li>
+													<li><input type="radio" name="calender_check" id="lunar"
+														class="radio_t" value="lunar"/><label for="lunar">음력</label></li>
 												</ul>
 											</li>
 										</ul>

@@ -11,9 +11,8 @@
 	</select>
 
 	<insert id="insertMember" parameterType="MemberDto">
-		insert into member
-			value(#{name},#{id},#{pw},#{email},#{email_check}, #{address1},#{address2},#{address3},
-		         #{phone}, #{sms}, #{tel}, #{birth}, #{calender_check}, #{point}, #{join_date}, null)
+		insert into member (ID, NAME, PW, EMAIL, EMAIL_CHECK, ADDRESS1, ADDRESS2, ADDRESS3, PHONE, SMS, TEL, BIRTH, CALENDER_CHECK, point, JOIN_DATE)
+			values (#{id}, #{name}, #{pw}, #{email}, #{email_check}, #{address1}, #{address2}, #{address3}, #{phone}, #{sms}, #{tel}, #{birth}, #{calender_check}, #{point}, sysdate)
 	</insert>
 
 </mapper>
