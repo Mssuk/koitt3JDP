@@ -2,11 +2,13 @@ package com.koitt.tim.service.event;
 
 import java.util.List;
 
+import com.koitt.tim.dto.board.WinDto;
 import com.koitt.tim.dto.event.EventCouponBean;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.event.EventPreNextBean;
 import com.koitt.tim.dto.event.EventReplyBean;
 import com.koitt.tim.dto.event.EventReplyDto;
+import com.koitt.tim.dto.event.WinPreNextBean;
 
 public interface EventService {
 
@@ -59,4 +61,16 @@ public interface EventService {
 
 	// 댓글삭제
 	int deleteEventReply(String event_re_num);
+
+	// ------------------------------------------------------------------------------------
+	// 당첨자 발표 리스트
+	List<WinDto> selectWins(int pageNum, String search, String text);
+
+	List<Integer> getWinPageList(int pageNum, String search, String text);
+
+	// 전체글 리스트 카운트(search)
+	int getWinListCount(String search, String text);
+
+	WinPreNextBean selectWinPreNext(String w_num);
+
 }

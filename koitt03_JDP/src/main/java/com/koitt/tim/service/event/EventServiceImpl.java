@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.koitt.tim.dao.event.EventDao;
+import com.koitt.tim.dto.board.WinDto;
 import com.koitt.tim.dto.event.EventCouponBean;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.event.EventPreNextBean;
 import com.koitt.tim.dto.event.EventReplyBean;
 import com.koitt.tim.dto.event.EventReplyDto;
+import com.koitt.tim.dto.event.WinPreNextBean;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -208,6 +210,31 @@ public class EventServiceImpl implements EventService {
 		}
 
 		return result;
+	}
+
+	// --------당첨글
+	@Override
+	public List<WinDto> selectWins(int pageNum, String search, String text) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Integer> getWinPageList(int pageNum, String search, String text) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getWinListCount(String search, String text) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public WinPreNextBean selectWinPreNext(String w_num) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
