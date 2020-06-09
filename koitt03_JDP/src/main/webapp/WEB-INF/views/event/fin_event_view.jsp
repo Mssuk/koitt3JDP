@@ -21,23 +21,46 @@ $(document).ready(function(){
 	
 	
 });
-	
-	//댓글유효성
-	function reply_ok(a){
-		var k= a;
-		var croodx = '<%=(String)session.getAttribute("id")%>';
-		if(croodx=='null'){
-			alert('로그인 후 등록가능합니다.');
-			return false;
-		}
-		if(k.event_re_content.value==''){
-			alert('내용을 입력해주세요');
-			return false;
-		}
-		
-		aa.submit();
+
+//댓글유효성
+function reply_ok(aa){
+	var k=aa;
+	var croodx = '<%=(String)session.getAttribute("id")%>';
+//		if(croodx=='null'){
+//			alert('로그인 후 등록가능합니다.');
+//			return false;
+//		}
+	if(event_reply.event_re_content.value==''){
+		alert('내용을 입력해주세요');
+		return false;
 	}
 	
+	event_reply.submit();
+}
+
+function modify_re(f){
+	
+	if(f.event_re_content.value==''){
+		alert('내용을 입력해주세요')
+		return false;
+	}
+	if(confirm("수정하시겠습니까?")==true){
+		f.action='modify_reply';
+	}else{
+		return false;
+	}
+}
+
+function delete_re(f){
+	
+	if(confirm("삭제하시겠습니까?")==true){
+		f.action='delete_reply';
+	}else{
+		return false;
+	}
+}
+
+//
 </script>
 
 	
@@ -141,16 +164,16 @@ $(document).ready(function(){
 
 					
 					<!-- 댓글-->
-					<form class="replyWrite" name="${dto.event_num }" action="event_reply" method="post">
-						<ul>
+					<form class="replyWrite" name="event_reply" action="event_reply" method="post">
+						<ul id="replywrite">
 							<li class="in">
-								<input type="text" name="event_num" value="${dto.event_num }" hidden="">
+								<input type="text" name="event_num" value="${event_view.eventDto.event_num }" hidden="">
 								<input type="text" name="id" value="${id }" hidden="">
 								<p class="txt">총 <span class="orange">${reply_count }</span> 개의 댓글이 달려있습니다.</p>
 								<p class="password">비밀번호&nbsp;&nbsp;<input type="password" class="replynum" name="pw" /></p>
 								<textarea class="replyType" name="event_re_content"></textarea>
 							</li>
-							<li class="btn"><input type="button" onclick="reply_ok('${dto.event_num }')" class="replyBtn" value="등록" style="border:none;cursor: pointer;"></li>
+							<li class="btn"><input type="button" onclick="reply_ok(this.form)" class="replyBtn" value="등록" style="border:none;cursor: pointer;"></li>
 						</ul>
 						<p class="ntic">※ 비밀번호를 입력하시면 댓글이 비밀글로 등록 됩니다.</p>
 					</form>
@@ -187,15 +210,15 @@ $(document).ready(function(){
 <%-- 										<c:if test="${re_dtos.id==id }"> --%>
 											<li class="btn bt01">
 												<a href="javascript:;" onclick="return false;" class="rebtn modi" >수정</a>
-												<a href="#" onclick="javascript: form.action='/manage/delete';" class="rebtn">삭제</a>
+												<input type="button" value="삭제" onclick="delete_re(this.form)" class="rebtn" style="border:none;cursor: pointer;">
 											</li>
 <%-- 										</c:if> --%>
 									</ul>	
 									<ul class="modi_f" style="display: none;">
-										<li style="margin:10px 0;"><input type="text" value="${re_dtos.id }" hidden=""></li>	
+										<li style="margin:10px 0;"><input type="text" value="${re_dtos.event_re_num }" hidden=""></li>	
 									    <li><textarea style="width:98%">${re_dtos.event_re_content }</textarea></li>
 									    <li class="btn bt02">
-											<input type="submit" value="저장" onclick="javascript: form.action='/manage/update';" class="rebtn" style="border:none;cursor: pointer;">
+											<input type="button" value="저장" onclick="modify_re(this.form)" class="rebtn" style="border:none;cursor: pointer;">
 											<a href="javascript:;" onclick="return false;" class="rebtn reset_re">취소</a>
 									</ul>
 									</form>

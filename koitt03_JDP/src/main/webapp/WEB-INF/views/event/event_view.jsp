@@ -38,6 +38,30 @@ $(document).ready(function(){
 		event_reply.submit();
 	}
 	
+	function modify_re(f){
+		
+		if(f.event_re_content.value==''){
+			alert('내용을 입력해주세요')
+			return false;
+		}
+		if(confirm("수정하시겠습니까?")==true){
+			f.action='modify_reply';
+		}else{
+			return false;
+		}
+	}
+	
+	function delete_re(f){
+		
+		if(confirm("삭제하시겠습니까?")==true){
+			f.action='delete_reply';
+		}else{
+			return false;
+		}
+	}
+	
+	//
+	
 </script>
 
 	
@@ -142,7 +166,7 @@ $(document).ready(function(){
 					
 					<!-- 댓글-->
 					<form class="replyWrite" name="event_reply" action="event_reply" method="post">
-						<ul>
+						<ul id="replywrite">
 							<li class="in">
 								<input type="text" name="event_num" value="${event_view.eventDto.event_num }" hidden="">
 								<input type="text" name="id" value="${id }" hidden="">
@@ -150,7 +174,7 @@ $(document).ready(function(){
 								<p class="password">비밀번호&nbsp;&nbsp;<input type="password" class="replynum" name="pw" /></p>
 								<textarea class="replyType" name="event_re_content"></textarea>
 							</li>
-							<li class="btn"><input type="button" onclick="reply_ok()" class="replyBtn" value="등록" style="border:none;cursor: pointer;"></li>
+							<li class="btn"><input type="button" onclick="reply_ok(this.form)" class="replyBtn" value="등록" style="border:none;cursor: pointer;"></li>
 						</ul>
 						<p class="ntic">※ 비밀번호를 입력하시면 댓글이 비밀글로 등록 됩니다.</p>
 					</form>
@@ -174,7 +198,7 @@ $(document).ready(function(){
 							<c:otherwise>
 									<c:forEach var="re_dtos" items="${reply_list }">
 									<form action="modify" method="post" name="${re_dtos.event_re_num }">
-									<ul>
+									<ul id="${re_dtos.event_re_num }">
 										<li class="name">${re_dtos.name } <span>[<fmt:formatDate value="${re_dtos.event_re_modify }" pattern="yyyy-MM-dd  HH:mm:ss"/>]</span></li>
 									    <c:choose>
 									    	<c:when test="${re_dtos.pw!=null }">
@@ -187,15 +211,15 @@ $(document).ready(function(){
 <%-- 										<c:if test="${re_dtos.id==id }"> --%>
 											<li class="btn bt01">
 												<a href="javascript:;" onclick="return false;" class="rebtn modi" >수정</a>
-												<a href="#" onclick="javascript: form.action='/manage/delete';" class="rebtn">삭제</a>
+												<input type="button" value="삭제" onclick="delete_re(this.form)" class="rebtn" style="border:none;cursor: pointer;">
 											</li>
 <%-- 										</c:if> --%>
 									</ul>	
 									<ul class="modi_f" style="display: none;">
-										<li style="margin:10px 0;"><input type="text" value="${re_dtos.id }" hidden=""></li>	
-									    <li><textarea style="width:98%">${re_dtos.event_re_content }</textarea></li>
+										<li style="margin:10px 0;"><input type="text" value="${re_dtos.event_re_num }" hidden=""></li>	
+									    <li><textarea style="width:98%" name="event_re_content">${re_dtos.event_re_content }</textarea></li>
 									    <li class="btn bt02">
-											<input type="submit" value="저장" onclick="javascript: form.action='/manage/update';" class="rebtn" style="border:none;cursor: pointer;">
+											<input type="button" value="저장" onclick="modify_re(this.form)" class="rebtn" style="border:none;cursor: pointer;">
 											<a href="javascript:;" onclick="return false;" class="rebtn reset_re">취소</a>
 									</ul>
 									</form>
