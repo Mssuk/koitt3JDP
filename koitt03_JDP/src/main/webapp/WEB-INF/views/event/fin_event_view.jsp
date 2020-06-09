@@ -6,11 +6,14 @@
 <jsp:include page="../common/header.jsp" />
 <script type="text/javascript">
 				
+
 $(document).ready(function(){
 	//댓글수정열기
 	$(".modi").click(function(){
-		$(this).parent().hide();
 		var index=$(".modi").index(this);
+		$(".modi").parent().show();
+		$(".modi_f").hide();
+		$(this).parent().hide();
 		$(".modi_f").eq(index).show();
 	});
 	$(".reset_re").click(function(){
@@ -21,46 +24,53 @@ $(document).ready(function(){
 	
 	
 });
-
-//댓글유효성
-function reply_ok(aa){
-	var k=aa;
-	var croodx = '<%=(String)session.getAttribute("id")%>';
-//		if(croodx=='null'){
-//			alert('로그인 후 등록가능합니다.');
-//			return false;
-//		}
-	if(event_reply.event_re_content.value==''){
-		alert('내용을 입력해주세요');
-		return false;
+	
+	//댓글유효성
+	function reply_ok(aa){
+		var k=aa;
+		var croodx = '<%=(String)session.getAttribute("id")%>';
+		if(croodx=='null'){
+			alert('로그인 후 등록가능합니다.');
+			return false;
+		}
+		if(event_reply.event_re_content.value==''){
+			alert('내용을 입력해주세요');
+			return false;
+		}
+		
+		event_reply.submit();
 	}
 	
-	event_reply.submit();
-}
-
-function modify_re(f){
+	function modify_re(f){
+		
+		if(f.event_re_content.value==''){
+			alert('내용을 입력해주세요')
+			return false;
+		}
+		if(confirm("수정하시겠습니까?")==true){
+			f.action='modify_e_reply?board=fin_event';
+			f.submit();
+		}else{
+			return false;
+		}
+	}
 	
-	if(f.event_re_content.value==''){
-		alert('내용을 입력해주세요')
-		return false;
+	function delete_re(f){
+		
+		if(confirm("삭제하시겠습니까?")==true){
+			f.action='delete_e_reply?board=fin_event';
+			f.submit();
+		}else{
+			return false;
+		}
 	}
-	if(confirm("수정하시겠습니까?")==true){
-		f.action='modify_reply';
-	}else{
-		return false;
+	//수정안하고 닫았을때
+	function modify_view(a){
+		$("#"+a).val(a);
 	}
-}
-
-function delete_re(f){
+	//
 	
-	if(confirm("삭제하시겠습니까?")==true){
-		f.action='delete_reply';
-	}else{
-		return false;
-	}
-}
-
-//
+	//
 </script>
 
 	
@@ -164,7 +174,7 @@ function delete_re(f){
 
 					
 					<!-- 댓글-->
-					<form class="replyWrite" name="event_reply" action="event_reply" method="post">
+					<form class="replyWrite" name="event_reply" action="event_reply?board=fin_event" method="post">
 						<ul id="replywrite">
 							<li class="in">
 								<input type="text" name="event_num" value="${event_view.eventDto.event_num }" hidden="">
@@ -196,33 +206,35 @@ function delete_re(f){
 							</c:when>
 							<c:otherwise>
 									<c:forEach var="re_dtos" items="${reply_list }">
-									<form action="modify" method="post" name="${re_dtos.event_re_num }">
-									<ul>
+									<form action="" method="post" name="${re_dtos.event_re_num }">
+												<input type="text" value="${re_dtos.event_re_num }" name="event_re_num" hidden="">
+												<input type="text" value="${re_dtos.event_num }"name="event_num"  hidden="">
+									<ul id="${re_dtos.event_re_num }">
 										<li class="name">${re_dtos.name } <span>[<fmt:formatDate value="${re_dtos.event_re_modify }" pattern="yyyy-MM-dd  HH:mm:ss"/>]</span></li>
 									    <c:choose>
-									    	<c:when test="${re_dtos.pw!=null }">
+									    	<c:when test="${re_dtos.pw!=null&&re_dtos.id!=id }">
 												<li class="txt"><a href="password.html" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a></li>
 									    	</c:when>
 									    	<c:otherwise>
 											    <li class="txt">${re_dtos.event_re_content }</li>
 									    	</c:otherwise>
 									    </c:choose>
-<%-- 										<c:if test="${re_dtos.id==id }"> --%>
+										<c:if test="${re_dtos.id==id }">
 											<li class="btn bt01">
-												<a href="javascript:;" onclick="return false;" class="rebtn modi" >수정</a>
+												<a href="javascript:;" onclick="modify_view('${re_dtos.event_re_content }')" class="rebtn modi" >수정</a>
 												<input type="button" value="삭제" onclick="delete_re(this.form)" class="rebtn" style="border:none;cursor: pointer;">
 											</li>
-<%-- 										</c:if> --%>
+										</c:if>
 									</ul>	
 									<ul class="modi_f" style="display: none;">
-										<li style="margin:10px 0;"><input type="text" value="${re_dtos.event_re_num }" hidden=""></li>	
-									    <li><textarea style="width:98%">${re_dtos.event_re_content }</textarea></li>
+										<li style="margin:10px 0;"></li>	
+									    <li><textarea style="width:98%" name="event_re_content" id="${re_dtos.event_re_content }">${re_dtos.event_re_content }</textarea></li>
 									    <li class="btn bt02">
 											<input type="button" value="저장" onclick="modify_re(this.form)" class="rebtn" style="border:none;cursor: pointer;">
 											<a href="javascript:;" onclick="return false;" class="rebtn reset_re">취소</a>
 									</ul>
 									</form>
-									</c:forEach>							
+									</c:forEach>								
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -233,7 +245,7 @@ function delete_re(f){
 					<div class="btnArea">
 						<div class="bRight">
 							<ul>
-								<li><a href="javascript:history.go(-1)" class="sbtnMini mw">목록</a></li>
+								<li><a href="fin_event" class="sbtnMini mw">목록</a></li>
 							</ul>
 						</div>
 					</div>

@@ -96,14 +96,14 @@ $(document).ready(function() {
 				<div id="mnaviOpen"><img src="${pageContext.request.contextPath}/images/btn/btn_mnavi.gif" width="33" height="31" alt="메뉴열기" /></div>
 				<div id="mnaviClose"><img src="${pageContext.request.contextPath}/images/btn/btn_mnavi_close.gif" width="44" height="43" alt="메뉴닫기" /></div>
 				<ul>
-					<li><a href="#">EVENT</a></li>
+					<li><a href="/event/event">EVENT</a></li>
 					<li><a href="#">CUSTOMER</a></li>
 					<li><a href="#">COMMUNITY</a></li>
 				</ul>
 			</div>
 			<div id="snb">
 				<ul>
-					<li><a href="login">LOGIN</a></li>
+					<li><a href="/login">LOGIN</a></li>
 					<li><a href="join">JOIN</a></li>
 					<li><a href="#">MY PAGE</a></li>
 					<li><a href="#">CART</a></li>

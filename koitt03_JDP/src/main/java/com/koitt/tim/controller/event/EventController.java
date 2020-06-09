@@ -3,6 +3,8 @@ package com.koitt.tim.controller.event;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +25,7 @@ public class EventController {
 	EventService eServ;
 
 	@RequestMapping("event_view")
-	public String event_view(Model model, @RequestParam("event_num") String event_num) {
+	public String event_view(Model model, @RequestParam("event_num") String event_num, HttpSession session) {
 		// 이벤트,쿠폰
 		EventCouponBean viewBean = eServ.selectEventView(event_num);
 		// 이전글,다음글
@@ -35,6 +37,9 @@ public class EventController {
 		model.addAttribute("event_view", viewBean);
 		model.addAttribute("pn_list", preNext);
 		model.addAttribute("reply_count", reCount);
+		// 임시 아이디
+		session.setAttribute("id", "abcd1234");
+
 		if (re_dtos.size() != 0) {
 			model.addAttribute("reply_list", re_dtos);
 		}
@@ -89,7 +94,7 @@ public class EventController {
 		if (re_dtos.size() != 0) {
 			model.addAttribute("reply_list", re_dtos);
 		}
-		return "event/event_view";
+		return "event/fin_event_view";
 	}
 
 	// search
