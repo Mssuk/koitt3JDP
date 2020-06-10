@@ -296,12 +296,14 @@
 									<td>
 										<ul class="pta">
 											<li><input type="text" class="w134" name="address1"/>&nbsp;</li>
-											<li><a href="zip.html" class="addressBtn" ><span>우편번호
-														찾기</span></a></li>
+											<li><a href="" class="addressBtn" ><span>우편번호 찾기</span></a></li>
 											<li class="pt5"><input type="text" class="addressType" name="address2"/></li>
 											<li class="pt5"><input type="text" class="addressType" name="address3"/></li>
-											<li class="cb"><span class="mvalign">※ 상품 배송 시
-													받으실 주소입니다. 주소를 정확히 적어 주세요.</span></li>
+											<li class="cb">
+												<span class="mvalign">
+												※ 상품 배송 시 받으실 주소입니다. 주소를 정확히 적어 주세요.
+												</span>
+											</li>
 										</ul>
 									</td>
 								</tr>
@@ -466,52 +468,6 @@
 				</form>
 			</div>
 
-			<script type="text/javascript"
-				src="../js/jquery.fancybox-1.3.4.pack.js"></script>
-			<link rel="stylesheet" type="text/css"
-				href="/css/jquery.fancybox-1.3.4.css" />
-			<script type="text/javascript">
-				$(function() {
-					// business input
-					var firstchk = $("input:radio[name=business]:checked")
-							.attr("id");
-					$(".businessTy").css("display", "none");
-					$("#partner").click(function() {
-						$(".businessTy").css("display", "block");
-					});
-					$("#general").click(function() {
-						$(".businessTy").css("display", "none");
-					});
-					$("#" + firstchk).click();
-
-					// popup
-					var winWidth = $(window).width();
-					if (winWidth > 767) {
-						var layerCheck = 540;
-					} else {
-						var layerCheck = 320;
-					}
-
-					$(".addressBtn").fancybox(
-							{
-								'autoDimensions' : false,
-								'showCloseButton' : false,
-								'width' : layerCheck,
-								'padding' : 0,
-								'type' : 'iframe',
-								'onComplete' : function() {
-									$('#fancybox-frame').load(
-											function() { // wait for frame to load and then gets it's height
-												$('#fancybox-content').height(
-														$(this).contents()
-																.find('body')
-																.height());
-											});
-								}
-							});
-
-				});
-			</script>
 		</div>
 	</div>
 	<!-- //contents -->
