@@ -66,7 +66,7 @@
 											<td>이전 글이 없습니다.</td>
 										</c:when>
 										<c:otherwise>
-											<td><a href="prizewinner_view?event_num=${dtos.pre.w_num }">${dtos.pre.w_title }</a></td>
+											<td><a href="prizewinner_view?w_num=${dtos.pre.w_num }">${dtos.pre.w_title }</a></td>
 										</c:otherwise>
 									</c:choose>
 								</tr>
@@ -78,7 +78,7 @@
 											<td>다음 글이 없습니다.</td>
 										</c:when>
 										<c:otherwise>
-											<td><a href="prizewinner_view?event_num=${dtos.next.w_num }">${dtos.next.w_title }</a></td>
+											<td><a href="prizewinner_view?w_num=${dtos.next.w_num }">${dtos.next.w_title }</a></td>
 										</c:otherwise>
 									</c:choose>
 								</tr>

@@ -9,21 +9,14 @@
 		<div id="location">
 			<ol>
 				<li><a href="#">HOME</a></li>
-				<li><a href="#">CUSTOMER</a></li>
+				<li><a href="notice">CUSTOMER</a></li>
 				<li class="last">1:1문의</li>
 			</ol>
 		</div>
 		
 		<div id="outbox">		
-			<div id="left">
-				<div id="title2">CUSTOMER<span>고객센터</span></div>
-				<ul>	
-					<li><a href="#" id="leftNavi1">NOTICE</a></li>
-					<li><a href="#" id="leftNavi2">1:1문의</a></li>
-					<li><a href="#" id="leftNavi3">FAQ</span></a></li>
-					<li class="last"><a href="#" id="leftNavi4">이용안내</a></li>
-				</ul>			
-			</div><script type="text/javascript">initSubmenu(2,0);</script>
+			<jsp:include page="customer_left_bar.jsp" />
+			<script type="text/javascript">initSubmenu(2,0);</script>
 
 
 			<!-- contents -->

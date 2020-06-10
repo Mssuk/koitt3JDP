@@ -272,7 +272,8 @@ public class EventServiceImpl implements EventService {
 	// 조회수방지
 	@Override
 	public Cookie updateWinUpHit(HttpServletRequest request) {
-		String id = request.getRemoteAddr();
+		String id = "";
+//		request.getRemoteAddr(); 도메인으로 하면 쿠키충돌이생긴다..ㅠ
 		if (request.getParameter("id") != null) {
 			id = request.getParameter("id");
 		}

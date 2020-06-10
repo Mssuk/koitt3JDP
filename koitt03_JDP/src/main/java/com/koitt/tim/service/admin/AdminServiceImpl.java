@@ -2,23 +2,23 @@ package com.koitt.tim.service.admin;
 
 import java.util.List;
 
-import com.koitt.tim.dao.category.CategoryDao;
-import com.koitt.tim.dao.product.ProductDao;
-import com.koitt.tim.dto.category.CategoryDept1Dto;
-import com.koitt.tim.dto.category.CategoryDept2Dto;
-import com.koitt.tim.dto.product.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.koitt.tim.dao.board.NoticeDao;
+import com.koitt.tim.dao.category.CategoryDao;
 import com.koitt.tim.dao.coupon.CouponDao;
 import com.koitt.tim.dao.event.EventDao;
 import com.koitt.tim.dao.member.MemberDao;
+import com.koitt.tim.dao.product.ProductDao;
 import com.koitt.tim.dto.admin.MallDto;
 import com.koitt.tim.dto.board.NoticeDto;
+import com.koitt.tim.dto.category.CategoryDept1Dto;
+import com.koitt.tim.dto.category.CategoryDept2Dto;
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
+import com.koitt.tim.dto.product.ProductDto;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -66,7 +66,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<NoticeDto> getAllNotices() {
-		return noticeDao.selectAllNotice();
+		// 공지사항공사중...임시로 넣었습니다.
+		return noticeDao.selectAllNotice(1, 1, "", "");
+
 	}
 
 	@Override
@@ -88,6 +90,5 @@ public class AdminServiceImpl implements AdminService {
 	public List<CategoryDept2Dto> getAllCate2() {
 		return categoryDao.selectAllDept2();
 	}
-
 
 }

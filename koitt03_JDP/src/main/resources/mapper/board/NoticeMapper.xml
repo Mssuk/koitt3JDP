@@ -2,9 +2,64 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koitt.tim.dao.board.NoticeDao">
 	<select id="selectAllNotice" resultType="NoticeDto">
-		select * from notice
+		 select *from (select ROWNUM rnum, e.* from (select *from notice 
+          <choose>
+          	<when test="opt!='' and opt.equals('all') and key!=''">
+          	where n_title like '%' || #{key} || '%' or n_content like '%' || #{key} || '%'  
+			</when>
+          	<when test="opt!='' and opt.equals('tit') and key!=''">
+          	where  n_title like  '%' || #{key} || '%' 
+          	</when>
+          	<when test="opt!='' and opt.equals('con') and key!=''">
+          	where  n_content like  '%' || #{key} || '%' 
+          	</when>
+          	<otherwise>
+          	</otherwise>
+          </choose>
+           ORDER BY  n_regist desc) e)
+      	  where rnum <![CDATA[ >= ]]> #{p1}
+          and rnum <![CDATA[ <= ]]> #{p2}
 	</select>
 	
+	<select id="selectNoticeListCount" resultType="int">
+	  select count(*)
+        from notice
+     
+    	<choose>
+          	<when test="opt!='' and opt.equals('all') and key!=''">
+          	   where n_title like '%' || #{key} || '%' or n_content like '%' || #{key} || '%'
+          	</when>
+          	<when test="opt!='' and opt.equals('tit') and key!=''">
+          	   where  n_title like  '%' || #{key} || '%' 
+          	</when>
+          	<when test="opt!='' and opt.equals('con') and key!=''">
+          	   where  n_content like  '%' || #{key} || '%' 
+          	</when>
+          	<otherwise>
+          	 
+          	</otherwise>
+        </choose>
+		</select>
+		<select id="selectNotice"  resultType="NoticeDto">
+		select *from (select ROWNUM rnum, e.* from (select *from notice ORDER BY n_regist desc) e)
+		      	  where n_num=#{n_num}
+		</select>
+		<select id="selectPre"  resultType="NoticeDto">
+			select *from (select ROWNUM rnum, e.* from (select *from notice ORDER BY n_regist desc) e)
+		      	  where rnum =(#{rnum}+1)
+		</select>
+		<select id="selectNext"  resultType="NoticeDto">
+		select *from (select ROWNUM rnum, e.* from (select *from notice ORDER BY n_regist desc) e)
+		      	  where rnum =(#{rnum}-1)
+		</select>
+		
+		<update id="updateUpHit">
+		update notice set n_hit=n_hit+1 where n_num=#{n_num}
+		</update>
+	
+	
+	
+	<!-- admin:notice insert -->
 	<insert id="insertNotice" parameterType="NoticeDto">
 		insert into notice values
 		(notice_seq.nextval, #{n_title}, #{n_content}, sysdate ,0)
