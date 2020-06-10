@@ -2,6 +2,9 @@ package com.koitt.tim.service.event;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import com.koitt.tim.dto.board.WinDto;
 import com.koitt.tim.dto.event.EventCouponBean;
 import com.koitt.tim.dto.event.EventDto;
@@ -71,6 +74,9 @@ public interface EventService {
 	// 전체글 리스트 카운트(search)
 	int getWinListCount(String search, String text);
 
-	WinPreNextBean selectWinPreNext(String w_num);
+	WinPreNextBean selectWinPreNext(HttpServletRequest request);
+
+	// 조회수 중복방지
+	Cookie updateWinUpHit(HttpServletRequest request);
 
 }

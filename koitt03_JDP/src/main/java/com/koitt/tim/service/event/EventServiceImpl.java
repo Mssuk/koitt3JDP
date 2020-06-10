@@ -3,9 +3,13 @@ package com.koitt.tim.service.event;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.koitt.tim.dao.board.WinDao;
 import com.koitt.tim.dao.event.EventDao;
 import com.koitt.tim.dto.board.WinDto;
 import com.koitt.tim.dto.event.EventCouponBean;
@@ -19,7 +23,10 @@ import com.koitt.tim.dto.event.WinPreNextBean;
 public class EventServiceImpl implements EventService {
 
 	@Autowired
-	EventDao edao;
+	private EventDao edao;
+
+	@Autowired
+	private WinDao wdao;
 
 	private static final int ROW_LIMIT = 5; // 밑에 몇개씩 보여줄건지
 	private static final int PAGE_LIMIT = 10; // 한페이지에 글 몇개 보여줄건지
@@ -212,29 +219,82 @@ public class EventServiceImpl implements EventService {
 		return result;
 	}
 
-	// --------당첨글
+	// --------당첨글===============================================================
 	@Override
 	public List<WinDto> selectWins(int pageNum, String search, String text) {
-		// TODO Auto-generated method stub
-		return null;
+		// 시작 글넘버
+		int startNum = (pageNum - 1) * PAGE_LIMIT + 1;
+		// 끝 글넘버
+		int endNum = startNum + PAGE_LIMIT - 1;
+
+		return wdao.selectWins(startNum, endNum, search, text);
 	}
 
 	@Override
 	public List<Integer> getWinPageList(int pageNum, String search, String text) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Integer> pageList = new ArrayList<>();
+
+		// 총 게시굴 갯수
+		double totalCnt = this.getWinListCount(search, text);
+		// 총 게시글로 마지막페이지 계산
+		int lastPageNum = getLastNum(totalCnt);
+
+		// 시작 페이지 번호 설정
+		int startPageNum = ((int) (Math.ceil((double) pageNum / ROW_LIMIT) - 1) * ROW_LIMIT) + 1;
+
+		// 현재 페이지를 기준으로 마지막 페이지번호 계산 (예. 현재 6페이지면 6,7,8,9,10 이 나타남)
+		int realLastNum = (lastPageNum > startPageNum + ROW_LIMIT - 1) ? startPageNum + ROW_LIMIT - 1 : lastPageNum;
+
+		// 페이지 번호 할당
+		for (int i = startPageNum; i <= realLastNum; i++) {
+			pageList.add(i);
+		}
+		return pageList;
 	}
 
+	// 당첨자 이전글 다음글 현재글
+	@Override
+	public WinPreNextBean selectWinPreNext(HttpServletRequest request) {
+		String w_num = request.getParameter("w_num");
+		WinPreNextBean bean = new WinPreNextBean();
+		bean.setDto(wdao.selectWin(w_num));
+		bean.setPre(wdao.selectPre(bean.getDto().getRnum()));
+		bean.setNext(wdao.selectNext(bean.getDto().getRnum()));
+		return bean;
+	}
+
+	// 당첨자 글 개수
 	@Override
 	public int getWinListCount(String search, String text) {
-		// TODO Auto-generated method stub
-		return 0;
+		return wdao.selectWinListCount(search, text);
 	}
 
+	// 조회수방지
 	@Override
-	public WinPreNextBean selectWinPreNext(String w_num) {
-		// TODO Auto-generated method stub
-		return null;
+	public Cookie updateWinUpHit(HttpServletRequest request) {
+		String id = request.getRemoteAddr();
+		if (request.getParameter("id") != null) {
+			id = request.getParameter("id");
+		}
+		String w_num = request.getParameter("w_num");
+		Cookie cookie = null;
+		int count = 0;
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				if (cookies[i].getName().equals("winView_" + id + "ke" + w_num + "00")) {
+					count = 2;
+					break;
+				} // 쿠키 이름 찾기(if)
+			}
+		}
+		// 쿠키값 검색(for)
+		if (count == 0) {
+			wdao.updateUpHit(w_num);
+			cookie = new Cookie("winView_" + id + "ke" + w_num + "00", w_num + "/");
+			cookie.setMaxAge(60 * 60 * 24 * 30);
+		} // 쿠키가 없을경우 생성
+		return cookie;
 	}
 
 }

@@ -61,6 +61,7 @@ public interface EventDao {
 
 	void deleteEventReply(@Param("event_re_num") String event_re_num);
 
+	// =====================================================================
 	// admin---------------------------------------------------------------------------------------
 	// 이벤트 insert
 	void insertEvent(EventDto eDto);
