@@ -145,7 +145,7 @@
 		    <artifactId>cloudinary-core</artifactId>
 		    <version>1.26.0</version>
 		</dependency>
-				
+	
 
 
 	</dependencies>
