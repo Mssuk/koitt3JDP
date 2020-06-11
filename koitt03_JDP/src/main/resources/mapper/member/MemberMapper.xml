@@ -15,4 +15,9 @@
 			values (#{id}, #{name}, #{pw}, #{email}, #{email_check}, #{address1}, #{address2}, #{address3}, #{phone}, #{sms}, #{tel}, #{birth}, #{calender_check}, #{point}, sysdate)
 	</insert>
 
+	<update id="modifyMember" parameterType="MemberDto">
+		update MEMBER set NAME = #{name}, ADDRESS1 = #{address1}, ADDRESS2=#{address2},ADDRESS3=#{address3},PHONE=#{phone},TEL=#{tel},PW=#{pw},EMAIL=#{email} where ID=#{id}
+
+	</update>
+
 </mapper>

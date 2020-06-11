@@ -148,21 +148,27 @@ $(function() {
 			<!-- Btn Area -->
 			<div class="btnArea">
 				<div class="bCenter">
-					<ul>								
-						<li><a onclick="sendData($('#couponValue option:selected').text().trim().split(' ')[0])" class="sbtnMini">확인</a></li>
-						<li><a onclick="parent.$.fancybox.close();" href="javascript:;" class="nbtnbig">취소</a></li>
+					<ul>
+						<li><input type="button" onclick="sendData($('#couponValue option:selected').val())" class="sbtnMini" value="확인"></li>
+						<li><a onclick="parent.$.fancybox.close();" href="javascript:window.close()" class="nbtnbig">취소</a></li>
 					</ul>
 				</div>
 			</div>
+
 			<script>
 				function sendData(couponData) {
 
+					console.log($('#couponValue option:selected').val());
 					var coupon = document.getElementById("choice").innerText;
 					var useCoupon = couponData;
 
-					console.log(coupon);
 					opener.document.getElementById("pInput").value = coupon;
-					opener.document.getElementById("pInput1").value = coupon;
+					opener.document.getElementById("pInput1").innerText = coupon;
+					opener.document.getElementById("couponStore").value = useCoupon;
+
+					opener.document.getElementById("pInput").onchange();
+
+					window.close();
 				}
 
 			</script>

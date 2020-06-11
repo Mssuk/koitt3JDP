@@ -11,6 +11,7 @@ import com.koitt.tim.service.payment.PaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Member;
+import java.time.LocalDate;
 import java.util.List;
 
 @SessionAttributes("admin")
@@ -31,18 +33,19 @@ public class PaymentController {
 
 
     @RequestMapping("/payment")
-    public String payment(HttpSession session, String pro_num, Model model, @RequestParam("spinner") int spin) throws Exception{
+    public String payment(HttpSession session, String pro_num, Model model, @RequestParam(value = "spinner") int spin) throws Exception{
         ProductDto pDto = paymentServ.selectOne(pro_num);
-        MemberDto mDto = paymentServ.selectOneMember((String) session.getAttribute("admin"));
+        MemberDto memDto = paymentServ.selectOneMember((String) session.getAttribute("admin"));
         ObjectMapper objectMapper = new ObjectMapper();
 
-        String mDtoValue = objectMapper.writeValueAsString(mDto);   //JSON으로 바꿔줌.
+        String mDtoValue = objectMapper.writeValueAsString(memDto);   //JSON으로 바꿔줌.
         int count = paymentServ.couponListSum((String)session.getAttribute("admin"));
 
-        model.addAttribute("couponCount",count);
-        model.addAttribute("spin",spin);
-        model.addAttribute("dto",pDto);
-        model.addAttribute("mDto", mDtoValue);
+        model.addAttribute("memDto",memDto);            //로그인된 회원 정보 가져오기
+        model.addAttribute("couponCount",count);        //로그인된 회원의 쿠폰 개수
+        model.addAttribute("spin",spin);                //해당상품 개수
+        model.addAttribute("dto",pDto);                 //해당상품 정보
+        model.addAttribute("mDto", mDtoValue);          //로그인된 회원 정보 - 자바스크립트 관련(정보 불러오기)
 
 
         return "payment/payment";
@@ -61,6 +64,31 @@ public class PaymentController {
         model.addAttribute("spin",spin);        // 물품 수량
 
         return "payment/coupon_list";
+    }
+
+//    @RequestMapping("/payment.coupon")
+//    public String send_to_parent(Model model,String useCoupon){
+//
+//        model.addAttribute("useCoupon",useCoupon);
+//
+//        return "payment/payment";
+//    }
+
+    @RequestMapping(".modify")
+    public String payment_MemberModify(HttpSession session,@RequestParam(value="$orderName") String name, String address1,String address2,String address3,String pw,String phone,String tel,String email){
+
+        String id=(String)session.getAttribute("admin");
+
+        paymentServ.modifyMember(id,name,address1,address2,address3,pw,phone,tel,email);   //payment 페이지에서 회원정보 수정 반영
+
+        return "payment/payment";
+    }
+
+    @RequestMapping("order_clear")
+    public String Complete_Order(@DateTimeFormat(pattern = "yyyyMMdd")LocalDate date,String spinner,String useCoupon,String orderCost,String orderName,String orderTel){
+        paymentServ.addOrder("abcd1234",date,spinner,useCoupon,orderCost,orderName,orderTel);
+
+        return "payment/order_clear";
     }
 
 

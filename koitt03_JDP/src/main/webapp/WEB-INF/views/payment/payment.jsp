@@ -12,31 +12,31 @@
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/getSessionInfo.js"></script>
-<script src="/js/getSessionInfo1.js"></script>
+
 <script src="/js/couponBook.js"></script>
-<script>
-    function setParent() {
+<%--<script>--%>
+<%--    function setParent() {--%>
 
-    var list = [];
-    var coupons = document.getElementsByName("chBox");
+<%--    var list = [];--%>
+<%--    var coupons = document.getElementsByName("chBox");--%>
 
-    coupons.forEach((c) => {
-    if (c.checked === true) {
-    list.push(parseInt(c.value));
-    }
-    })
-    var sum = list.reduce((a, b) => a + b);
-
-
-    opener.document.getElementById("pInput").value = sum;
-    opener.document.getElementById("pInput1").value = sum;
+<%--    coupons.forEach((c) => {--%>
+<%--    if (c.checked === true) {--%>
+<%--    list.push(parseInt(c.value));--%>
+<%--    }--%>
+<%--    })--%>
+<%--    var sum = list.reduce((a, b) => a + b);--%>
 
 
+<%--    opener.document.getElementById("pInput").value = sum;--%>
+<%--    opener.document.getElementById("pInput1").value = sum;--%>
 
 
-}
 
-</script>
+
+<%--}--%>
+
+<%--  </script>--%>
 
 <%--<%session.setAttribute("adtmin", "abcd1234"); %>--%>
 <!-- container -->
@@ -138,7 +138,8 @@
                     <ul>
                         <li>수정 내용을 회원정보에도 반영합니다.&nbsp;&nbsp;</li>
                         <li>
-                            <a onclick=memberCheck('${mDto}')>회원정보반영</a>
+                            <a onclick=memberCheck()>회원정보수정</a>
+<%--                            <a onclick=memberCheck('${mDto}')>회원정보반영</a>--%>
                         </li>
 
                     </ul>
@@ -158,7 +159,7 @@
                         <tbody>
                         <tr>
                             <th scope="row"><span>이름</span></th>
-                            <td><input type="text" id="orderName" class="w134"/></td>
+                            <td><input type="text" id="orderName" class="w134" value="${memDto.name}"/></td>
                         </tr>
 
                         <tr>
@@ -166,23 +167,27 @@
                             <td>
                                 <ul class="pta">
                                     <li>
-                                        <input type="text" id="orderAddress1" class="w134"/>&nbsp;
+                                        <input type="text" id="orderAddress1" class="w134" value="${memDto.address1}"/>&nbsp;
                                     </li>
                                     <li><a href="../member/zip.html" class="addressBtn"><span>우편번호 찾기</span></a></li>
-                                    <li class="pt5"><input type="text" id="orderAddress2" class="addressType2"/></li>
-                                    <li class="pt5"><input type="text" id="orderAddress3" class="addressType2"/></li>
+                                    <li class="pt5"><input type="text" id="orderAddress2" class="addressType2" value="${memDto.address2}"/></li>
+                                    <li class="pt5"><input type="text" id="orderAddress3" class="addressType2" value="${memDto.address3}"/></li>
                                 </ul>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row"><span>이메일</span></th>
+
+
+
                             <td>
                                 <ul class="pta">
-                                    <li><input type="text" id="orderEmail1" class="w134"/></li>
+                                    <li><input type="text" id="orderEmail1" class="w134" value="${memDto.email1}"/></li>
                                     <li><span class="valign">&nbsp;@&nbsp;</span></li>
-                                    <li class="r10"><input type="text" id="orderEmail2" class="w134"/></li>
+                                    <li class="r10"><input type="text" id="orderEmail2" class="w134" value="${memDto.email2}"/></li>
+
                                     <li>
-                                        <select id="emailList">
+                                        <select id="emailList" onchange="emailChange()">
                                             <option value="#" selected="selected">직접입력</option>
                                             <option value="naver.com">naver.com</option>
                                             <option value="daum.net">daum.net</option>
@@ -200,7 +205,30 @@
                                             <option value="gmail.com">gmail.com</option>
                                             <option value="empas.com">empas.com</option>
                                         </select>&nbsp;&nbsp;&nbsp;
+                                        <script>
+                                            function emailChange() {
+
+                                                var email = ${memDto.email};
+                                                var reg = email.split('@');
+                                                document.getElementById("orderEmail1").value=reg[0];
+                                                document.getElementById("orderEmail2").value=reg[1];
+                                                console.log(reg[0]);
+                                                console.log(reg[1]);
+
+                                                // //이메일 파싱///////////////
+                                                // const $log = mDtoObj.email;
+                                                // const $reg = $log.split('@');
+                                                // const $email_first = $('#orderEmail1');
+                                                // const $email_last = $('#orderEmail2');
+                                                // $email_first.val($reg[0]);
+                                                // $email_last.val($reg[1]);
+
+                                                document.getElementById("orderEmail2").text = document.getElementsByName("emailList")[document.getElementsByName("emailList").selectedIndex].value;
+                                                document.getElementById("orderEmail2").onchange();
+                                            }
+                                        </script>
                                     </li>
+
                                 </ul>
                             </td>
                         </tr>
@@ -209,7 +237,7 @@
                             <td>
                                 <ul class="pta">
                                     <li>
-                                        <input type="text" id="orderTel" class="w74" maxlength="30"/>
+                                        <input type="text" id="orderTel" class="w74" maxlength="30" value="${memDto.tel}"/>
                                     </li>
                                 </ul>
                             </td>
@@ -219,7 +247,7 @@
                             <td>
                                 <ul class="pta">
                                     <li>
-                                        <input type="text" id="orderTel2" class="w74" maxlength="30"/>
+                                        <input type="text" id="orderTel2" class="w74" maxlength="30" value="${memDto.phone}"/>
                                     </li>
                                 </ul>
                             </td>
@@ -240,7 +268,7 @@
                     <%
                         if (!(session == null || !request.isRequestedSessionIdValid())) {
                     %>
-                    <a id="infosame" onclick="memberCheck1('${mDto}')" >
+                    <a id="infosame" onclick="memberCheck1()" >
                     <label for="infosame">회원정보와 동일</label>
                     <%
                         }
@@ -329,15 +357,15 @@
                             <td>
                                 <ul class="pta">
                                     <li class="r10">
-                                        <input type="text" class="w134" id="pInput"/>&nbsp;&nbsp;
+                                        <input type="text" class="w134" id="pInput" readonly onchange="finalTotal()"/>&nbsp;&nbsp;
                                         <span class="valign"><strong>원</strong></span>
                                     </li>
                                     <li class="r10"><span class="valign">( 보유 쿠폰 내역 : ${couponCount} 장 )&nbsp;</span></li>
-
+                                    <input type="hidden" name="store" id="couponStore" value="">
                                     <li><a onclick="couponBook('${dto.pro_num}','${spin}')">쿠폰목록</a></li>
 
 <%--                                <li><a href="coupon_list?pro_num=${dto.pro_num}&&id='<%=session.getAttribute("admin")%>'&&spin=${spin}">쿠폰목록</a></li>--%>
-<%--
+
                                 </ul>
                             </td>
                         </tr>
@@ -349,35 +377,49 @@
                             <td>
                                 <ul class="pta">
                                     <li class="r10">
-                                        <input type="text" class="w134"/>&nbsp;&nbsp;
+                                        <input type="text" id="usePoint" class="w134" />&nbsp;&nbsp;
                                         <span class="valign"><strong>Point</strong></span>
                                     </li>
                                     <li>
                                         <span class="valign">( 사용 가능 포인트 : </span>
-                                        <span class="orange">여기에 포인트</span>
+                                        <span id="pointInput" class="orange" onchange="finalTotal()">${memDto.point}</span>
                                         <span class="valign"> Point)</span>
                                     </li>
                                 </ul>
                             </td>
                         </tr>
                         <!-- //회원 일시 -->
-<%--                        <script type="text/javascript">--%>
-<%--                            var origin2 = ${total};--%>
-<%--                            var coupon2 = document.getElementById("pInput").value;--%>
 
-
-<%--                            document.getElementById('sum3').value = origin2+coupon2;--%>
-
-<%--                        </script>--%>
 
                         <tr>
                             <th scope="row"><span>총 결제금액</span></th>
                             <td>
                                 <ul class="pta">
-                                    <li><span class="valign"><strong> 원</strong> (총주문금액 ${total}원 + 배송비 2,500 원 - 쿠폰 xxx 원 - 포인트 xxx 원)
-
-
+                                    <li><span class="valign"><strong id="finallyTotal">${total+2500} </strong><span>원</span> <%--( ${total}원 + 배송비 2,500 원 - 쿠폰 <span id="pInput1"></span> 원 - 포인트 <span>${memDto.point}</span> 원)--%>
                                     </li>
+                                    <script>
+                                        function finalTotal(){
+
+                                            const total=Number(${total});
+                                            const coupon = Number(document.getElementById("pInput").value);
+                                            const point = Number(${memDto.point});
+                                            console.log(typeof total);
+                                            console.log(typeof coupon);
+                                            console.log(typeof point);
+                                            console.log(total);
+                                            console.log(coupon);
+                                            console.log(point);
+
+                                            const money = total+ 2500 -(coupon + point);
+                                            console.log(money);
+                                            $('#finallyTotal').text(money);
+
+                                            //$orderName.val(mDtoObj.name);
+                                            //$('#totalCoupon').text(total+parseInt(coupon));
+                                        }
+                                     </script>
+
+
                                 </ul>
                             </td>
 
@@ -400,7 +442,7 @@
                     <ul class="info">
                         <li>
                             <span class="title">상품 합계금액</span>
-                            <span class="won"><strong>1,132,310</strong> 원</span>
+                            <span class="won"><strong>${total}</strong> 원</span>
                         </li>
                         <li>
                             <span class="title">배송비</span>
@@ -410,11 +452,14 @@
                         <!-- 회원 일때만 -->
                         <li>
                             <span class="title">포인트 할인</span>
-                            <span class="won"><strong>- 1,000</strong> P</span>
+                            <span class="won"><strong><span id="usePointPrint"></span> </strong> P</span>
                         </li>
+                        <script>
+                            $('#usePointPrint').value = $('#usePoint').value;
+                        </script>
                         <li>
                             <span class="title">쿠폰 할인</span>
-                            <span class="won"><strong>- 1,000</strong> 원</span>
+                            <span class="won"><strong><span id="pInput1"></span><span>원</span> </strong> </span>
                         </li>
                         <!-- //회원 일떄만 -->
                     </ul>
@@ -607,8 +652,27 @@
                     <div class="orderCenter">
                         <ul>
                             <li><a href="#" class="nbtnbig iw0140">뒤로가기</a></li>
-                            <li><a href="#" class="sbtnMini iw0140">주문 / 결제</a></li>
+                            <li><a onclick="orderSuccess()" class="sbtnMini iw0140">주문 / 결제</a></li>
                         </ul>
+                        <script>
+                            function orderSuccess() {
+                                var useCouponNum = document.getElementById("couponStore").value;
+                                var orderPoint = document.getElementById("usePoint").value;      //사용 포인트
+                                var orderName = document.getElementById("orderName").value;      //주문자 이름
+                                var orderTel = document.getElementById("orderTel").value;        //주문자 번호
+                                var orderCost = document.getElementById("finallyTotal").innerText;   //주문 비용
+
+                                console.log(useCouponNum);
+                                console.log(orderPoint);
+                                console.log(orderName);
+                                console.log(orderTel);
+                                console.log(orderCost);
+
+                                location.href="order_clear?useCoupon="+useCouponNum+"&orderPoint="+orderCost+"&orderName="+orderName+"&orderTel="+orderTel+"spinner="+${spin};
+
+                            }
+
+                        </script>
                     </div>
                 </div>
                 <!-- //Btn Area -->
@@ -618,103 +682,103 @@
         </div>
         <!-- //maxcontents -->
 
-
+<%--
         <script type="text/javascript" src="js/jquery.fancybox-1.3.4.pack.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox-1.3.4.css"/>
-        <script type="text/javascript">
-            $(function () {
-                // select, radio - display check
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox-1.3.4.css"/>--%>
+<%--        <script type="text/javascript">--%>
+<%--            $(function () {--%>
+<%--                // select, radio - display check--%>
 
-                // 1 Step Radio
-                var firstchk = $("input:radio[name=method]:checked").attr("id");
-                $("div." + firstchk).css("display", "block");
-                $("input:radio[name=method]").click(function () {
-                    var divchk = $(this).attr("id");
-                    $(".disnone").css("display", "none");
-                    $("div." + divchk).css("display", "block");
-                });
+<%--                // 1 Step Radio--%>
+<%--                var firstchk = $("input:radio[name=method]:checked").attr("id");--%>
+<%--                $("div." + firstchk).css("display", "block");--%>
+<%--                $("input:radio[name=method]").click(function () {--%>
+<%--                    var divchk = $(this).attr("id");--%>
+<%--                    $(".disnone").css("display", "none");--%>
+<%--                    $("div." + divchk).css("display", "block");--%>
+<%--                });--%>
 
-                // 2 Step 영수증 Select
-                var firstselect = $("select[name=receiptChk] option:selected").attr("value");
-                $("div." + firstselect).css("display", "block");
-                $("select[name=bank]").css("width", "125px");
-                $("select[name=receiptChk]").css("width", "112px");
-                $("select[name=receiptChk]").change(function () {
-                    $(".receipt").css("display", "none");
-                    if ($(this).val() == "none") {
-                        $(".receipt").css("display", "none");
-                    } else if ($(this).val() == "individual") {
-                        $(".individual").css("display", "block");
-                    } else {
-                        $(".corporate").css("display", "block");
-                    }
+<%--                // 2 Step 영수증 Select--%>
+<%--                var firstselect = $("select[name=receiptChk] option:selected").attr("value");--%>
+<%--                $("div." + firstselect).css("display", "block");--%>
+<%--                $("select[name=bank]").css("width", "125px");--%>
+<%--                $("select[name=receiptChk]").css("width", "112px");--%>
+<%--                $("select[name=receiptChk]").change(function () {--%>
+<%--                    $(".receipt").css("display", "none");--%>
+<%--                    if ($(this).val() == "none") {--%>
+<%--                        $(".receipt").css("display", "none");--%>
+<%--                    } else if ($(this).val() == "individual") {--%>
+<%--                        $(".individual").css("display", "block");--%>
+<%--                    } else {--%>
+<%--                        $(".corporate").css("display", "block");--%>
+<%--                    }--%>
 
-                    var firstindi = $("input:radio[name=individual]:checked").attr("id");
-                    var firstcorp = $("input:radio[name=corporate]:checked").attr("id");
-                    $("ul." + firstindi).css("display", "block");
-                    $("ul." + firstcorp).css("display", "block");
-                });
+<%--                    var firstindi = $("input:radio[name=individual]:checked").attr("id");--%>
+<%--                    var firstcorp = $("input:radio[name=corporate]:checked").attr("id");--%>
+<%--                    $("ul." + firstindi).css("display", "block");--%>
+<%--                    $("ul." + firstcorp).css("display", "block");--%>
+<%--                });--%>
 
-                // 3-1 Step 발급방식 - 개인
-                var firstindi = $("input:radio[name=individual]:checked").attr("id");
-                $("ul." + firstindi).css("display", "block");
-                $("input:radio[name=individual]").click(function () {
-                    var divchk = $(this).attr("id");
-                    $(".inform").css("display", "none");
-                    $("ul." + divchk).css("display", "block");
-                });
+<%--                // 3-1 Step 발급방식 - 개인--%>
+<%--                var firstindi = $("input:radio[name=individual]:checked").attr("id");--%>
+<%--                $("ul." + firstindi).css("display", "block");--%>
+<%--                $("input:radio[name=individual]").click(function () {--%>
+<%--                    var divchk = $(this).attr("id");--%>
+<%--                    $(".inform").css("display", "none");--%>
+<%--                    $("ul." + divchk).css("display", "block");--%>
+<%--                });--%>
 
-                // 3-2 Step 발급방식 - 사업자
-                var firstcorp = $("input:radio[name=corporate]:checked").attr("id");
-                $("ul." + firstcorp).css("display", "block");
-                $("input:radio[name=corporate]").click(function () {
-                    var divchk = $(this).attr("id");
-                    $(".inform").css("display", "none");
-                    $("ul." + divchk).css("display", "block");
-                });
-
-
-                // layer popup
-                var winWidth = $(window).width();
-                if (winWidth > 767) {
-                    var layerCheck = 540;
-                    var couponCheck = 760;
-                } else {
-                    var layerCheck = 320;
-                    var couponCheck = 320;
-                }
-
-                $(".addressBtn").fancybox({
-                    'autoDimensions': false,
-                    'showCloseButton': false,
-                    'width': layerCheck,
-                    'padding': 0,
-                    'type': 'iframe',
-                    'onComplete': function () {
-                        $('#fancybox-frame').load(function () { // wait for frame to load and then gets it's height
-                            $('#fancybox-content').height($(this).contents().find('body').height());
-                        });
-                    }
-                });
-
-                $(".nbtn").fancybox({
-                    'autoDimensions': false,
-                    'showCloseButton': false,
-                    'width': couponCheck,
-                    'padding': 0,
-                    'type': 'iframe',
-                    'onComplete': function () {
-                        $('#fancybox-frame').load(function () { // wait for frame to load and then gets it's height
-                            $('#fancybox-content').height($(this).contents().find('body').height());
-                            $('#fancybox-wrap').css('top', '400px');
-                            $('html,body').animate({scrollTop: 400}, 500);
-                        });
-                    }
-                });
+<%--                // 3-2 Step 발급방식 - 사업자--%>
+<%--                var firstcorp = $("input:radio[name=corporate]:checked").attr("id");--%>
+<%--                $("ul." + firstcorp).css("display", "block");--%>
+<%--                $("input:radio[name=corporate]").click(function () {--%>
+<%--                    var divchk = $(this).attr("id");--%>
+<%--                    $(".inform").css("display", "none");--%>
+<%--                    $("ul." + divchk).css("display", "block");--%>
+<%--                });--%>
 
 
-            });
-        </script>
+<%--                // layer popup--%>
+<%--                var winWidth = $(window).width();--%>
+<%--                if (winWidth > 767) {--%>
+<%--                    var layerCheck = 540;--%>
+<%--                    var couponCheck = 760;--%>
+<%--                } else {--%>
+<%--                    var layerCheck = 320;--%>
+<%--                    var couponCheck = 320;--%>
+<%--                }--%>
+
+<%--                $(".addressBtn").fancybox({--%>
+<%--                    'autoDimensions': false,--%>
+<%--                    'showCloseButton': false,--%>
+<%--                    'width': layerCheck,--%>
+<%--                    'padding': 0,--%>
+<%--                    'type': 'iframe',--%>
+<%--                    'onComplete': function () {--%>
+<%--                        $('#fancybox-frame').load(function () { // wait for frame to load and then gets it's height--%>
+<%--                            $('#fancybox-content').height($(this).contents().find('body').height());--%>
+<%--                        });--%>
+<%--                    }--%>
+<%--                });--%>
+
+<%--                $(".nbtn").fancybox({--%>
+<%--                    'autoDimensions': false,--%>
+<%--                    'showCloseButton': false,--%>
+<%--                    'width': couponCheck,--%>
+<%--                    'padding': 0,--%>
+<%--                    'type': 'iframe',--%>
+<%--                    'onComplete': function () {--%>
+<%--                        $('#fancybox-frame').load(function () { // wait for frame to load and then gets it's height--%>
+<%--                            $('#fancybox-content').height($(this).contents().find('body').height());--%>
+<%--                            $('#fancybox-wrap').css('top', '400px');--%>
+<%--                            $('html,body').animate({scrollTop: 400}, 500);--%>
+<%--                        });--%>
+<%--                    }--%>
+<%--                });--%>
+
+
+<%--            });--%>
+<%--        </script>--%>
 
 
     </div>
