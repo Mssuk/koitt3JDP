@@ -148,8 +148,11 @@ $(document).ready(function(){
 										<c:when test="${pn_list.eventPre==null }">
 											<td>이전 글이 없습니다.</td>
 										</c:when>
+										<c:when test="${text!='' }">
+											<td><a href="event_view?event_num=${pn_list.eventPre.event_num }&pageNum=${pageNum}&search=${search}&text=${text}">${pn_list.eventPre.event_title }</a></td>
+										</c:when>
 										<c:otherwise>
-											<td><a href="event_view?event_num=${pn_list.eventPre.event_num }">${pn_list.eventPre.event_title }</a></td>
+											<td><a href="event_view?event_num=${pn_list.eventPre.event_num }&pageNum=${pageNum}">${pn_list.eventPre.event_title }</a></td>
 										</c:otherwise>
 									</c:choose>
 									<td>&nbsp;</td>
@@ -159,6 +162,9 @@ $(document).ready(function(){
 										<c:choose>
 										<c:when test="${pn_list.eventNext==null }">
 											<td>다음 글이 없습니다.</td>
+										</c:when>
+										<c:when test="${text!='' }">
+											<td><a href="event_view?event_num=${pn_list.eventNext.event_num }&pageNum=${pageNum}&search=${search}&text=${text}">${pn_list.eventNext.event_title }</a></td>
 										</c:when>
 										<c:otherwise>
 											<td><a href="event_view?event_num=${pn_list.eventNext.event_num }">${pn_list.eventNext.event_title }</a></td>
@@ -223,7 +229,7 @@ $(document).ready(function(){
 										<c:if test="${re_dtos.id==id }">
 											<li class="btn bt01">
 												<a href="javascript:;" onclick="modify_view('${re_dtos.event_re_num }')" class="rebtn modi" >수정</a>
-												<input type="button" value="삭제" onclick="delete_re(this.form)" class="rebtn" style="border:none;cursor: pointer;">
+												<input type="button" value="삭제" onclick="delete_re(this.form)" class="rebtn btn_recont">
 											</li>
 										</c:if>
 									</ul>	
@@ -233,7 +239,7 @@ $(document).ready(function(){
 									    <input type="text" name="${re_dtos.event_re_num }" value="${re_dtos.event_re_content }" hidden="">
 									    <textarea style="width:98%;" name="event_re_content" id="${re_dtos.event_re_num }">${re_dtos.event_re_content }</textarea></li>
 									    <li class="btn bt02">
-											<input type="button" value="저장" onclick="modify_re(this.form)" class="rebtn" style="border:none;cursor: pointer;">
+											<input type="button" value="저장" onclick="modify_re(this.form)" class="rebtn btn_recont">
 											<a href="javascript:;" onclick="return false;" class="rebtn reset_re">취소</a>
 									</ul>
 									</form>
@@ -248,7 +254,14 @@ $(document).ready(function(){
 					<div class="btnArea">
 						<div class="bRight">
 							<ul>
-								<li><a href="event" class="sbtnMini mw">목록</a></li>
+								<c:choose>
+									<c:when test="${text!='' }">
+										<li><a href="event?pageNum=${pageNum}&search=${search}&text=${text}" class="sbtnMini mw">목록</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="event?pageNum=${pageNum}" class="sbtnMini mw">목록</a></li>
+									</c:otherwise>
+								</c:choose>
 							</ul>
 						</div>
 					</div>

@@ -23,7 +23,10 @@ public class EventController {
 	EventService eServ;
 
 	@RequestMapping("event_view")
-	public String event_view(Model model, @RequestParam("event_num") String event_num) {
+	public String event_view(Model model, @RequestParam("event_num") String event_num,
+			@RequestParam(value = "page", defaultValue = "1") int pageNum,
+			@RequestParam(value = "search", defaultValue = "") String search,
+			@RequestParam(value = "text", defaultValue = "") String text) {
 		// 이벤트,쿠폰
 		EventCouponBean viewBean = eServ.selectEventView(event_num);
 		// 이전글,다음글
@@ -35,7 +38,10 @@ public class EventController {
 		model.addAttribute("event_view", viewBean);
 		model.addAttribute("pn_list", preNext);
 		model.addAttribute("reply_count", reCount);
-
+		// 목록
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("text", text);
+		model.addAttribute("search", search);
 		if (re_dtos.size() != 0) {
 			model.addAttribute("reply_list", re_dtos);
 		}
@@ -75,7 +81,10 @@ public class EventController {
 	// =======================종료
 
 	@RequestMapping("fin_event_view")
-	public String fin_event_view(Model model, @RequestParam("event_num") String event_num) {
+	public String fin_event_view(Model model, @RequestParam("event_num") String event_num,
+			@RequestParam(value = "page", defaultValue = "1") int pageNum,
+			@RequestParam(value = "search", defaultValue = "") String search,
+			@RequestParam(value = "text", defaultValue = "") String text) {
 		// 이벤트,쿠폰
 		EventCouponBean viewBean = eServ.selectFinEventView(event_num);
 		// 이전글,다음글
@@ -87,6 +96,10 @@ public class EventController {
 		model.addAttribute("event_view", viewBean);
 		model.addAttribute("pn_list", preNext);
 		model.addAttribute("reply_count", reCount);
+		// 목록
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("text", text);
+		model.addAttribute("search", search);
 		if (re_dtos.size() != 0) {
 			model.addAttribute("reply_list", re_dtos);
 		}

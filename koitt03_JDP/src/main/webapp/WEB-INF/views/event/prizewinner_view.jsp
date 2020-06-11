@@ -65,8 +65,11 @@
 										<c:when test="${dtos.pre==null }">
 											<td>이전 글이 없습니다.</td>
 										</c:when>
+										<c:when test="${text!='' }">
+											<td><a href="prizewinner_view?w_num=${dtos.pre.w_num }&pageNum=${pageNum}&search=${search}&text=${text}">${dtos.pre.w_title }</a></td>
+										</c:when>
 										<c:otherwise>
-											<td><a href="prizewinner_view?w_num=${dtos.pre.w_num }">${dtos.pre.w_title }</a></td>
+											<td><a href="prizewinner_view?w_num=${dtos.pre.w_num }&pageNum=${pageNum}">${dtos.pre.w_title }</a></td>
 										</c:otherwise>
 									</c:choose>
 								</tr>
@@ -77,8 +80,11 @@
 										<c:when test="${dtos.next==null }">
 											<td>다음 글이 없습니다.</td>
 										</c:when>
+										<c:when test="${text!='' }">
+											<td><a href="prizewinner_view?w_num=${dtos.next.w_num }&pageNum=${pageNum}&search=${search}&text=${text}">${dtos.next.w_title }</a></td>
+										</c:when>
 										<c:otherwise>
-											<td><a href="prizewinner_view?w_num=${dtos.next.w_num }">${dtos.next.w_title }</a></td>
+											<td><a href="prizewinner_view?w_num=${dtos.next.w_num }&pageNum=${pageNum}">${dtos.next.w_title }</a></td>
 										</c:otherwise>
 									</c:choose>
 								</tr>
@@ -92,7 +98,14 @@
 					<div class="btnArea btline">
 						<div class="bRight">
 							<ul>
-								<li><a href="prizewinner" class="sbtnMini mw">목록</a></li>
+								<c:choose>
+									<c:when test="${text!='' }">
+										<li><a href="prizewinner?pageNum=${pageNum}&search=${search}&text=${text}" class="sbtnMini mw">목록</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="prizewinner?pageNum=${pageNum}" class="sbtnMini mw">목록</a></li>
+									</c:otherwise>
+								</c:choose>
 							</ul>
 						</div>
 					</div>

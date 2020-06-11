@@ -25,7 +25,9 @@
 			<div id="contents">
 				<div id="mypage">
 					<h2><strong>당첨자 발표</strong><span>쟈뎅샵의 특별한 혜택이 가득한 이벤트의 당첨자를 발표합니다. </span></h2>
-					
+					<c:if test="${text!='' }">
+						<h3><span>'<em class="keyword">${text }</em>'에 대한 당첨자 발표 내 검색 결과입니다.</span>						</h3>
+					</c:if>
 					<div class="orderDivMt">
 						<table summary="NO, 제목, 등록일, 조회수 순으로 이벤트 당첨자을 조회 하실수 있습니다." class="orderTable2" border="1" cellspacing="0">
 							<caption>이벤트 당첨자 보기</caption>
@@ -69,7 +71,14 @@
 										<tr>
 											<td class="tnone">${dtos.rnum }</td>
 											<td class="left">
-											<a href="prizewinner_view?w_num=${dtos.w_num }&id=${id}" class="lightgray">${dtos.w_title }</a>
+											<c:choose>
+												<c:when test="${text!='' }">
+												<a href="prizewinner_view?w_num=${dtos.w_num }&id=${id}&pageNum=${pageNum}&search=${search}&text=${text}" class="lightgray">${dtos.w_title }</a>
+												</c:when>
+											<c:otherwise>
+												<a href="prizewinner_view?w_num=${dtos.w_num }&id=${id}&pageNum=${pageNum}" class="lightgray">${dtos.w_title }</a>
+											</c:otherwise>
+											</c:choose>
 											<fmt:parseDate value="${dtos.w_regist}" var="w_regist" pattern="yyyy-MM-dd"/>
 											<fmt:parseNumber value="${w_regist.time / (1000*60*60*24)}" integerOnly="true" var="regist"/>
 											<c:if test="${today - regist > 1}">

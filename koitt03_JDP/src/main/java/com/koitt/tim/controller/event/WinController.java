@@ -53,7 +53,10 @@ public class WinController {
 	}
 
 	@RequestMapping("prizewinner_view")
-	public String prizewinner_view(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String prizewinner_view(Model model, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "page", defaultValue = "1") int pageNum,
+			@RequestParam(value = "search", defaultValue = "") String search,
+			@RequestParam(value = "text", defaultValue = "") String text) {
 		Cookie cookie = eServ.updateWinUpHit(request);
 
 		// 현재글 이전글,다음글
@@ -62,6 +65,11 @@ public class WinController {
 		if (cookie != null) {
 			response.addCookie(cookie);
 		}
+
+		// 목록
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("text", text);
+		model.addAttribute("search", search);
 		return "event/prizewinner_view";
 	}
 }

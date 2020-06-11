@@ -23,7 +23,9 @@
 			<div id="contents">
 				<div id="mypage">
 					<h2><strong>진행중 이벤트</strong><span>쟈뎅샵의 특별한 혜택이 가득한 이벤트에 참여해 보세요.</span></h2>
-					
+					<c:if test="${text!='' }">
+						<h3><span>'<em class="keyword">${text }</em>'에 대한 진행중 이벤트 내 검색 결과입니다.</span>						</h3>
+					</c:if>
 					<!-- list -->
 					<div class="eventList">
 							<ul>
@@ -47,15 +49,30 @@
 									<!-- 반복 -->
 									<c:forEach var="dtos" items="${list }">
 										<li>
-											<a href="event_view?event_num=${dtos.event_num }" title="${dtos.event_title }">
-											<div class="img">
-												<img src="${dtos.event_image1 }" alt="진행중 이벤트" />
-											</div>
-											<div class="txt">
-												<div class="subject">${dtos.event_title }</div>
-												<div class="day">이벤트 기간 : <fmt:formatDate value="${dtos.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dtos.event_end }" pattern="yyyy-MM-dd"/></div>
-											</div>
-											</a>
+											<c:choose>
+												<c:when test="${text!='' }">
+													<a href="event_view?event_num=${dtos.event_num }&pageNum=${pageNum}&search=${search}&text=${text}" title="${dtos.event_title }">	
+													<div class="img">
+														<img src="${dtos.event_image1 }" alt="종료된 이벤트" />
+													</div>
+													<div class="txt">
+														<div class="subject"><span class="finishbtn">종료</span>&nbsp;${dtos.event_title }</div>
+														<div class="day">이벤트 기간 : <fmt:formatDate value="${dtos.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dtos.event_end }" pattern="yyyy-MM-dd"/></div>
+													</div>
+													</a>
+												</c:when>
+												<c:otherwise>
+													<a href="event_view?event_num=${dtos.event_num }&pageNum=${pageNum}" title="${dtos.event_title }">
+														<div class="img">
+															<img src="${dtos.event_image1 }" alt="종료된 이벤트" />
+														</div>
+														<div class="txt">
+															<div class="subject"><span class="finishbtn">종료</span>&nbsp;${dtos.event_title }</div>
+															<div class="day">이벤트 기간 : <fmt:formatDate value="${dtos.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dtos.event_end }" pattern="yyyy-MM-dd"/></div>
+														</div>
+													</a>
+												</c:otherwise>
+											</c:choose>
 										</li>
 									</c:forEach>
 								</c:otherwise>

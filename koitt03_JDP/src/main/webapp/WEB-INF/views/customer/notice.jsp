@@ -26,8 +26,11 @@
 			<!-- contents -->
 			<div id="contents">
 				<div id="customer">
-					<h2><strong>NOTICE</strong><span>쟈뎅샵 소식을 전해드립니다.</span></h2>
-					
+					<h2><strong>NOTICE</strong><span>쟈뎅샵 소식을 전해드립니다.</span>
+					</h2>
+					<c:if test="${text!='' }">
+						<h3><span>'<em class="keyword">${text }</em>'에 대한 공지사항 내 검색 결과입니다.</span>						</h3>
+					</c:if>
 					<div class="orderDivMt">
 						<table summary="NO, 제목, 등록일, 조회수 순으로 공지사항을 조회 하실수 있습니다." class="orderTable2" border="1" cellspacing="0">
 							<caption>공지사항 보기</caption>
@@ -71,7 +74,15 @@
 										<tr>
 											<td class="tnone">${dtos.rnum }</td>
 											<td class="left">
-											<a href="notice_view?n_num=${dtos.n_num }&id=${id}" class="lightgray">${dtos.n_title }</a>
+											<c:choose>
+												<c:when test="${text!='' }">
+												<a href="notice_view?n_num=${dtos.n_num }&id=${id}&pageNum=${pageNum}&search=${search}&text=${text}" class="lightgray">${dtos.n_title }</a>
+												</c:when>
+											<c:otherwise>
+												<a href="notice_view?n_num=${dtos.n_num }&id=${id}&pageNum=${pageNum}" class="lightgray">${dtos.n_title }</a>
+											</c:otherwise>
+											</c:choose>
+											
 											<fmt:parseDate value="${dtos.n_regist}" var="n_regist" pattern="yyyy-MM-dd"/>
 											<fmt:parseNumber value="${n_regist.time / (1000*60*60*24)}" integerOnly="true" var="regist"/>
 											<c:if test="${today - regist > 1}">

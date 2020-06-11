@@ -39,23 +39,23 @@
           	 
           	</otherwise>
         </choose>
-		</select>
-		<select id="selectNotice"  resultType="NoticeDto">
+	</select>
+	<select id="selectNotice"  resultType="NoticeDto">
 		select *from (select ROWNUM rnum, e.* from (select *from notice ORDER BY n_regist desc) e)
 		      	  where n_num=#{n_num}
-		</select>
-		<select id="selectPre"  resultType="NoticeDto">
+	</select>
+	<select id="selectPre"  resultType="NoticeDto">
 			select *from (select ROWNUM rnum, e.* from (select *from notice ORDER BY n_regist desc) e)
 		      	  where rnum =(#{rnum}+1)
-		</select>
-		<select id="selectNext"  resultType="NoticeDto">
+	</select>
+	<select id="selectNext"  resultType="NoticeDto">
 		select *from (select ROWNUM rnum, e.* from (select *from notice ORDER BY n_regist desc) e)
 		      	  where rnum =(#{rnum}-1)
-		</select>
+	</select>
 		
-		<update id="updateUpHit">
+	<update id="updateUpHit">
 		update notice set n_hit=n_hit+1 where n_num=#{n_num}
-		</update>
+	</update>
 	
 	
 	

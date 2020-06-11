@@ -63,8 +63,11 @@
 										<c:when test="${dtos.pre==null }">
 											<td>이전 글이 없습니다.</td>
 										</c:when>
+										<c:when test="${text!='' }">
+											<td><a href="notice_view?n_num=${dtos.pre.n_num }&pageNum=${pageNum}&search=${search}&text=${text}">${dtos.pre.n_title }</a></td>
+										</c:when>
 										<c:otherwise>
-											<td><a href="notice_view?n_num=${dtos.pre.n_num }">${dtos.pre.n_title }</a></td>
+											<td><a href="notice_view?n_num=${dtos.pre.n_num }&pageNum=${pageNum}">${dtos.pre.n_title }</a></td>
 										</c:otherwise>
 									</c:choose>
 								</tr>
@@ -74,6 +77,9 @@
 									<c:choose>
 										<c:when test="${dtos.next==null }">
 											<td>다음 글이 없습니다.</td>
+										</c:when>
+										<c:when test="${text!='' }">
+											<td><a href="notice_view?n_num=${dtos.next.n_num }&pageNum=${pageNum}&search=${search}&text=${text}">${dtos.next.n_title }</a></td>
 										</c:when>
 										<c:otherwise>
 											<td><a href="notice_view?n_num=${dtos.next.n_num }">${dtos.next.n_title }</a></td>
@@ -90,7 +96,14 @@
 					<div class="btnArea btline">
 						<div class="bRight">
 							<ul>
-								<li><a href="notice" class="sbtnMini mw">목록</a></li>
+								<c:choose>
+									<c:when test="${text!='' }">
+										<li><a href="notice?pageNum=${pageNum}&search=${search}&text=${text}" class="sbtnMini mw">목록</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="notice?pageNum=${pageNum}" class="sbtnMini mw">목록</a></li>
+									</c:otherwise>
+								</c:choose>
 							</ul>
 						</div>
 					</div>

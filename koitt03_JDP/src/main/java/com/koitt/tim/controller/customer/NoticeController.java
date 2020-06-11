@@ -55,16 +55,24 @@ public class NoticeController {
 
 	// 공지사항 글보기
 	@RequestMapping("notice_view")
-	public String notice_view(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String notice_view(Model model, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "page", defaultValue = "1") int pageNum,
+			@RequestParam(value = "search", defaultValue = "") String search,
+			@RequestParam(value = "text", defaultValue = "") String text) {
+
 		// 조회수 증가방지쿠키
 		Cookie cookie = cServ.updateNoticeUpHit(request);
 
 		// 현재글 이전글,다음글
-		NoticePreNextBean winView = cServ.selectNoticePreNext(request);
-		model.addAttribute("dtos", winView);
+		NoticePreNextBean notiView = cServ.selectNoticePreNext(request);
+		model.addAttribute("dtos", notiView);
 		if (cookie != null) {
 			response.addCookie(cookie);
 		}
+		// 목록
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("search", search);
+		model.addAttribute("text", text);
 		return "customer/notice_view";
 	}
 
