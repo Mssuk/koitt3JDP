@@ -8,4 +8,7 @@ public interface MembershipService {
 
 	int signUp(MemberDto dto);
 
+	String searchId(String name, String email);
+
+	String searchPw(String id, String email);
 }

@@ -35,9 +35,26 @@ public class MembershipServiceImpl implements MembershipService {
 	@Override
 	public int signUp(MemberDto mdto) {
 		memberDao.insertMember(mdto);
-
-
 		return 0;
+	}
+
+	@Override
+	public String searchId(String name, String email) {
+		String id = memberDao.selectSearchMemberId(name,email);
+		System.out.println(id);
+		if(id != null){
+			return id;
+		}
+		else
+			return "0";
+	}
+
+	@Override
+	public String searchPw(String id, String email) {
+		String pw = memberDao.selectSearchMemberPw(id,email);
+		System.out.println("Impl : "+pw);
+
+		return pw;
 	}
 
 }

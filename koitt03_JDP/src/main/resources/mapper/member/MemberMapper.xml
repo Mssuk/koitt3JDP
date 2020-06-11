@@ -15,4 +15,12 @@
 			values (#{id}, #{name}, #{pw}, #{email}, #{email_check}, #{address1}, #{address2}, #{address3}, #{phone}, #{sms}, #{tel}, #{birth}, #{calender_check}, #{point}, sysdate)
 	</insert>
 
+	<select id="selectSearchMemberId" resultType="String">
+		select ID from member where name=#{name} and email=#{email}
+	</select>
+
+	<select id="selectSearchMemberPw" resultType="String">
+		select PW from member where ID=#{id} and email=#{email}
+	</select>
+
 </mapper>
