@@ -163,6 +163,18 @@
 			<version>1.1.1</version>
 		</dependency>
 
+		<!--타임 서버에 접속해서 날짜 가져오기	-->
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>3.6</version>
+		</dependency>
+
+
+
+
+
+
 	</dependencies>
 
 	<repositories>

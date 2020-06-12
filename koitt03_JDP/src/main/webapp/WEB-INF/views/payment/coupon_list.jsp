@@ -94,7 +94,7 @@ $(function() {
 
 						const total = ${total + 2500};
 
-						$('#totalCoupon').text(total+parseInt(coupon));
+						$('#totalCoupon').text(total-parseInt(coupon));
 
 
 					}

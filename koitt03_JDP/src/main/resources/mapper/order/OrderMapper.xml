@@ -2,7 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koitt.tim.dao.order.OrderDao">
     <insert id="insertOrder" parameterType="OrderDto">
-        insert into "ORDER" values ()
+        insert into "ORDER"
+        ("o_num", "id", "o_point", "o_state", "o_name", "o_tel", "o_cost", O_DATE)
+        values (concat(#{date},ORDER_SEQ.nextval),
+                #{id},
+                #{orderPoint},
+                '접수대기',
+                #{orderName},
+                #{orderTel},
+                #{orderCost},
+                sysdate)
     </insert>
 
 </mapper>

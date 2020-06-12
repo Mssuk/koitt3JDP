@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Member;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @SessionAttributes("admin")
@@ -89,8 +90,6 @@ public class PaymentController {
         //String mDtoValue = objectMapper.writeValueAsString(memDto);   //JSON으로 바꿔줌.
         int count = paymentServ.couponListSum((String)session.getAttribute("admin"));
 
-
-
         model.addAttribute("dto",pDto);                 //해당상품 정보
         model.addAttribute("spin",spinner);
         model.addAttribute("memDto",memDto);            //로그인된 회원 정보 가져오기
@@ -100,10 +99,13 @@ public class PaymentController {
         return "payment/payment";
     }
 
-    @RequestMapping("order_clear")
-    public String Complete_Order(@DateTimeFormat(pattern = "yyyyMMdd")LocalDate date,String spinner,String useCoupon,String orderCost,String orderName,String orderTel){
-        paymentServ.addOrder("abcd1234",date,spinner,useCoupon,orderCost,orderName,orderTel);
 
+
+    @RequestMapping("order_clear")
+    public String Complete_Order(String spinner,String useCoupon,String orderPoint,String orderCost,String orderName,String orderTel){
+        LocalDate date=LocalDate.now();
+        String convertedDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        paymentServ.addOrder(convertedDate,"abcd1234",orderPoint,orderName,orderTel,orderCost);
         return "payment/order_clear";
     }
 

@@ -409,6 +409,7 @@
                                             const money = total+ 2500 -(coupon + point);
                                             console.log(money);
                                             $('#finallyTotal').text(money);
+                                            $('#finallyTotal2').text(money);
 
                                             //$orderName.val(mDtoObj.name);
                                             //$('#totalCoupon').text(total+parseInt(coupon));
@@ -455,18 +456,18 @@
                         </script>
                         <li>
                             <span class="title">쿠폰 할인</span>
-                            <span class="won"><strong><span id="pInput1"></span><span>원</span> </strong> </span>
+                            <span class="won"><strong><span id="pInput1">원</span></strong> </span>
                         </li>
                         <!-- //회원 일떄만 -->
                     </ul>
 
                     <ul class="total">
                         <!-- 회원 일때만 -->
-                        <li class="mileage">(적립 포인트 <strong>11,324</strong> Point)</li>
+                        <li class="mileage">(적립 포인트 <strong>xxxxxx</strong> Point)</li>
                         <!-- //회원 일때만 -->
 
                         <li class="txt"><strong>결제 예정 금액</strong></li>
-                        <li class="money"><span>1,134,810</span> 원</li>
+                        <li class="money"><span id="finallyTotal2">${total+2500}</span> 원</li>
                     </ul>
                 </div>
                 <!-- //총 주문금액 -->
@@ -664,7 +665,8 @@
                                 console.log(orderTel);
                                 console.log(orderCost);
 
-                                location.href="order_clear?useCoupon="+useCouponNum+"&orderPoint="+orderCost+"&orderName="+orderName+"&orderTel="+orderTel+"spinner="+${spin};
+
+                                location.href="order_clear?useCoupon="+useCouponNum+"&orderPoint="+orderPoint+"&orderName="+orderName+"&orderCost="+orderCost+"&orderTel="+orderTel+"&spinner="+${spin};
 
                             }
 

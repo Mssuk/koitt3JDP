@@ -7,7 +7,7 @@
 	</select>
 
 	<select id="selectOneMember" resultType="MemberDto">
-		select * from member where id=#{id} and pw=#{pw}
+		select * from member where id=#{id}
 	</select>
 
 	<insert id="insertMember" parameterType="MemberDto">
