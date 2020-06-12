@@ -12,6 +12,7 @@
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/getSessionInfo.js"></script>
+<script src="/js/payee.js"></script>
 
 <script src="/js/couponBook.js"></script>
 <%--<script>--%>
@@ -78,7 +79,7 @@
                         <tbody>
                         <tr>
                             <td class="left">
-                                <p class="img"><img src="images/img/sample_product.jpg" alt="상품" width="66"
+                                <p class="img"><img src="${dto.front_image1}" alt="상품" width="66"
                                                     height="66"/></p>
 
                                 <ul class="goods">
@@ -138,7 +139,7 @@
                     <ul>
                         <li>수정 내용을 회원정보에도 반영합니다.&nbsp;&nbsp;</li>
                         <li>
-                            <a onclick=memberCheck(${spin})>회원정보수정</a>
+                            <a onclick=memberCheck('${spin}','${dto.pro_num}')>회원정보수정</a>
 <%--                            <a onclick=memberCheck('${mDto}')>회원정보반영</a>--%>
                         </li>
 
@@ -169,6 +170,7 @@
                                     <li>
                                         <input type="text" id="orderAddress1" class="w134" value="${memDto.address1}"/>&nbsp;
                                     </li>
+
                                     <li><a href="../member/zip.html" class="addressBtn"><span>우편번호 찾기</span></a></li>
                                     <li class="pt5"><input type="text" id="orderAddress2" class="addressType2" value="${memDto.address2}"/></li>
                                     <li class="pt5"><input type="text" id="orderAddress3" class="addressType2" value="${memDto.address3}"/></li>
@@ -177,9 +179,6 @@
                         </tr>
                         <tr>
                             <th scope="row"><span>이메일</span></th>
-
-
-
                             <td>
                                 <ul class="pta">
                                     <li><input type="text" id="orderEmail1" class="w134" value="${memDto.email1}"/></li>
@@ -252,10 +251,7 @@
                                 </ul>
                             </td>
                         </tr>
-                        <tr>
-                            <th scope="row"><span>비밀번호</span></th>
-                            <td><input type="password" id="orderPw" class="w134"/></td>
-                        </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -268,7 +264,7 @@
                     <%
                         if (!(session == null || !request.isRequestedSessionIdValid())) {
                     %>
-                    <a id="infosame" onclick="memberCheck1()" >
+                    <a id="infosame" onclick="sameMemberInfo()" >
                     <label for="infosame">회원정보와 동일</label>
                     <%
                         }

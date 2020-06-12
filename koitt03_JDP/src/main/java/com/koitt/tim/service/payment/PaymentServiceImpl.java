@@ -53,8 +53,8 @@ public class PaymentServiceImpl implements PaymentService {
         return couponDao.selectAllMemberCoupon();
     }
 
-    public void modifyMember(String id,String name, String address1, String address2, String address3, String pw, String phone, String tel, String email){
-         memberDao.modifyMember(id,name,address1,address2,address3,pw,phone,tel,email);
+    public void modifyMember(String id,String name, String address1, String address2, String address3, String phone, String tel, String email){
+         memberDao.modifyMember(id,name,address1,address2,address3,phone,tel,email);
     }
     public void addOrder(String id, LocalDate date, String spinner, String useCoupon, String orderCost, String orderName, String orderTel){
         orderDao.insertOrder(id,date,spinner,useCoupon,orderCost,orderName,orderTel);

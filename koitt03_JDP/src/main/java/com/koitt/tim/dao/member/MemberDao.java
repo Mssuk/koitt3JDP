@@ -4,6 +4,7 @@ package com.koitt.tim.dao.member;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.koitt.tim.dto.member.MemberDto;
@@ -23,5 +24,5 @@ public interface MemberDao {
 	MemberDto insertMember(MemberDto memberDto);
 
 	// 로그인 멤버 정보 수정
-	void modifyMember(String id,String name, String address1, String address2, String address3, String pw, String phone, String tel, String email);
+	void modifyMember(@Param("p1") String id, @Param("p2") String name, @Param("p3") String address1, @Param("p4") String address2, @Param("p5") String address3, @Param("p7")String phone, @Param("p8")String tel, @Param("p9")String email);
 }

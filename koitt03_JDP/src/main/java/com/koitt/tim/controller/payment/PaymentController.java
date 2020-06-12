@@ -2,6 +2,7 @@
 
 package com.koitt.tim.controller.payment;
 
+import ch.qos.logback.core.CoreConstants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.member.MemberCouponDto;
@@ -74,13 +75,27 @@ public class PaymentController {
 //        return "payment/payment";
 //    }
 
-    @RequestMapping(".modify")
-    public String payment_MemberModify(Model model,HttpSession session,@RequestParam(value="$orderName") String name, String address1,String address2,String address3,String pw,String phone,String tel,String email,String spinner){
-
+    @RequestMapping(".modify")      //페이지 중에서 회원정보 수정하면서 <새로고침>
+    public String payment_MemberModify(Model model,HttpSession session,String name, String address1,String address2,String address3,String phone,String tel,String email,String spinner,String pro_num){
+        System.out.println(address1);
+        ProductDto pDto = paymentServ.selectOne(pro_num);
         String id=(String)session.getAttribute("admin");
-        paymentServ.modifyMember(id,name,address1,address2,address3,pw,phone,tel,email);   //payment 페이지에서 회원정보 수정 반영
 
+        paymentServ.modifyMember(id,name,address1,address2,address3,phone,tel,email);   //payment 페이지에서 회원정보 수정 반영
+
+        MemberDto memDto = paymentServ.selectOneMember((String) session.getAttribute("admin"));
+        //ObjectMapper objectMapper = new ObjectMapper();
+
+        //String mDtoValue = objectMapper.writeValueAsString(memDto);   //JSON으로 바꿔줌.
+        int count = paymentServ.couponListSum((String)session.getAttribute("admin"));
+
+
+
+        model.addAttribute("dto",pDto);                 //해당상품 정보
         model.addAttribute("spin",spinner);
+        model.addAttribute("memDto",memDto);            //로그인된 회원 정보 가져오기
+        model.addAttribute("couponCount",count);        //로그인된 회원의 쿠폰 개수
+        //model.addAttribute("mDto", mDtoValue);          //로그인된 회원 정보 - 자바스크립트 관련(정보 불러오기)
 
         return "payment/payment";
     }

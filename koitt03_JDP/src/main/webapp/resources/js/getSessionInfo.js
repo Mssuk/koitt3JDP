@@ -1,21 +1,21 @@
-function memberCheck(spin){
+function memberCheck(spin,pro_num){
 
-    const orderName= document.getElementById("orderName");
-    const orderAddress1 = document.getElementById("orderAddress1");
-    const orderAddress2 = document.getElementById("orderAddress2");
-    const orderAddress3 = document.getElementById("orderAddress3");
-    const orderPw = document.getElementById("orderPw");
-    const orderTel = document.getElementById("orderTel");       //휴대폰
-    const orderTel2 = document.getElementById("orderTel2");     //전화번호
+    const orderName= document.getElementById("orderName").value;
+    const orderAddress1 = document.getElementById("orderAddress1").value;
+    const orderAddress2 = document.getElementById("orderAddress2").value;
+    const orderAddress3 = document.getElementById("orderAddress3").value;
+    //const orderPw = document.getElementById("orderPw");
+    const orderTel = document.getElementById("orderTel").value;       //휴대폰
+    const orderTel2 = document.getElementById("orderTel2").value;     //전화번호
 
-    const orderEmail1 = document.getElementById("orderEmail1");
-    const orderEmail2 = document.getElementById("orderEmail2");
+    const orderEmail1 = document.getElementById("orderEmail1").value;
+    const orderEmail2 = document.getElementById("orderEmail2").value;
 
     const orderEmail = orderEmail1+"@"+orderEmail2;
 
     alert("수정되었습니다!");
 
-    location.href="payment.modify?name="+encodeURI(orderName)+"&address1="+encodeURI(orderAddress1)+"&address2="+encodeURI(orderAddress2)+"&address3="+encodeURI(orderAddress3)+"&pw="+encodeURI(orderPw)+"&phone="+encodeURI(orderTel)+"&tel="+encodeURI(orderTel2)+"&email="+encodeURI(orderEmail)+"&spinner="+encodeURI(spin);
+    location.href=".modify?name="+encodeURI(orderName)+"&address1="+encodeURI(orderAddress1)+"&address2="+encodeURI(orderAddress2)+"&address3="+encodeURI(orderAddress3)+"&phone="+encodeURI(orderTel)+"&tel="+encodeURI(orderTel2)+"&email="+encodeURI(orderEmail)+"&spinner="+encodeURI(spin)+"&pro_num="+encodeURI(pro_num);
 
 
 
