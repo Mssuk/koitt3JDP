@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.koitt.tim.dto.board.WinDto;
 import com.koitt.tim.dto.event.EventCouponBean;
@@ -77,6 +78,6 @@ public interface EventService {
 	WinPreNextBean selectWinPreNext(HttpServletRequest request);
 
 	// 조회수 중복방지
-	Cookie updateWinUpHit(HttpServletRequest request);
+	Cookie updateWinUpHit(HttpServletRequest request, HttpSession session);
 
 }

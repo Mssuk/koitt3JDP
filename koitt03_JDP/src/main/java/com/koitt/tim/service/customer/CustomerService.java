@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.koitt.tim.dto.board.FaqDto;
 import com.koitt.tim.dto.board.NoticeDto;
@@ -24,7 +25,7 @@ public interface CustomerService {
 	int getLastNum(double cnt);
 
 	// 조회수무한증가방지 세션
-	Cookie updateNoticeUpHit(HttpServletRequest request);
+	Cookie updateNoticeUpHit(HttpServletRequest request, HttpSession session);
 
 	// 공지-현재,이전,다음글
 	NoticePreNextBean selectNoticePreNext(HttpServletRequest request);

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,10 +81,10 @@ public class CustomerServiceImpl implements CustomerService {
 
 	// 공지 조회수증가
 	@Override
-	public Cookie updateNoticeUpHit(HttpServletRequest request) {
+	public Cookie updateNoticeUpHit(HttpServletRequest request, HttpSession session) {
 		String id = "";
-		if (request.getParameter("id") != null) {
-			id = request.getParameter("id");
+		if (session.getAttribute("id") != null) {
+			id = (String) session.getAttribute("id");
 		}
 		String n_num = request.getParameter("n_num");
 		Cookie cookie = null;

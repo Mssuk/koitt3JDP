@@ -31,7 +31,7 @@
 
 					<h3 class="dep">주문내역</h3>
 					<div class="orderDivNm">
-						<table summary="주문일자/주문번호, 상품명, 가격, 수량, 주문상태 순으로 조회를 하실수 있습니다." class="orderTable" border="1" cellspacing="0">
+						<table summary="주문일자/주문번호, 상품명, 가격, 수량, 주문상태 순으로 조회를 하실수 있습니다." class="orderTable" border="1" >
 							<caption>주문게시판</caption>
 							<colgroup>
 							<col width="25%" class="tw28" />
@@ -164,6 +164,8 @@
 		<jsp:include page="../common/quickmenu.jsp" />
 		<!-- //quickmenu -->
 
+	</div>
+	</div>
 	</div>
 	<!-- //container -->
 <!--footer입니다. -->

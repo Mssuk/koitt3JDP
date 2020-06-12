@@ -21,9 +21,27 @@
 		 inquiry.q_content.focus();
 		 return false;
 	 }
+	 
+	 alert('파일 업로드시 시간이 소요됩니다^^');
 	 inquiry.submit();
  }
 </script>
+
+<c:if test="${inqu_ch!=null }">
+	<c:choose>
+		<c:when test="${inqu_ch==1 }">
+			<script type="text/javascript">
+				alert('1:1문의 작성 완료.mypage에서 답변을 확인하세요');
+			</script>
+		</c:when>
+		<c:otherwise>
+			<script type="text/javascript">
+				alert('1:1문의 작성 실패');
+			</script>
+		</c:otherwise>
+	</c:choose>
+</c:if>
+
 
     <!-- header입니다. -->
 	<jsp:include page="../common/header.jsp" />

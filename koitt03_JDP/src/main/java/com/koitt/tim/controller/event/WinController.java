@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,11 +55,10 @@ public class WinController {
 
 	@RequestMapping("prizewinner_view")
 	public String prizewinner_view(Model model, HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "page", defaultValue = "1") int pageNum,
+			HttpSession session, @RequestParam(value = "page", defaultValue = "1") int pageNum,
 			@RequestParam(value = "search", defaultValue = "") String search,
 			@RequestParam(value = "text", defaultValue = "") String text) {
-		Cookie cookie = eServ.updateWinUpHit(request);
-
+		Cookie cookie = eServ.updateWinUpHit(request, session);
 		// 현재글 이전글,다음글
 		WinPreNextBean winView = eServ.selectWinPreNext(request);
 		model.addAttribute("dtos", winView);

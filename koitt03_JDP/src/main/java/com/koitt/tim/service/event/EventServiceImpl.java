@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -271,11 +272,12 @@ public class EventServiceImpl implements EventService {
 
 	// 조회수방지
 	@Override
-	public Cookie updateWinUpHit(HttpServletRequest request) {
+	public Cookie updateWinUpHit(HttpServletRequest request, HttpSession session) {
 		String id = "";
 //		request.getRemoteAddr(); 도메인으로 하면 쿠키충돌이생긴다..ㅠ
-		if (request.getParameter("id") != null) {
-			id = request.getParameter("id");
+		if (session.getAttribute("id") != null) {
+			id = (String) session.getAttribute("id");
+			System.out.println(id);
 		}
 		String w_num = request.getParameter("w_num");
 		Cookie cookie = null;

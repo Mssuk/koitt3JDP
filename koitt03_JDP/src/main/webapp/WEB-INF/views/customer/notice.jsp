@@ -76,10 +76,10 @@
 											<td class="left">
 											<c:choose>
 												<c:when test="${text!='' }">
-												<a href="notice_view?n_num=${dtos.n_num }&id=${id}&pageNum=${pageNum}&search=${search}&text=${text}" class="lightgray">${dtos.n_title }</a>
+												<a href="notice_view?n_num=${dtos.n_num }&pageNum=${pageNum}&search=${search}&text=${text}" class="lightgray">${dtos.n_title }</a>
 												</c:when>
 											<c:otherwise>
-												<a href="notice_view?n_num=${dtos.n_num }&id=${id}&pageNum=${pageNum}" class="lightgray">${dtos.n_title }</a>
+												<a href="notice_view?n_num=${dtos.n_num }&pageNum=${pageNum}" class="lightgray">${dtos.n_title }</a>
 											</c:otherwise>
 											</c:choose>
 											

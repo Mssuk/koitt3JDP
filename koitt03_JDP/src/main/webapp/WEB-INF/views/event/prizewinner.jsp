@@ -73,10 +73,10 @@
 											<td class="left">
 											<c:choose>
 												<c:when test="${text!='' }">
-												<a href="prizewinner_view?w_num=${dtos.w_num }&id=${id}&pageNum=${pageNum}&search=${search}&text=${text}" class="lightgray">${dtos.w_title }</a>
+												<a href="prizewinner_view?w_num=${dtos.w_num }&pageNum=${pageNum}&search=${search}&text=${text}" class="lightgray">${dtos.w_title }</a>
 												</c:when>
 											<c:otherwise>
-												<a href="prizewinner_view?w_num=${dtos.w_num }&id=${id}&pageNum=${pageNum}" class="lightgray">${dtos.w_title }</a>
+												<a href="prizewinner_view?w_num=${dtos.w_num }&pageNum=${pageNum}" class="lightgray">${dtos.w_title }</a>
 											</c:otherwise>
 											</c:choose>
 											<fmt:parseDate value="${dtos.w_regist}" var="w_regist" pattern="yyyy-MM-dd"/>

@@ -31,7 +31,7 @@
           	faq_type='주문' 
           	</when>
           	<when test="faq_type.equals('product')">
-          	faq_type='product' 
+          	faq_type='상품' 
           	</when>
           	<otherwise>
           	</otherwise>
@@ -71,7 +71,7 @@
           	faq_type='주문' 
           	</when>
           	<when test="faq_type.equals('product')">
-          	faq_type='product' 
+          	faq_type='상품' 
           	</when>
           	<otherwise>
           	</otherwise>
