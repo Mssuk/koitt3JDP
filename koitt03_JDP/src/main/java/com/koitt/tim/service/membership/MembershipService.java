@@ -4,9 +4,9 @@ import com.koitt.tim.dto.member.MemberDto;
 
 public interface MembershipService {
 
-	int loginCheck(MemberDto mdto);
+	int loginCheck(String id, String pw);
 
-	int signUp(MemberDto mdto);
+	int signUp(MemberDto dto);
 
 	String searchId(String name, String email);
 
