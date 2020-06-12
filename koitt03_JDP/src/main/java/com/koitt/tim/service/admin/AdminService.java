@@ -11,6 +11,7 @@ import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.product.ProductDto;
 import com.koitt.tim.dto.product.ProductSerialDto;
+import com.koitt.tim.dto.product.RelatedProductDto;
 
 public interface AdminService {
 
@@ -45,4 +46,7 @@ public interface AdminService {
 
 	// Product insert
 	void insertProduct(ProductSerialDto psDto, ProductDto pDto);
+
+	// Related product
+	List<RelatedProductDto> getAllRelatedProducts();
 }

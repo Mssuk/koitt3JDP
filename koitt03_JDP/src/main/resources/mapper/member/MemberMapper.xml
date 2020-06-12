@@ -7,7 +7,7 @@
 	</select>
 
 	<select id="selectOneMember" resultType="MemberDto">
-		select * from member where id=#{id}
+		select * from member where id=#{id} and pw=#{pw}
 	</select>
 
 	<insert id="insertMember" parameterType="MemberDto">
@@ -19,5 +19,12 @@
 		update MEMBER set NAME = #{p2}, ADDRESS1 = #{p3}, ADDRESS2=#{p4},ADDRESS3=#{p5},PHONE=#{p7},TEL=#{p8},EMAIL=#{p9} where ID=#{p1}
 
 	</update>
+	<select id="selectSearchMemberId" resultType="String">
+		select ID from member where name=#{name} and email=#{email}
+	</select>
+
+	<select id="selectSearchMemberPw" resultType="String">
+		select PW from member where ID=#{id} and email=#{email}
+	</select>
 
 </mapper>

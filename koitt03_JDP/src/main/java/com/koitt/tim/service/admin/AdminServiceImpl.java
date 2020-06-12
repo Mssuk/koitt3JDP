@@ -2,6 +2,7 @@ package com.koitt.tim.service.admin;
 
 import java.util.List;
 
+import com.koitt.tim.dto.product.RelatedProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -129,5 +130,9 @@ public class AdminServiceImpl implements AdminService {
 		mpDao.insertMProduct(pro_num);
 	}
 
+	@Override
+	public List<RelatedProductDto> getAllRelatedProducts() {
+		return rpDao.selectAllRProduct();
+	}
 
 }

@@ -4,9 +4,12 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
+import com.koitt.tim.service.membership.EmailSend;
+import com.koitt.tim.service.membership.MembershipServiceImpl;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,17 +37,22 @@ public class MembershipController {
 
 	@RequestMapping("loginCheck")
 	@ResponseBody
-	public int loginCheck(@RequestBody HashMap<String, String> obj) {
+	public int loginCheck(@RequestBody HashMap<String, String> obj, HttpSession session, MemberDto mdto) {
 
 		String id = obj.get("id");
 		String pw = obj.get("pw");
 
 		// System.out.println(id + "," + pw);
 
-		int result = membershipService.loginCheck(id, pw);
-
+		int result = membershipService.loginCheck(mdto.getId(), mdto.getPw());
 		return result;
-//		return "membership/id_check";
+	}
+
+	@RequestMapping(value = "loginOk", method = RequestMethod.POST)
+	public String loginOk(@RequestParam("id") String id, HttpSession session) {
+		session.setAttribute("id", id);
+		System.out.println(session.getAttribute(id));
+		return "redirect:/main";
 	}
 
 	@RequestMapping("logout")
@@ -53,17 +61,33 @@ public class MembershipController {
 		return "redirect:/main";
 	}
 
-	@RequestMapping(value = "loginOk", method = RequestMethod.POST)
-	public String loginOk(@RequestParam("id") String id, @RequestParam("pw") String pw, HttpSession session) {
-		session.setAttribute("id", id);
-		return "redirect:/main";
-	}
-
 	// 구현 예정
 	@RequestMapping("idsearch")
 	public String idsearch() {
 
 		return "membership/idsearch";
+	}
+
+	@RequestMapping(value="searchId", method=RequestMethod.POST)
+	public void searchId(@RequestParam("name") String name, @RequestParam("email") String email, Model model){
+		System.out.println(name+", "+email);
+		String id = membershipService.searchId(name, email);
+		System.out.println(id);
+		model.addAttribute(id);
+
+		/*if(!(id.equals("0"))){
+			EmailSend emailSend = new EmailSend();
+			emailSend.run();
+
+		} else {
+
+		}*/
+	}
+
+	@RequestMapping(value="searchPw", method=RequestMethod.POST)
+	public void searchPw(@RequestParam("id") String id, @RequestParam("email") String email){
+		String pw = membershipService.searchPw(id, email);
+		System.out.println("Controller : "+pw);
 	}
 
 	@RequestMapping("join1")
