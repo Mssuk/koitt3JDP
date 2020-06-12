@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.koitt.tim.dto.product.RelatedProductDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,5 +140,11 @@ public class AdminController {
 		adminService.insertProduct(psDto, pDto);
 
 		return ResponseEntity.ok().build();
+	}
+
+	//연관상품 불러오기
+	@GetMapping("rplist")
+	public List<RelatedProductDto> rpList(){
+		return adminService.getAllRelatedProducts();
 	}
 }
