@@ -28,6 +28,9 @@
 #contents h2{height:86px; text-align:center; border-bottom:1px #5b524d solid;}
 #contents h2 strong{width:100%; display:block; font-size:40px; font-weight:600; color:#444; margin:0 0 10px 0;}
 #contents h2 span{width:100%; display:block; font-size:14px; color:#888; font-weight:normal; line-height:1.2; word-break:keep-all;}
+#contents h3{height: 36px;box-sizing: border-box;padding: 10px}
+#contents h3 em.keyword{color:#f7703c}
+
 
 /** MAXCONTENTS **/
 #maxcontents{float:left; width:100%;}
@@ -291,15 +294,14 @@
 .otherTab ul li a.on{background:#5a524c; color:#fff;}
 .otherTab ul li a.on span{color:#fff;}
 
-.faqTab{width:100%; margin:40px 0 0 0; overflow:hidden;}
+.faqTab{width:100%; margin:0px 0 0 0; overflow:hidden;}
 .faqTab ul{width:100%; border-bottom:2px #5a524c solid; overflow:hidden;}
-.faqTab ul li{float:left; padding:0 5px 0 0;}
-.faqTab ul li a{display:block; width:163px; height:40px; line-height:40px; background:#ebebeb; font-weight:600; font-size:14px; text-align:center;}
+.faqTab ul li{float:left; width:25%;height: 50px;text-align: center;padding:0 2px;box-sizing: border-box;}
+.faqTab ul li.last{margin-right: 0px;}
+.faqTab ul li a{display:block; width:100%; height:100%; line-height:50px; background:#ebebeb; font-weight:600; font-size:14px; text-align:center;}
 .faqTab ul li a span{color:#f7703c;}
 .faqTab ul li a.on{background:#5a524c; color:#fff;}
 .faqTab ul li a.on span{color:#fff;}
-.faqTab ul li.last{padding:0;}
-.faqTab ul li.last a{width:166px;}
 .normaltab{margin:40px 0 0 0;}
 
 .detailTab{width:100%; margin:50px 0; overflow:hidden;}
@@ -344,7 +346,7 @@
 .productList ul li span.price{font-size:13px; font-weight:600; color:#888; text-align:center; line-height:1.3;}
 
 /* EVENTLIST */
-.eventList{width:100%; margin:30px 0 0 0; border-bottom:1px #d9d9d9 solid; overflow:hidden;}
+.eventList{width:100%; padding:5px 0 0 0; border-bottom:1px #d9d9d9 solid; overflow:hidden; border-top:1px #d9d9d9 solid;}
 .eventList ul li{margin:0 0 40px 0;}
 .eventList ul li .img{border:1px #a6a6a6 solid;}
 .eventList ul li .img img{width:668px; height:198px;}
@@ -370,8 +372,9 @@
 .replyBox ul li.name span{font-size:12px; color:#888; font-weight:normal;}
 .replyBox ul li.txt{width:100%; color:#888; line-height:1.5; font-size:13px; word-break:keep-all;}
 .replyBox ul li.btn{text-align:right; height:20px; padding:3px 0 0 0;}
-.replyBox ul li.btn .rebtn{display:inline-block; width:43px; height:23px; line-height:22px; color:#777; font-weight:600; text-align:center; background:url('../images/btn/btn_daybtn.gif') left top no-repeat;}
+.replyBox ul li.btn .rebtn{display:inline-block; width:43px; height:23px; line-height:23px; color:#777; font-weight:600; text-align:center; background:url('../images/btn/btn_daybtn.gif') left top no-repeat;}
 .replyBox ul li.btn .rebtn:hover{color:#777;}
+.replyBox ul li.btn .rebtn.btn_recont{border:none;cursor: pointer;line-height: 0px;}
 .replynum{width:82px; height:20px; line-height:20px; border:1px #d9d9d9 solid; padding:0 0 0 5px;}
 .finReply{margin:50px 0 0 0;}
 
@@ -671,8 +674,11 @@
 .sbtn:hover{color:#fff;}
 .sbtnMini{display:block; width:110px; height:30px; line-height:30px; background:#f7703c; color:#fff !important; font-size:14px; font-weight:600; text-align:center;}
 .sbtnMini:hover{color:#fff;}
+.sbtnMini.inq_btn{cursor: pointer;border: none;}
+
 .nbtnbig{display:block; width:110px; height:30px; line-height:30px; background:#999; color:#fff !important; font-size:14px; font-weight:600; text-align:center;}
 .nbtnbig:hover{color:#fff;}
+.nbtnbig.inq_btn{cursor: pointer;border: none;}
 .nbtn{display:block; height:20px; line-height:19px; background:#999; color:#fff !important; font-size:12px; font-weight:600; text-align:center; padding:0 10px;}
 .nbtn:hover{color:#fff;}
 .gbtn{display:block; width:130px; height:40px; line-height:40px; background:#5b524d; color:#fff !important; font-size:14px; font-weight:600; text-align:center;}
@@ -867,8 +873,8 @@ span.searchStyleSelectBox.changed{background-color: #fff;}
 
 
 /* Tab */
-.faqTab ul li a{width:143px;}
-.faqTab ul li.last a{width:145px;}
+.faqTab ul li a{}
+.faqTab ul li.last a{}
 
 .detailTab ul li a{display:block; width:143px; height:40px; line-height:40px; background:#ebebeb; font-weight:600; font-size:14px; text-align:center;}
 .detailTab ul li.last a{width:146px;}
@@ -942,6 +948,7 @@ span.searchStyleSelectBox.changed{background-color: #fff;}
 #contents h2{height:98px;}
 #contents h2 strong{font-size:30px;}
 #contents h2 span{width:auto; font-size:12px; padding:0 20px;}
+#contents h3{height: 36px;}
 #maxcontents{float:none; width:auto; margin:0 15px;}
 #maxcontents h2{height:38px;}
 #maxcontents h2 strong{font-size:30px;}
@@ -1166,8 +1173,8 @@ span.searchStyleSelectBox.changed{background-color: #fff;}
 .otherTab ul{border:0;}
 .otherTab ul li a{width:142px;}
 
-.faqTab ul li a{width:142px;}
-.faqTab ul li.last a{width:142px;}
+.faqTab ul li a{}
+.faqTab ul li.last a{}
 
 .normaltab{margin:30px 0 0 0;}
 
@@ -1299,8 +1306,8 @@ span.searchStyleSelectBox.changed{background-color: #fff;}
 
 /* TAB */
 .faqTab ul li.dep{padding:0;}
-.faqTab ul li a{width:142px; margin:0 0 4px 0;}
-.faqTab ul li.last a{width:142px;}
+.faqTab ul li a{}
+.faqTab ul li.last a{}
 
 /* TABLE */
 .checkTable th span u{display:block;}

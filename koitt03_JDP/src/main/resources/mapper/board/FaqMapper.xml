@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koitt.tim.dao.board.FaqDao">
+	<select id="selectFaqList" resultType="FaqDto">
+		 select *from (select ROWNUM rnum, e.* from (select *from faq 
+		 
+          <choose>
+          	<when test="opt!='' and opt.equals('all') and key!=''">
+          	where (faq_title like '%' || #{key} || '%' or faq_content like '%' || #{key} || '%' )
+			</when>
+          	<when test="opt!='' and opt.equals('tit') and key!=''">
+          	where  faq_title like  '%' || #{key} || '%' 
+          	</when>
+          	<when test="opt!='' and opt.equals('con') and key!=''">
+          	where  faq_content like  '%' || #{key} || '%' 
+          	</when>
+          	<otherwise>
+          	<if test="faq_type!=''">
+	          	where 
+          	</if>
+          	</otherwise>
+          </choose>
+          <if test="key!=''">
+	          	 and 
+          	</if>
+		 	<choose>
+          	<when test="faq_type.equals('join')">
+          	faq_type='회원가입'  
+			</when>
+          	<when test="faq_type.equals('order')">
+          	faq_type='주문' 
+          	</when>
+          	<when test="faq_type.equals('product')">
+          	faq_type='상품' 
+          	</when>
+          	<otherwise>
+          	</otherwise>
+          </choose>
+           ORDER BY  faq_written_date desc) e)
+      	  where rnum <![CDATA[ >= ]]> #{p1}
+          and rnum <![CDATA[ <= ]]> #{p2}
+	</select>
+	
+	<select id="selectFaqListCount" resultType="int">
+	  select count(*)
+        from faq
+    	<choose>
+          	<when test="opt!='' and opt.equals('all') and key!=''">
+          	where (faq_title like '%' || #{key} || '%' or faq_content like '%' || #{key} || '%' ) 
+			</when>
+          	<when test="opt!='' and opt.equals('tit') and key!=''">
+          	where  faq_title like  '%' || #{key} || '%' 
+          	</when>
+          	<when test="opt!='' and opt.equals('con') and key!=''">
+          	where  faq_content like  '%' || #{key} || '%' 
+          	</when>
+          	<otherwise>
+          	<if test="faq_type!=''">
+	          	 where 
+          	</if>
+          	</otherwise>
+        </choose>
+        <if test="key!=''">
+	        	 and 
+        </if>
+		<choose>
+          	<when test="faq_type.equals('join')">
+          	faq_type='회원가입'  
+			</when>
+          	<when test="faq_type.equals('order')">
+          	faq_type='주문' 
+          	</when>
+          	<when test="faq_type.equals('product')">
+          	faq_type='상품' 
+          	</when>
+          	<otherwise>
+          	</otherwise>
+          </choose>
+		</select>
+
+</mapper>

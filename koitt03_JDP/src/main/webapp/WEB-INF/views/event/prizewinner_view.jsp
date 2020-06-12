@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
  <!-- header입니다. -->
 	<jsp:include page="../common/header.jsp" />
 	<!-- container -->
@@ -10,7 +13,7 @@
 		<div id="location">
 			<ol>
 				<li><a href="#">HOME</a></li>
-				<li><a href="#">EVENT</a></li>
+				<li><a href="event">EVENT</a></li>
 				<li class="last">당첨자 발표</li>
 			</ol>
 		</div>
@@ -27,33 +30,22 @@
 						<div class="viewHead">
 							<div class="subject">
 								<ul>
-									<li>[11월 체험단 발표] 까페모리 홍차라떼 체험단</li>
+									<li>${dtos.dto.w_title }</li>
 								</ul>
 							</div>
 							<div class="data">
 								<ul>
-									<li>등록일<span>2014-03-24</span></li>
-									<li>조회수<span>99,999</span></li>
+									<li>등록일<span><fmt:formatDate value="${dtos.dto.w_regist }" pattern="yyyy-MM-dd"/></span></li>
+									<li>조회수<span><fmt:formatNumber value="${dtos.dto.w_hit }" pattern="#,###" /></span></li>
 								</ul>
 							</div>
 						</div>
 
 						<div class="viewContents">
-							안녕하세요^^ 쟈뎅입니다.<br/><br/>
-
-							지난 11월 18일부터 진행된 까페모리 홍차 라떼&드립 커피 로스트의 체험단 당첨자를 발표합니다~!<br/><br/>
-
-							당첨되신 분은 총 15분이며, 당첨되신 분께는 홍차 라떼와 드립 커피 로스트를 구매하실 수 있는<br/>
-							쟈뎅샵 적립금 15,000점을 적립해드렸습니다.<br/><br/>
-
-							혹시, 체험단에 당첨되지 않으셨더라도<br/>
-							11월 문화이벤트인 '오! 당신이 잠든 사이'이벤트 페이지를 확인하시고,<br/>
-							후기를 예쁘게 작성하셔서 댓글로 URL을 남겨주세요~<br/>
-							추첨을 통해 뮤지컬 티켓 2매를 선물로 드릴 예정입니다.<br/><br/>
-
-							올겨울, 따뜻하고 달콤한 까페모리와 드립 커피 로스트의 진한 커피향에 흠뻑 빠져보세요~!<br/><br/>
-
-							감사합니다.
+							${dtos.dto.w_content}<br>
+							<c:if test="${dtos.dto.w_image!=null}">
+							<img src="${dtos.dto.w_image}" alt=""/>
+							</c:if>
 						</div>
 					</div>
 
@@ -69,12 +61,32 @@
 							<tbody>
 								<tr>
 									<th class="pre">PREV</th>
-									<td><a href="#">상품 재입고는 언제 되나요?</a></td>
+									<c:choose>
+										<c:when test="${dtos.pre==null }">
+											<td>이전 글이 없습니다.</td>
+										</c:when>
+										<c:when test="${text!='' }">
+											<td><a href="prizewinner_view?w_num=${dtos.pre.w_num }&pageNum=${pageNum}&search=${search}&text=${text}">${dtos.pre.w_title }</a></td>
+										</c:when>
+										<c:otherwise>
+											<td><a href="prizewinner_view?w_num=${dtos.pre.w_num }&pageNum=${pageNum}">${dtos.pre.w_title }</a></td>
+										</c:otherwise>
+									</c:choose>
 								</tr>
 
 								<tr>
 									<th class="next">NEXT</th>
-									<td>다음 글이 없습니다.</td>
+									<c:choose>
+										<c:when test="${dtos.next==null }">
+											<td>다음 글이 없습니다.</td>
+										</c:when>
+										<c:when test="${text!='' }">
+											<td><a href="prizewinner_view?w_num=${dtos.next.w_num }&pageNum=${pageNum}&search=${search}&text=${text}">${dtos.next.w_title }</a></td>
+										</c:when>
+										<c:otherwise>
+											<td><a href="prizewinner_view?w_num=${dtos.next.w_num }&pageNum=${pageNum}">${dtos.next.w_title }</a></td>
+										</c:otherwise>
+									</c:choose>
 								</tr>
 							</tbody>
 						</table>
@@ -86,7 +98,14 @@
 					<div class="btnArea btline">
 						<div class="bRight">
 							<ul>
-								<li><a href="#" class="sbtnMini mw">목록</a></li>
+								<c:choose>
+									<c:when test="${text!='' }">
+										<li><a href="prizewinner?pageNum=${pageNum}&search=${search}&text=${text}" class="sbtnMini mw">목록</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="prizewinner?pageNum=${pageNum}" class="sbtnMini mw">목록</a></li>
+									</c:otherwise>
+								</c:choose>
 							</ul>
 						</div>
 					</div>

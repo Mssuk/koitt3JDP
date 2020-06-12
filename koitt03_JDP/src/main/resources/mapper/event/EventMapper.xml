@@ -194,11 +194,11 @@
 		sysdate
 		)
 	</insert>
-	<!-- event reply insert -->
+	<!-- event reply update -->
 	<update id="updateEventReply">
-		update EVENT_REPLY set event_re_content=#{event_re_content} where event_re_num=#{event_re_num}
+		update EVENT_REPLY set event_re_content=#{event_re_content},event_re_modify=sysdate where event_re_num=#{event_re_num}
 	</update>
-	<!-- event reply insert -->
+	<!-- event reply delete -->
 	<delete id="deleteEventReply">
 		delete from EVENT_REPLY where event_re_num=#{event_re_num}
 	</delete>

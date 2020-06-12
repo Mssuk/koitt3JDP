@@ -3,12 +3,20 @@ package com.koitt.tim.dto.board;
 import java.sql.Timestamp;
 
 public class NoticeDto {
-
+	private int rnum;// 이전글,다음글을 불러오기위한 변수
 	private String n_num;
 	private String n_title;
 	private String n_content;
 	private Timestamp n_regist;
 	private int n_hit;
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 
 	public String getN_num() {
 		return n_num;
