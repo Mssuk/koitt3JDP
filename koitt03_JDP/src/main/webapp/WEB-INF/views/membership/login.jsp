@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8"%>
 <jsp:include page="../common/header.jsp" />
 <%
-	if(session.getAttribute("id") != null){
+	if(session.getAttribute("loginInfo") != null){
 			response.sendRedirect("/main");
 }
 %>

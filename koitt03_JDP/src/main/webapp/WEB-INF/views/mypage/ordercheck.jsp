@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    if(session.getAttribute("id") == null){
+    if(session.getAttribute("loginInfo") == null){
         response.sendRedirect("/membership/login");
     }
 %>
@@ -41,9 +41,9 @@
 
                 <div class="myInfo">
                     <ul>
-                        <li class="info"><strong>${name}</strong> 님의 정보를 한눈에 확인하세요.</li>
-                        <li>보유 쿠폰<br/><span class="num">199</span> <span class="unit">장</span></li>
-                        <li class="point">내 포인트<br/><span class="num">100,000</span> <span class="unit">P</span></li>
+                        <li class="info"><strong>${loginInfo.name}</strong> 님의 정보를 한눈에 확인하세요.</li>
+                        <li>보유 쿠폰<br/><span class="num">${userCoupon}</span> <span class="unit">장</span></li>
+                        <li class="point">내 포인트<br/><span class="num">${userPoint}</span> <span class="unit">P</span></li>
                         <li class="last">진행중인 주문<br/><span class="num">199</span> <span class="unit">건</span></li>
                     </ul>
                 </div>
