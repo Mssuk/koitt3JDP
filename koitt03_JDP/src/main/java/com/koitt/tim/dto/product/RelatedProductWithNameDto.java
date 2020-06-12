@@ -1,6 +1,6 @@
 package com.koitt.tim.dto.product;
 
-public class RelatedProductDtoWithName {
+public class RelatedProductWithNameDto {
 
     private String pro_num;
     private String product_name;
