@@ -1,5 +1,6 @@
+<%@ page import="java.util.UUID" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,15 @@
 </head>
 <body>
 안녕하세요
-<img alt="sss" src="/upload/v1591400170/sample.jpg">
+<%--<img alt="sss" src="/upload/v1591400170/sample.jpg">--%>
+<%
+    String ttt = UUID.randomUUID().toString().replaceAll("-", "");
+
+    long ttt2 = System.currentTimeMillis();
+%>
+
+<%=ttt%>
+<%=ttt2%>
+
 </body>
 </html>

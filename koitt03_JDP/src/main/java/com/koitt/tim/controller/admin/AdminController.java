@@ -147,4 +147,12 @@ public class AdminController {
 	public List<RelatedProductDto> rpList(){
 		return adminService.getAllRelatedProducts();
 	}
+
+	//연관상품 등록
+	@PostMapping("rplist/{numbering}")
+	public ResponseEntity<?> rpList(String targetId, String paraId, @PathVariable("numbering") int numbering){
+
+		return ResponseEntity.ok().build();
+	}
+
 }
