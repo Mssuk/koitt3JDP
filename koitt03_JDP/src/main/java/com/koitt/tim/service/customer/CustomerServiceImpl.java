@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.koitt.tim.dao.board.FaqDao;
 import com.koitt.tim.dao.board.NoticeDao;
+import com.koitt.tim.dao.question.QuestionDao;
 import com.koitt.tim.dto.board.FaqDto;
 import com.koitt.tim.dto.board.NoticeDto;
 import com.koitt.tim.dto.board.NoticePreNextBean;
+import com.koitt.tim.dto.question.QuestionDto;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -23,6 +25,9 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private FaqDao fdao;
+
+	@Autowired
+	private QuestionDao qdao;
 
 	private static final int ROW_LIMIT = 5; // 밑에 몇개씩 보여줄건지
 	private static final int PAGE_LIMIT = 10; // 한페이지에 글 몇개 보여줄건지
@@ -151,6 +156,12 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public int getFaqListCount(String faq_type, String search, String text) {
 		return fdao.selectFaqListCount(faq_type, search, text);
+	}
+
+	// 1:1문의 글쓰기
+	@Override
+	public void insertQuestion(QuestionDto qDto) {
+		qdao.insertQuestion(qDto);
 	}
 
 }

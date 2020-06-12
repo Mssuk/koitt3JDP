@@ -51,7 +51,7 @@
 				<div id="customer">
 					<h2><strong>1:1문의</strong><span>쟈뎅에 궁금하신 사항을 남겨주시면 답변해드립니다.</span></h2>
 					
-					<form class="checkMt" name="inquiry" method="post" action="/inqlist" enctype="multipart/form-data">
+					<form class="checkMt" name="inquiry" method="post" action="inqlist" enctype="multipart/form-data">
 						<table summary="분류, 제목, 상세내용, 첨부파일 순으로 궁금하신 점을 문의 하실수 있습니다." class="checkTable" border="1">
 							<caption>1:1문의</caption>
 							<colgroup>
@@ -80,7 +80,7 @@
 								<tr>
 									<th scope="row"><span>상세 내용</span></th>
 									<td>
-										<textarea class="tta" name="q_content"></textarea>
+										<textarea class="tta" name="q_content" placeholder=""></textarea>
 									</td>
 								</tr>
 								<tr>

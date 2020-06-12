@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.koitt.tim.dto.board.FaqDto;
 import com.koitt.tim.dto.board.NoticeDto;
 import com.koitt.tim.dto.board.NoticePreNextBean;
+import com.koitt.tim.dto.question.QuestionDto;
 
 public interface CustomerService {
 	// 공지글 불러오기
@@ -37,5 +38,8 @@ public interface CustomerService {
 
 	// FAQ글 개수세기
 	int getFaqListCount(String faq_type, String search, String text);
+
+	// 1:1문의 글쓰기
+	void insertQuestion(QuestionDto qDto);
 
 }
