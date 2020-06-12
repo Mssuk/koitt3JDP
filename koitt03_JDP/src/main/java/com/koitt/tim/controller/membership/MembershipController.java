@@ -11,11 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.member.SjoinStringDto;
@@ -37,21 +33,23 @@ public class MembershipController {
 
 	@RequestMapping("loginCheck")
 	@ResponseBody
-	public int loginCheck(@RequestBody HashMap<String, String> obj, HttpSession session, MemberDto mdto) {
+	public int loginCheck(@RequestBody HashMap<String, String> obj, HttpSession session) {
 
 		String id = obj.get("id");
 		String pw = obj.get("pw");
 
 		// System.out.println(id + "," + pw);
 
-		int result = membershipService.loginCheck(mdto.getId(), mdto.getPw());
+		int result = membershipService.loginCheck(id, pw);
 		return result;
 	}
 
 	@RequestMapping(value = "loginOk", method = RequestMethod.POST)
 	public String loginOk(@RequestParam("id") String id, HttpSession session) {
-		session.setAttribute("id", id);
-		System.out.println(session.getAttribute(id));
+
+		MemberDto mdto = membershipService.getMemInfo(id);
+		session.setAttribute("loginInfo", mdto);
+
 		return "redirect:/main";
 	}
 

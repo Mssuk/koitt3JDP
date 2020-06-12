@@ -12,19 +12,21 @@ public class MembershipServiceImpl implements MembershipService {
 	@Autowired
 	private MemberDao memberDao;
 
+
+
 	@Override
-	public int loginCheck(MemberDto mdto) {
+	public int loginCheck(String id, String pw) {
 		// id랑 비번 담겨있는 객체
 
-		// 0이 아이디 없음 1이 아이디 있음 2가 비번 틀림
+		// 0이 아이디 없음, 1이 아이디 있음, 2가 비번 틀림
 		int result = 1;
-		MemberDto mDto = memberDao.selectOneMember(mdto.getId());
+		MemberDto mDto = memberDao.selectOneMember(id);
 
 		// 없는 아이디면 mDto ==null
 		if (mDto == null) {
 			result = 0;
 		} else {
-			boolean flag = mDto.getPw().equals(mdto.getPw());
+			boolean flag = mDto.getPw().equals(pw);
 			if (flag == false) {
 				result = 2;
 			}
@@ -36,6 +38,11 @@ public class MembershipServiceImpl implements MembershipService {
 	public int signUp(MemberDto mdto) {
 		memberDao.insertMember(mdto);
 		return 0;
+	}
+
+	@Override
+	public MemberDto getMemInfo(String id) {
+		return memberDao.selectOneMember(id);
 	}
 
 	@Override
