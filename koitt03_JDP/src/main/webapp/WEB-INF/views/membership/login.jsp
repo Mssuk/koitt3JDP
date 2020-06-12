@@ -102,7 +102,7 @@
 
 						<div class="btn">
 							<!-- <a href="#" class="sbtn">로그인</a> -->
-							<button type="button" onclick='idCheck(this.form)'>로그인</button>
+							<button type="button" onclick='idCheck(this.form)' class="sbtn">로그인</button>
 						</div>
 							<span style="color:#ff0000" id="login_ch"></span>  <!-- session으로 id, pw 검증 후 안내 코멘트 -->
 						<div class="chk">

@@ -37,21 +37,21 @@ public class MembershipController {
 
 	@RequestMapping("loginCheck")
 	@ResponseBody
-	public int loginCheck(@RequestBody HashMap<String, String> obj) {
+	public int loginCheck(@RequestBody HashMap<String, String> obj, HttpSession session, MemberDto mdto) {
 
 		String id = obj.get("id");
 		String pw = obj.get("pw");
 
 		// System.out.println(id + "," + pw);
 
-		int result = membershipService.loginCheck(id, pw);
-
+		int result = membershipService.loginCheck(mdto.getId(), mdto.getPw());
 		return result;
 	}
 
 	@RequestMapping(value = "loginOk", method = RequestMethod.POST)
 	public String loginOk(@RequestParam("id") String id, HttpSession session) {
 		session.setAttribute("id", id);
+		System.out.println(session.getAttribute(id));
 		return "redirect:/main";
 	}
 

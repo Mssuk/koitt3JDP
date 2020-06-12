@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/mypage")
 public class MypageController {
 
-    @RequestMapping("coupon_list")
-    public String coupon_list(){
-        return "mypage/coupon_list";
+    @RequestMapping("ordercheck")
+    public String ordercheck(){
+
+        return "mypage/ordercheck";
     }
 }

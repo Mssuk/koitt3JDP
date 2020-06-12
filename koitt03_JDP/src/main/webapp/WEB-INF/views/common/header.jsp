@@ -124,7 +124,7 @@
                                 <li><a href="/membership/logout">LOGOUT</a></li>
                             </c:otherwise>
                         </c:choose>
-                        <li><a href="#">MY PAGE</a></li>
+                        <li><a href="/mypage/ordercheck">MY PAGE</a></li>
                         <li><a href="#">CART</a></li>
                     </ul>
 
