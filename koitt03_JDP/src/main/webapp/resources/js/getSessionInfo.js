@@ -1,4 +1,4 @@
-function memberCheck(){
+function memberCheck(spin){
 
     const orderName= document.getElementById("orderName");
     const orderAddress1 = document.getElementById("orderAddress1");
@@ -15,7 +15,7 @@ function memberCheck(){
 
     alert("수정되었습니다!");
 
-    location.href="payment.modify?name="+encodeURI(orderName)+"&address1="+encodeURI(orderAddress1)+"&address2="+encodeURI(orderAddress2)+"&address3="+encodeURI(orderAddress3)+"&pw="+encodeURI(orderPw)+"&phone="+encodeURI(orderTel)+"&tel="+encodeURI(orderTel2)+"&email="+encodeURI(orderEmail);
+    location.href="payment.modify?name="+encodeURI(orderName)+"&address1="+encodeURI(orderAddress1)+"&address2="+encodeURI(orderAddress2)+"&address3="+encodeURI(orderAddress3)+"&pw="+encodeURI(orderPw)+"&phone="+encodeURI(orderTel)+"&tel="+encodeURI(orderTel2)+"&email="+encodeURI(orderEmail)+"&spinner="+encodeURI(spin);
 
 
 

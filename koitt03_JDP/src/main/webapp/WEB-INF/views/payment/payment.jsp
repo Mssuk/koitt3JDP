@@ -138,7 +138,7 @@
                     <ul>
                         <li>수정 내용을 회원정보에도 반영합니다.&nbsp;&nbsp;</li>
                         <li>
-                            <a onclick=memberCheck()>회원정보수정</a>
+                            <a onclick=memberCheck(${spin})>회원정보수정</a>
 <%--                            <a onclick=memberCheck('${mDto}')>회원정보반영</a>--%>
                         </li>
 

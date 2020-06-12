@@ -75,11 +75,12 @@ public class PaymentController {
 //    }
 
     @RequestMapping(".modify")
-    public String payment_MemberModify(HttpSession session,@RequestParam(value="$orderName") String name, String address1,String address2,String address3,String pw,String phone,String tel,String email){
+    public String payment_MemberModify(Model model,HttpSession session,@RequestParam(value="$orderName") String name, String address1,String address2,String address3,String pw,String phone,String tel,String email,String spinner){
 
         String id=(String)session.getAttribute("admin");
-
         paymentServ.modifyMember(id,name,address1,address2,address3,pw,phone,tel,email);   //payment 페이지에서 회원정보 수정 반영
+
+        model.addAttribute("spin",spinner);
 
         return "payment/payment";
     }
