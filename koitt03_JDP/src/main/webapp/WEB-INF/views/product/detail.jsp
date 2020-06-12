@@ -33,17 +33,17 @@
                     <div class="imgSlide">
                         <div class="img">
                             <ul>
-                                <li><img src="/images/img/sample_brand.jpg" alt="제품이미지" /></li>
-                                <li><img src="/images/img/sample_brand.jpg" alt="제품이미지" /></li>
-                                <li><img src="/images/img/sample_brand.jpg" alt="제품이미지" /></li>
+                                <li><img src=${dto.front_image1 } alt="제품이미지" /></li>
+                                <li><img src=${dto.front_image2 } alt="제품이미지" /></li>
+                                <li><img src=${dto.front_image3 } alt="제품이미지" /></li>
                             </ul>
                         </div>
 
                         <div class="thum">
                             <ul>
-                                <li><img src="/images/img/sample_brand.jpg" alt="썸네일 제품이미지" /></li>
-                                <li><img src="/images/img/sample_brand.jpg" alt="썸네일 제품이미지" /></li>
-                                <li><img src="/images/img/sample_brand.jpg" alt="썸네일 제품이미지" /></li>
+                                <li><img src=${dto.front_image1 } alt="썸네일 제품이미지" /></li>
+                                <li><img src=${dto.front_image2 } alt="썸네일 제품이미지" /></li>
+                                <li><img src=${dto.front_image3 } alt="썸네일 제품이미지" /></li>
                             </ul>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
 
                     <!-- detail info -->
                     <div class="detailInfo disnone">
-                        <img src="/images/img/sample_detail_info.jpg" class="web" alt="제품상세 정보" />
+                        <img src=${dto.back_image } class="web" alt="제품상세 정보" />
                         <img src="/images/img/sample_detail_info_m.jpg" class="mobile" alt="제품상세 정보" />
                         <div class="checkInfoDiv">
                             <table summary="제품의 정보를 알 수 있는 표로 제품명, 내용량, 제조원, 포장재질, 유통기한, 고객상담실, 식품의 유형, 유통전문판매원, 영양성분, 원재료명 및 함량, 업소명 및 소재지 순으로 나열되어 있습니다." class="checkTable" border="1" cellspacing="0">
