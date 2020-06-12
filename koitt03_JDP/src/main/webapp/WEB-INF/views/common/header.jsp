@@ -116,7 +116,7 @@
                 <div id="snb">
                     <ul>
                         <c:choose>
-                            <c:when test="${id == null}">
+                            <c:when test="${loginInfo == null}">
                                 <li><a href="/membership/login">LOGIN</a></li>
                                 <li><a href="/membership/join1">JOIN</a></li>
                             </c:when>
@@ -124,7 +124,7 @@
                                 <li><a href="/membership/logout">LOGOUT</a></li>
                             </c:otherwise>
                         </c:choose>
-                        <li><a href="#">MY PAGE</a></li>
+                        <li><a href="/mypage/ordercheck">MY PAGE</a></li>
                         <li><a href="#">CART</a></li>
                     </ul>
 
