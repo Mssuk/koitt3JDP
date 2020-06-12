@@ -11,10 +11,14 @@ import com.koitt.tim.dao.category.CategoryDao;
 import com.koitt.tim.dao.coupon.CouponDao;
 import com.koitt.tim.dao.event.EventDao;
 import com.koitt.tim.dao.member.MemberDao;
+
+import com.koitt.tim.dao.product.ProductDao;
+
 import com.koitt.tim.dao.product.MainProductDao;
 import com.koitt.tim.dao.product.ProductDao;
 import com.koitt.tim.dao.product.ProductSerialDao;
 import com.koitt.tim.dao.product.RelatedProductDao;
+
 import com.koitt.tim.dto.admin.MallDto;
 import com.koitt.tim.dto.board.NoticeDto;
 import com.koitt.tim.dto.category.CategoryDept1Dto;
@@ -23,7 +27,9 @@ import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.product.ProductDto;
+
 import com.koitt.tim.dto.product.ProductSerialDto;
+
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -79,7 +85,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<NoticeDto> getAllNotices() {
-		return noticeDao.selectAllNotice();
+		// 공지사항공사중...임시로 넣었습니다.
+		return noticeDao.selectAllNotice(1, 1, "", "");
+
 	}
 
 	@Override
@@ -102,6 +110,7 @@ public class AdminServiceImpl implements AdminService {
 		return categoryDao.selectAllDept2();
 	}
 
+
 	@Transactional
 	@Override
 	public void insertProduct(ProductSerialDto psDto, ProductDto pDto) {
@@ -119,5 +128,6 @@ public class AdminServiceImpl implements AdminService {
 		// 메인화면 상품 넣기
 		mpDao.insertMProduct(pro_num);
 	}
+
 
 }
