@@ -12,4 +12,13 @@
         select * from PRODUCT where PRO_NUM=#{pro_num}
     </select>
 
+	<!--  product insert -->
+	<insert id="insertProduct" parameterType="ProductDto">
+		insert into product 
+		values(#{pro_num},#{product_name},#{supply_price},#{product_price},#{sales_price},#{amount},
+		#{product_state},#{manufacturer},#{nutrient},#{product_kcal},#{shelf_life},#{packing},#{capacity},
+		#{front_image1},#{front_image2},#{front_image3},#{back_image},
+		sysdate,sysdate)
+	</insert>
+
 </mapper>

@@ -68,8 +68,12 @@ public class CommonUtils {
 	// 파일업로드(클라우드)
 	public String FileUploaderCDN(MultipartFile mFile, String folderName) throws IOException {
 
-		String fileExtension = mFile.getOriginalFilename().substring(mFile.getOriginalFilename().lastIndexOf("."));
-		String storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + fileExtension;
+//		String fileExtension = ".jpg";
+//		if (!mFile.getOriginalFilename().equals("blob")) {
+//			fileExtension = mFile.getOriginalFilename().substring(mFile.getOriginalFilename().lastIndexOf("."));
+//		}
+
+		String storedFileName = UUID.randomUUID().toString().replaceAll("-", "");
 
 		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", CLOUDINARY_CLOUD_NAME, "api_key",
 				CLOUDINARY_API_KEY, "api_secret", CLOUDINARY_API_SECRET, "secure", true));

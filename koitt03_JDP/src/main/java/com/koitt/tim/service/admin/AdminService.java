@@ -10,6 +10,7 @@ import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.product.ProductDto;
+import com.koitt.tim.dto.product.ProductSerialDto;
 
 public interface AdminService {
 
@@ -33,12 +34,15 @@ public interface AdminService {
 	// insert Notice
 	void insertNotice(NoticeDto nDto);
 
-	//All proudcts
+	// All proudcts
 	List<ProductDto> getAllProducts();
 
-	//Category 1
+	// Category 1
 	List<CategoryDept1Dto> getAllCate1();
 
-	//Category 2
+	// Category 2
 	List<CategoryDept2Dto> getAllCate2();
+
+	// Product insert
+	void insertProduct(ProductSerialDto psDto, ProductDto pDto);
 }

@@ -4,13 +4,21 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.koitt.tim.dao.board.NoticeDao;
 import com.koitt.tim.dao.category.CategoryDao;
 import com.koitt.tim.dao.coupon.CouponDao;
 import com.koitt.tim.dao.event.EventDao;
 import com.koitt.tim.dao.member.MemberDao;
+
 import com.koitt.tim.dao.product.ProductDao;
+
+import com.koitt.tim.dao.product.MainProductDao;
+import com.koitt.tim.dao.product.ProductDao;
+import com.koitt.tim.dao.product.ProductSerialDao;
+import com.koitt.tim.dao.product.RelatedProductDao;
+
 import com.koitt.tim.dto.admin.MallDto;
 import com.koitt.tim.dto.board.NoticeDto;
 import com.koitt.tim.dto.category.CategoryDept1Dto;
@@ -19,6 +27,9 @@ import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.product.ProductDto;
+
+import com.koitt.tim.dto.product.ProductSerialDto;
+
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -37,6 +48,14 @@ public class AdminServiceImpl implements AdminService {
 	private ProductDao productDao;
 	@Autowired
 	private CategoryDao categoryDao;
+	@Autowired
+	private ProductSerialDao psDao;
+	@Autowired
+	private ProductDao pDao;
+	@Autowired
+	private RelatedProductDao rpDao;
+	@Autowired
+	private MainProductDao mpDao;
 
 	@Override
 	public MallDto getMallInfo() {
@@ -90,5 +109,25 @@ public class AdminServiceImpl implements AdminService {
 	public List<CategoryDept2Dto> getAllCate2() {
 		return categoryDao.selectAllDept2();
 	}
+
+
+	@Transactional
+	@Override
+	public void insertProduct(ProductSerialDto psDto, ProductDto pDto) {
+
+		// 상품번호 넣기
+		psDao.insertProductSerial(psDto);
+		String pro_num = psDto.getPro_num();
+		pDto.setPro_num(pro_num);
+
+		// 상품 넣기
+		pDao.insertProduct(pDto);
+		// 연관상품 넣기
+		rpDao.insertRProduct(pro_num);
+
+		// 메인화면 상품 넣기
+		mpDao.insertMProduct(pro_num);
+	}
+
 
 }
