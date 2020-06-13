@@ -49,4 +49,10 @@ public interface AdminService {
 
 	// Related product
 	List<RelatedProductDto> getAllRelatedProducts();
+
+	// Related product add
+	void insertRelatedProduct(String targetId, String additionId, String index);
+
+	// Relate product field set null
+	void updateRelateProduct(String targetId, String index);
 }

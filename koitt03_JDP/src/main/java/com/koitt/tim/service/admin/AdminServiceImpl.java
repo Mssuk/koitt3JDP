@@ -2,7 +2,6 @@ package com.koitt.tim.service.admin;
 
 import java.util.List;
 
-import com.koitt.tim.dto.product.RelatedProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,14 +11,10 @@ import com.koitt.tim.dao.category.CategoryDao;
 import com.koitt.tim.dao.coupon.CouponDao;
 import com.koitt.tim.dao.event.EventDao;
 import com.koitt.tim.dao.member.MemberDao;
-
-import com.koitt.tim.dao.product.ProductDao;
-
 import com.koitt.tim.dao.product.MainProductDao;
 import com.koitt.tim.dao.product.ProductDao;
 import com.koitt.tim.dao.product.ProductSerialDao;
 import com.koitt.tim.dao.product.RelatedProductDao;
-
 import com.koitt.tim.dto.admin.MallDto;
 import com.koitt.tim.dto.board.NoticeDto;
 import com.koitt.tim.dto.category.CategoryDept1Dto;
@@ -28,9 +23,8 @@ import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.product.ProductDto;
-
 import com.koitt.tim.dto.product.ProductSerialDto;
-
+import com.koitt.tim.dto.product.RelatedProductDto;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -111,7 +105,6 @@ public class AdminServiceImpl implements AdminService {
 		return categoryDao.selectAllDept2();
 	}
 
-
 	@Transactional
 	@Override
 	public void insertProduct(ProductSerialDto psDto, ProductDto pDto) {
@@ -133,6 +126,20 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<RelatedProductDto> getAllRelatedProducts() {
 		return rpDao.selectAllRProduct();
+	}
+
+	@Override
+	public void insertRelatedProduct(String targetId, String additionId, String index) {
+		String realIdx = "REC_PRO_NUM" + index;
+		rpDao.insertRProductEach(targetId, additionId, realIdx);
+
+	}
+
+	@Override
+	public void updateRelateProduct(String targetId, String index) {
+		String realIdx = "REC_PRO_NUM" + index;
+		rpDao.updateRProduct(targetId, realIdx);
+
 	}
 
 }

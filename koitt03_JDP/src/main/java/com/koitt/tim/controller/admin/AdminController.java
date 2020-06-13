@@ -4,9 +4,9 @@ package com.koitt.tim.controller.admin;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 
-import com.koitt.tim.dto.product.RelatedProductDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +31,7 @@ import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.product.ProductDto;
 import com.koitt.tim.dto.product.ProductSerialDto;
+import com.koitt.tim.dto.product.RelatedProductDto;
 import com.koitt.tim.service.admin.AdminService;
 import com.koitt.tim.utils.CommonUtils;
 
@@ -142,17 +144,27 @@ public class AdminController {
 		return ResponseEntity.ok().build();
 	}
 
-	//연관상품 불러오기
+	// 연관상품 불러오기
 	@GetMapping("rplist")
-	public List<RelatedProductDto> rpList(){
+	public List<RelatedProductDto> rpList() {
 		return adminService.getAllRelatedProducts();
 	}
 
-	//연관상품 등록
-	@PostMapping("rplist/{numbering}")
-	public ResponseEntity<?> rpList(String targetId, String paraId, @PathVariable("numbering") int numbering){
+	// 연관상품 등록
+	@PostMapping("rplist")
+	public ResponseEntity<?> rpList(@RequestBody HashMap<String, String> map) {
 
+		logger.info("{}", map);
+		adminService.insertRelatedProduct(map.get("targetId"), map.get("additionId"), map.get("index"));
 		return ResponseEntity.ok().build();
+	}
+
+	// 연관 상품 삭제시 null값으로 필드 업데이트
+	@PutMapping("rplist")
+	public ResponseEntity<Object> rpListPut(@RequestBody HashMap<String, String> map) {
+		logger.info("{}", map);
+		adminService.updateRelateProduct(map.get("targetId"), map.get("index"));
+		return ResponseEntity.ok("update OK");
 	}
 
 }

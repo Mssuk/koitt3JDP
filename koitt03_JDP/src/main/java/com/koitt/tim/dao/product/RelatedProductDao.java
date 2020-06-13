@@ -16,4 +16,9 @@ public interface RelatedProductDao {
 	// 상품 자동 등록
 	void insertRProduct(@Param("p1") String pro_num);
 
+	// 관련상품 등록
+	void insertRProductEach(@Param("p3") String targetId, @Param("p2") String additionId, @Param("p1") String idx);
+
+	// 관련상품 field null로 설정
+	void updateRProduct(@Param("p2") String targetId, @Param("p1") String idx);
 }

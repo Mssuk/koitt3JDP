@@ -9,4 +9,12 @@
 		insert into related_product (pro_num) VALUES (#{p1})
 	</insert>
 
+	<update id="insertRProductEach">
+		update related_product set ${p1} = #{p2} where pro_num = #{p3}
+	</update>
+	
+	<update id="updateRProduct">
+		update related_product set ${p1} = null where pro_num = #{p2}
+	</update>
+	
 </mapper>
