@@ -10,9 +10,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -165,6 +167,60 @@ public class AdminController {
 		logger.info("{}", map);
 		adminService.updateRelateProduct(map.get("targetId"), map.get("index"));
 		return ResponseEntity.ok("update OK");
+	}
+
+	// 카테고리 등록
+	@PostMapping("plist/category/{flag}")
+	public ResponseEntity<String> pCList(@PathVariable("flag") int flag, @RequestBody HashMap<String, String> map) {
+
+		try {
+			if (flag == 1) {
+				logger.info("{}", map);
+				CategoryDept1Dto cDto = new CategoryDept1Dto();
+				cDto.setCate_code_d1(map.get("cate_code_d1"));
+				cDto.setCate_name_d1(map.get("cate_name_d1"));
+				adminService.insertCate1(cDto);
+			}
+			if (flag == 2) {
+				logger.info("{}", map);
+				CategoryDept2Dto cDto = new CategoryDept2Dto();
+				cDto.setCate_code_d1(map.get("cate_code_d1"));
+				cDto.setCate_code_d2(map.get("cate_code_d2"));
+				cDto.setCate_name_d2(map.get("cate_name_d2"));
+				adminService.insertCate2(cDto);
+
+			}
+			return ResponseEntity.ok("category added");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	// 카테고리 삭제
+	@DeleteMapping("plist/category/{flag}/{data}")
+	public ResponseEntity<String> pCList(@PathVariable("flag") int flag, @PathVariable("data") String code) {
+
+		try {
+			if (flag == 1) {
+				logger.info("{}", code);
+				adminService.deleteCate1(code);
+			} else if (flag == 2) {
+				logger.info("{}", code);
+				adminService.deleteCate2(code);
+
+			}
+			return ResponseEntity.ok("category deleted");
+		} catch (Exception e) {
+			return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+		}
+
+	}
+
+	// 모든 씨리얼 넘버
+	@GetMapping("plist/serial")
+	public List<ProductSerialDto> serialList() {
+		return adminService.getAllSerialNumber();
 	}
 
 }

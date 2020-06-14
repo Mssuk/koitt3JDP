@@ -55,4 +55,20 @@ public interface AdminService {
 
 	// Relate product field set null
 	void updateRelateProduct(String targetId, String index);
+
+	// Category 1 insert
+	void insertCate1(CategoryDept1Dto cDto);
+
+	// Category 2 insert
+	void insertCate2(CategoryDept2Dto cDto);
+
+	// Category1 delete
+	void deleteCate1(String code);
+
+	// Category2 delete
+	void deleteCate2(String code);
+
+	// 시리얼 넘버 가져오기
+	List<ProductSerialDto> getAllSerialNumber();
+
 }

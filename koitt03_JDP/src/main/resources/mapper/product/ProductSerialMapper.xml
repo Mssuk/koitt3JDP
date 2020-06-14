@@ -9,4 +9,9 @@
 		insert into PRODUCT_SERIAL  
 		values(#{pro_num},#{cate_code_d1},#{cate_code_d2})
 	</insert>
+	
+	<!-- select serial -->
+	<select id="selectAllSerial" resultType="ProductSerialDto">
+		select * from product_serial
+	</select>
 </mapper>

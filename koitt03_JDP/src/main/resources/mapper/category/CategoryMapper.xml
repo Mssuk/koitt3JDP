@@ -7,11 +7,25 @@
     </select>
 
     <select id="selectAllDept1" resultType="CategoryDept1Dto">
-        select * from CATEGORY_DEPT1
+        select * from CATEGORY_DEPT1 order by to_number(cate_code_d1)
     </select>
 
-    <!-- 카테고리 조인-->
+	<insert id="insertDept1" parameterType="CategoryDept1Dto">
+		insert into category_dept1 values (#{cate_code_d1}, #{cate_name_d1})
+	</insert>
+	
+	<insert id="insertDept2" parameterType="CategoryDept2Dto">
+		insert into category_dept2 (cate_code_d1, cate_code_d2, cate_name_d2 )
+		values (#{cate_code_d1}, #{cate_code_d2}, #{cate_name_d2})
+	</insert>
+	
+	<delete id="deleteDept1">
+		delete category_dept1 where cate_code_d1 = #{param1}
+	</delete>
 
+	<delete id="deleteDept2">
+		delete category_dept2 where cate_code_d2 = #{param1}
+	</delete>
 
 
 

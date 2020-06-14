@@ -142,4 +142,32 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 
+	@Override
+	public void insertCate1(CategoryDept1Dto cDto) {
+		categoryDao.insertDept1(cDto);
+
+	}
+
+	@Override
+	public void insertCate2(CategoryDept2Dto cDto) {
+		categoryDao.insertDept2(cDto);
+	}
+
+	@Override
+	public void deleteCate1(String code) {
+		categoryDao.deleteDept1(code);
+
+	}
+
+	@Override
+	public void deleteCate2(String code) {
+		categoryDao.deleteDept2(code);
+
+	}
+
+	@Override
+	public List<ProductSerialDto> getAllSerialNumber() {
+		return psDao.selectAllSerial();
+	}
+
 }
