@@ -5,4 +5,6 @@ public interface MypageService {
     int countCoupon(String id);
 
     int havePoint(String id);
+
+    int orderList(String id);
 }

@@ -99,7 +99,7 @@
         <div id="header">
 
             <div id="snbBox">
-                <h1><img src="${pageContext.request.contextPath}/images/txt/logo.gif" alt="JARDIN SHOP"/></h1>
+                <h1><a href="/"><img src="${pageContext.request.contextPath}/images/txt/logo.gif" alt="JARDIN SHOP"/></a></h1>
                 <div id="quickmenu">
                     <div id="mnaviOpen"><img
                             src="${pageContext.request.contextPath}${pageContext.request.contextPath}/images/btn/btn_mnavi.gif"
@@ -108,8 +108,8 @@
                             src="${pageContext.request.contextPath}${pageContext.request.contextPath}/images/btn/btn_mnavi_close.gif"
                             width="44" height="43" alt="메뉴닫기"/></div>
                     <ul>
-                        <li><a href="#">EVENT</a></li>
-                        <li><a href="#">CUSTOMER</a></li>
+                        <li><a href="/event/event">EVENT</a></li>
+                        <li><a href="/customer/guide">CUSTOMER</a></li>
                         <li><a href="#">COMMUNITY</a></li>
                     </ul>
                 </div>

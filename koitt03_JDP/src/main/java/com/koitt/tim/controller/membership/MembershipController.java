@@ -21,9 +21,10 @@ import com.koitt.tim.service.membership.MembershipService;
 @RequestMapping("/membership")
 public class MembershipController {
 
+	SqlSession sql;
+
 	@Autowired
 	MembershipService membershipService;
-	SqlSession sql;
 
 	@RequestMapping("login")
 	public String login() {
@@ -33,7 +34,7 @@ public class MembershipController {
 
 	@RequestMapping("loginCheck")
 	@ResponseBody
-	public int loginCheck(@RequestBody HashMap<String, String> obj, HttpSession session) {
+	public int loginCheck(@RequestBody HashMap<String, String> obj) {
 
 		String id = obj.get("id");
 		String pw = obj.get("pw");
