@@ -6,4 +6,7 @@
 		values (#{p1}, 0, 0, 0, 0)
 	</insert>
 
+	<delete id="deleteMProduct">
+		delete MAIN_PRODUCT where PRO_NUM = #{param1}
+	</delete>
 </mapper>

@@ -14,4 +14,7 @@ public interface ProductSerialDao {
 
 	// get serial number
 	List<ProductSerialDto> selectAllSerial();
+
+	//delete serial
+	void deleteProductSerial(String code);
 }

@@ -16,5 +16,8 @@
 	<update id="updateRProduct">
 		update related_product set ${p1} = null where pro_num = #{p2}
 	</update>
-	
+
+	<delete id="deleteRProduct">
+		delete RELATED_PRODUCT where PRO_NUM = #{param1}
+	</delete>
 </mapper>

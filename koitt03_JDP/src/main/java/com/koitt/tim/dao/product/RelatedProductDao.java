@@ -21,4 +21,7 @@ public interface RelatedProductDao {
 
 	// 관련상품 field null로 설정
 	void updateRProduct(@Param("p2") String targetId, @Param("p1") String idx);
+
+	// 상품 삭제시 관련상품에서 삭제
+	void deleteRProduct(String code);
 }

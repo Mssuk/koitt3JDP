@@ -71,4 +71,7 @@ public interface AdminService {
 	// 시리얼 넘버 가져오기
 	List<ProductSerialDto> getAllSerialNumber();
 
+	//상품 delete
+	void deleteProduct(String code);
+
 }

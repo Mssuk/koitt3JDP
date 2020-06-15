@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
-import com.koitt.tim.service.membership.EmailSend;
 import com.koitt.tim.service.membership.MembershipServiceImpl;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -80,9 +80,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<NoticeDto> getAllNotices() {
-		// 공지사항공사중...임시로 넣었습니다.
-		return noticeDao.selectAllNotice(1, 1, "", "");
-
+		return noticeDao.selectAllNoticeAdmin();
 	}
 
 	@Override
@@ -168,6 +166,20 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<ProductSerialDto> getAllSerialNumber() {
 		return psDao.selectAllSerial();
+	}
+
+	@Transactional
+	@Override
+	public void deleteProduct(String code) {
+
+		// 메인화면 상품 삭제
+		mpDao.deleteMProduct(code);
+		// 연관상품 삭제
+		rpDao.deleteRProduct(code);
+		// 상품 삭제
+		pDao.deleteProduct(code);
+		// 상품번호 삭제
+		psDao.deleteProductSerial(code);
 	}
 
 }

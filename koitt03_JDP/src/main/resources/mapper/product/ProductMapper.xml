@@ -21,4 +21,9 @@
 		sysdate,sysdate)
 	</insert>
 
+	<!-- product delete -->
+	<delete id="deleteProduct">
+		delete PRODUCT where PRO_NUM = #{param1}
+	</delete>
+
 </mapper>
