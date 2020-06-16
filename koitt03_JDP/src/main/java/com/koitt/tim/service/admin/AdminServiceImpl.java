@@ -182,4 +182,9 @@ public class AdminServiceImpl implements AdminService {
 		psDao.deleteProductSerial(code);
 	}
 
+	@Override
+	public ProductDto getProduct(String pro_num) {
+		return productDao.selectProductOne(pro_num);
+	}
+
 }

@@ -129,7 +129,6 @@ public class AdminController {
 	public ResponseEntity<?> plist(String cate_code_d1, String cate_code_d2, ProductDto pDto,
 			@RequestParam("files") List<MultipartFile> uploadImg) throws IOException {
 
-
 		logger.info("{}", cate_code_d1);
 		logger.info("{}", cate_code_d2);
 
@@ -224,16 +223,31 @@ public class AdminController {
 		return adminService.getAllSerialNumber();
 	}
 
-	//상품 삭제
+	// 상품 삭제
 	@DeleteMapping("plist/{data}")
-	public ResponseEntity<String> pList(@PathVariable("data") String code){
-		try{
+	public ResponseEntity<String> pList(@PathVariable("data") String code) {
+		try {
 			adminService.deleteProduct(code);
 			return ResponseEntity.ok("product deleted");
-		}catch (Exception e){
+		} catch (Exception e) {
 			return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
 		}
 
+	}
+
+	// 상품 수정
+	@PostMapping("plistp")
+	public ResponseEntity<?> plistP(ProductDto pDto, @RequestParam("files") List<MultipartFile> uploadImg)
+			throws IOException {
+
+		// 일단 pDto로 조회
+		ProductDto npDto = adminService.getProduct(pDto.getPro_num());
+
+		if (npDto != null) {
+
+		}
+
+		return ResponseEntity.ok().build();
 	}
 
 }
