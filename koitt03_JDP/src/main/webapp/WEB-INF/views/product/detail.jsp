@@ -9,6 +9,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../common/header.jsp" />
 
+
+
         <!-- container -->
         <div id="container">
 
@@ -91,7 +93,8 @@
                         <div class="infobtn">
                             <ul>
                                 <li><a onclick="spinner()" class="ty1">바로 <span>구매하기</span></a></li>
-                                <li><a href="#" class="ty2">장바구니 <span>담기</span></a></li>
+                                
+                                <li><a href="#" id="cartPut" class="ty2">장바구니 <span>담기</span></a></li>
                                 <li class="last"><a href="#" class="ty3">위시 <span>리스트</span></a></li>
                             </ul>
                             <script>
@@ -198,6 +201,48 @@
                         </div>
                     </div>
                     <!-- detail info -->
+
+<script type="text/javascript">
+$("#cartPut").click(function(){
+
+	if(confirm("선택한 제품을 장바구니에 추가하시겠습니까?")){
+		var pronum = '${dto.pro_num}';
+		
+		var cnt = document.getElementById("spinner").value;
+		
+		var Obj= {};
+		
+		Obj.pro_num = pronum;
+		Obj.count=cnt;
+		
+		var jsonData = JSON.stringify(Obj);
+		
+		$.ajax({
+			url:`/putCart`,
+			type: 'POST',
+			data:jsonData,
+			contentType:'application/json',
+			dataType:'json',
+			success: function (data) {
+				if(data == 0){
+					alert('장바구니 담기 실패');
+				}else if(data == 1){
+					alert('장바구니에 상품을 담았습니다.');
+				}
+			},
+			error: function (e) {
+				console.log(e);
+			}
+		});
+
+	};
+});
+</script>
+
+
+
+
+
 
                     <!-- goods relation -->
                     <div class="goodsRelation disnone">

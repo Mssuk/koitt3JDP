@@ -19,4 +19,10 @@
    <update id="updateBasketMember" parameterType="BasketMemberDto">
   	 update basket_member set count=count+#{count} where id=#{id, jdbcType=VARCHAR} and pro_num=#{pro_num, jdbcType=VARCHAR}
    </update>
+   <delete id="deleteBasketMember" parameterType="BasketMemberDto">
+  	 delete from basket_member where id=#{id, jdbcType=VARCHAR} and pro_num=#{pro_num, jdbcType=VARCHAR}
+   </delete>
+   
+   
+   
 </mapper>

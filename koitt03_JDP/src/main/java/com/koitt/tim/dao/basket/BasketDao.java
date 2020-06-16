@@ -12,4 +12,7 @@ public interface BasketDao {
 	// 장바구니 넣기
 	void insertBasketMember(BasketMemberDto bdto);
 
+	// 장바구니 1개 삭제
+	void deleteBasketMember(BasketMemberDto bdto);
+
 }

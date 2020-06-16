@@ -146,6 +146,11 @@ public class CustomerServiceImpl implements CustomerService {
 		// 시작 페이지 번호 설정
 		int startPageNum = ((int) (Math.ceil((double) pageNum / ROW_LIMIT) - 1) * ROW_LIMIT) + 1;
 
+		if (startPageNum < 1)
+			startPageNum = 1;
+		if (lastPageNum < 1)
+			lastPageNum = 1;
+
 		// 현재 페이지를 기준으로 마지막 페이지번호 계산 (예. 현재 6페이지면 6,7,8,9,10 이 나타남)
 		int realLastNum = (lastPageNum > startPageNum + ROW_LIMIT - 1) ? startPageNum + ROW_LIMIT - 1 : lastPageNum;
 

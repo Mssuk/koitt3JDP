@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.koitt.tim.dto.question.QuestionDto;
@@ -36,8 +37,8 @@ public class CustomerController {
 
 	// 1:1문의 file upload
 	@PostMapping(value = "inqlist", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public String uploadFile(MultipartFile q_file, String id, String q_title, String q_content, String q_type,
-			Model model) throws IOException {
+	public String uploadFile(@RequestParam(value = "q_file", defaultValue = "") MultipartFile q_file, String id,
+			String q_title, String q_content, String q_type, Model model) throws IOException {
 		int inqu_ch = 1;
 		// mypage/inquiry구현시 ..
 //		String viewPage="mypage/inquiry";
@@ -46,7 +47,13 @@ public class CustomerController {
 		qDto.setQ_title(q_title);
 		qDto.setQ_content(q_content);
 		qDto.setQ_type(q_type);
-		qDto.setQ_file(utils.FileUploaderCDN(q_file, "question/"));
+		// null방지 :D
+		if (q_file.getOriginalFilename() != "") {
+			qDto.setQ_file(utils.FileUploaderCDN(q_file, "question/"));
+		} else {
+			String q_nonfile = "";
+			qDto.setQ_file(q_nonfile);
+		}
 		try {
 			cServ.insertQuestion(qDto);
 		} catch (Exception e) {

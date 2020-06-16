@@ -58,7 +58,7 @@
 							<c:choose>
 								<c:when test="${list==null }">
 									<c:choose>
-											<c:when test="${searchflag==null }">
+											<c:when test="${searchflag==null||text=='' }">
 												<%-- 검색x --%>
 												<li>
 													<div class="question">
