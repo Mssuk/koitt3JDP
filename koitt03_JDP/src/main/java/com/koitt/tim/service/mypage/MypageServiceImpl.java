@@ -1,5 +1,6 @@
 package com.koitt.tim.service.mypage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,14 +42,14 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public String orderNum(String id) {
+	public ArrayList<String> orderNum(String id) {
 		return orderDao.selectOrderNum(id); // orderNumber 반출
 	}
 
 	@Override
 	public List<OrderListDto> orderList(String orderNum) {
-		List<OrderListDto> list = orderDao.selectOrderList(orderNum);
-		return list;
+		return orderDao.selectOrderList(orderNum);
+
 
 	}
 }

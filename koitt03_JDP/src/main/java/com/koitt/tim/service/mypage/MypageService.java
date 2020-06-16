@@ -1,18 +1,19 @@
 package com.koitt.tim.service.mypage;
 
-import com.koitt.tim.dto.order.OrderListDto;
-
+import java.util.ArrayList;
 import java.util.List;
+
+import com.koitt.tim.dto.order.OrderListDto;
 
 public interface MypageService {
 
-    int countCoupon(String id);
+	int countCoupon(String id);
 
-    int havePoint(String id);
+	int havePoint(String id);
 
-    int orderCount(String id);
+	int orderCount(String id);
 
-    String orderNum(String id);
+	ArrayList<String> orderNum(String id);
 
-    List<OrderListDto> orderList(String orderNum);
+	List<OrderListDto> orderList(String orderNum);
 }

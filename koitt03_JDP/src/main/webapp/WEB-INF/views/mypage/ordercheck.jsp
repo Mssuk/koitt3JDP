@@ -1,4 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%
@@ -121,99 +122,46 @@
                         <th scope="col" class="tnone">수량</th>
                         <th scope="col">주문상태</th>
                         </thead>
+                        <%-- 상품 구매 목록 --%>
                         <tbody>
-                        <tr>
-                            <td>
-                                <p class="day">2012-05-30</p>
-                                <p class="orderNum">${list.get(1)}</p>
-                            </td>
-                            <td class="left">
-                                쟈뎅 오리지널 콜롬비아 페레이라 원두커피백 15p
-                            </td>
-                            <td class="tnone">999,999 원</td>
-                            <td class="tnone">1000개</td>
-                            <td>
-                                <span class="heavygray">배송완료</span>
-                                <ul class="state">
-                                    <li class="r5"><a href="return.html" class="obtnMini iw40">교환</a></li>
-                                    <li><a href="return.html" class="nbtnMini iw40">반품</a></li>
-                                    <li><a href="#" class="reviewbtn">리뷰작성</a></li>
-                                    <li><a href="#" class="decidebtn">구매확정</a></li>
-                                </ul>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <p class="day">2012-05-30</p>
-                                <p class="orderNum">201205301204-8057</p>
-                            </td>
-                            <td class="left">
-                                쟈뎅 오리지널 콜롬비아 페레이라 원두커피백 15p
-                            </td>
-                            <td class="tnone">999,999 원</td>
-                            <td class="tnone">1000개</td>
-                            <td>
-                                <span class="lightgray">입금대기중</span>
-                                <ul class="state">
-                                    <li><a href="#" class="nbtnMini iw83">취소</a></li>
-                                </ul>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <p class="day">2012-05-30</p>
-                                <p class="orderNum">201205301204-8057</p>
-                            </td>
-                            <td class="left">
-                                쟈뎅 오리지널 콜롬비아 페레이라 원두커피백 15p
-                            </td>
-                            <td class="tnone">999,999 원</td>
-                            <td class="tnone">1000개</td>
-                            <td>
-                                <span class="lightgray">입금완료</span>
-                                <ul class="state">
-                                    <li><a href="#" class="nbtnMini iw83">취소</a></li>
-                                </ul>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <p class="day">2012-05-30</p>
-                                <p class="orderNum">201205301204-8057</p>
-                            </td>
-                            <td class="left">
-                                쟈뎅 오리지널 콜롬비아 페레이라 원두커피백 15p
-                            </td>
-                            <td class="tnone">999,999 원</td>
-                            <td class="tnone">1000개</td>
-                            <td>
-                                <span class="orange">배송중</span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <p class="day">2012-05-30</p>
-                                <p class="orderNum">201205301204-8057</p>
-                            </td>
-                            <td class="left">
-                                쟈뎅 오리지널 콜롬비아 페레이라 원두커피백 15p
-                            </td>
-                            <td class="tnone">999,999 원</td>
-                            <td class="tnone">1000개</td>
-                            <td>
-                                <span class="orange">배송준비중</span>
-                            </td>
-                        </tr>
+                            <c:choose>
+                            <c:when test="${orderList != null}">
+                                <c:forEach var="order" items="${orderList}">
+                                <tr>
+                                    <td>
+                                        <p class="day">${order.o_date}</p>
+                                        <p class="orderNum">${order.o_num}</p>
+                                    </td>
+                                    <td class="left">
+                                        ${order.product_name}
+                                    </td>
+                                    <td class="tnone">${order.price} 원</td>
+                                    <td class="tnone">${order.quantity}개</td>
+                                    <td>
+                                        <span class="heavygray">${order.status}</span>
+                                        <ul class="state">
+                                            <li class="r5"><a href="return.html" class="obtnMini iw40">교환</a></li>
+                                            <li><a href="return.html" class="nbtnMini iw40">반품</a></li>
+                                            <li><a href="#" class="reviewbtn">리뷰작성</a></li>
+                                            <li><a href="#" class="decidebtn">구매확정</a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <tr>
+                                    <div class="noData">
+                                        등록된 상품이 없습니다.
+                                    </div>
+                                </tr>
+                            </c:otherwise>
+                            </c:choose>
                         </tbody>
+
+
                     </table>
 
-                    <div class="noData">
-                        등록된 상품이 없습니다.
-                    </div>
                 </div>
 
                 <div class="btnAreaList">

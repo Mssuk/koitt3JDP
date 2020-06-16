@@ -7,11 +7,11 @@
     </select>
 
     <select id="selectOrderNum" resultType="String">
-        select * from "ORDER" where "id"=#{id}
+        select "o_num" from "ORDER" where "id"=#{id}
     </select>
 
-    <select id="selectOrderList" resultType="orderDto">
-        select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status from "ORDER" col1 join ORDER_LIST col2 on col1.#{orderNumber} = col2.#{orderNum}
+    <select id="selectOrderList" resultType="orderListDto">
+        select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status from "ORDER" col1 join ORDER_LIST col2 on col1."o_num" = #{orderNum}
     </select>
 
 </mapper>

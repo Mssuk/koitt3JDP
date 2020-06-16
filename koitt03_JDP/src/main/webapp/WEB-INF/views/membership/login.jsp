@@ -130,7 +130,7 @@
 						</ul>
 
 						<div class="btn">
-							<a href="#" class="gbtn">조회하기</a>
+							<a href="/mypage/ordercheck" class="gbtn">조회하기</a>
 						</div>
 						<div class="point">
 							<p>
