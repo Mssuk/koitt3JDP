@@ -187,4 +187,21 @@ public class AdminServiceImpl implements AdminService {
 		return productDao.selectProductOne(pro_num);
 	}
 
+	@Transactional
+	@Override
+	public void updateProduct(ProductDto pDto, ProductSerialDto psDto) {
+
+		// 상품번호업데이트
+		psDao.updateProductCategory(psDto);
+
+		// 상품 업데이트
+		productDao.updateProduct(pDto);
+
+	}
+
+	@Override
+	public ProductSerialDto getSerialOne(String code) {
+		return psDao.selectSerial(code);
+	}
+
 }

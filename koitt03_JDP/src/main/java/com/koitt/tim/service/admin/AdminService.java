@@ -71,10 +71,16 @@ public interface AdminService {
 	// 시리얼 넘버 가져오기
 	List<ProductSerialDto> getAllSerialNumber();
 
+	// 하나의 시리얼 넘버와 상품
+	ProductSerialDto getSerialOne(String code);
+
 	// 상품 delete
 	void deleteProduct(String code);
 
 	// 상품 하나 가져오기
 	ProductDto getProduct(String code);
+
+	// 상품카테고리 update, 상품 update
+	void updateProduct(ProductDto pDto, ProductSerialDto psDto);
 
 }

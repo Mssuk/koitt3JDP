@@ -19,4 +19,9 @@
 	<delete id="deleteProductSerial">
 		delete PRODUCT_SERIAL where PRO_NUM = #{param1}
 	</delete>
+	
+	<!-- one of select serial  -->
+	<select id="selectSerial" resultType="ProductSerialDto">
+		select * from product_serial where pro_num = #{param1}
+	</select>
 </mapper>

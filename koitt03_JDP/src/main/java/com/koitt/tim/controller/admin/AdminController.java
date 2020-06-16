@@ -237,17 +237,50 @@ public class AdminController {
 
 	// 상품 수정
 	@PostMapping("plistp")
-	public ResponseEntity<?> plistP(ProductDto pDto, @RequestParam("files") List<MultipartFile> uploadImg)
-			throws IOException {
+	public ResponseEntity<?> plistP(String cate_code_d1, String cate_code_d2, MultipartFile newBackImg,
+			MultipartFile newfront_image1, MultipartFile newfront_image2, MultipartFile newfront_image3,
+			ProductDto pDto) throws IOException {
 
-		// 일단 pDto로 조회
-		ProductDto npDto = adminService.getProduct(pDto.getPro_num());
+		try {
 
-		if (npDto != null) {
+			// 일단 pDto로 조회
+			ProductSerialDto nsDto = adminService.getSerialOne(pDto.getPro_num());
 
+			if (nsDto != null) {
+
+				nsDto.setCate_code_d1(cate_code_d1);
+				nsDto.setCate_code_d2(cate_code_d2);
+
+				if (newBackImg != null) {
+					pDto.setBack_image(utils.FileUploaderCDN(newBackImg, "product/"));
+				}
+				if (newfront_image1 != null) {
+					pDto.setFront_image1(utils.FileUploaderCDN(newfront_image1, "product/"));
+				}
+				if (newfront_image2 != null) {
+					pDto.setFront_image1(utils.FileUploaderCDN(newfront_image2, "product/"));
+				}
+				if (newfront_image3 != null) {
+					pDto.setFront_image1(utils.FileUploaderCDN(newfront_image3, "product/"));
+				}
+
+				// 상품카테고리 업데이트
+				// 상품 업데이트
+				adminService.updateProduct(pDto, nsDto);
+
+			} else
+
+			{
+				throw new Exception("존재하지 않는 상품: 수정시도");
+			}
+
+			return ResponseEntity.ok().build();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>(e.toString(), HttpStatus.BAD_REQUEST);
 		}
 
-		return ResponseEntity.ok().build();
 	}
 
 }
