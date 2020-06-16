@@ -7,6 +7,7 @@
     }
 %>
 <jsp:include page="../common/header.jsp"/>
+
 <!-- container -->
 <div id="container">
 
@@ -47,7 +48,7 @@
                         <li>보유 쿠폰<br/><span class="num">${userCoupon}</span> <span class="unit">장</span></li>
                         <li class="point" id="point">내 포인트<br/><span class="num">
                             <fmt:formatNumber value="${userPoint}" pattern="#,###,###"/></span> <span class="unit">P</span></li>
-                        <li class="last">진행중인 주문<br/><span class="num">199</span> <span class="unit">건</span></li>
+                        <li class="last">진행중인 주문<br/><span class="num">${orderCount}</span> <span class="unit">건</span></li>
                     </ul>
                 </div>
 
@@ -124,7 +125,7 @@
                         <tr>
                             <td>
                                 <p class="day">2012-05-30</p>
-                                <p class="orderNum">201205301204-8057</p>
+                                <p class="orderNum">${list.get(1)}</p>
                             </td>
                             <td class="left">
                                 쟈뎅 오리지널 콜롬비아 페레이라 원두커피백 15p

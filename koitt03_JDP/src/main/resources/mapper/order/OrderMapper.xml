@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koitt.tim.dao.order.OrderDao">
+
+    <select id="selectOrderCount" resultType="int">
+        select count(*) from "ORDER" where "id"=#{id}
+    </select>
+
+    <select id="selectOrderNum" resultType="String">
+        select * from "ORDER" where "id"=#{id}
+    </select>
+
+    <select id="selectOrderList" resultType="orderDto">
+        select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status from "ORDER" col1 join ORDER_LIST col2 on col1.#{orderNumber} = col2.#{orderNum}
+    </select>
+
+</mapper>
