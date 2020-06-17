@@ -1,5 +1,6 @@
 package com.koitt.tim.service.membership;
 
+import com.koitt.tim.dao.order.OrderDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,9 @@ public class MembershipServiceImpl implements MembershipService {
 
 	@Autowired
 	private MemberDao memberDao;
+
+	@Autowired
+	private OrderDao orderDao;
 
 	@Override
 	public int loginCheck(String id, String pw) {
@@ -33,9 +37,16 @@ public class MembershipServiceImpl implements MembershipService {
 	}
 
 	@Override
-	public String getNonMemInfo(String name, String orderNum) {
+	public int getNonMemInfo(String o_num, String orderTel) {
+		String id_check = orderDao.selectOneOrder(o_num, orderTel);
+		int result = 0;
+		// 아이디가 존재하지 않음
+		if(id_check == null){
+			result = 0;
+		} else  //아이디 존재
+			result = 1;
 
-		return null;
+		return result;
 	}
 
 	@Override

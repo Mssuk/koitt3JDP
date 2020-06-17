@@ -15,6 +15,10 @@
 			values (#{id}, #{name}, #{pw}, #{email}, #{email_check}, #{address1}, #{address2}, #{address3}, #{phone}, #{sms}, #{tel}, #{birth}, #{calender_check}, #{point}, sysdate)
 	</insert>
 
+	<update id="modifyMember">
+		update MEMBER set NAME = #{p2}, ADDRESS1 = #{p3}, ADDRESS2=#{p4},ADDRESS3=#{p5},PHONE=#{p7},TEL=#{p8},EMAIL=#{p9} where ID=#{p1}
+
+	</update>
 	<select id="selectSearchMemberId" resultType="String">
 		select ID from member where name=#{name} and email=#{email}
 	</select>

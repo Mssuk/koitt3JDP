@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.koitt.tim.dao.review.ReviewDao">
+    <select id="selectReviewList" resultType="com.koitt.tim.dto.review.ReviewDto">
+        select r."review_num", "id", "title", "regist_review", "hit", "score", "content", "image_small", "buy_check", "group_num", "image", "board_type", "write_check", "admin_answer"
+        from REVIEW r,ORDER_LIST o
+        where r."Key"=o.KEY and o."pro_num"=#{pro_num}
+    </select>
+
+
+
+</mapper>

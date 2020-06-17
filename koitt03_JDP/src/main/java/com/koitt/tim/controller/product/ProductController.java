@@ -1,6 +1,8 @@
 package com.koitt.tim.controller.product;
 
 import com.koitt.tim.dto.product.ProductDto;
+import com.koitt.tim.dto.product.RelatedProductDto;
+import com.koitt.tim.dto.review.ReviewDto;
 import com.koitt.tim.service.product.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,9 +33,18 @@ public class ProductController {
 
     @RequestMapping("detail")
     public String productDetail(String pro_num, Model model){
-        ProductDto pDto = pServ.getProductChoice(pro_num);
+
+        List<ProductDto> relatedProduct = pServ.relatedProduct(pro_num); //상품번호로 연관상품 불러오기
+        List<ReviewDto> reviewDtos = pServ.getReviewList(pro_num);  //상품번호로 상품에 달린 리뷰 리스트 불러오기
+        ProductDto pDto = pServ.getProductChoice(pro_num);  //상품번호로 상품 정보 불러오기
+
         model.addAttribute("dto",pDto);
+        model.addAttribute("reviewDtos",reviewDtos);
+        model.addAttribute("relProduct",relatedProduct);
+
         return "product/detail";
     }
+
+
 
 }

@@ -7,8 +7,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/nonmember")
 public class nonmemberContorller {
 
-    @RequestMapping("ordercheck")
-    public String ordercheck(){
-        return "/nonmember/ordercheck";
-    }
+
 }

@@ -4,7 +4,7 @@
 	<select id="selectAllRProduct" resultType="RelatedProductWithNameDto">
 		select rp.*, p.PRODUCT_NAME from related_product rp, PRODUCT p where rp.PRO_NUM = p.PRO_NUM
 	</select>
-	
+
 	<insert id="insertRProduct">
 		insert into related_product (pro_num) VALUES (#{p1})
 	</insert>
@@ -12,7 +12,7 @@
 	<update id="insertRProductEach">
 		update related_product set ${p1} = #{p2} where pro_num = #{p3}
 	</update>
-	
+
 	<update id="updateRProduct">
 		update related_product set ${p1} = null where pro_num = #{p2}
 	</update>
@@ -20,4 +20,8 @@
 	<delete id="deleteRProduct">
 		delete RELATED_PRODUCT where PRO_NUM = #{param1}
 	</delete>
+</mapper>
+	<select id="selectRelatedList" resultType="RelatedProductDto">
+		select * from RELATED_PRODUCT where PRO_NUM = #{pro_num}
+	</select>
 </mapper>
