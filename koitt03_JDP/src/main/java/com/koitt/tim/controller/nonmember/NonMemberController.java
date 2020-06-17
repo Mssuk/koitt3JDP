@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koitt.tim.dto.basket.BasketMemberDto;
 import com.koitt.tim.dto.basket.CartViewDto;
+import com.koitt.tim.dto.order.OrderListDto;
 import com.koitt.tim.service.nonmember.NonmemberService;
 
 @Controller
@@ -52,8 +53,11 @@ public class NonMemberController {
 		return orch;
 	}
 
+	// 비회원 주문리스트 가져오기
 	@RequestMapping("ordercheck_view")
 	public String ordercheck_view(@RequestParam(value = "o_num") String o_num) {
+
+		List<OrderListDto> list = nServ.getOrderLists(o_num);
 
 		return "nonmember/ordercheck";
 	}

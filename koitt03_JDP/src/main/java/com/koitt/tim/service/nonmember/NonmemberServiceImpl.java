@@ -13,6 +13,7 @@ import com.koitt.tim.dao.product.ProductDao;
 import com.koitt.tim.dto.basket.BasketMemberDto;
 import com.koitt.tim.dto.basket.CartViewDto;
 import com.koitt.tim.dto.order.OrderDto;
+import com.koitt.tim.dto.order.OrderListDto;
 import com.koitt.tim.dto.product.ProductDto;
 
 @Service
@@ -73,6 +74,12 @@ public class NonmemberServiceImpl implements NonmemberService {
 		}
 
 		return orch;
+	}
+
+	@Override
+	public List<OrderListDto> getOrderLists(String o_num) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
