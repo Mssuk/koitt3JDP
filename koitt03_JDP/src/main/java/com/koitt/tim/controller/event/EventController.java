@@ -3,6 +3,8 @@ package com.koitt.tim.controller.event;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import com.koitt.tim.dto.event.EventCouponBean;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.event.EventPreNextBean;
 import com.koitt.tim.dto.event.EventReplyBean;
+import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.service.event.EventService;
 
 @Controller
@@ -26,7 +29,12 @@ public class EventController {
 	public String event_view(Model model, @RequestParam("event_num") String event_num,
 			@RequestParam(value = "page", defaultValue = "1") int pageNum,
 			@RequestParam(value = "search", defaultValue = "") String search,
-			@RequestParam(value = "text", defaultValue = "") String text) {
+			@RequestParam(value = "text", defaultValue = "") String text, HttpSession session) {
+		// 멤버정보 가져오기
+		if (session.getAttribute("loginInfo") != null) {
+			MemberDto mDto = (MemberDto) session.getAttribute("loginInfo");
+			model.addAttribute("authuser", mDto.getId());
+		}
 		// 이벤트,쿠폰
 		EventCouponBean viewBean = eServ.selectEventView(event_num);
 		// 이전글,다음글
@@ -84,7 +92,12 @@ public class EventController {
 	public String fin_event_view(Model model, @RequestParam("event_num") String event_num,
 			@RequestParam(value = "page", defaultValue = "1") int pageNum,
 			@RequestParam(value = "search", defaultValue = "") String search,
-			@RequestParam(value = "text", defaultValue = "") String text) {
+			@RequestParam(value = "text", defaultValue = "") String text, HttpSession session) {
+		// 멤버정보 가져오기
+		if (session.getAttribute("loginInfo") != null) {
+			MemberDto mDto = (MemberDto) session.getAttribute("loginInfo");
+			model.addAttribute("authuser", mDto.getId());
+		}
 		// 이벤트,쿠폰
 		EventCouponBean viewBean = eServ.selectFinEventView(event_num);
 		// 이전글,다음글

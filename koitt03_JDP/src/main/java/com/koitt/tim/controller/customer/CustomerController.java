@@ -2,6 +2,8 @@ package com.koitt.tim.controller.customer;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.question.QuestionDto;
 import com.koitt.tim.service.customer.CustomerService;
 import com.koitt.tim.utils.CommonUtils;
@@ -37,8 +40,11 @@ public class CustomerController {
 
 	// 1:1문의 file upload
 	@PostMapping(value = "inqlist", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public String uploadFile(@RequestParam(value = "q_file", defaultValue = "") MultipartFile q_file, String id,
-			String q_title, String q_content, String q_type, Model model) throws IOException {
+	public String uploadFile(@RequestParam(value = "q_file", defaultValue = "") MultipartFile q_file, String q_title,
+			String q_content, String q_type, Model model, HttpSession session) throws IOException {
+		// 멤버정보 가져오기
+		MemberDto mDto = (MemberDto) session.getAttribute("loginInfo");
+		String id = mDto.getId();
 		int inqu_ch = 1;
 		// mypage/inquiry구현시 ..
 //		String viewPage="mypage/inquiry";

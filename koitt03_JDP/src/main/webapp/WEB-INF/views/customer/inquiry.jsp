@@ -92,7 +92,6 @@
 									<th scope="row"><span>제목</span></th>
 									<td>
 										<input type="text" class="wlong" name="q_title" />
-										<input type="text" name="id" value="${loginInfo }" hidden="">
 									</td>
 								</tr>
 								<tr>

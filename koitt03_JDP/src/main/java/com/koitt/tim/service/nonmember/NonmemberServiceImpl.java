@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.koitt.tim.dao.product.ProductDao;
 import com.koitt.tim.dto.basket.BasketMemberDto;
 import com.koitt.tim.dto.basket.CartViewDto;
+import com.koitt.tim.dto.order.OrderDto;
 import com.koitt.tim.dto.product.ProductDto;
 
 @Service
@@ -50,6 +51,14 @@ public class NonmemberServiceImpl implements NonmemberService {
 		}
 
 		return plist;
+	}
+
+	// 비회원 주문조회
+	@Override
+	public OrderDto getOrderList(String o_num, String o_tel) {
+		// 주문번호가 있는지 확인.
+
+		return null;
 	}
 
 }

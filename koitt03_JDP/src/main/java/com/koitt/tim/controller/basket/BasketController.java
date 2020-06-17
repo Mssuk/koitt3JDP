@@ -42,7 +42,7 @@ public class BasketController {
 						arr.set(i, pro_num + "_" + (Integer.parseInt(count) + Integer.parseInt(co[1])));
 						sessionch = 1;
 						break;
-					} // 같은 상품이 있으면 1증가
+					} // 같은 상품이 있으면 선택한만큼 증가
 				}
 			}
 			if (sessionch == 0) {
@@ -85,7 +85,7 @@ public class BasketController {
 		return cartdel;
 	}
 
-	// 장바구니 선택 상품 수정
+	// 장바구니 선택 상품 삭제
 	@ResponseBody
 	@RequestMapping("/delCart")
 	public int deleCart(HttpSession session, @RequestBody HashMap<String, String> reqMap) {

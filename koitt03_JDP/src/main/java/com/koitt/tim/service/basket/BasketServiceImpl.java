@@ -19,7 +19,8 @@ public class BasketServiceImpl implements BasketService {
 
 	// 장바구니 확인후 중복시 카운트+1
 	public int insertMemberCart(String pro_num, String count, HttpSession session) {
-		String id = (String) session.getAttribute("loginInfo");
+		MemberDto mDto = (MemberDto) session.getAttribute("loginInfo");
+		String id = mDto.getId();
 		int count2 = Integer.parseInt(count);
 		BasketMemberDto bdto = new BasketMemberDto();
 		bdto.setId(id);

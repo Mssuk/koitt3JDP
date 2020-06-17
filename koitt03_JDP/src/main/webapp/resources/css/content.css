@@ -644,8 +644,8 @@
 /* INPUT TYPE */
 .loginType{width:189px; height:38px; line-height:38px; padding:0 0 0 9px; border:1px #d9d9d9 solid; font-size:14px; font-weight:600; color:#888; background:url('../images/bg/bg_id.gif') left top #fff no-repeat;}
 .passType{width:189px; height:38px; line-height:38px; padding:0 0 0 9px; border:1px #d9d9d9 solid; font-size:14px; font-weight:600; color:#888; background:url('../images/bg/bg_password.gif') left top #fff no-repeat;}
-.ordererType{width:189px; height:38px; line-height:38px; padding:0 0 0 9px; border:1px #d9d9d9 solid; font-size:14px; font-weight:600; color:#888; background:url('../images/bg/bg_orderer.gif') left top #fff no-repeat;}
-.ordernumType{width:189px; height:38px; line-height:38px; padding:0 0 0 9px; border:1px #d9d9d9 solid; font-size:14px; font-weight:600; color:#888; background:url('../images/bg/bg_ordernum.gif') left top #fff no-repeat;}
+.ordererType{width:189px; height:38px; line-height:38px; padding:0 0 0 9px; border:1px #d9d9d9 solid; font-size:14px; font-weight:600; color:#888; background:url('../images/bg/bg_ordernum.gif') left top #fff no-repeat;}
+.ordernumType{width:189px; height:38px; line-height:38px; padding:0 0 0 9px; border:1px #d9d9d9 solid; font-size:14px; font-weight:600; color:#888; background:url('../images/bg/bg_orderer.gif') left top #fff no-repeat;}
 .nameType{width:189px; height:38px; line-height:38px; padding:0 0 0 9px; border:1px #d9d9d9 solid; font-size:14px; font-weight:600; color:#888; background:url('../images/bg/bg_name.gif') left top #fff no-repeat;}
 .emailType{width:189px; height:38px; line-height:38px; padding:0 0 0 9px; border:1px #d9d9d9 solid; font-size:14px; font-weight:600; color:#888; background:url('../images/bg/bg_email.gif') left top #fff no-repeat;}
 .addressType{width:480px; height:18px; line-height:18px; background:#fff; border:1px #d9d9d9 solid; padding:0 0 0 5px; font-size:12px;}
