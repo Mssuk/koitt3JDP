@@ -31,21 +31,22 @@ public class MypageServiceImpl implements MypageService {
 		return memberDao.selectMemberPoint(id);
 	}
 
-//	@Override
-//	public int orderCount(String id) {
-//
-//		return orderDao.selectOrderCount(id);
-//	}
-//
-//	@Override
-//	public ArrayList<String> orderNum(String id) {
-//		return orderDao.selectOrderNum(id); // orderNumber 반출
-//	}
-//
-//	@Override
-//	public List<OrderListDto> orderList(String orderNum) {
-//		return orderDao.selectOrderList(orderNum);
-//
-//
-//	}
+
+	@Override
+	public int orderCount(String id) {
+
+		return orderDao.selectOrderCount(id);
+	}
+
+	@Override
+	public ArrayList<String> orderNum(String id) {
+		return orderDao.selectOrderNum2(id); // orderNumber 반출
+
+	}
+
+	@Override
+	public List<OrderListDto> orderList(String orderNum) {
+		return orderDao.selectOrderList(orderNum);
+
+	}
 }

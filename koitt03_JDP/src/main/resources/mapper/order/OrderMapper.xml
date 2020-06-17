@@ -14,9 +14,14 @@
                 sysdate)
     </insert>
 
-    <select id="selectOrderNum" parameterType="String">
+    <select id="selectOrderNum1" parameterType="String">
         select "o_num" from "ORDER" where "id"=#{id} and rownum =1  order by O_DATE desc
     </select>
+
+    <select id="selectOrderNum2" resultType="String">
+        select "o_num" from "ORDER" where "id"=#{id}
+    </select>
+
 
     <insert id="insertOrderList" parameterType="OrderListDto">
         insert into "ORDER_LIST"

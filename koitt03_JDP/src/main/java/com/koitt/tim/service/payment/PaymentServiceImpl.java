@@ -64,7 +64,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     public String bringOrderNum(String id){
-        return orderDao.selectOrderNum(id); // 추가한 주문의 주문번호 return
+        return orderDao.selectOrderNum1(id); // 추가한 주문의 주문번호 return
     }
 
     public void addOrderList(String convertedDate,String orderNumber,String pro_num,String spinner,String pro_price,String pro_name){
