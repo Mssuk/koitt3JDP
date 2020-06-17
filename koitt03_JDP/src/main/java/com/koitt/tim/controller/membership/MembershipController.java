@@ -48,7 +48,7 @@ public class MembershipController {
 
 		MemberDto mdto = membershipService.getMemInfo(id);
 		session.setAttribute("loginInfo", mdto);
-
+		
 		return "redirect:/main";
 	}
 

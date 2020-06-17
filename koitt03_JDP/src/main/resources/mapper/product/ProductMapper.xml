@@ -45,8 +45,8 @@
 			<if test="front_image2!=null">front_image2=#{front_image2},</if>
 			<if test="front_image3!=null">front_image3=#{front_image3},</if>
 			<if test="back_image!=null">back_image=#{back_image},</if>
-			registration_date= sysdate,
-			product_name=#{product_name},
+		    <if test="product_state!=null">product_state=#{product_state},</if>
+			update_date= sysdate,
 		</trim>
 		where pro_num = #{pro_num}
 		

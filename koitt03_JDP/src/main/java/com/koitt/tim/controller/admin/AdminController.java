@@ -13,16 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.koitt.tim.dto.board.NoticeDto;
@@ -251,6 +242,7 @@ public class AdminController {
 				nsDto.setCate_code_d1(cate_code_d1);
 				nsDto.setCate_code_d2(cate_code_d2);
 
+
 				if (newBackImg != null) {
 					pDto.setBack_image(utils.FileUploaderCDN(newBackImg, "product/"));
 				}
@@ -258,10 +250,10 @@ public class AdminController {
 					pDto.setFront_image1(utils.FileUploaderCDN(newfront_image1, "product/"));
 				}
 				if (newfront_image2 != null) {
-					pDto.setFront_image1(utils.FileUploaderCDN(newfront_image2, "product/"));
+					pDto.setFront_image2(utils.FileUploaderCDN(newfront_image2, "product/"));
 				}
 				if (newfront_image3 != null) {
-					pDto.setFront_image1(utils.FileUploaderCDN(newfront_image3, "product/"));
+					pDto.setFront_image3(utils.FileUploaderCDN(newfront_image3, "product/"));
 				}
 
 				// 상품카테고리 업데이트
