@@ -77,6 +77,11 @@
 	        }
 	     });
 	}
+
+	function nonMem_ch() {
+
+	}
+
 </script>
 
 
@@ -150,6 +155,7 @@
 				</div>
 
 				<h3>비회원 주문 조회</h3>
+
 				<div class="informbox">
 					<form class="inform" name="o_check" method="post">
 						<ul>

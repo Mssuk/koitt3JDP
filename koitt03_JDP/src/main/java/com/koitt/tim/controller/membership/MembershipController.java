@@ -60,10 +60,10 @@ public class MembershipController {
 
 	// 비회원 로그인
 	@RequestMapping("nonMember")
-	public String nonMember(@RequestParam("name") String name, @RequestParam("email") String orderNum,
-			HttpSession session) {
-		String nonMem = membershipService.getNonMemInfo(name, orderNum);
-		return "mypage/ordercheck";
+	public int nonMember(@RequestParam("orderNum") String o_num, @RequestParam("orderTel") String orderTel) {
+		int nonMem = membershipService.getNonMemInfo(o_num, orderTel);
+
+		return nonMem;
 	}
 
 	// 로그아웃

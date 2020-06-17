@@ -48,4 +48,6 @@ public class MypageController {
 
 		return "mypage/ordercheck";
 	}
+
+
 }
