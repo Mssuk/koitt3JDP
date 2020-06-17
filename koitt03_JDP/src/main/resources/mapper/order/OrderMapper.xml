@@ -18,6 +18,9 @@
         select "o_num" from "ORDER" where "id"=#{id} and rownum =1  order by O_DATE desc
     </select>
 
+    
+
+
     <insert id="insertOrderList" parameterType="OrderListDto">
         insert into "ORDER_LIST"
         values (concat(#{convertedDate},
