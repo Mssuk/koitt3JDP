@@ -30,6 +30,10 @@
     </insert>
 
 
+    <select id="selectOneOrder" resultType="String">
+        select "id" from "ORDER" where "o_num" = #{o_num} and o_tel = #{orderTel}
+    </select>
+
     <select id="selectOrderCount" resultType="int">
         select count(*) from "ORDER" where "id"=#{id}
     </select>

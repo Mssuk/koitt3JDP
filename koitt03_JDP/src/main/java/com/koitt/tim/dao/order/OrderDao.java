@@ -15,5 +15,8 @@ public interface OrderDao {
 
     //주문 리스트 생성
     void insertOrderList(@Param("convertedDate") String convertedDate,@Param("orderNumber") String orderNumber,@Param("pro_num") String pro_num,@Param("spinner") String spinner,@Param("pro_price") String pro_price,@Param("pro_name") String pro_name);
+	String selectOneOrder(@Param("o_num") String o_num, @Param("orderTel")String orderTel);
+
+	ArrayList<String> selectOrderNum(@Param("id") String id);
 
 }
