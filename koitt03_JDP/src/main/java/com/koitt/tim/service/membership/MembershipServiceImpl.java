@@ -12,8 +12,6 @@ public class MembershipServiceImpl implements MembershipService {
 	@Autowired
 	private MemberDao memberDao;
 
-
-
 	@Override
 	public int loginCheck(String id, String pw) {
 		// id랑 비번 담겨있는 객체
@@ -35,6 +33,12 @@ public class MembershipServiceImpl implements MembershipService {
 	}
 
 	@Override
+	public String getNonMemInfo(String name, String orderNum) {
+
+		return null;
+	}
+
+	@Override
 	public int signUp(MemberDto mdto) {
 		memberDao.insertMember(mdto);
 		return 0;
@@ -47,19 +51,18 @@ public class MembershipServiceImpl implements MembershipService {
 
 	@Override
 	public String searchId(String name, String email) {
-		String id = memberDao.selectSearchMemberId(name,email);
+		String id = memberDao.selectSearchMemberId(name, email);
 		System.out.println(id);
-		if(id != null){
+		if (id != null) {
 			return id;
-		}
-		else
+		} else
 			return "0";
 	}
 
 	@Override
 	public String searchPw(String id, String email) {
-		String pw = memberDao.selectSearchMemberPw(id,email);
-		System.out.println("Impl : "+pw);
+		String pw = memberDao.selectSearchMemberPw(id, email);
+		System.out.println("Impl : " + pw);
 
 		return pw;
 	}

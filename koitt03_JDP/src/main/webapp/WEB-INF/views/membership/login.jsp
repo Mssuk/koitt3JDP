@@ -1,12 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:include page="../common/header.jsp" />
 <%
 	if(session.getAttribute("loginInfo") != null){
-			response.sendRedirect("/main");
-}
+		response.sendRedirect("/");
+	}
 %>
+<jsp:include page="../common/header.jsp" />
 
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script>
@@ -130,7 +130,7 @@
 						</ul>
 
 						<div class="btn">
-							<a href="#" class="gbtn">조회하기</a>
+							<a href="/mypage/ordercheck" class="gbtn">조회하기</a>
 						</div>
 						<div class="point">
 							<p>
