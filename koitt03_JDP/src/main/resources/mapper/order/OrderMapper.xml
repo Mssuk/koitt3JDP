@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koitt.tim.dao.order.OrderDao">
+
     <insert id="insertOrder" parameterType="OrderDto">
         insert into "ORDER"
         values (concat(#{date},ORDER_SEQ.nextval),
@@ -14,7 +15,7 @@
     </insert>
 
     <select id="selectOrderNum" parameterType="String">
-        select "o_num" from "ORDER" where "id"=#{id} and rownum =1  order by O_DATE desc;
+        select "o_num" from "ORDER" where "id"=#{id} and rownum =1  order by O_DATE desc
     </select>
 
     <insert id="insertOrderList" parameterType="OrderListDto">
@@ -27,4 +28,17 @@
                 ${pro_price},
                 ${pro_name})
     </insert>
+
+
+    <select id="selectOrderCount" resultType="int">
+        select count(*) from "ORDER" where "id"=#{id}
+    </select>
+
+
+
+    <select id="selectOrderList" resultType="orderListDto">
+        select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status from "ORDER" col1 join ORDER_LIST col2 on col1."o_num" = #{orderNum}
+    </select>
+
+
 </mapper>

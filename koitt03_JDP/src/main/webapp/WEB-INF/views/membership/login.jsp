@@ -1,12 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:include page="../common/header.jsp" />
 <%
-	if(session.getAttribute("id") != null){
-			response.sendRedirect("/main");
-}
+	if(session.getAttribute("loginInfo") != null){
+		response.sendRedirect("/");
+	}
 %>
+<jsp:include page="../common/header.jsp" />
 
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script>
@@ -45,8 +45,40 @@
 			}
 		})
 	}
-
+	
+	function nonOrderch(form){
+		if(o_check.o_num.value==''){
+			alert('주문번호를 입력하세오');
+			o_check.o_num.focus();
+			return false;
+		}
+		if(o_check.o_tel.value==''){
+			alert('휴대폰 번호를 입력하세오');
+			o_check.o_tel.focus();
+			return false;
+		}
+		
+		$.ajax({
+	        url : "/nonmember/ordercheck",   // 받을 url
+	        type : "POST",   
+	        data: JSON.stringify({o_num:o_check.o_num.value,o_tel:o_check.o_tel.value}),  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
+	        contentType: "application/json",
+	        success : function (data) {
+	           if(data== 1){ //주문이있는경우
+	        	  location.href='/nonmember/ordercheck_view?o_num=o_check.o_num.value';
+	           }else if(data == -1){//해당 주문이 있지만 회원주문인경우
+					alert('해당 조회는 비회원전용입니다. \n 로그인해주세요');
+				}else if(data ==0){//주문이 없을경우
+					alert('해당 주문내역이 없습니다.\n주문번호 및 주문휴대폰번호를 잊어버리셨다면 고객센터로  문의해주세요.');
+				}
+	        },
+	        error : function(){ //오류일경우 경고창을 띄움
+	           alert("통신 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.\n오류가 반복될 경우, 고객센터로 문의 부탁드립니다.\n(error_code: deleteError)");
+	        }
+	     });
+	}
 </script>
+
 
 <!-- container -->
 <div id="container">
@@ -119,18 +151,18 @@
 
 				<h3>비회원 주문 조회</h3>
 				<div class="informbox">
-					<div class="inform">
+					<form class="inform" name="o_check" method="post">
 						<ul>
-							<li><input type="text" class="ordererType"
+							<li><input type="text" class="ordererType" name="o_num"
 								onfocus="this.className='mfocus'"
 								onblur="if (this.value.length==0) {this.className='ordererType'}else {this.className='mfocusnot'}" /></li>
-							<li><input type="text" class="ordernumType"
+							<li><input type="text" class="ordernumType" name="o_tel"
 								onfocus="this.className='mfocus'"
-								onblur="if (this.value.length==0) {this.className='ordernumType'}else {this.className='mfocusnot'}" /></li>
+								onblur="if (this.value.length==0) {this.className='ordererType'}else {this.className='mfocusnot'}" /></li>
 						</ul>
 
 						<div class="btn">
-							<a href="#" class="gbtn">조회하기</a>
+							<a href="#" onclick="nonOrderch(this.form)" class="gbtn">조회하기</a>
 						</div>
 						<div class="point">
 							<p>
@@ -138,13 +170,12 @@
 							</p>
 							<a href="/membership/join1" class="nbtn">회원가입</a>
 						</div>
-					</div>
+					</form>
 				</div>
 
 			</div>
 		</div>
 		<!-- //contents -->
-
 
 	</div>
 </div>

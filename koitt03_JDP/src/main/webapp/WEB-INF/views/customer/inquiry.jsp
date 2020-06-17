@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
-<c:if test="${id==null }">
+<c:if test="${loginInfo==null }">
 <script type="text/javascript">
 	alert('1:1문의는 로그인 후 이용가능합니다.');
 	window.location.href='/membership/login';
@@ -92,7 +92,6 @@
 									<th scope="row"><span>제목</span></th>
 									<td>
 										<input type="text" class="wlong" name="q_title" />
-										<input type="text" name="id" value="${id }" hidden="">
 									</td>
 								</tr>
 								<tr>

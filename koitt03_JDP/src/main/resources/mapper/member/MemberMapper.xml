@@ -27,4 +27,8 @@
 		select PW from member where ID=#{id} and email=#{email}
 	</select>
 
+	<select id="selectMemberPoint" resultType="int">
+		select point from MEMBER where id=#{id}
+	</select>
+
 </mapper>
