@@ -10,7 +10,7 @@ public interface MembershipService {
 
 	MemberDto getMemInfo(String id);
 
-	String getNonMemInfo(String name, String orderNum);
+	int getNonMemInfo(String o_num, String orderTel);
 
 	String searchId(String name, String email);
 

@@ -12,6 +12,8 @@ import com.koitt.tim.dto.order.OrderListDto;
 public interface OrderDao {
 	int selectOrderCount(@Param("id") String id);
 
+	String selectOneOrder(@Param("o_num") String o_num, @Param("orderTel")String orderTel);
+
 	ArrayList<String> selectOrderNum(@Param("id") String id);
 
 	List<OrderListDto> selectOrderList(@Param("orderNum") String orderNum);

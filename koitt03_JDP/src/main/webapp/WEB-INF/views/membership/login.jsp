@@ -46,6 +46,10 @@
 		})
 	}
 
+	function nonMem_ch() {
+
+	}
+
 </script>
 
 <!-- container -->
@@ -118,19 +122,20 @@
 				</div>
 
 				<h3>비회원 주문 조회</h3>
+
 				<div class="informbox">
 					<div class="inform">
 						<ul>
-							<li><input type="text" class="ordererType" name="orderer"
+							<li><input type="text" class="ordererType" name="ordernum"
 								onfocus="this.className='mfocus'"
 								onblur="if (this.value.length==0) {this.className='ordererType'}else {this.className='mfocusnot'}" /></li>
-							<li><input type="text" class="ordernumType" name="ordernum"
+							<li><input type="text" class="ordernumType" name="orderTel"
 								onfocus="this.className='mfocus'"
 								onblur="if (this.value.length==0) {this.className='ordernumType'}else {this.className='mfocusnot'}" /></li>
 						</ul>
 
 						<div class="btn">
-							<a href="/nonmember/ordercheck" class="gbtn">조회하기</a>
+							<a href="" onclick="nonMem_ch(this.form)" class="gbtn">조회하기</a>
 						</div>
 						<div class="point">
 							<p>
