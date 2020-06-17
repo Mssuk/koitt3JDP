@@ -19,6 +19,13 @@ public interface NonmemberService {
 	int getOrderList(String o_num, String o_tel);
 
 	// 비회원주문리스트 가져오기
-	List<OrderListDto> getOrderLists(String o_num);
+	List<OrderListDto> getOrderLists(int pageNum, String o_num);
+
+	// 반품 교환시 가져올 이미지
+	List<String> getPhotoList(List<OrderListDto> list);
+
+	int getLastNum(double cnt);
+
+	List<Integer> getOrderPageList(int pageNum, int totalCut);
 
 }
