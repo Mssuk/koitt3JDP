@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koitt.tim.dao.product.RelatedProductDao">
+
 	<select id="selectAllRProduct" resultType="RelatedProductDtoWithName">
 		select rp.*, p.PRODUCT_NAME from related_product rp, PRODUCT p where rp.PRO_NUM = p.PRO_NUM
 	</select>
@@ -9,4 +10,7 @@
 		insert into related_product (pro_num) VALUES (#{p1})
 	</insert>
 
+	<select id="selectRelatedList" resultType="RelatedProductDto">
+		select * from RELATED_PRODUCT where PRO_NUM = #{pro_num}
+	</select>
 </mapper>

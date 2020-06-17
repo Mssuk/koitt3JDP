@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.swing.*;
 import java.lang.reflect.Member;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -102,10 +103,15 @@ public class PaymentController {
 
 
     @RequestMapping("order_clear")
-    public String Complete_Order(String spinner,String useCoupon,String orderPoint,String orderCost,String orderName,String orderTel){
+    public String Complete_Order(String spinner,String useCoupon,String orderPoint,String orderCost,String orderName,String orderTel,String pro_num,String pro_name,String pro_price){
         LocalDate date=LocalDate.now();
         String convertedDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-        paymentServ.addOrder(convertedDate,"abcd1234",orderPoint,orderName,orderTel,orderCost);
+        paymentServ.addOrder(convertedDate,"abcd1234",orderPoint,orderName,orderTel,orderCost);     //주문 추가
+
+        String orderNumber = paymentServ.bringOrderNum("abcd1234");     //추가한 주문의 주문번호
+        paymentServ.addOrderList(convertedDate,orderNumber,pro_num,spinner,pro_price,pro_name);
+
+
         return "payment/order_clear";
     }
 

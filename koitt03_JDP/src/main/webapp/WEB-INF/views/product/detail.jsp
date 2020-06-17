@@ -208,52 +208,18 @@
 
                         <div class="relationList">
                             <ul>
-                                <li>
-                                    <div class="img"><img src="/images/img/sample_relation_goods.jpg" alt="관련상품 이미지" /></div>
-                                    <div class="name"><a href="#">쟈뎅 오리지널 블루마운틴 블렌드 원두커피백 15P</a></div>
-                                    <div class="price">4,3330원</div>
-                                </li>
-
-                                <li>
-                                    <div class="img"><img src="/images/img/sample_relation_goods.jpg" alt="관련상품 이미지" /></div>
-                                    <div class="name"><a href="#">쟈뎅 오리지널 블루마운틴 블렌드 원두커피백 15P</a></div>
-                                    <div class="price">4,3330원</div>
-                                </li>
-
-                                <li>
-                                    <div class="img"><img src="/images/img/sample_relation_goods.jpg" alt="관련상품 이미지" /></div>
-                                    <div class="name"><a href="#">쟈뎅 오리지널 블루마운틴 블렌드 원두커피백 15P</a></div>
-                                    <div class="price">4,3330원</div>
-                                </li>
-
-                                <li>
-                                    <div class="img"><img src="/images/img/sample_relation_goods.jpg" alt="관련상품 이미지" /></div>
-                                    <div class="name"><a href="#">쟈뎅 오리지널 블루마운틴 블렌드 원두커피백 15P</a></div>
-                                    <div class="price">4,3330원</div>
-                                </li>
-
-                                <li>
-                                    <div class="img"><img src="/images/img/sample_relation_goods.jpg" alt="관련상품 이미지" /></div>
-                                    <div class="name"><a href="#">쟈뎅 오리지널 블루마운틴 블렌드 원두커피백 15P</a></div>
-                                    <div class="price">4,3330원</div>
-                                </li>
+                                <c:forEach var="relProduct" items="${relProduct}">
+                                    <li>
+                                        <div class="img"><img src="${relProduct.front_image1}" alt="관련상품 이미지" /></div>
+                                        <div class="name"><a href="#">${relProduct.product_name}</a></div>
+                                        <div class="price">${relProduct.product_price}원</div>
+                                    </li>
+                                </c:forEach>
                             </ul>
                         </div>
 
                         <div class="btnAreaList">
-                            <!-- 페이징이동1 -->
-                            <div class="allPageMoving1">
 
-                                <a href="#" class="n"><img src="/images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="#" class="pre"><img src="/images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
-                                <strong>1</strong>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#">4</a>
-                                <a href="#">5</a>
-                                <a href="#" class="next"><img src="/images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="#" class="n"><img src="/images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
-
-                            </div>
-                            <!-- //페이징이동1 -->
                         </div>
 
                     </div>
@@ -270,21 +236,22 @@
                         <!-- 포토 구매후기 -->
                         <div class="imgListType">
                             <ul>
-
+                                <c:forEach var="reviewList" items="${reviewDtos}">
+                                    <c:if test="${reviewList.image_small eq not null}">
                                 <!-- List -->
                                 <li>
-                                    <div class="img"><img src="/images/img/sample_epil.jpg" width="155" height="160" alt="" /></div>
+                                    <div class="img"><img src="${reviewList.image_small}" width="155" height="160" alt="" /></div>
                                     <div class="txt">
                                         <div class="subject">
-                                            <a href="#"><span class="orange">[먹어봤어요]</span> 쟈뎅, 테이크아웃 카페모리 구매후기</a>
+                                            <a href="#"><span class="orange">${reviewList.board_type}</span> ${reviewList.title}</a>
                                         </div>
                                         <div class="conf">
-                                            소문만큼 맛있었습니다.소문만큼 맛있었습니다.소문만큼 맛있었습니다.소문만큼 맛있었습니다.소문만큼 맛있었습니다.소문만큼 맛있었습니다.소문만큼 맛있었습니다.소문만큼 맛있었습니다.....
+                                            ${reviewList.content}
                                         </div>
                                         <div class="data">
-                                            <p>작성자 <span>dlsif***</span></p>
-                                            <p>등록일 <span>2014-03-24</span></p>
-                                            <p>조회수 <span>325</span></p>
+                                            <p>작성자 <span>${reviewList.id} id뒤에 일부는 *로 표시</span></p>
+                                            <p>등록일 <span>${reviewList.regist_review}</span></p>
+                                            <p>조회수 <span>${reviewList.hit}</span></p>
                                             <p>평점
                                                 <span class="ty">
 												<img src="/images/ico/ico_star.gif" alt="별점" />
@@ -297,33 +264,9 @@
                                         </div>
                                     </div>
                                 </li>
+                                    </c:if>
                                 <!-- //List -->
-
-                                <li>
-                                    <div class="img"><img src="/images/img/sample_epil.jpg" width="155" height="160" alt="" /></div>
-                                    <div class="txt">
-                                        <div class="subject">
-                                            <a href="#"><span class="orange">[먹어봤어요]</span> 쟈뎅, 테이크아웃 카페모리 구매후기</a>
-                                        </div>
-                                        <div class="conf">
-                                            소문만큼 맛있었습니다.소문만큼 맛있었습니다.소문만큼 맛있었습니다.소문만큼 맛있었습니다.소문만큼 맛있었습니다.소문만큼 맛있었습니다.소문만큼 맛있었습니다.소문만큼 맛있었습니다.....
-                                        </div>
-                                        <div class="data">
-                                            <p>작성자 <span>dlsif***</span></p>
-                                            <p>등록일 <span>2014-03-24</span></p>
-                                            <p>조회수 <span>325</span></p>
-                                            <p>평점
-                                                <span>
-												<img src="/images/ico/ico_star.gif" alt="별점" />
-												<img src="/images/ico/ico_star.gif" alt="별점" />
-												<img src="/images/ico/ico_star.gif" alt="별점" />
-												<img src="/images/ico/ico_star.gif" alt="별점" />
-												<img src="/images/ico/ico_star.gif" alt="별점" />
-											</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>
+                                </c:forEach>
 
                             </ul>
                         </div>
@@ -356,14 +299,16 @@
                         <div class="accordion">
                             <ul>
                                 <!-- 반복 -->
+                                <c:forEach var="reviewList" items="${reviewDtos}">
+                                    <c:if test="${reviewList.image_small eq null}">
                                 <li>
                                     <div class="headArea">
                                         <div class="subject">
-                                            <a href="javascript:;" class="accbtn">저렴한 가격에 커피맛과 향은 최고!!</a>
+                                            <a href="javascript:" class="accbtn">${reviewList.title}</a>
                                         </div>
-                                        <div class="writer">[ezlin****]</div>
+                                        <div class="writer">[${reviewList.id}]</div>
                                         <div class="day">
-                                            <p>2014-03-24</p>
+                                            <p>${reviewList.regist_review}</p>
                                             <p>
                                                 <img src="/images/ico/ico_star.gif" alt="별점" />
                                                 <img src="/images/ico/ico_star.gif" alt="별점" />
@@ -372,9 +317,11 @@
                                         </div>
                                     </div>
 
+
+                                    <%-- 클릭 시 내용과 관리자 답변이 나옴  --%>
                                     <div class="hideArea">
                                         <div class="bodyArea">
-                                            너무 맛있어서 재주문 했습니다!<br/>쟈뎅 커피 너무 맛있어요!
+                                            ${reviewList.content}
                                         </div>
 
                                         <!-- 답변 -->
@@ -385,8 +332,7 @@
                                                 </div>
 
                                                 <div class="atxt">
-                                                    쟈뎅 커피를 사랑해주셔서 감사합니다. 앞으로도 노력하는 쟈뎅이 되겠습니다. 감사합니다.
-                                                    쟈뎅 커피를 사랑해주셔서 감사합니다. 앞으로도 노력하는 쟈뎅이 되겠습니다. 감사합니다.
+                                                    ${reviewList.admin_answer}
                                                 </div>
                                             </div>
                                         </div>
@@ -400,94 +346,8 @@
                                     </div>
                                 </li>
                                 <!-- //반복 -->
-
-                                <li>
-                                    <div class="headArea">
-                                        <div class="subject">
-                                            <a href="javascript:;" class="accbtn">저렴한 가격에 커피맛과 향은 최고!!</a>
-                                        </div>
-                                        <div class="writer">[ezlin****]</div>
-                                        <div class="day">
-                                            <p>2014-03-24</p>
-                                            <p>
-                                                <img src="/images/ico/ico_star.gif" alt="별점" />
-                                                <img src="/images/ico/ico_star.gif" alt="별점" />
-                                                <img src="/images/ico/ico_star.gif" alt="별점" />
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="hideArea">
-                                        <div class="bodyArea">
-                                            너무 맛있어서 재주문 했습니다!<br/>쟈뎅 커피 너무 맛있어요!
-                                        </div>
-
-                                        <!-- 답변 -->
-                                        <div class="answer">
-                                            <div class="inbox">
-                                                <div class="aname">
-                                                    <p>담당자</p>
-                                                </div>
-
-                                                <div class="atxt">
-                                                    쟈뎅 커피를 사랑해주셔서 감사합니다. 앞으로도 노력하는 쟈뎅이 되겠습니다. 감사합니다.
-                                                    쟈뎅 커피를 사랑해주셔서 감사합니다. 앞으로도 노력하는 쟈뎅이 되겠습니다. 감사합니다.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- //답변 -->
-
-                                        <div class="modify">
-                                            <a href="#">수정</a>
-                                            <a href="#">삭제</a>
-                                        </div>
-
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div class="headArea">
-                                        <div class="subject">
-                                            <a href="javascript:;" class="accbtn">저렴한 가격에 커피맛과 향은 최고!!저렴한 가격에 커피맛과 향은 최고!!저렴한 가격에 커피맛과 향은 최고!!</a>
-                                        </div>
-                                        <div class="writer">[ezlin****]</div>
-                                        <div class="day">
-                                            <p>2014-03-24</p>
-                                            <p>
-                                                <img src="/images/ico/ico_star.gif" alt="별점" />
-                                                <img src="/images/ico/ico_star.gif" alt="별점" />
-                                                <img src="/images/ico/ico_star.gif" alt="별점" />
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="hideArea">
-                                        <div class="bodyArea">
-                                            너무 맛있어서 재주문 했습니다!<br/>쟈뎅 커피 너무 맛있어요!
-                                        </div>
-
-                                        <!-- 답변 -->
-                                        <div class="answer">
-                                            <div class="inbox">
-                                                <div class="aname">
-                                                    <p>담당자</p>
-                                                </div>
-
-                                                <div class="atxt">
-                                                    쟈뎅 커피를 사랑해주셔서 감사합니다. 앞으로도 노력하는 쟈뎅이 되겠습니다. 감사합니다.
-                                                    쟈뎅 커피를 사랑해주셔서 감사합니다. 앞으로도 노력하는 쟈뎅이 되겠습니다. 감사합니다.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- //답변 -->
-
-                                        <div class="modify">
-                                            <a href="#">수정</a>
-                                            <a href="#">삭제</a>
-                                        </div>
-
-                                    </div>
-                                </li>
+                                    </c:if>
+                                </c:forEach>
 
                             </ul>
                         </div>

@@ -373,7 +373,7 @@
                             <td>
                                 <ul class="pta">
                                     <li class="r10">
-                                        <input type="text" id="usePoint" class="w134" />&nbsp;&nbsp;
+                                        <input type="text" id="usePoint" class="w134" value="0" onchange="finalTotal()" />&nbsp;&nbsp;
                                         <span class="valign"><strong>Point</strong></span>
                                     </li>
                                     <li>
@@ -398,16 +398,16 @@
 
                                             const total=Number(${total});
                                             const coupon = Number(document.getElementById("pInput").value);
-                                            const point = Number(${memDto.point});
-                                            console.log(typeof total);
-                                            console.log(typeof coupon);
-                                            console.log(typeof point);
+                                            const point = Number(document.getElementById("usePoint").value);
+
                                             console.log(total);
                                             console.log(coupon);
                                             console.log(point);
 
                                             const money = total+ 2500 -(coupon + point);
                                             console.log(money);
+
+                                            $('#usePointPrint').text(point);
                                             $('#finallyTotal').text(money);
                                             $('#finallyTotal2').text(money);
 
@@ -653,20 +653,22 @@
                         </ul>
                         <script>
                             function orderSuccess() {
+
+                                var pro_num = ${dto.pro_num};   //상품 번호
+                                var pro_name = ${dto.product_name}; //상품 이름
+                                var pro_price = $('#finallyTotal2').text;   //최종 비용
+                                <%--var spin = ${spin};--%>
+                                console.log(pro_num);
+                                console.log(pro_name);
+                                console.log(pro_price);
+
                                 var useCouponNum = document.getElementById("couponStore").value;
-                                var orderPoint = document.getElementById("usePoint").value;      //사용 포인트
+                                 var orderPoint = document.getElementById("usePoint").value;      //사용 포인트
                                 var orderName = document.getElementById("orderName").value;      //주문자 이름
                                 var orderTel = document.getElementById("orderTel").value;        //주문자 번호
                                 var orderCost = document.getElementById("finallyTotal").innerText;   //주문 비용
 
-                                console.log(useCouponNum);
-                                console.log(orderPoint);
-                                console.log(orderName);
-                                console.log(orderTel);
-                                console.log(orderCost);
-
-
-                                location.href="order_clear?useCoupon="+useCouponNum+"&orderPoint="+orderPoint+"&orderName="+orderName+"&orderCost="+orderCost+"&orderTel="+orderTel+"&spinner="+${spin};
+                                location.href="order_clear?useCoupon="+useCouponNum+"&orderPoint="+orderPoint+"&orderName="+orderName+"&orderCost="+orderCost+"&orderTel="+orderTel+"&spinner="+String(${spin})+"&pro_num="+pro_num+"&pro_name="+pro_name+"&pro_price="+pro_price;
 
                             }
 
