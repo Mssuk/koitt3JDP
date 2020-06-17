@@ -118,7 +118,7 @@ public class AdminController {
 	// Product 저장
 	@PostMapping(value = "plist")
 	public ResponseEntity<?> plist(String cate_code_d1, String cate_code_d2, ProductDto pDto,
-			@RequestParam("files") List<MultipartFile> uploadImg) throws IOException {
+			MultipartFile file1, MultipartFile file2, MultipartFile file3, MultipartFile file4) throws IOException {
 
 		try {
 			logger.info("{}", cate_code_d1);
@@ -128,11 +128,17 @@ public class AdminController {
 			psDto.setCate_code_d1(cate_code_d1);
 			psDto.setCate_code_d2(cate_code_d2);
 
-			pDto.setBack_image(utils.FileUploaderCDN(uploadImg.get(0), "product/"));
-			pDto.setFront_image1(utils.FileUploaderCDN(uploadImg.get(1), "product/"));
-			pDto.setFront_image2(utils.FileUploaderCDN(uploadImg.get(2), "product/"));
-			pDto.setFront_image3(utils.FileUploaderCDN(uploadImg.get(3), "product/"));
-
+			if(file1!=null) {
+				pDto.setBack_image(utils.FileUploaderCDN(file1, "product/"));
+			}
+			if(file2!= null) {
+				pDto.setFront_image1(utils.FileUploaderCDN(file2, "product/"));
+			}
+			if(file3!= null) {
+				pDto.setFront_image2(utils.FileUploaderCDN(file3, "product/"));
+			}if(file4 !=null){
+				pDto.setFront_image3(utils.FileUploaderCDN(file4, "product/"));
+			}
 			adminService.insertProduct(psDto, pDto);
 
 			return ResponseEntity.ok().build();

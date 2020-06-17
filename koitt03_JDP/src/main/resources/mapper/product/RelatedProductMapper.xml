@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koitt.tim.dao.product.RelatedProductDao">
 	<select id="selectAllRProduct" resultType="RelatedProductWithNameDto">
-		select rp.*, p.PRODUCT_NAME from related_product rp, PRODUCT p where rp.PRO_NUM = p.PRO_NUM
+		select rp.*, p.PRODUCT_NAME from related_product rp, PRODUCT p where rp.PRO_NUM = p.PRO_NUM order by p.UPDATE_DATE
 	</select>
 
 	<insert id="insertRProduct">
@@ -20,7 +20,7 @@
 	<delete id="deleteRProduct">
 		delete RELATED_PRODUCT where PRO_NUM = #{param1}
 	</delete>
-</mapper>
+
 	<select id="selectRelatedList" resultType="RelatedProductDto">
 		select * from RELATED_PRODUCT where PRO_NUM = #{pro_num}
 	</select>

@@ -5,7 +5,7 @@
 
 <mapper namespace="com.koitt.tim.dao.product.ProductDao">
     <select id="selectProduct" resultType="com.koitt.tim.dto.product.ProductDto">
-        select * from PRODUCT
+        select * from PRODUCT order by UPDATE_DATE desc
     </select>
 
     <select id="selectProductOne" resultType="ProductDto">
