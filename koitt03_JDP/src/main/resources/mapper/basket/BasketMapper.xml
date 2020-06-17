@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.koitt.tim.dao.basket.BasketDao">
+
+   <select id="selectBasketMember" resultType="BasketMemberDto">
+       select * from basket_member where pro_num=#{pro_num, jdbcType=VARCHAR} and id=#{id, jdbcType=VARCHAR}
+   </select>
+   <insert id="insertBasketMember" parameterType="BasketMemberDto">
+   insert into basket_member values
+		(basket_seq.nextval,
+		 #{id, jdbcType=VARCHAR},
+		 #{pro_num, jdbcType=VARCHAR},
+		 sysdate,
+		 #{count})
+   </insert>
+   <update id="updateBasketMember" parameterType="BasketMemberDto">
+  	 update basket_member set count=count+#{count} where id=#{id, jdbcType=VARCHAR} and pro_num=#{pro_num, jdbcType=VARCHAR}
+   </update>
+   <delete id="deleteBasketMember" parameterType="BasketMemberDto">
+  	 delete from basket_member where id=#{id, jdbcType=VARCHAR} and pro_num=#{pro_num, jdbcType=VARCHAR}
+   </delete>
+   
+   
+   
+</mapper>

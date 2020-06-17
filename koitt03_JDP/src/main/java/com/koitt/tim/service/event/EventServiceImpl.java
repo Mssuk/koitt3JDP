@@ -277,7 +277,6 @@ public class EventServiceImpl implements EventService {
 //		request.getRemoteAddr(); 도메인으로 하면 쿠키충돌이생긴다..ㅠ
 		if (session.getAttribute("id") != null) {
 			id = (String) session.getAttribute("id");
-			System.out.println(id);
 		}
 		String w_num = request.getParameter("w_num");
 		Cookie cookie = null;
@@ -285,16 +284,19 @@ public class EventServiceImpl implements EventService {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("winView_" + id + "ke" + w_num + "00")) {
-					count = 2;
-					break;
+				if (cookies[i].getName().contains("winView_" + w_num)) {
+					if (cookies[i].getValue().equals(id + "/")) {
+						count = 2;
+						break;
+					}
 				} // 쿠키 이름 찾기(if)
 			}
 		}
 		// 쿠키값 검색(for)
 		if (count == 0) {
 			wdao.updateUpHit(w_num);
-			cookie = new Cookie("winView_" + id + "ke" + w_num + "00", w_num + "/");
+			long cookieTime = System.currentTimeMillis();
+			cookie = new Cookie("winView_" + w_num + cookieTime, id + "/");
 			cookie.setMaxAge(60 * 60 * 24 * 30);
 		} // 쿠키가 없을경우 생성
 		return cookie;

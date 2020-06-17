@@ -27,7 +27,7 @@ $(document).ready(function(){
 	//댓글유효성
 	function reply_ok(aa){
 		var k=aa;
-		var croodx = '<%=(String)session.getAttribute("id")%>';
+		var croodx = '<%=(String)session.getAttribute("authuser")%>';
 		if(croodx=='null'){
 			alert('로그인 후 등록가능합니다.');
 			return false;
@@ -183,7 +183,7 @@ $(document).ready(function(){
 						<ul>
 							<li class="in">
 								<input type="text" name="event_num" value="${event_view.eventDto.event_num }" hidden="">
-								<input type="text" name="id" value="${id }" hidden="">
+								<input type="text" name="id" value="${authuser }" hidden="">
 								<p class="txt">총 <span class="orange">${reply_count }</span> 개의 댓글이 달려있습니다.</p>
 								<p class="password">비밀번호&nbsp;&nbsp;<input type="password" class="replynum" name="pw" /></p>
 								<textarea class="replyType" name="event_re_content"></textarea>
@@ -201,7 +201,7 @@ $(document).ready(function(){
 									<li>등록된 댓글이 없습니다.</li>
 								</ul>
 							</c:when>
-							<c:when test="${id=='admin' }">
+							<c:when test="${authuser=='admin' }">
 								<c:forEach var="re_dtos" items="${reply_list }">
 								<c:set var="name" value="${re_dtos.name }"/>
 								<ul>
@@ -219,14 +219,14 @@ $(document).ready(function(){
 										<c:set var="name" value="${re_dtos.name }"/>
 										<li class="name"><c:out value="${fn:substring(name, 0, 1) }**"/> <span>[<fmt:formatDate value="${re_dtos.event_re_modify }" pattern="yyyy-MM-dd  HH:mm:ss"/>]</span></li>
 									    <c:choose>
-									    	<c:when test="${re_dtos.pw!=null&&re_dtos.id!=id }">
+									    	<c:when test="${re_dtos.pw!=null&&re_dtos.id!=authuser }">
 												<li class="txt"><a href="#"><span class="orange">※ 비밀글입니다.</span></a></li>
 									    	</c:when>
 									    	<c:otherwise>
 											    <li class="txt">${re_dtos.event_re_content }</li>
 									    	</c:otherwise>
 									    </c:choose>
-										<c:if test="${re_dtos.id==id }">
+										<c:if test="${re_dtos.id==authuser }">
 											<li class="btn bt01">
 												<a href="javascript:;" onclick="modify_view('${re_dtos.event_re_num }')" class="rebtn modi" >수정</a>
 												<input type="button" value="삭제" onclick="delete_re(this.form)" class="rebtn btn_recont">

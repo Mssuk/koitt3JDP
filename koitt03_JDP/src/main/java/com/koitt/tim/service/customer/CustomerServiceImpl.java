@@ -92,16 +92,19 @@ public class CustomerServiceImpl implements CustomerService {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("notiView_" + id + "ke" + n_num + "00")) {
-					count = 2;
-					break;
+				if (cookies[i].getName().contains("notiView_" + n_num)) {
+					if (cookies[i].getValue().equals(id + "/")) {
+						count = 2;
+						break;
+					}
 				} // 쿠키 이름 찾기(if)
 			}
 		}
 		// 쿠키값 검색(for)
 		if (count == 0) {
 			ndao.updateUpHit(n_num);
-			cookie = new Cookie("notiView_" + id + "ke" + n_num + "00", n_num + "/");
+			long cookieTime = System.currentTimeMillis();
+			cookie = new Cookie("notiView_" + n_num + cookieTime, id + "/");
 			cookie.setMaxAge(60 * 60 * 24 * 30);
 		} // 쿠키가 없을경우 생성
 		return cookie;
@@ -142,6 +145,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 		// 시작 페이지 번호 설정
 		int startPageNum = ((int) (Math.ceil((double) pageNum / ROW_LIMIT) - 1) * ROW_LIMIT) + 1;
+
+		if (startPageNum < 1)
+			startPageNum = 1;
+		if (lastPageNum < 1)
+			lastPageNum = 1;
 
 		// 현재 페이지를 기준으로 마지막 페이지번호 계산 (예. 현재 6페이지면 6,7,8,9,10 이 나타남)
 		int realLastNum = (lastPageNum > startPageNum + ROW_LIMIT - 1) ? startPageNum + ROW_LIMIT - 1 : lastPageNum;

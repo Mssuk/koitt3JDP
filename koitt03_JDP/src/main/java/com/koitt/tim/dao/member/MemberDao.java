@@ -26,4 +26,7 @@ public interface MemberDao {
 
 	// 멤버 한 명 pw 가져옴
 	String selectSearchMemberPw(@Param("id") String id, @Param("email") String email);
+
+	// 멤버 한 명 point 가져옴
+	int selectMemberPoint(@Param("id") String id);
 }
