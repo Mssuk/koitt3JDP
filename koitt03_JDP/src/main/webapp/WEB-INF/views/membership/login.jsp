@@ -121,16 +121,16 @@
 				<div class="informbox">
 					<div class="inform">
 						<ul>
-							<li><input type="text" class="ordererType"
+							<li><input type="text" class="ordererType" name="orderer"
 								onfocus="this.className='mfocus'"
 								onblur="if (this.value.length==0) {this.className='ordererType'}else {this.className='mfocusnot'}" /></li>
-							<li><input type="text" class="ordernumType"
+							<li><input type="text" class="ordernumType" name="ordernum"
 								onfocus="this.className='mfocus'"
 								onblur="if (this.value.length==0) {this.className='ordernumType'}else {this.className='mfocusnot'}" /></li>
 						</ul>
 
 						<div class="btn">
-							<a href="/mypage/ordercheck" class="gbtn">조회하기</a>
+							<a href="/nonmember/ordercheck" class="gbtn">조회하기</a>
 						</div>
 						<div class="point">
 							<p>
@@ -144,7 +144,6 @@
 			</div>
 		</div>
 		<!-- //contents -->
-
 
 	</div>
 </div>
