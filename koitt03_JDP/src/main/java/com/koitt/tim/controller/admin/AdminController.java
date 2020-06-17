@@ -120,21 +120,26 @@ public class AdminController {
 	public ResponseEntity<?> plist(String cate_code_d1, String cate_code_d2, ProductDto pDto,
 			@RequestParam("files") List<MultipartFile> uploadImg) throws IOException {
 
-		logger.info("{}", cate_code_d1);
-		logger.info("{}", cate_code_d2);
+		try {
+			logger.info("{}", cate_code_d1);
+			logger.info("{}", cate_code_d2);
 
-		ProductSerialDto psDto = new ProductSerialDto();
-		psDto.setCate_code_d1(cate_code_d1);
-		psDto.setCate_code_d2(cate_code_d2);
+			ProductSerialDto psDto = new ProductSerialDto();
+			psDto.setCate_code_d1(cate_code_d1);
+			psDto.setCate_code_d2(cate_code_d2);
 
-		pDto.setBack_image(utils.FileUploaderCDN(uploadImg.get(0), "product/"));
-		pDto.setFront_image1(utils.FileUploaderCDN(uploadImg.get(1), "product/"));
-		pDto.setFront_image2(utils.FileUploaderCDN(uploadImg.get(2), "product/"));
-		pDto.setFront_image3(utils.FileUploaderCDN(uploadImg.get(3), "product/"));
+			pDto.setBack_image(utils.FileUploaderCDN(uploadImg.get(0), "product/"));
+			pDto.setFront_image1(utils.FileUploaderCDN(uploadImg.get(1), "product/"));
+			pDto.setFront_image2(utils.FileUploaderCDN(uploadImg.get(2), "product/"));
+			pDto.setFront_image3(utils.FileUploaderCDN(uploadImg.get(3), "product/"));
 
-		adminService.insertProduct(psDto, pDto);
+			adminService.insertProduct(psDto, pDto);
 
-		return ResponseEntity.ok().build();
+			return ResponseEntity.ok().build();
+		}catch (Exception e){
+			System.out.println(e);
+			return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	// 연관상품 불러오기
@@ -158,6 +163,7 @@ public class AdminController {
 		logger.info("{}", map);
 		adminService.updateRelateProduct(map.get("targetId"), map.get("index"));
 		return ResponseEntity.ok("update OK");
+
 	}
 
 	// 카테고리 등록
