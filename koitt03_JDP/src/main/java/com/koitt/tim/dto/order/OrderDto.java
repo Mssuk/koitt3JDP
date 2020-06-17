@@ -1,15 +1,17 @@
 package com.koitt.tim.dto.order;
 
 
+import java.sql.Timestamp;
+
 public class OrderDto {
 	private String o_num;// 주문번호
 	private String id;// 주문아이디
-	private String o_point;// 주문시 사용했던 포인트
+	private int o_point;// 주문시 사용했던 포인트
 	private String o_state;// 주문상태
-	private String o_date;// 주문일
+	private Timestamp o_date;// 주문일
 	private String o_name;// 주문자명
 	private String o_tel;// 주문자전화번호
-	private String o_cost;// 배송료
+	private int o_cost;// 배송료
 
 	public String getO_num() {
 		return o_num;
@@ -27,11 +29,11 @@ public class OrderDto {
 		this.id = id;
 	}
 
-	public String getO_point() {
+	public int getO_point() {
 		return o_point;
 	}
 
-	public void setO_point(String o_point) {
+	public void setO_point(int o_point) {
 		this.o_point = o_point;
 	}
 
@@ -43,11 +45,11 @@ public class OrderDto {
 		this.o_state = o_state;
 	}
 
-	public String getO_date() {
+	public Timestamp getO_date() {
 		return o_date;
 	}
 
-	public void setO_date(String o_date) {
+	public void setO_date(Timestamp o_date) {
 		this.o_date = o_date;
 	}
 
@@ -67,12 +69,11 @@ public class OrderDto {
 		this.o_tel = o_tel;
 	}
 
-	public String getO_cost() {
+	public int getO_cost() {
 		return o_cost;
 	}
 
-	public void setO_cost(String o_cost) {
+	public void setO_cost(int o_cost) {
 		this.o_cost = o_cost;
 	}
-
 }
