@@ -30,15 +30,19 @@
     </insert>
 
 
-    <select id="selectOrderCount" resultType="int">
-        select count(*) from "ORDER" where "id"=#{id}
-    </select>
+<!--     <select id="selectOrderCount" resultType="int"> -->
+<!--         select count(*) from "ORDER" where "id"=#{id} -->
+<!--     </select> -->
 
 
 
-    <select id="selectOrderList" resultType="orderListDto">
-        select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status from "ORDER" col1 join ORDER_LIST col2 on col1."o_num" = #{orderNum}
-    </select>
-
+<!--     <select id="selectOrderList" resultType="orderListDto"> -->
+<!--         select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status from "ORDER" col1 join ORDER_LIST col2 on col1."o_num" = #{orderNum} -->
+<!--     </select> -->
+	
+	<!-- 비회원 주문조회 (아이디조회)-->
+	<select id="selectOrderOne" resultType="OrderDto">
+		select *  from "ORDER" where "o_num"=#{o_num} and "o_tel"=#{o_tel}
+	</select>
 
 </mapper>

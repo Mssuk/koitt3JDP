@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koitt.tim.dto.basket.BasketMemberDto;
 import com.koitt.tim.dto.basket.CartViewDto;
-import com.koitt.tim.dto.order.OrderDto;
 import com.koitt.tim.service.nonmember.NonmemberService;
 
 @Controller
@@ -48,15 +47,7 @@ public class NonMemberController {
 		int orch = 1;
 		String o_num = reqMap.get("o_num");
 		String o_tel = reqMap.get("o_tel");
-		OrderDto odto = nServ.getOrderList(o_num, o_tel);
-		if (odto == null) {
-			// 주문이없음
-			orch = 0;
-		} else {
-			// 주문은 있으나 아이디가있음(회원임)
-			if (odto.getId() != null)
-				orch = -1;
-		}
+		orch = nServ.getOrderList(o_num, o_tel);
 
 		return orch;
 	}
