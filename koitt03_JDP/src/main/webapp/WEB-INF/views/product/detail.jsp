@@ -42,9 +42,9 @@
 
                         <div class="thum">
                             <ul>
-                                <li><img src=${dto.front_image1 } alt="썸네일 제품이미지" /></li>
-                                <li><img src=${dto.front_image2 } alt="썸네일 제품이미지" /></li>
-                                <li><img src=${dto.front_image3 } alt="썸네일 제품이미지" /></li>
+                                <li><img src=${dto.front_image1 } alt="썸네일제품이미지" /></li>
+                                <li><img src=${dto.front_image2 } alt="썸네일제품이미지" /></li>
+                                <li><img src=${dto.front_image3 } alt="썸네일제품이미지" /></li>
                             </ul>
                         </div>
                     </div>
@@ -336,7 +336,7 @@ $("#cartPut").click(function(){
 
                         <div class="headTitle depth">
                             <strong>상품리뷰&nbsp;</strong>상품리뷰는 상품 구매 후 작성하실 수 있습니다.
-                            <p class="btn"><a href="review.html" class="popBtn">구매 후기 작성</a></p>
+                            <p class="btn"><a href="review" class="popBtn">구매 후기 작성</a></p>
                         </div>
 
                         <!-- 상품리뷰 -->

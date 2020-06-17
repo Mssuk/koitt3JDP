@@ -45,6 +45,13 @@ public class ProductController {
         return "product/detail";
     }
 
+    @RequestMapping("review")   //detail 페이지에서 상품 리뷰쓰기
+    public String writeReview(Model model){
+        
+
+
+        return "product/review";
+    }
 
 
 }
