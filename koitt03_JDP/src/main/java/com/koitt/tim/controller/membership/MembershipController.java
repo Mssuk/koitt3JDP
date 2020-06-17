@@ -4,14 +4,16 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
-import com.koitt.tim.service.membership.EmailSend;
-import com.koitt.tim.service.membership.MembershipServiceImpl;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.member.SjoinStringDto;
@@ -21,9 +23,10 @@ import com.koitt.tim.service.membership.MembershipService;
 @RequestMapping("/membership")
 public class MembershipController {
 
+	SqlSession sql;
+
 	@Autowired
 	MembershipService membershipService;
-	SqlSession sql;
 
 	@RequestMapping("login")
 	public String login() {
@@ -31,9 +34,10 @@ public class MembershipController {
 		return "membership/login";
 	}
 
+	// 로그인 값이 제대로 들어오는 확인하는 ajax
 	@RequestMapping("loginCheck")
 	@ResponseBody
-	public int loginCheck(@RequestBody HashMap<String, String> obj, HttpSession session) {
+	public int loginCheck(@RequestBody HashMap<String, String> obj) {
 
 		String id = obj.get("id");
 		String pw = obj.get("pw");
@@ -44,6 +48,7 @@ public class MembershipController {
 		return result;
 	}
 
+	// 로그인
 	@RequestMapping(value = "loginOk", method = RequestMethod.POST)
 	public String loginOk(@RequestParam("id") String id, HttpSession session) {
 
@@ -53,39 +58,51 @@ public class MembershipController {
 		return "redirect:/main";
 	}
 
+	// 비회원 로그인
+	@RequestMapping("nonMember")
+	public String nonMember(@RequestParam("name") String name, @RequestParam("email") String orderNum,
+			HttpSession session) {
+		String nonMem = membershipService.getNonMemInfo(name, orderNum);
+		return "mypage/ordercheck";
+	}
+
+	// 로그아웃
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/main";
 	}
 
-	// 구현 예정
 	@RequestMapping("idsearch")
 	public String idsearch() {
 
 		return "membership/idsearch";
 	}
 
-	@RequestMapping(value="searchId", method=RequestMethod.POST)
-	public void searchId(@RequestParam("name") String name, @RequestParam("email") String email, Model model){
-		System.out.println(name+", "+email);
+	// 아이디 찻기 === 이메일 전송 구현중
+	@RequestMapping(value = "searchId", method = RequestMethod.POST)
+	public void searchId(@RequestParam("name") String name, @RequestParam("email") String email, Model model) {
+		System.out.println(name + ", " + email);
 		String id = membershipService.searchId(name, email);
 		System.out.println(id);
 		model.addAttribute(id);
 
-		/*if(!(id.equals("0"))){
-			EmailSend emailSend = new EmailSend();
-			emailSend.run();
-
-		} else {
-
-		}*/
+		// 메일 전송
+		/*
+		 * if(!(id.equals("0"))){ EmailSend emailSend = new EmailSend();
+		 * emailSend.run();
+		 * 
+		 * } else {
+		 * 
+		 * }
+		 */
 	}
 
-	@RequestMapping(value="searchPw", method=RequestMethod.POST)
-	public void searchPw(@RequestParam("id") String id, @RequestParam("email") String email){
+	// 비밀번호 찾기
+	@RequestMapping(value = "searchPw", method = RequestMethod.POST)
+	public void searchPw(@RequestParam("id") String id, @RequestParam("email") String email) {
 		String pw = membershipService.searchPw(id, email);
-		System.out.println("Controller : "+pw);
+		System.out.println("Controller : " + pw);
 	}
 
 	@RequestMapping("join1")
@@ -95,7 +112,7 @@ public class MembershipController {
 	}
 
 	@RequestMapping(value = "signUp", method = RequestMethod.POST)
-	public String signUp(MemberDto mdto, SjoinStringDto jdto, ModelMap model) throws Exception{
+	public String signUp(MemberDto mdto, SjoinStringDto jdto, ModelMap model) throws Exception {
 
 		mdto.setBirth(mdto.getBirth1(), mdto.getBirth2(), mdto.getBirth3());
 		mdto.setPhone(mdto.getPhone1(), mdto.getPhone2(), mdto.getPhone3());
@@ -118,5 +135,11 @@ public class MembershipController {
 	public String join3() {
 
 		return "membership/join3";
+	}
+
+	@RequestMapping("join4")
+	public String join4() {
+
+		return "membership/join4";
 	}
 }

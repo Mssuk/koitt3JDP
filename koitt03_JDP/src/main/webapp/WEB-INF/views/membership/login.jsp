@@ -1,12 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:include page="../common/header.jsp" />
 <%
 	if(session.getAttribute("loginInfo") != null){
-			response.sendRedirect("/main");
-}
+		response.sendRedirect("/");
+	}
 %>
+<jsp:include page="../common/header.jsp" />
 
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script>
@@ -158,7 +158,7 @@
 								onblur="if (this.value.length==0) {this.className='ordererType'}else {this.className='mfocusnot'}" /></li>
 							<li><input type="text" class="ordernumType" name="o_tel"
 								onfocus="this.className='mfocus'"
-								onblur="if (this.value.length==0) {this.className='ordernumType'}else {this.className='mfocusnot'}" /></li>
+								onblur="if (this.value.length==0) {this.className='ordererType'}else {this.className='mfocusnot'}" /></li>
 						</ul>
 
 						<div class="btn">
@@ -176,7 +176,6 @@
 			</div>
 		</div>
 		<!-- //contents -->
-
 
 	</div>
 </div>

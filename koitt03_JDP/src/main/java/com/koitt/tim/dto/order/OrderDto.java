@@ -1,5 +1,6 @@
 package com.koitt.tim.dto.order;
 
+
 public class OrderDto {
 	private String o_num;// 주문번호
 	private String id;// 주문아이디
