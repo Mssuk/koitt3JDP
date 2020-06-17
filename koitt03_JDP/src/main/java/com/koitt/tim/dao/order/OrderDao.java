@@ -8,10 +8,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Repository
 public interface OrderDao {
 
+
     int selectOrderCount(@Param("id") String id);
+
+    //로그인 id로 주문번호 가져오기
+    String selectOrderNum1(@Param("id")String id);
+
+    ArrayList<String> selectOrderNum2(@Param("id") String id);
 
     //주문 생성
     void insertOrder(@Param("date")String date, @Param("id")String id, @Param("orderPoint")String orderPoint, @Param("orderName")String orderName, @Param("orderTel")String orderTel, @Param("orderCost")String orderCost);
@@ -19,10 +26,6 @@ public interface OrderDao {
     void insertOrderList(@Param("convertedDate") String convertedDate,@Param("orderNumber") String orderNumber,@Param("pro_num") String pro_num,@Param("spinner") String spinner,@Param("pro_price") String pro_price,@Param("pro_name") String pro_name);
 
 	String selectOneOrder(@Param("o_num") String o_num, @Param("orderTel")String orderTel);
-
-    String selectOrderNum(@Param("id") String id);
-
-	ArrayList<String> selectOrderNum1(@Param("id") String id);
 
     List<OrderListDto> selectOrderList(@Param("orderNum") String orderNum);
 }
