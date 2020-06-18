@@ -22,6 +22,7 @@ import com.koitt.tim.dto.category.CategoryDept2Dto;
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
+import com.koitt.tim.dto.product.MainProductDto;
 import com.koitt.tim.dto.product.ProductDto;
 import com.koitt.tim.dto.product.ProductSerialDto;
 import com.koitt.tim.dto.product.RelatedProductDto;
@@ -202,6 +203,36 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public ProductSerialDto getSerialOne(String code) {
 		return psDao.selectSerial(code);
+	}
+
+	@Override
+	public List<MainProductDto> getAllMProduct() {
+		return mpDao.selectAllMProduct();
+	}
+
+	@Override
+	public void updateMProduct(String code, String index, int value) {
+
+		String mv = "";
+		switch (index) {
+		case "1":
+			mv = "hit_p";
+			break;
+		case "2":
+			mv = "hot_p";
+			break;
+
+		case "3":
+			mv = "new_p";
+			break;
+
+		case "4":
+			mv = "sale_p";
+			break;
+		}
+
+		mpDao.updateMProduct(code, mv, value);
+
 	}
 
 }

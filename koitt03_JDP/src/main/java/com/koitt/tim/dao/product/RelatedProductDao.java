@@ -16,10 +16,8 @@ public interface RelatedProductDao {
 	// 상품 자동 등록
 	void insertRProduct(@Param("p1") String pro_num);
 
-	//상품번호로 연관상품 리스트 불러오기
+	// 상품번호로 연관상품 리스트 불러오기
 	RelatedProductDto selectRelatedList(String pro_num);
-
-
 
 	// 관련상품 등록
 	void insertRProductEach(@Param("p3") String targetId, @Param("p2") String additionId, @Param("p1") String idx);

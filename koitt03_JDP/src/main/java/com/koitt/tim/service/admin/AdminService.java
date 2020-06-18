@@ -9,6 +9,7 @@ import com.koitt.tim.dto.category.CategoryDept2Dto;
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
+import com.koitt.tim.dto.product.MainProductDto;
 import com.koitt.tim.dto.product.ProductDto;
 import com.koitt.tim.dto.product.ProductSerialDto;
 import com.koitt.tim.dto.product.RelatedProductDto;
@@ -82,5 +83,11 @@ public interface AdminService {
 
 	// 상품카테고리 update, 상품 update
 	void updateProduct(ProductDto pDto, ProductSerialDto psDto);
+
+	// 메인 상품 가져오기
+	List<MainProductDto> getAllMProduct();
+
+	// 메인 상품 상태 업데이트
+	void updateMProduct(String code, String index, int value);
 
 }

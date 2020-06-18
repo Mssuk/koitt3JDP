@@ -13,7 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.koitt.tim.dto.board.NoticeDto;
@@ -22,6 +30,7 @@ import com.koitt.tim.dto.category.CategoryDept2Dto;
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
+import com.koitt.tim.dto.product.MainProductDto;
 import com.koitt.tim.dto.product.ProductDto;
 import com.koitt.tim.dto.product.ProductSerialDto;
 import com.koitt.tim.dto.product.RelatedProductDto;
@@ -117,8 +126,8 @@ public class AdminController {
 
 	// Product 저장
 	@PostMapping(value = "plist")
-	public ResponseEntity<?> plist(String cate_code_d1, String cate_code_d2, ProductDto pDto,
-			MultipartFile file1, MultipartFile file2, MultipartFile file3, MultipartFile file4) throws IOException {
+	public ResponseEntity<?> plist(String cate_code_d1, String cate_code_d2, ProductDto pDto, MultipartFile file1,
+			MultipartFile file2, MultipartFile file3, MultipartFile file4) throws IOException {
 
 		try {
 			logger.info("{}", cate_code_d1);
@@ -128,21 +137,22 @@ public class AdminController {
 			psDto.setCate_code_d1(cate_code_d1);
 			psDto.setCate_code_d2(cate_code_d2);
 
-			if(file1!=null) {
+			if (file1 != null) {
 				pDto.setBack_image(utils.FileUploaderCDN(file1, "product/"));
 			}
-			if(file2!= null) {
+			if (file2 != null) {
 				pDto.setFront_image1(utils.FileUploaderCDN(file2, "product/"));
 			}
-			if(file3!= null) {
+			if (file3 != null) {
 				pDto.setFront_image2(utils.FileUploaderCDN(file3, "product/"));
-			}if(file4 !=null){
+			}
+			if (file4 != null) {
 				pDto.setFront_image3(utils.FileUploaderCDN(file4, "product/"));
 			}
 			adminService.insertProduct(psDto, pDto);
 
 			return ResponseEntity.ok().build();
-		}catch (Exception e){
+		} catch (Exception e) {
 			System.out.println(e);
 			return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
 		}
@@ -254,7 +264,6 @@ public class AdminController {
 				nsDto.setCate_code_d1(cate_code_d1);
 				nsDto.setCate_code_d2(cate_code_d2);
 
-
 				if (newBackImg != null) {
 					pDto.setBack_image(utils.FileUploaderCDN(newBackImg, "product/"));
 				}
@@ -284,7 +293,22 @@ public class AdminController {
 			e.printStackTrace();
 			return new ResponseEntity<String>(e.toString(), HttpStatus.BAD_REQUEST);
 		}
+	}
 
+	// 메인상품 데이터 가져오기
+	@GetMapping("mplist")
+	public List<MainProductDto> mpList() {
+		return adminService.getAllMProduct();
+	}
+
+	// 메인 상품 상태 업데이트
+	@PutMapping("mplist")
+	public ResponseEntity<?> mpList(@RequestBody HashMap<String, String> map) {
+
+		logger.info("{}", map);
+		adminService.updateMProduct(map.get("pro_num"), map.get("idx"), Integer.parseInt((map.get("val"))));
+
+		return ResponseEntity.ok().build();
 	}
 
 }

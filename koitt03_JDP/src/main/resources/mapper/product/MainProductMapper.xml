@@ -9,4 +9,12 @@
 	<delete id="deleteMProduct">
 		delete MAIN_PRODUCT where PRO_NUM = #{param1}
 	</delete>
+	
+	<select id="selectAllMProduct" resultType="MainProductDto">
+		select pro_num, hit_p, hot_p, new_p, sale_p from main_product
+	</select>
+	
+	<update id="updateMProduct">
+		update main_product set ${p2} = #{p3} where pro_num = #{p1}
+	</update>
 </mapper>
