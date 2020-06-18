@@ -9,8 +9,8 @@ public class OrderListDto {
 	private String o_num;
 	private String product_name;
 	private String price;
-	private int quantity;
-	private String status;
+	private int o_quant;
+	private String o_status;
 
 	public String getKey() {
 		return key;
@@ -52,19 +52,19 @@ public class OrderListDto {
 		this.price = price;
 	}
 
-	public int getQuantity() {
-		return quantity;
+	public int getO_quant() {
+		return o_quant;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setO_quant(int quantity) {
+		this.o_quant = quantity;
 	}
 
 	public String getStatus() {
-		return status;
+		return o_status;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setO_status(String status) {
+		this.o_status = status;
 	}
 }

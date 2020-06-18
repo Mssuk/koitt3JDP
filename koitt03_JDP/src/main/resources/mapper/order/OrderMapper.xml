@@ -36,7 +36,7 @@
 
 
     <select id="selectOneOrder" resultType="String">
-        select "id" from "ORDER" where "o_num" = #{o_num} and o_tel = #{orderTel}
+        select "id" from "ORDER" where "o_num" = #{o_num} and "o_tel" = #{orderTel}
     </select>
 
     <select id="selectOrderCount" resultType="int">
@@ -46,7 +46,8 @@
 
 
     <select id="selectOrderList" resultType="orderListDto">
-        select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status from "ORDER" col1 join ORDER_LIST col2 on col1."o_num" = #{orderNum}
+        select * from (select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status
+                       from  ORDER_LIST col2, "ORDER" col1 where col1."o_num" = col2."o_num") where "o_num" = #{orderNum};
     </select>
 
 
