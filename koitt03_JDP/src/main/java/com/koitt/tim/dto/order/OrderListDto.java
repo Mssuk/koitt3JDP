@@ -12,6 +12,7 @@ public class OrderListDto {
 	private String price;
 	private int o_quant;
 	private String o_status;
+	private String c_state;
 
 	public String getKey() {
 		return key;
@@ -75,5 +76,13 @@ public class OrderListDto {
 
 	public void setO_status(String o_status) {
 		this.o_status = o_status;
+	}
+
+	public String getC_state() {
+		return c_state;
+	}
+
+	public void setC_state(String c_state) {
+		this.c_state = c_state;
 	}
 }

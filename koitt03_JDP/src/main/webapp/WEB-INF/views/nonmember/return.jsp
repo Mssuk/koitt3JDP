@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,9 +18,9 @@
     <script type="text/javascript" src="../js/common.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script type="text/javascript">
-        $(function() {
-            var spinner = $( "#spinner" ).spinner({ min: 1 });
-        });
+       function retch(form){
+    	   form.c_type.
+       }
     </script>
     <style type="text/css">
         .ui-corner-all{border-bottom-right-radius:0 !important; border-bottom-left-radius:0 !important; border-top-left-radius:0 !important; border-top-right-radius:0 !important;}
@@ -26,7 +29,7 @@
     </style>
 </head>
 <body>
-<form id="layerWrap" name="">
+<form id="layerWrap" name="return" method="post" action="updateOrder">
 
     <div class="inputWrap">
 
@@ -54,21 +57,21 @@
                     <tbody>
                     <tr>
                         <td class="pnone">
-                            <p class="day">2012-05-30</p>
-                            <p class="orderNum">201205301204-8057</p>
+                            <p class="day"><fmt:formatDate value="${odto.o_date }" pattern="yyyy-MM-dd"/></p>
+                            <p class="orderNum">${odto.o_num }</p>
                         </td>
                         <td class="left">
-                            <p class="img"><img src="../images/img/sample_product.jpg" alt="상품" width="66" height="66" /></p>
+                            <p class="img"><img src="${photo }" alt="상품" width="66" height="66" /></p>
 
                             <ul class="goods">
                                 <li>
-                                    <a href="#">쟈뎅 오리지널 콜롬비아 페레이라 원두커피백 15p</a>
+                                    <span>${odto.product_name }</span>
                                 </li>
                             </ul>
                         </td>
-                        <td><input id="spinner" value="1" /></td>
-                        <td class="pnone">999,000 원</td>
-                        <td class="pnone">배송완료</td>
+                        <td><span><fmt:formatNumber value="${odto.o_quant }" pattern="#,###" /></span>개</td>
+                        <td class="pnone"><span><fmt:formatNumber value="${odto.price }" pattern="#,###" /></span> 원</td>
+                        <td class="pnone">${odto.o_status }</td>
                     </tr>
                     </tbody>
                 </table>
@@ -86,15 +89,18 @@
 								<tr>
 									<th scope="row"><span>분류</span></th>
 									<td>
-										<select>
-											<option value="">선택해주세요.</option>
+										<select name="c_type">
+											<option disabled="disabled" selected="selected" hidden="">선택해주세요</option>
+											<option value="교환">교환</option>
+											<option value="반품">반품</option>
 										</select>
 									</td>
 								</tr>
 								<tr>
 									<th scope="row"><span>자세한 이유</span></th>
 									<td>
-										<textarea class="tta"></textarea>
+										<textarea class="tta" name="c_reason"></textarea>
+										<input type="text" hidden="" name="Key" value="${odto.key }"> 
 									</td>
 								</tr>
 							</tbody>
@@ -105,7 +111,7 @@
 					<div class="btnArea">
 						<div class="bCenter">
 							<ul>								
-								<li><a href="#" class="sbtnMini">반품/교환신청</a></li>
+								<li><a onclick="retch(this.form)" class="sbtnMini">반품/교환신청</a></li>
 								<li><a onclick="parent.$.fancybox.close();" href="javascript:;" class="nbtnbig">취소</a></li>
 							</ul>
 						</div>

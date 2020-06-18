@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
    <!-- header입니다. -->
 	<jsp:include page="../common/header.jsp" />
-<c:if test="${nonOk==null }">
+<c:if test="${nonOk!=o_num }">
 	<script type="text/javascript">
 		alert('잘못된 접근입니다');
 		window.location.href='/membership/login';
@@ -70,35 +70,49 @@
 										<td class="tnone"><span><fmt:formatNumber value="${dtos.o_quant }" pattern="#,###" /></span>개</td>
 										<td>
 											<c:choose>
-												<c:when test="${dtos.o_status=='배송완료' }">
-													<span class="heavygray">배송완료</span>
-													<ul class="state">	
-														<li class="r5"><a href="return?photo=${plist }&list=${dtos}" class="obtnMini iw40">교환</a></li>
-														<li><a href="return" class="nbtnMini iw40">반품</a></li>
-														<li><a href="#" class="reviewbtn">리뷰작성</a></li>
-													</ul>										
-												</c:when>
-												<c:when test="${dtos.o_status=='입금대기중' }">
-														<span class="lightgray">입금대기중</span>
+												<c:when test="${dtos.c_state!='' }">
+													<c:if test="${dtos.c_state=='대기중' }">
+														<span class="lightgray">${dtos.c_state }</span>
 														<ul class="state">
-															<li><a href="#" class="nbtnMini iw83">취소</a></li>
-														</ul>										
+															<li><a onclick="retu_cancel('dtos.key')" class="nbtnMini">취소</a></li>
+														</ul>	
+													</c:if>
+													<c:if test="${dtos.c_state!='대기중' }">
+														<span class="orange">${dtos.c_state }</span>
+													</c:if>
 												</c:when>
-												<c:when test="${dtos.o_status=='입금완료' }">
-														<span class="lightgray">입금완료</span>
-														<ul class="state">
-															<li><a href="#" class="nbtnMini iw83">취소</a></li>
-														</ul>										
+												<c:when test="${dtos.c_state=='' }">
+													<c:choose>
+														<c:when test="${dtos.o_status=='배송완료' }">
+															<span class="heavygray">${dtos.o_status }</span>
+															<ul class="state">	
+																<li class="r5"><a href="return?num1=${dtos.key }&num2=${dtos.o_num}" class="obtnMini iw40">교환</a></li>
+																<li><a href="return" class="nbtnMini iw40">반품</a></li>
+																<li><a href="#" class="reviewbtn">리뷰작성</a></li>
+															</ul>										
+														</c:when>
+														<c:when test="${dtos.o_status=='입금대기중' }">
+															<span class="lightgray">${dtos.o_status }</span>
+															<ul class="state">
+																<li><a onclick="order_cancel('dtos.o_num')" class="nbtnMini iw83">취소</a></li>
+															</ul>										
+														</c:when>
+														<c:when test="${dtos.o_status=='입금완료' }">
+																<span class="lightgray">${dtos.o_status }</span>
+																<ul class="state">
+																	<li><a onclick="order_cancel2('dtos.o_num')" class="nbtnMini iw83">취소</a></li>
+																</ul>										
+														</c:when>
+														<c:otherwise>
+																<span class="orange">${dtos.o_status }</span>									
+														</c:otherwise>
+													</c:choose>
 												</c:when>
-												<c:when test="${dtos.o_status=='배송중' }">
-														<span class="orange">배송중</span>									
-												</c:when>
-												<c:when test="${dtos.o_status=='배송준비중' }">
-														<span class="orange">배송준비중</span>									
-												</c:when>
+												
 											</c:choose>
 										</td>
 									</tr>
+									
 									</c:forEach>
 
 								

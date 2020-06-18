@@ -39,7 +39,7 @@ public class NonMemberController {
 		if (dtos != null) {
 			cart = nServ.getCartProduct(dtos);
 		}
-		if (cart != null) {
+		if (cart != null && cart.size() != 0) {
 			model.addAttribute("list", cart);
 		}
 		return "nonmember/cart";
@@ -48,11 +48,14 @@ public class NonMemberController {
 	// 비회원 주문조회
 	@ResponseBody
 	@RequestMapping("ordercheck")
-	public int getNonOrderCheck(@RequestBody HashMap<String, String> reqMap, Model model) {
+	public int getNonOrderCheck(@RequestBody HashMap<String, String> reqMap, Model model, HttpSession session) {
 		int orch = 1;
 		String o_num = reqMap.get("o_num");
 		String o_tel = reqMap.get("o_tel");
 		orch = nServ.getOrderList(o_num, o_tel);
+		if (orch == 1) {
+			session.setAttribute("nonOk", o_num);
+		}
 		return orch;
 	}
 
@@ -62,7 +65,6 @@ public class NonMemberController {
 			@RequestParam(value = "page", defaultValue = "1") int pageNum, Model model) {
 
 		List<OrderListDto> list = nServ.getOrderLists(pageNum, o_num);
-		List<String> plist = nServ.getPhotoList(list);
 		List<Integer> pageNumbering = nServ.getOrderPageList(pageNum, list.size());
 		int maxPage = nServ.getLastNum(list.size());
 		model.addAttribute("pageNumbering", pageNumbering);
@@ -71,9 +73,8 @@ public class NonMemberController {
 		// 현재 페이지를 알려줍니다
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("orderList", list);
-		model.addAttribute("photoList", plist);
 		model.addAttribute("o_num", o_num);
-		model.addAttribute("nonOk", "yes");
+
 		return "nonmember/ordercheck";
 	}
 
@@ -90,8 +91,14 @@ public class NonMemberController {
 	}
 
 	@RequestMapping("return")
-	public String viewreturn() {
+	public String viewreturn(@RequestParam(value = "num1", defaultValue = "") String key,
+			@RequestParam(value = "num2", defaultValue = "") String o_num, Model model) {
 
+		OrderListDto odto = nServ.getOrderListOne(key, o_num);
+		String photo = nServ.getPhoto(odto.getPro_num());
+		System.out.println(photo);
+		model.addAttribute("odto", odto);
+		model.addAttribute("photo", photo);
 		return "nonmember/return";
 	}
 

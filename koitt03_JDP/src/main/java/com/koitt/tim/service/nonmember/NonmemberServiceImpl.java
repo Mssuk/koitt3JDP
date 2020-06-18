@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.koitt.tim.dao.order.ChangeDao;
 import com.koitt.tim.dao.order.OrderDao;
 import com.koitt.tim.dao.product.ProductDao;
 import com.koitt.tim.dto.basket.BasketMemberDto;
@@ -23,6 +24,9 @@ public class NonmemberServiceImpl implements NonmemberService {
 
 	@Autowired
 	private OrderDao odao;
+
+	@Autowired
+	private ChangeDao cdao;
 
 	private static final int ROW_LIMIT = 5; // 밑에 몇개씩 보여줄건지
 	private static final int PAGE_LIMIT = 5; // 한페이지에 글 몇개 보여줄건지
@@ -86,18 +90,15 @@ public class NonmemberServiceImpl implements NonmemberService {
 		int startNum = (pageNum - 1) * PAGE_LIMIT + 1;
 		// 끝 글넘버
 		int endNum = startNum + PAGE_LIMIT - 1;
-		return odao.selectOrderListNone(o_num, startNum, endNum);
-	}
-
-	// 교환반품시 보일 상품 사진
-	@Override
-	public List<String> getPhotoList(List<OrderListDto> list) {
-		List<String> photos = new ArrayList<String>();
+		List<OrderListDto> list = odao.selectOrderListNone(o_num, startNum, endNum);
 		for (int i = 0; i < list.size(); i++) {
-			ProductDto pdto = pdao.selectProductOne(list.get(i).getPro_num());
-			photos.add(pdto.getFront_image1());
+			String c_state = "";
+			if (cdao.selectChangeState(list.get(i).getKey()) != null) {
+				c_state = cdao.selectChangeState(list.get(i).getKey());
+			}
+			list.get(i).setC_state(c_state);
 		}
-		return photos;
+		return list;
 	}
 
 	// 마지막 페이지 계산
@@ -106,6 +107,7 @@ public class NonmemberServiceImpl implements NonmemberService {
 		return (int) (Math.ceil(cnt / PAGE_LIMIT));
 	}
 
+	// 페이지 넘버링
 	@Override
 	public List<Integer> getOrderPageList(int pageNum, int totalCut) {
 		List<Integer> pageList = new ArrayList<>();
@@ -128,6 +130,21 @@ public class NonmemberServiceImpl implements NonmemberService {
 			pageList.add(i);
 		}
 		return pageList;
+	}
+
+	// 교환반품시 보일 상품사진
+	@Override
+	public String getPhoto(String pro_num) {
+		ProductDto pdto = pdao.selectProductOne(pro_num);
+		String photo = pdto.getFront_image1();
+		return photo;
+	}
+
+	// 교환반품시 가져올 상품리스트 정보
+	@Override
+	public OrderListDto getOrderListOne(String key, String o_num) {
+		OrderListDto odto = odao.selectOrderListOne(key, o_num);
+		return odto;
 	}
 
 }

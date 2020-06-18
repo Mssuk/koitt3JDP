@@ -51,7 +51,12 @@
 	</select>
 	<!--비회원..(아이디없이 주문번호에 해당하는 것만 다 가져옵니다. -->
 	<select id="selectOrderListNone" resultType="orderListDto">
-        select  ROWNUM,col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status,col2."pro_num" from "ORDER" col1,ORDER_LIST col2 where col2."o_num"=col1."o_num" and col2."o_num"= #{orderNum} and (ROWNUM <![CDATA[ >= ]]> #{p1}
+        select  ROWNUM,col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status,col2."pro_num",col2.key from "ORDER" col1,ORDER_LIST col2 where col2."o_num"=col1."o_num" and col2."o_num"= #{orderNum} and (ROWNUM <![CDATA[ >= ]]> #{p1}
           and ROWNUM <![CDATA[ <= ]]> #{p2}) 
+    </select>
+    
+    <!-- 반품교환신청시 해당 주문목록 불러가는 것 -->
+    <select id="selectOrderListOne" resultType="orderListDto">
+    	select  col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status,col2."pro_num" from "ORDER" col1,ORDER_LIST col2 where col2."o_num"=col1."o_num" and col2."o_num"= #{orderNum} and col2.key=#{key}
     </select>
 </mapper>

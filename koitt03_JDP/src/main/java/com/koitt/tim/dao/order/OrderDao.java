@@ -39,4 +39,7 @@ public interface OrderDao {
 	// 비회원주문내역검색(id없음)
 	List<OrderListDto> selectOrderListNone(@Param("orderNum") String o_num, @Param("p1") int startNum,
 			@Param("p2") int endNum);
+
+	// 교환반품신청시 가져오는 주문목록 1개
+	OrderListDto selectOrderListOne(@Param("key") String key, @Param("orderNum") String o_num);
 }
