@@ -7,10 +7,12 @@ public class OrderListDto {
 	private String key;
 	private Timestamp o_date;
 	private String o_num;
+	private String pro_num;
 	private String product_name;
 	private String price;
 	private int o_quant;
 	private String o_status;
+	private String c_state;
 
 	public String getKey() {
 		return key;
@@ -52,19 +54,35 @@ public class OrderListDto {
 		this.price = price;
 	}
 
+	public String getPro_num() {
+		return pro_num;
+	}
+
+	public void setPro_num(String pro_num) {
+		this.pro_num = pro_num;
+	}
+
 	public int getO_quant() {
 		return o_quant;
 	}
 
-	public void setO_quant(int quantity) {
-		this.o_quant = quantity;
+	public void setO_quant(int o_quant) {
+		this.o_quant = o_quant;
 	}
 
-	public String getStatus() {
+	public String getO_status() {
 		return o_status;
 	}
 
-	public void setO_status(String status) {
-		this.o_status = status;
+	public void setO_status(String o_status) {
+		this.o_status = o_status;
+	}
+
+	public String getC_state() {
+		return c_state;
+	}
+
+	public void setC_state(String c_state) {
+		this.c_state = c_state;
 	}
 }

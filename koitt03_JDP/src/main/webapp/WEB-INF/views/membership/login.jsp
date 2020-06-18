@@ -57,7 +57,7 @@
 			o_check.o_tel.focus();
 			return false;
 		}
-		
+		var k=o_check.o_num.value;
 		$.ajax({
 	        url : "/nonmember/ordercheck",   // 받을 url
 	        type : "POST",   
@@ -65,7 +65,7 @@
 	        contentType: "application/json",
 	        success : function (data) {
 	           if(data== 1){ //주문이있는경우
-	        	  location.href='/nonmember/ordercheck_view?o_num=o_check.o_num.value';
+	        	  location.href='/nonmember/ordercheck_view?o_num='+k; 
 	           }else if(data == -1){//해당 주문이 있지만 회원주문인경우
 					alert('해당 조회는 비회원전용입니다. \n 로그인해주세요');
 				}else if(data ==0){//주문이 없을경우

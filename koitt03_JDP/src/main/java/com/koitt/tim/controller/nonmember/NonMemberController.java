@@ -15,14 +15,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koitt.tim.dto.basket.BasketMemberDto;
 import com.koitt.tim.dto.basket.CartViewDto;
-import com.koitt.tim.dto.order.OrderDto;
+import com.koitt.tim.dto.order.OrderListDto;
 import com.koitt.tim.service.nonmember.NonmemberService;
+import com.koitt.tim.service.product.ProductService;
 
 @Controller
 @RequestMapping("nonmember")
 public class NonMemberController {
 	@Autowired
 	NonmemberService nServ;
+
+	@Autowired
+	ProductService pServ;
 
 	// 비회원 장바구니
 	@RequestMapping("cart")
@@ -35,7 +39,7 @@ public class NonMemberController {
 		if (dtos != null) {
 			cart = nServ.getCartProduct(dtos);
 		}
-		if (cart != null) {
+		if (cart != null && cart.size() != 0) {
 			model.addAttribute("list", cart);
 		}
 		return "nonmember/cart";
@@ -44,25 +48,32 @@ public class NonMemberController {
 	// 비회원 주문조회
 	@ResponseBody
 	@RequestMapping("ordercheck")
-	public int getNonOrderCheck(@RequestBody HashMap<String, String> reqMap) {
+	public int getNonOrderCheck(@RequestBody HashMap<String, String> reqMap, Model model, HttpSession session) {
 		int orch = 1;
 		String o_num = reqMap.get("o_num");
 		String o_tel = reqMap.get("o_tel");
-		OrderDto odto = nServ.getOrderList(o_num, o_tel);
-		if (odto == null) {
-			// 주문이없음
-			orch = 0;
-		} else {
-			// 주문은 있으나 아이디가있음(회원임)
-			if (odto.getId() != null)
-				orch = -1;
+		orch = nServ.getOrderList(o_num, o_tel);
+		if (orch == 1) {
+			session.setAttribute("nonOk", o_num);
 		}
-
 		return orch;
 	}
 
+	// 비회원 주문리스트 가져오기
 	@RequestMapping("ordercheck_view")
-	public String ordercheck_view(@RequestParam(value = "o_num") String o_num) {
+	public String ordercheck_view(@RequestParam(value = "o_num") String o_num,
+			@RequestParam(value = "page", defaultValue = "1") int pageNum, Model model) {
+
+		List<OrderListDto> list = nServ.getOrderLists(pageNum, o_num);
+		List<Integer> pageNumbering = nServ.getOrderPageList(pageNum, list.size());
+		int maxPage = nServ.getLastNum(list.size());
+		model.addAttribute("pageNumbering", pageNumbering);
+		// 마지막페이지 번호입니다.
+		model.addAttribute("maxPage", maxPage);
+		// 현재 페이지를 알려줍니다
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("orderList", list);
+		model.addAttribute("o_num", o_num);
 
 		return "nonmember/ordercheck";
 	}
@@ -78,4 +89,17 @@ public class NonMemberController {
 
 		return "nonmember/takeback_state";
 	}
+
+	@RequestMapping("return")
+	public String viewreturn(@RequestParam(value = "num1", defaultValue = "") String key,
+			@RequestParam(value = "num2", defaultValue = "") String o_num, Model model) {
+
+		OrderListDto odto = nServ.getOrderListOne(key, o_num);
+		String photo = nServ.getPhoto(odto.getPro_num());
+		System.out.println(photo);
+		model.addAttribute("odto", odto);
+		model.addAttribute("photo", photo);
+		return "nonmember/return";
+	}
+
 }
