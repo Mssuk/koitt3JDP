@@ -11,6 +11,7 @@ import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.product.MainProductDto;
 import com.koitt.tim.dto.product.ProductDto;
+import com.koitt.tim.dto.product.ProductQuestionDto;
 import com.koitt.tim.dto.product.ProductSerialDto;
 import com.koitt.tim.dto.product.RelatedProductDto;
 
@@ -89,5 +90,8 @@ public interface AdminService {
 
 	// 메인 상품 상태 업데이트
 	void updateMProduct(String code, String index, int value);
+
+	// 상품문의 가져오기
+	List<ProductQuestionDto> getAllPQuestion();
 
 }

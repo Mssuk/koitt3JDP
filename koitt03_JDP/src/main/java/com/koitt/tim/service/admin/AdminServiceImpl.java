@@ -13,6 +13,7 @@ import com.koitt.tim.dao.event.EventDao;
 import com.koitt.tim.dao.member.MemberDao;
 import com.koitt.tim.dao.product.MainProductDao;
 import com.koitt.tim.dao.product.ProductDao;
+import com.koitt.tim.dao.product.ProductQuestionDao;
 import com.koitt.tim.dao.product.ProductSerialDao;
 import com.koitt.tim.dao.product.RelatedProductDao;
 import com.koitt.tim.dto.admin.MallDto;
@@ -24,6 +25,7 @@ import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.product.MainProductDto;
 import com.koitt.tim.dto.product.ProductDto;
+import com.koitt.tim.dto.product.ProductQuestionDto;
 import com.koitt.tim.dto.product.ProductSerialDto;
 import com.koitt.tim.dto.product.RelatedProductDto;
 
@@ -52,6 +54,8 @@ public class AdminServiceImpl implements AdminService {
 	private RelatedProductDao rpDao;
 	@Autowired
 	private MainProductDao mpDao;
+	@Autowired
+	private ProductQuestionDao pqDao;
 
 	@Override
 	public MallDto getMallInfo() {
@@ -233,6 +237,11 @@ public class AdminServiceImpl implements AdminService {
 
 		mpDao.updateMProduct(code, mv, value);
 
+	}
+
+	@Override
+	public List<ProductQuestionDto> getAllPQuestion() {
+		return pqDao.selectProductQuestions();
 	}
 
 }
