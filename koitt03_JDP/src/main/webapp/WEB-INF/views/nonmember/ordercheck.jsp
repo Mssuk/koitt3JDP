@@ -11,7 +11,109 @@
 		window.location.href='/membership/login';
 	</script>
 </c:if>	
-	
+
+<script type="text/javascript">
+	function retu_cancel(a){
+		if(confirm("반품/교환 신청을 취소하시겠습니까?")){
+		       
+			$.ajax({
+		        url : "/delChangeOne",   // 받을 url
+		        type : "POST",   
+		        data: JSON.stringify({key:a}),  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
+		        contentType: "application/json",
+		        success : function (data) {
+		           if(data== 1){ //리턴값이 ok일 경우
+		        	  location.reload(); //새로고침 해준다.
+		              alert('취소 완료');
+		           }else if(data == 0){
+						alert('취소 실패');
+					}
+		        },
+		        error : function(){ //오류일경우 경고창을 띄움
+		           alert("통신 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.\n오류가 반복될 경우, 고객센터로 문의 부탁드립니다.\n(error_code: deleteError)");
+		        }
+		     });
+			}
+	}
+</script>	
+
+<script type="text/javascript">
+	//입금전 취소
+	function order_cancel(a){
+		if(confirm("주문을 취소하시겠습니까? \n같은 주문번호에 해당하는 상품은 모두 취소됩니다.")){
+		       
+			$.ajax({
+		        url : "/delOrderTypeA",   // 받을 url
+		        type : "POST",   
+		        data: JSON.stringify({o_num:a}),  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
+		        contentType: "application/json",
+		        success : function (data) {
+		           if(data== 1){ //리턴값이 ok일 경우
+		              alert('취소 완료 \n 메인으로 돌아갑니다');
+		              window.location.href='/main';
+		           }else if(data == 0){
+						alert('취소 실패 \n 잠시 후 다시 시도해주세요 ');
+						location.reload(); //새로고침 해준다.
+					}
+		        },
+		        error : function(){ //오류일경우 경고창을 띄움
+		           alert("통신 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.\n오류가 반복될 경우, 고객센터로 문의 부탁드립니다.\n(error_code: deleteError)");
+		        }
+		     });
+			}
+	}
+</script>
+
+<script type="text/javascript">
+	//입금후 취소
+	function order_cancel2(a){
+		if(confirm("주문을 취소하시겠습니까? \n같은 주문번호에 해당하는 상품은 모두 취소되며 \n 영업일기준 최소 3일이상 소요됩니다")){
+		       
+			$.ajax({
+		        url : "/delOrderTypeB",   // 받을 url
+		        type : "POST",   
+		        data: JSON.stringify({o_num:a}),  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
+		        contentType: "application/json",
+		        success : function (data) {
+		           if(data== 1){ //리턴값이 ok일 경우
+		              alert('취소 완료 \n 진행상황은 익일부터 고객센터로 문의바랍니다.');
+		              location.reload(); //새로고침 해준다.
+		           }else if(data == 0){
+						alert('취소 실패 \n 잠시 후 다시 시도해주세요 ');
+					}
+		        },
+		        error : function(){ //오류일경우 경고창을 띄움
+		           alert("통신 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.\n오류가 반복될 경우, 고객센터로 문의 부탁드립니다.\n(error_code: deleteError)");
+		        }
+		     });
+			}
+	}
+</script>
+<script type="text/javascript">
+	//입금후 취소를 철회
+	function retu_cancel2(a){
+		if(confirm("주문취소를 철회하시겠습니까?")){
+		       
+			$.ajax({
+		        url : "/delChangeOneB",   // 받을 url
+		        type : "POST",   
+		        data: JSON.stringify({o_num:a}),  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
+		        contentType: "application/json",
+		        success : function (data) {
+		           if(data== 1){ //리턴값이 ok일 경우
+		              alert('취소 완료 \n 진행상황은 익일부터 고객센터로 문의바랍니다.');
+		              location.reload(); //새로고침 해준다.
+		           }else if(data == 0){
+						alert('취소 실패 \n 잠시 후 다시 시도해주세요 ');
+					}
+		        },
+		        error : function(){ //오류일경우 경고창을 띄움
+		           alert("통신 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.\n오류가 반복될 경우, 고객센터로 문의 부탁드립니다.\n(error_code: deleteError)");
+		        }
+		     });
+			}
+	}
+</script>
 	
 	<!-- container -->
 	<div id="container">
@@ -29,7 +131,7 @@
 				<div id="title">비회원<br/>주문조회</div>
 				<ul>	
 					<li><a href="/nonmember/ordercheck_view?o_num=${o_num }" id="leftNavi1">비회원 주문조회</a></li>
-					<li class="last"><a href="#" id="leftNavi2">반품/교환 현황</a></li>
+					<li class="last"><a href="takeback_state?o_num=${o_num}" id="leftNavi2">반품/교환 현황</a></li>
 				</ul>			
 			</div><script type="text/javascript">initSubmenu(1,0);</script>
 
@@ -74,10 +176,16 @@
 													<c:if test="${dtos.c_state=='대기중' }">
 														<span class="lightgray">${dtos.c_state }</span>
 														<ul class="state">
-															<li><a onclick="retu_cancel('dtos.key')" class="nbtnMini">취소</a></li>
+															<li><a href="javascript:;" onclick="retu_cancel('${dtos.key}')" class="nbtnMini">취소</a></li>
 														</ul>	
 													</c:if>
-													<c:if test="${dtos.c_state!='대기중' }">
+													<c:if test="${dtos.c_state=='취소대기중' }">
+														<span class="lightgray">${dtos.c_state }</span>
+														<ul class="state">
+															<li><a href="javascript:;" onclick="retu_cancel2('${dtos.o_num}')" class="nbtnMini">취소</a></li>
+														</ul>	
+													</c:if>
+													<c:if test="${dtos.c_state!='대기중'&&dtos.c_state!='취소대기중' }">
 														<span class="orange">${dtos.c_state }</span>
 													</c:if>
 												</c:when>
@@ -94,27 +202,38 @@
 														<c:when test="${dtos.o_status=='입금대기중' }">
 															<span class="lightgray">${dtos.o_status }</span>
 															<ul class="state">
-																<li><a onclick="order_cancel('dtos.o_num')" class="nbtnMini iw83">취소</a></li>
+																<li><a onclick="order_cancel('${dtos.o_num }')" class="nbtnMini iw83">취소</a></li>
 															</ul>										
 														</c:when>
 														<c:when test="${dtos.o_status=='입금완료' }">
 																<span class="lightgray">${dtos.o_status }</span>
 																<ul class="state">
-																	<li><a onclick="order_cancel2('dtos.o_num')" class="nbtnMini iw83">취소</a></li>
+																	<li><a onclick="order_cancel2('${dtos.o_num }')" class="nbtnMini iw83">취소</a></li>
 																</ul>										
 														</c:when>
 														<c:otherwise>
-																<span class="orange">${dtos.o_status }</span>									
+																<span class="orange ">${dtos.o_status }</span>									
 														</c:otherwise>
 													</c:choose>
 												</c:when>
 												
 											</c:choose>
+											
 										</td>
 									</tr>
 									
 									</c:forEach>
-
+<%-- 									<c:if test="${orderList.size()<5 }"> --%>
+<%-- 									<c:forEach begin="0" step="1" end="${4-orderList.size() }"> --%>
+<!-- 											<tr> -->
+<!-- 												<td></td> -->
+<!-- 												<td class="tnone"></td> -->
+<!-- 												<td class="left"></td> -->
+<!-- 												<td class="tnone"></td> -->
+<!-- 												<td></td> -->
+<!-- 											</tr> -->
+<%-- 										</c:forEach> --%>
+<%-- 									</c:if> --%>
 								
 							</tbody>
 						</table>

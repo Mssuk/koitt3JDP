@@ -13,6 +13,7 @@ public class OrderListDto {
 	private int o_quant;
 	private String o_status;
 	private String c_state;
+	private String c_type;
 
 	public String getKey() {
 		return key;
@@ -84,5 +85,13 @@ public class OrderListDto {
 
 	public void setC_state(String c_state) {
 		this.c_state = c_state;
+	}
+
+	public String getC_type() {
+		return c_type;
+	}
+
+	public void setC_type(String c_type) {
+		this.c_type = c_type;
 	}
 }
