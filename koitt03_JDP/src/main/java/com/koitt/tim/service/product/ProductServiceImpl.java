@@ -65,5 +65,16 @@ public class ProductServiceImpl implements ProductService {
         return pDto;
     }
 
+    @Override
+    public void addReview(String id,String type, int star, String title, String content,String pro_num) {
+        rDao.insertReview(id,type,star,title,content,pro_num);
+
+    }
+
+    @Override
+    public void addPhotoReview(ReviewDto rDto) {
+        rDao.insertPhotoReview(rDto);
+    }
+
 
 }
