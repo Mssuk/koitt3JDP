@@ -27,7 +27,7 @@ $(document).ready(function(){
 	//댓글유효성
 	function reply_ok(aa){
 		var k=aa;
-		var croodx = '<%=(String)session.getAttribute("authuser")%>';
+		var croodx = '<%=(String)session.getAttribute("loginInfo")%>';
 		if(croodx=='null'){
 			alert('로그인 후 등록가능합니다.');
 			return false;

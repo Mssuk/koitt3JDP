@@ -1,6 +1,5 @@
 package com.koitt.tim.dto.order;
 
-
 import java.sql.Timestamp;
 
 public class OrderDto {
@@ -12,6 +11,7 @@ public class OrderDto {
 	private String o_name;// 주문자명
 	private String o_tel;// 주문자전화번호
 	private int o_cost;// 배송료
+	private Timestamp o_update_date;// 반품신청가능기한, 구매확정기한의 기준
 
 	public String getO_num() {
 		return o_num;
@@ -75,5 +75,13 @@ public class OrderDto {
 
 	public void setO_cost(int o_cost) {
 		this.o_cost = o_cost;
+	}
+
+	public Timestamp getO_update_date() {
+		return o_update_date;
+	}
+
+	public void setO_update_date(Timestamp o_update_date) {
+		this.o_update_date = o_update_date;
 	}
 }

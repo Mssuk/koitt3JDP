@@ -13,31 +13,6 @@
 </c:if>	
 
 <script type="text/javascript">
-	function retu_cancel(a){
-		if(confirm("반품/교환 신청을 취소하시겠습니까?")){
-		       
-			$.ajax({
-		        url : "/delChangeOne",   // 받을 url
-		        type : "POST",   
-		        data: JSON.stringify({key:a}),  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
-		        contentType: "application/json",
-		        success : function (data) {
-		           if(data== 1){ //리턴값이 ok일 경우
-		        	  location.reload(); //새로고침 해준다.
-		              alert('취소 완료');
-		           }else if(data == 0){
-						alert('취소 실패');
-					}
-		        },
-		        error : function(){ //오류일경우 경고창을 띄움
-		           alert("통신 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.\n오류가 반복될 경우, 고객센터로 문의 부탁드립니다.\n(error_code: deleteError)");
-		        }
-		     });
-			}
-	}
-</script>	
-
-<script type="text/javascript">
 	//입금전 취소
 	function order_cancel(a){
 		if(confirm("주문을 취소하시겠습니까? \n같은 주문번호에 해당하는 상품은 모두 취소됩니다.")){
@@ -159,6 +134,8 @@
 								<th scope="col">주문상태</th>
 							</thead>
 							<tbody>
+								<jsp:useBean id="now" class="java.util.Date"></jsp:useBean>
+								<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"/>
 								<c:forEach var="dtos" items="${orderList}">
 									<tr>
 										<td>
@@ -171,48 +148,44 @@
 										<td class="tnone"><span><fmt:formatNumber value="${dtos.price }" pattern="#,###" /></span> 원</td>
 										<td class="tnone"><span><fmt:formatNumber value="${dtos.o_quant }" pattern="#,###" /></span>개</td>
 										<td>
-											<c:choose>
-												<c:when test="${dtos.c_state!='' }">
-													<c:if test="${dtos.c_state=='대기중' }">
-														<span class="lightgray">${dtos.c_state }</span>
-														<ul class="state">
-															<li><a href="javascript:;" onclick="retu_cancel('${dtos.key}')" class="nbtnMini">취소</a></li>
-														</ul>	
-													</c:if>
-													<c:if test="${dtos.c_state=='취소대기중' }">
-														<span class="lightgray">${dtos.c_state }</span>
-														<ul class="state">
-															<li><a href="javascript:;" onclick="retu_cancel2('${dtos.o_num}')" class="nbtnMini">취소</a></li>
-														</ul>	
-													</c:if>
-													<c:if test="${dtos.c_state!='대기중'&&dtos.c_state!='취소대기중' }">
-														<span class="orange">${dtos.c_state }</span>
-													</c:if>
-												</c:when>
-												<c:when test="${dtos.c_state=='' }">
 													<c:choose>
+														<c:when test="${dtos.o_status=='취소신청' }">
+															<span class="lightgray">${dtos.o_status}</span>
+															<ul class="state">
+																<li><a href="javascript:;" onclick="retu_cancel2('${dtos.o_num}')" class="nbtnMini">취소</a></li>
+															</ul>	
+														</c:when>
 														<c:when test="${dtos.o_status=='배송완료'||dtos.o_status=='구매확정' }">
 															<span class="heavygray">배송완료</span>
+															<fmt:parseDate value="${dtos.o_update_date}" var="n_regist" pattern="yyyy-MM-dd"/>
+															<fmt:parseNumber value="${n_regist.time / (1000*60*60*24)}" integerOnly="true" var="regist"/>
+															<c:set value="${today - regist }" var="dayDiff" />
 															<ul class="state">	
-																<li class="r5"><a href="return?num1=${dtos.key }&num2=${dtos.o_num}" class="obtnMini iw40">교환</a></li>
-																<li><a href="return?num1=${dtos.key }&num2=${dtos.o_num}" class="nbtnMini iw40">반품</a></li>
 																<c:choose>
 																	<c:when test="${dtos.o_status=='배송완료'}">
-																		<li><a href="#" class="decidebtn">구매확정</a></li>
+																		<c:if test="${dayDiff <= 14}">
+																			<li class="r5"><a href="return?num1=${dtos.key }&num2=${dtos.o_num}" class="obtnMini iw40">교환</a></li>
+																			<li><a href="return?num1=${dtos.key }&num2=${dtos.o_num}" class="nbtnMini iw40">반품</a></li>
+																		</c:if>
+																		<c:if test="${dayDiff <= 28}">
+																			<li><a href="updateOs?num1=${dtos.o_num}" class="decidebtn">구매확정</a></li>
+																		</c:if>
 																	</c:when>
 																	<c:when test="${dtos.o_status=='구매확정'}">
-																		<li><a href="review" class="popBtn">리뷰작성</a></li>
+<%-- 																		<c:if test="${dayDiff <= 14}"> --%>
+																			<li><a href="review?num1=${dtos.key }" id="popBtn" class="nbtnMini">리뷰작성</a></li>
+<%-- 																		</c:if>	 --%>
 																	</c:when>
 																</c:choose>
 															</ul>										
 														</c:when>
-														<c:when test="${dtos.o_status=='입금대기중' }">
+														<c:when test="${dtos.o_status=='결제대기중' }">
 															<span class="lightgray">${dtos.o_status }</span>
 															<ul class="state">
 																<li><a onclick="order_cancel('${dtos.o_num }')" class="nbtnMini iw83">취소</a></li>
 															</ul>										
 														</c:when>
-														<c:when test="${dtos.o_status=='입금완료' }">
+														<c:when test="${dtos.o_status=='결제완료' }">
 																<span class="lightgray">${dtos.o_status }</span>
 																<ul class="state">
 																	<li><a onclick="order_cancel2('${dtos.o_num }')" class="nbtnMini iw83">취소</a></li>
@@ -222,17 +195,21 @@
 																<span class="orange ">${dtos.o_status }</span>									
 														</c:otherwise>
 													</c:choose>
-												</c:when>
-												
-											</c:choose>
-											
 										</td>
 									</tr>
 									
 									</c:forEach>
 							</tbody>
 						</table>
-
+						<c:if test="${orderList.size()<5 }">
+							<div class="noData web">
+								이하 여백
+							</div>
+							<c:forEach begin="0" step="1" end="${3-orderList.size() }">
+								<div class="noData web">
+							</div>
+							</c:forEach>
+						</c:if>
 						
 					</div>
 					
@@ -286,8 +263,10 @@ $(function(){
 	var winWidth = $(window).width();
 	if(winWidth > 767){
 		var layerCheck = 760;
+		var popCheck = 768;
 	}else{
 		var layerCheck = 320;
+		var popCheck = 320;
 	}
 
 	$(".iw40").fancybox({
@@ -302,7 +281,7 @@ $(function(){
 			});
 		}
 	});
-	$(".popBtn").fancybox({
+	$("#popBtn").fancybox({
         'autoDimensions'    : false,
         'showCloseButton'	: false,
         'width' : popCheck,
@@ -310,7 +289,7 @@ $(function(){
         'type'			: 'iframe',
         'onComplete' : function() {
             $('#fancybox-frame').load(function() { // wait for frame to load and then gets it's height
-                $('#fancybox-content').height($(this).contents().find('body').height());
+            $('#fancybox-content').height($(this).contents().find('body').height());
             });
         }
     });

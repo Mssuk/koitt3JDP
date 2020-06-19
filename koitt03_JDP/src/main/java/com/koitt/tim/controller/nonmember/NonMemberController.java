@@ -121,4 +121,10 @@ public class NonMemberController {
 		return "nonmember/reason";
 	}
 
+	// 비회원리뷰창 생성
+	@RequestMapping("review")
+	public String review(@RequestParam(value = "num1", defaultValue = "") String key, Model model) {
+		return "nonmember/review";
+	}
+
 }

@@ -93,16 +93,7 @@ public class NonmemberServiceImpl implements NonmemberService {
 		int startNum = (pageNum - 1) * PAGE_LIMIT + 1;
 		// 끝 글넘버
 		int endNum = startNum + PAGE_LIMIT - 1;
-		List<OrderListDto> list = odao.selectOrderListNone(o_num, startNum, endNum);
-		for (int i = 0; i < list.size(); i++) {
-			String c_state = "";
-			if (cdao.selectChangeOne(list.get(i).getKey()) != null) {
-				ChangeDto cdto = cdao.selectChangeOne(list.get(i).getKey());
-				c_state = cdto.getC_state();
-			}
-			list.get(i).setC_state(c_state);
-		}
-		return list;
+		return odao.selectOrderListNone(o_num, startNum, endNum);
 	}
 
 	// 마지막 페이지 계산
@@ -179,7 +170,7 @@ public class NonmemberServiceImpl implements NonmemberService {
 	@Override
 	public int cancelOrderA(String o_num) {
 		int check = 1;
-		String o_status = "주문취소";
+		String o_status = "취소";
 		try {
 			odao.updateOrderOne(o_num, o_status);
 		} catch (Exception e) {
@@ -194,12 +185,11 @@ public class NonmemberServiceImpl implements NonmemberService {
 		int check = 1;
 		List<OrderListDto> list = odao.selectOrderList(o_num);
 		String type = "취소";
-		String o_status = "취소신청중";
 		try {
 			for (int i = 0; i < list.size(); i++) {
 				cdao.insertChangeOrder(list.get(i).getKey(), type);
 			}
-			odao.updateOrderOne(o_num, o_status);
+			odao.updateOrderOne(o_num, type);
 		} catch (Exception e) {
 			check = 0;
 		}

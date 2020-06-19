@@ -35,10 +35,6 @@
     </insert>
 
 
-    <select id="selectOneOrder" resultType="String">
-        select "id" from "ORDER" where "o_num" = #{o_num} and "o_tel" = #{orderTel}
-    </select>
-
     <select id="selectOrderCount" resultType="int">
         select count(*) from "ORDER" where "id"=#{id}
     </select>
@@ -46,8 +42,7 @@
 
 
     <select id="selectOrderList" resultType="orderListDto">
-        select * from (select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status
-                       from  ORDER_LIST col2, "ORDER" col1 where col1."o_num" = col2."o_num") where "o_num" = #{orderNum};
+        select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status from "ORDER" col1 join ORDER_LIST col2 on col1."o_num" = #{orderNum}
     </select>
 
 	<!-- 비회원 주문조회 (아이디조회)-->
@@ -56,8 +51,9 @@
 	</select>
 	<!--비회원..(아이디없이 주문번호에 해당하는 것만 다 가져옵니다. -->
 	<select id="selectOrderListNone" resultType="orderListDto">
-        select  ROWNUM,col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status,col2."pro_num",col2.key from "ORDER" col1,ORDER_LIST col2 where col2."o_num"=col1."o_num" and col2."o_num"= #{orderNum} and (ROWNUM <![CDATA[ >= ]]> #{p1}
-          and ROWNUM <![CDATA[ <= ]]> #{p2}) 
+      select ROWNUM,col.* from (select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status,col2."pro_num",col2.key from "ORDER" col1,ORDER_LIST col2 where col2."o_num"=col1."o_num" and col2."o_num"= #{orderNum}) col  left outer join change c on col.key=c.key where 
+c.key is null and ROWNUM <![CDATA[ >= ]]> #{p1}
+          and ROWNUM <![CDATA[ <= ]]> #{p2} 
     </select>
     
     <!-- 반품교환신청시 해당 주문목록 불러가는 것 -->
@@ -72,7 +68,7 @@
     
     <!-- 반품교환현황 페이지 -->
     <select id="selectClaimListNone" resultType="orderListDto">
-    	select  ROWNUM,col3."c_state",col3."c_type",col.* from (select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status,col2."pro_num",col2.key from "ORDER" col1,ORDER_LIST col2 where col2."o_num"=col1."o_num" and col2."o_num"= #{orderNum}) col,change col3  where col.key=col3.key and ROWNUM <![CDATA[ >= ]]> #{p1}
+    	select  ROWNUM,col3.c_state,col3."c_type",col.* from (select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status,col2."pro_num",col2.key from "ORDER" col1,ORDER_LIST col2 where col2."o_num"=col1."o_num" and col2."o_num"= #{orderNum}) col,change col3  where col.key=col3.key and ROWNUM <![CDATA[ >= ]]> #{p1}
           and ROWNUM <![CDATA[ <= ]]> #{p2}
     </select>
     

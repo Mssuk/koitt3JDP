@@ -14,6 +14,7 @@ public class OrderListDto {
 	private String o_status;
 	private String c_state;
 	private String c_type;
+	private Timestamp o_update_date;// 반품신청가능기한, 구매확정기한의 기준
 
 	public String getKey() {
 		return key;
@@ -93,5 +94,13 @@ public class OrderListDto {
 
 	public void setC_type(String c_type) {
 		this.c_type = c_type;
+	}
+
+	public Timestamp getO_update_date() {
+		return o_update_date;
+	}
+
+	public void setO_update_date(Timestamp o_update_date) {
+		this.o_update_date = o_update_date;
 	}
 }
