@@ -31,7 +31,6 @@ public interface OrderDao {
 
 	String selectOneOrder(@Param("o_num") String o_num, @Param("orderTel") String orderTel);
 
-	List<OrderListDto> selectOrderList(@Param("orderNum") String orderNum);
 
 	// 비회원 주문번호 검색
 	OrderDto selectOrderOne(@Param("o_num") String o_num, @Param("o_tel") String o_tel);
