@@ -176,14 +176,14 @@
 								<tr>
 									<th scope="row"><span>이름 *</span></th>
 									<td class="r10"><input type="text" class="w134"
-										name="name" id="name"/>
+										name="name" id="name" value="aaaa"/>
 								</tr>
 								<tr>
 									<th scope="row"><span>아이디 *</span></th>
 									<td>
 										<ul class="pta">
 											<li class="r10"><input type="text" class="w134"
-												name="id" id="id"/></li>
+												name="id" id="id" value="홍길동"/></li>
 											<li>
 												<button type="button" class="nbtnMini" onclick="id_ch()">중복
 													확인</button>
@@ -199,7 +199,7 @@
 									<td>
 										<ul class="pta">
 											<li class="r10"><input type="password" class="w134"
-												name="pw" id="pw" /></li>
+												name="pw" id="pw" value="1234"/></li>
 											<li><span class="mvalign">※ 영문 / 숫자 / 특수문자 혼용으로
 													8~20자 까지 가능.</span></li>
 										</ul>
@@ -210,7 +210,7 @@
 									<td>
 										<ul class="pta">
 											<li class="r10"><input type="password" class="w134"
-												name="pw2" id="pw2" /></li>
+												name="pw2" id="pw2" value="1234"/></li>
 											<li><span class="mvalign orange" id="alert-danger">*
 													비밀번호가 일치하지 않습니다.</span></li>
 											<li><span class="mvalign black" id="alert-success">*
@@ -243,7 +243,7 @@
 									<th scope="row"><span>이메일 *</span></th>
 									<td>
 										<ul class="pta">
-											<li><input type="text" class="w134" name="email1" /></li>
+											<li><input type="text" class="w134" name="email1" value="aaaa1234"/></li>
 											<li><span class="valign">&nbsp;@&nbsp;</span></li>
 											<li class="r10"><input type="text" class="w134"
 												name="email2" /></li>
@@ -297,8 +297,16 @@
 										<ul class="pta">
 											<li><input type="text" id="address1" class="w134" name="address1" readonly="readonly" value="우편번호"/>&nbsp;</li>
 											<li><input type="button" class="addressBtn" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"></li>
-											<li class="pt5"><input type="text" id="address2" class="addressType" name="address2" value="주소"/></li>
-											<li class="pt5"><input type="text" id="address3" class="addressType" name="address3" value="상세주소"/></li>
+											<li class="pt5"><input type="text" id="address2" class="addressType" name="address2" value="주소" readonly/></li>
+											<li class="pt5"><input type="text" id="address3" class="addressType" name="address3"/></li>
+											<%--<script>
+												$(function() {
+													$('#address3').onmouseenter(function(){
+
+													})
+
+												});
+											</script>--%>
 											<li class="cb">
 												<span class="mvalign">
 												※ 상품 배송 시 받으실 주소입니다. 주소를 정확히 적어 주세요.

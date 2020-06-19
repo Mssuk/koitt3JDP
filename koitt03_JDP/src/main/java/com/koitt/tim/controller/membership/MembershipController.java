@@ -112,13 +112,12 @@ public class MembershipController {
 	}
 
 	@RequestMapping(value = "signUp", method = RequestMethod.POST)
-	public String signUp(MemberDto mdto, SjoinStringDto jdto, ModelMap model) throws Exception {
+	public String signUp(MemberDto mdto) throws Exception {
 
 		mdto.setBirth(mdto.getBirth1(), mdto.getBirth2(), mdto.getBirth3());
 		mdto.setPhone(mdto.getPhone1(), mdto.getPhone2(), mdto.getPhone3());
 		mdto.setEmail(mdto.getEmail1(), mdto.getEmail2());
 		mdto.setTel(mdto.getTel1(), mdto.getTel2(), mdto.getTel3());
-		System.out.println(mdto);
 
 		membershipService.signUp(mdto);
 
@@ -137,9 +136,4 @@ public class MembershipController {
 		return "membership/join3";
 	}
 
-	@RequestMapping("join4")
-	public String join4() {
-
-		return "membership/join4";
-	}
 }
