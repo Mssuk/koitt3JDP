@@ -8,6 +8,8 @@ public interface MembershipService {
 
 	void signUp(MemberDto dto);
 
+	int idCheck(String id);
+
 	MemberDto getMemInfo(String id);
 
 	int getNonMemInfo(String o_num, String orderTel);

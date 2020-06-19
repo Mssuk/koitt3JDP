@@ -6,10 +6,10 @@
 	response.sendRedirect("/main");
 }
 %>
-
 <jsp:include page="../common/header.jsp" />
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script>
-	function id_ch() {
+	function id_ch(form) {
 
 		var ch_id = /^[a-zA-Z][0-9][_]{4,16}$/;
 	    // 4~16자 까지 가능, 영문, 숫자와 특수기호(_)만 사용 가능
@@ -30,22 +30,29 @@
 		}
 		*/
 
-		if (join.id.value == "abcd1234") {
-			alert('아이디가 존재합니다.');
-			join.id.value = "";
-			join.id.focus();
-			return false;
-		}
+		var $id = $('#id').val();
+		var Obj = {};
+		Obj.id = $id;
 
-		/*
-		else {
-			alert('사용가능한 ID입니다.');
-			// 아이디 중복체크 확인 할 수 있는 기능 필요
-			ch_yn = 2;
-			return true;
-		}
-		*/
-	}
+		var jsonData = JSON.stringify(Obj);
+
+		$.ajax({
+			url : `idCheck`,
+			type : 'POST',
+			data : jsonData,
+			contentType : 'application/json',
+			success : function(data){
+				if(data == 0){
+					alert('아이디가 이미 존재합니다.')
+				} else{
+					alert('사용할 수 있는 아이디 입니다.')
+				}
+			},
+			error: function (e) {
+				console.log(e)
+			}
+		})
+}
 
 	//var va = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()\-_=+\\\|\[\]{};:\,.<>\/?]).{8,20}$/;
 	// ^(?=.*[a-z] [.]=1개씩비교  [*]=모든문자에서  a-z있는지 확인.
@@ -83,7 +90,8 @@
 		else
 			join.submit();
 	}
-</script>
+
+	</script>
 <div id="container">
 
 	<div id="location">
@@ -185,7 +193,7 @@
 											<li class="r10"><input type="text" class="w134"
 												name="id" id="id"/></li>
 											<li>
-												<button type="button" class="nbtnMini" onclick="id_ch()">중복
+												<button type="button" class="nbtnMini" onclick="id_ch(this.form)">중복
 													확인</button>
 											</li>
 											<!-- <li><a href="#" class="nbtnMini">중복확인</a></li> -->
@@ -243,13 +251,26 @@
 									<th scope="row"><span>이메일 *</span></th>
 									<td>
 										<ul class="pta">
-											<li><input type="text" class="w134" name="email1" value="aaaa1234"/></li>
+											<!-- selct 선택하면 email창에 자동으로 입력되는 함수 -->
+											<script language="JavaScript">
+												function selectEmail(frm) {
+
+													var email = frm.emailList.selectedIndex ;
+
+													switch(email){
+														case 1:
+															frm.email2.value = 'naver.com';
+															break;
+													}
+													return true;
+												}
+											</script>
+											<li><input type="text" class="w134" name="email1" /></li>
 											<li><span class="valign">&nbsp;@&nbsp;</span></li>
-											<li class="r10"><input type="text" class="w134"
-												name="email2" /></li>
-											<li><select id="emailList" name="email29">
+											<li class="r10"><input type="text" class="w134" name="email2" /></li>
+											<li><select id="emailList" onchange="selectEmail(this.form)" name="emailList">
 													<option value="#" selected="selected">직접입력</option>
-													<option value="naver.com">naver.com</option>
+													<option value=1>naver.com</option>
 													<option value="daum.net">daum.net</option>
 													<option value="hanmail.net">hanmail.net</option>
 													<option value="nate.com">nate.com</option>
@@ -265,13 +286,7 @@
 													<option value="gmail.com">gmail.com</option>
 													<option value="empas.com">empas.com</option>
 											</select>
-												<!-- selct 선택하면 email창에 자동으로 입력되는 함수
-												<script>
-													$(function (){
 
-														})
-												</script>
-												-->
 											</li>
 										</ul>
 									</td>
@@ -298,15 +313,7 @@
 											<li><input type="text" id="address1" class="w134" name="address1" readonly="readonly" value="우편번호"/>&nbsp;</li>
 											<li><input type="button" class="addressBtn" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"></li>
 											<li class="pt5"><input type="text" id="address2" class="addressType" name="address2" value="주소" readonly/></li>
-											<li class="pt5"><input type="text" id="address3" class="addressType" name="address3"/></li>
-											<%--<script>
-												$(function() {
-													$('#address3').onmouseenter(function(){
-
-													})
-
-												});
-											</script>--%>
+											<li class="pt5"><input type="text" id="address3" class="addressType" name="address3" placeholder="상세주소"/></li>
 											<li class="cb">
 												<span class="mvalign">
 												※ 상품 배송 시 받으실 주소입니다. 주소를 정확히 적어 주세요.
