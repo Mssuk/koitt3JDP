@@ -176,14 +176,14 @@
 								<tr>
 									<th scope="row"><span>이름 *</span></th>
 									<td class="r10"><input type="text" class="w134"
-										name="name" id="name" value="aaaa"/>
+										name="name" id="name"/>
 								</tr>
 								<tr>
 									<th scope="row"><span>아이디 *</span></th>
 									<td>
 										<ul class="pta">
 											<li class="r10"><input type="text" class="w134"
-												name="id" id="id" value="홍길동"/></li>
+												name="id" id="id"/></li>
 											<li>
 												<button type="button" class="nbtnMini" onclick="id_ch()">중복
 													확인</button>
@@ -199,7 +199,7 @@
 									<td>
 										<ul class="pta">
 											<li class="r10"><input type="password" class="w134"
-												name="pw" id="pw" value="1234"/></li>
+												name="pw" id="pw"/></li>
 											<li><span class="mvalign">※ 영문 / 숫자 / 특수문자 혼용으로
 													8~20자 까지 가능.</span></li>
 										</ul>
@@ -210,7 +210,7 @@
 									<td>
 										<ul class="pta">
 											<li class="r10"><input type="password" class="w134"
-												name="pw2" id="pw2" value="1234"/></li>
+												name="pw2" id="pw2"/></li>
 											<li><span class="mvalign orange" id="alert-danger">*
 													비밀번호가 일치하지 않습니다.</span></li>
 											<li><span class="mvalign black" id="alert-success">*
