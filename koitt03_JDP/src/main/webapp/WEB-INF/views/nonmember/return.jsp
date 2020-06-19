@@ -18,8 +18,18 @@
     <script type="text/javascript" src="../js/common.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script type="text/javascript">
-       function retch(form){
-    	   form.c_type.
+	   
+       function retch(){
+	    	if(change.c_type.value==''){
+	    		alert('교환 혹은 반품 중 선택해주세요');
+	    		return false;
+	    	}if(change.c_reason.value==''){
+	    		alert('상세이유를 작성해주세요');
+	    		return false;
+	    	}
+	    	document.change.target = "_parent";
+	    	document.change.submit();
+	    	self.close();
        }
     </script>
     <style type="text/css">
@@ -29,7 +39,7 @@
     </style>
 </head>
 <body>
-<form id="layerWrap" name="return" method="post" action="updateOrder">
+<form id="layerWrap" name="change" method="post" action="/doReturn">
 
     <div class="inputWrap">
 
@@ -90,7 +100,7 @@
 									<th scope="row"><span>분류</span></th>
 									<td>
 										<select name="c_type">
-											<option disabled="disabled" selected="selected" hidden="">선택해주세요</option>
+											<option disabled="disabled" selected="selected" hidden="" value="">선택해주세요</option>
 											<option value="교환">교환</option>
 											<option value="반품">반품</option>
 										</select>
@@ -100,7 +110,7 @@
 									<th scope="row"><span>자세한 이유</span></th>
 									<td>
 										<textarea class="tta" name="c_reason"></textarea>
-										<input type="text" hidden="" name="Key" value="${odto.key }"> 
+										<input type="text" hidden="" name="key" value="${odto.key }"> 
 									</td>
 								</tr>
 							</tbody>
@@ -111,7 +121,7 @@
 					<div class="btnArea">
 						<div class="bCenter">
 							<ul>								
-								<li><a onclick="retch(this.form)" class="sbtnMini">반품/교환신청</a></li>
+								<li><a href="javascript:;" onclick="retch()" class="sbtnMini">반품/교환신청</a></li>
 								<li><a onclick="parent.$.fancybox.close();" href="javascript:;" class="nbtnbig">취소</a></li>
 							</ul>
 						</div>
