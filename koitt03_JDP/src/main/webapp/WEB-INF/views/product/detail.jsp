@@ -42,9 +42,9 @@
 
                         <div class="thum">
                             <ul>
-                                <li><img src=${dto.front_image1 } alt="썸네일 제품이미지" /></li>
-                                <li><img src=${dto.front_image2 } alt="썸네일 제품이미지" /></li>
-                                <li><img src=${dto.front_image3 } alt="썸네일 제품이미지" /></li>
+                                <li><img src=${dto.front_image1 } alt="썸네일제품이미지" /></li>
+                                <li><img src=${dto.front_image2 } alt="썸네일제품이미지" /></li>
+                                <li><img src=${dto.front_image3 } alt="썸네일제품이미지" /></li>
                             </ul>
                         </div>
                     </div>
@@ -273,8 +273,14 @@ $("#cartPut").click(function(){
                     <div class="goodsReview disnone">
                         <div class="headTitle">
                             <strong>포토 상품평&nbsp;</strong> 포토 상품평 작성자 중 우수상품평을 선정해 소정의 선물을 드립니다.
-                            <p class="btn"><a href="photo.html" class="popBtn">포토 상품평 작성</a></p>
+                            <p class="btn"><a onclick="photo('${dto.pro_num}')" >포토 상품평 작성</a></p>
                         </div>
+                        <script>
+                            function photo(pro_num) {
+                                window.name = "parentForm";
+                                window.open("/product/photo?pro_num="+pro_num,"childForm","width=600, height=600, resizable = no, scrollbars = no");
+                            }
+                        </script>
 
 
                         <!-- 포토 구매후기 -->
@@ -336,8 +342,18 @@ $("#cartPut").click(function(){
 
                         <div class="headTitle depth">
                             <strong>상품리뷰&nbsp;</strong>상품리뷰는 상품 구매 후 작성하실 수 있습니다.
-                            <p class="btn"><a href="review.html" class="popBtn">구매 후기 작성</a></p>
+                            <p class="btn"><a onclick="writeReview('${dto.pro_num}')">구매 후기 작성</a></p>
                         </div>
+
+                        <script>
+                            function writeReview(pro_num) {
+
+                               window.name = "parentForm";
+
+                                 window.open("/product/review?pro_num="+pro_num,"childForm","width=600, height=600, resizable = no, scrollbars = no");
+                            }
+
+                        </script>
 
                         <!-- 상품리뷰 -->
                         <div class="accordion">
