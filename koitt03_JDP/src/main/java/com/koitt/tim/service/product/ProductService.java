@@ -13,4 +13,6 @@ public interface ProductService {
     List<ReviewDto> getReviewList(String pro_num);
     List<ProductDto> getProductList();
     ProductDto getProductChoice(String pro_num);
+    void addReview(String id,String type,int star,String title,String content,String pro_num);   //review 추가
+    void addPhotoReview(ReviewDto rDto);
 }

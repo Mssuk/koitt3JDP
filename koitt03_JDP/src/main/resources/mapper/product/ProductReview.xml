@@ -10,6 +10,32 @@
         where r."Key"=o.KEY and o."pro_num"=#{pro_num}
     </select>
 
+    <insert id="insertReview">
+        insert into REVIEW
+        values (REVIEW_SEQ.nextval,#{id},'2020000000',#{title},sysdate,'0',#{star},#{content},null,'Y','1',null,#{type},'n',null,#{pro_num})
+    </insert>
 
+    <insert id="insertPhotoReview">
+        insert into REVIEW
+        values (
+                REVIEW_SEQ.nextval,
+                #{id},
+                '2020060306',
+                #{title},
+                sysdate,
+                '0',
+                #{score},
+                #{content,jdbcType=VARCHAR},
+                #{image_small,jdbcType=VARCHAR},
+                'y',
+                '2',
+                null,
+                #{board_type},
+                'n',
+                null,
+                #{pro_num,jdbcType=VARCHAR}
+               )
+
+    </insert>
 
 </mapper>
