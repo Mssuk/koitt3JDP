@@ -50,9 +50,8 @@ public class MembershipServiceImpl implements MembershipService {
 	}
 
 	@Override
-	public int signUp(MemberDto mdto) {
+	public void signUp(MemberDto mdto) {
 		memberDao.insertMember(mdto);
-		return 0;
 	}
 
 	@Override
