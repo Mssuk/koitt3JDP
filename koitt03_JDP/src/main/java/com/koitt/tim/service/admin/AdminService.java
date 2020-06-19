@@ -9,7 +9,9 @@ import com.koitt.tim.dto.category.CategoryDept2Dto;
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
+import com.koitt.tim.dto.product.MainProductDto;
 import com.koitt.tim.dto.product.ProductDto;
+import com.koitt.tim.dto.product.ProductQuestionDto;
 import com.koitt.tim.dto.product.ProductSerialDto;
 import com.koitt.tim.dto.product.RelatedProductDto;
 
@@ -49,4 +51,47 @@ public interface AdminService {
 
 	// Related product
 	List<RelatedProductDto> getAllRelatedProducts();
+
+	// Related product add
+	void insertRelatedProduct(String targetId, String additionId, String index);
+
+	// Relate product field set null
+	void updateRelateProduct(String targetId, String index);
+
+	// Category 1 insert
+	void insertCate1(CategoryDept1Dto cDto);
+
+	// Category 2 insert
+	void insertCate2(CategoryDept2Dto cDto);
+
+	// Category1 delete
+	void deleteCate1(String code);
+
+	// Category2 delete
+	void deleteCate2(String code);
+
+	// 시리얼 넘버 가져오기
+	List<ProductSerialDto> getAllSerialNumber();
+
+	// 하나의 시리얼 넘버와 상품
+	ProductSerialDto getSerialOne(String code);
+
+	// 상품 delete
+	void deleteProduct(String code);
+
+	// 상품 하나 가져오기
+	ProductDto getProduct(String code);
+
+	// 상품카테고리 update, 상품 update
+	void updateProduct(ProductDto pDto, ProductSerialDto psDto);
+
+	// 메인 상품 가져오기
+	List<MainProductDto> getAllMProduct();
+
+	// 메인 상품 상태 업데이트
+	void updateMProduct(String code, String index, int value);
+
+	// 상품문의 가져오기
+	List<ProductQuestionDto> getAllPQuestion();
+
 }

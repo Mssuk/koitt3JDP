@@ -13,9 +13,6 @@ public interface NoticeDao {
 	// 공지사항 추가
 	void insertNotice(NoticeDto nDto);
 
-//	// 모든 공지사항 갖고옴
-//	List<NoticeDto> selectAllNotice();
-
 	// 모든 공지사항 갖고옴
 	List<NoticeDto> selectAllNotice(@Param("p1") int start, @Param("p2") int end, @Param("opt") String search,
 			@Param("key") String txt);
@@ -34,4 +31,7 @@ public interface NoticeDao {
 
 	// 조회수 1증가
 	void updateUpHit(@Param("n_num") String n_num);
+
+	// 모든 공지사항 갖고옴(admin용)
+	List<NoticeDto> selectAllNoticeAdmin();
 }

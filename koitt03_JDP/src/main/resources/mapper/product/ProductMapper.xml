@@ -5,7 +5,7 @@
 
 <mapper namespace="com.koitt.tim.dao.product.ProductDao">
     <select id="selectProduct" resultType="com.koitt.tim.dto.product.ProductDto">
-        select * from PRODUCT
+        select * from PRODUCT order by UPDATE_DATE desc
     </select>
 
     <select id="selectProductOne" resultType="ProductDto">
@@ -20,5 +20,36 @@
 		#{front_image1},#{front_image2},#{front_image3},#{back_image},
 		sysdate,sysdate)
 	</insert>
+
+	<!-- product delete -->
+	<delete id="deleteProduct">
+		delete PRODUCT where PRO_NUM = #{param1}
+	</delete>
+	
+	<!--  product update -->
+	<update id="updateProduct" parameterType="ProductDto">
+		update product
+		<trim prefix="set" suffixOverrides=",">
+			<if test="product_name!=null">product_name=#{product_name},</if>
+			<if test="supply_price!=null">supply_price=#{supply_price},</if>
+			<if test="product_price!=null">product_price=#{product_price},</if>
+			<if test="sales_price!=null">sales_price=#{sales_price},</if>
+			<if test="amount!=null">amount=#{amount},</if>
+			<if test="manufacturer!=null">manufacturer=#{manufacturer},</if>
+			<if test="nutrient!=null">nutrient=#{nutrient},</if>
+			<if test="product_kcal!=null">product_kcal=#{product_kcal},</if>
+			<if test="shelf_life!=null">shelf_life=#{shelf_life},</if>
+			<if test="packing!=null">packing=#{packing},</if>
+			<if test="capacity!=null">capacity=#{capacity},</if>
+			<if test="front_image1!=null">front_image1=#{front_image1},</if>
+			<if test="front_image2!=null">front_image2=#{front_image2},</if>
+			<if test="front_image3!=null">front_image3=#{front_image3},</if>
+			<if test="back_image!=null">back_image=#{back_image},</if>
+		    <if test="product_state!=null">product_state=#{product_state},</if>
+			update_date= sysdate,
+		</trim>
+		where pro_num = #{pro_num}
+		
+	</update>
 
 </mapper>

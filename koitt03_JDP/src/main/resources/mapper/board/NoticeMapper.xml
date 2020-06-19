@@ -65,4 +65,9 @@
 		(notice_seq.nextval, #{n_title}, #{n_content}, sysdate ,0)
 	</insert>
 
+	<!-- admin: all of notice get -->
+	<select id="selectAllNoticeAdmin" resultType="NoticeDto">
+		select * from NOTICE  ORDER BY  N_REGIST desc
+	</select>
+
 </mapper>
