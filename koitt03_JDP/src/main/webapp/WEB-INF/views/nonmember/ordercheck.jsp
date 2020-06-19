@@ -191,12 +191,19 @@
 												</c:when>
 												<c:when test="${dtos.c_state=='' }">
 													<c:choose>
-														<c:when test="${dtos.o_status=='배송완료' }">
-															<span class="heavygray">${dtos.o_status }</span>
+														<c:when test="${dtos.o_status=='배송완료'||dtos.o_status=='구매확정' }">
+															<span class="heavygray">배송완료</span>
 															<ul class="state">	
 																<li class="r5"><a href="return?num1=${dtos.key }&num2=${dtos.o_num}" class="obtnMini iw40">교환</a></li>
-																<li><a href="return" class="nbtnMini iw40">반품</a></li>
-																<li><a href="#" class="reviewbtn">리뷰작성</a></li>
+																<li><a href="return?num1=${dtos.key }&num2=${dtos.o_num}" class="nbtnMini iw40">반품</a></li>
+																<c:choose>
+																	<c:when test="${dtos.o_status=='배송완료'}">
+																		<li><a href="#" class="decidebtn">구매확정</a></li>
+																	</c:when>
+																	<c:when test="${dtos.o_status=='구매확정'}">
+																		<li><a href="review" class="popBtn">리뷰작성</a></li>
+																	</c:when>
+																</c:choose>
 															</ul>										
 														</c:when>
 														<c:when test="${dtos.o_status=='입금대기중' }">
@@ -223,18 +230,6 @@
 									</tr>
 									
 									</c:forEach>
-<%-- 									<c:if test="${orderList.size()<5 }"> --%>
-<%-- 									<c:forEach begin="0" step="1" end="${4-orderList.size() }"> --%>
-<!-- 											<tr> -->
-<!-- 												<td></td> -->
-<!-- 												<td class="tnone"></td> -->
-<!-- 												<td class="left"></td> -->
-<!-- 												<td class="tnone"></td> -->
-<!-- 												<td></td> -->
-<!-- 											</tr> -->
-<%-- 										</c:forEach> --%>
-<%-- 									</c:if> --%>
-								
 							</tbody>
 						</table>
 
@@ -307,7 +302,18 @@ $(function(){
 			});
 		}
 	});
-
+	$(".popBtn").fancybox({
+        'autoDimensions'    : false,
+        'showCloseButton'	: false,
+        'width' : popCheck,
+        'padding' : 0,
+        'type'			: 'iframe',
+        'onComplete' : function() {
+            $('#fancybox-frame').load(function() { // wait for frame to load and then gets it's height
+                $('#fancybox-content').height($(this).contents().find('body').height());
+            });
+        }
+    });
 });
 </script>
 	</div>
