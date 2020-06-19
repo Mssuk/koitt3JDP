@@ -298,15 +298,7 @@
 											<li><input type="text" id="address1" class="w134" name="address1" readonly="readonly" value="우편번호"/>&nbsp;</li>
 											<li><input type="button" class="addressBtn" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"></li>
 											<li class="pt5"><input type="text" id="address2" class="addressType" name="address2" value="주소" readonly/></li>
-											<li class="pt5"><input type="text" id="address3" class="addressType" name="address3"/></li>
-											<%--<script>
-												$(function() {
-													$('#address3').onmouseenter(function(){
-
-													})
-
-												});
-											</script>--%>
+											<li class="pt5"><input type="text" id="address3" class="addressType" name="address3" placeholder="상세주소"/></li>
 											<li class="cb">
 												<span class="mvalign">
 												※ 상품 배송 시 받으실 주소입니다. 주소를 정확히 적어 주세요.
