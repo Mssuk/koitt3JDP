@@ -48,6 +48,17 @@ public class MembershipController {
 		return result;
 	}
 
+	@RequestMapping("idCheck")
+	@ResponseBody
+	public int logincheck(@RequestBody HashMap<String, String> obj){
+
+		String id = obj.get("id");
+
+		int result = membershipService.idCheck(id);
+
+		return result;
+	}
+
 	// 로그인
 	@RequestMapping(value = "loginOk", method = RequestMethod.POST)
 	public String loginOk(@RequestParam("id") String id, HttpSession session) {
@@ -134,6 +145,12 @@ public class MembershipController {
 	public String join3() {
 
 		return "membership/join3";
+	}
+
+	@RequestMapping("join4")
+	public String join4() {
+
+		return "membership/join4";
 	}
 
 }
