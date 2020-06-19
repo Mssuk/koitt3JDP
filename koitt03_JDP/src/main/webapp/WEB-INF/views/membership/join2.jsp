@@ -656,7 +656,7 @@
                         <ul>
                             <li><a href="/main" class="nbtnbig">취소하기</a></li>
                             <li>
-                                <button type="button" onclick='agree_ch(this.form)'>가입하기</button>
+                                <button type="button" onclick='agree_ch(this.form)' class="sbtnMini">가입하기</button>
                             </li>
                             <!--<li><a href="/membership/join3" class="sbtnMini">가입하기</a></li>-->
                         </ul>
