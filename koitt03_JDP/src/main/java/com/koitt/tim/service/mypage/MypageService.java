@@ -13,7 +13,7 @@ public interface MypageService {
 
 	int orderCount(String id);
 
-	ArrayList<String> orderNum(String id);
+	ArrayList<String> orderNumList(String id);
 
-	List<OrderListDto> orderList(String orderNum);
+	List<OrderListDto> orderList(String OrderNum);
 }

@@ -136,12 +136,12 @@
                                         ${order.product_name}
                                     </td>
                                     <td class="tnone">${order.price} 원</td>
-                                    <td class="tnone">${order.quantity}개</td>
+                                    <td class="tnone">${order.o_quant}개</td>
                                     <td>
                                         <span class="heavygray">${order.status}</span>
                                         <ul class="state">
-                                            <li class="r5"><a href="return.html" class="obtnMini iw40">교환</a></li>
-                                            <li><a href="return.html" class="nbtnMini iw40">반품</a></li>
+                                            <li class="r5"><a href="return" class="obtnMini iw40">교환</a></li>
+                                            <li><a href="return" class="nbtnMini iw40">반품</a></li>
                                             <li><a href="#" class="reviewbtn">리뷰작성</a></li>
                                             <li><a href="#" class="decidebtn">구매확정</a></li>
                                         </ul>

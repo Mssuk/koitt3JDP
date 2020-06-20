@@ -42,13 +42,14 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public ArrayList<String> orderNum(String id) {
-		return orderDao.selectOrderNum2(id); // orderNumber 반출
-
+	public ArrayList<String> orderNumList(String id) {
+		return orderDao.selectOrderNumList(id);
 	}
 
 	@Override
 	public List<OrderListDto> orderList(String orderNum) {
+		System.out.println("sout : " + orderNum);
 		return orderDao.selectOrderList(orderNum);
+//		orderDao.selectSelectedOrder(orderlist);
 	}
 }

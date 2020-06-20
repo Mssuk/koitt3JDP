@@ -12,12 +12,15 @@ import com.koitt.tim.dto.order.OrderListDto;
 @Repository
 public interface OrderDao {
 
-    int selectOrderCount(@Param("id") String id);
+	int selectOrderCount(String id);
 
 	// 로그인 id로 주문번호 가져오기
 	String selectOrderNum1(@Param("id") String id);
 
-	ArrayList<String> selectOrderNum2(@Param("id") String id);
+	ArrayList<String> selectOrderNumList(String id);
+
+	// 주문 번호를 이용해 주문명세 가져오기(나동수)
+	List<OrderListDto> selectOrderList(String orderNum);
 
 	// 주문 생성
 	void insertOrder(@Param("date") String date, @Param("id") String id, @Param("orderPoint") String orderPoint,
@@ -31,8 +34,6 @@ public interface OrderDao {
 
 	String selectOneOrder(@Param("o_num") String o_num, @Param("orderTel") String orderTel);
 
-	List<OrderListDto> selectOrderList(@Param("orderNum") String orderNum);
-
 	// 비회원 주문번호 검색
 	OrderDto selectOrderOne(@Param("o_num") String o_num, @Param("o_tel") String o_tel);
 
@@ -40,8 +41,6 @@ public interface OrderDao {
 	List<OrderListDto> selectOrderListNone(@Param("orderNum") String o_num, @Param("p1") int startNum,
 			@Param("p2") int endNum);
 
-	// 주문 번호를 이용해 주문명세 가져오기(나동수)
-    List<OrderListDto> selectOrderList(@Param("orderNum") String orderNum);
 	// 교환반품신청시 가져오는 주문목록 1개
 	OrderListDto selectOrderListOne(@Param("key") String key, @Param("orderNum") String o_num);
 }
