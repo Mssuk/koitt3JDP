@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,6 @@ public class MypageController {
 	@RequestMapping("ordercheck")
 	public String ordercheck(Model model, HttpSession session) {
 		MemberDto mDto = (MemberDto) session.getAttribute("loginInfo");
-		List<OrderListDto> listDto;
 
 		if (mDto != null) {
 			int userCoupon = mypageService.countCoupon(mDto.getId());
@@ -46,18 +46,11 @@ public class MypageController {
 			model.addAttribute("orderCount", orderCount);
 
 			// o_num 전체를 불러와 ArrayList에 저장 _나동수
-			ArrayList<String> orderNumList = mypageService.orderNumList(mDto.getId()); // 해당 ID로 등록된 o_num들 전체 불러옴..?
-			System.out.println(orderNumList.get(0));
-			System.out.println(orderNumList.get(1));
-			System.out.println(orderNumList.get(2));
-			System.out.println(orderNumList.get(3));
-			System.out.println(orderNumList.get(4));
-			System.out.println(orderNumList.get(5));
+			ArrayList<String> orderNumList = mypageService.orderNumList(mDto.getId()); // 해당 ID로 등록된 o_num들 전체 불러옴
 			// 불러온 o_num을 이용해 orderList 불러오기 _나동수
 			for (int i = 0; i <= orderNumList.size(); i++) {
-				listDto = mypageService.orderList(orderNumList.get(i));
-				System.out.println("controller" + listDto.get(i));
-				model.addAttribute("orderList", listDto);
+				List<OrderListDto> listDto = mypageService.orderList(orderNumList.get(i));
+				model.addAttribute("orderList",listDto);
 			}
 		}
 		return "mypage/ordercheck";
