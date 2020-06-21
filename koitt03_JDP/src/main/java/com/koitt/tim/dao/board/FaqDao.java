@@ -16,4 +16,12 @@ public interface FaqDao {
 	// FAQ글 개수카운트
 	int selectFaqListCount(@Param("faq_type") String faq_type, @Param("opt") String search, @Param("key") String text);
 
+	// admin - 모든 FAQ
+	List<FaqDto> selectAllFaq();
+
+	// admin - FAQ 등록
+	void insertFaq(FaqDto faqDto);
+
+	// admin - FAQ 삭제
+	void deleteFaq(String key);
 }

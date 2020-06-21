@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koitt.tim.dao.product.ProductAnswerDao">
+	<insert id="insertPAnswer" parameterType="ProductAnswerDto">
+		insert into PRODUCT_ANSWER 
+		values(concat('ask',lpad(q_ask_seq.nextval,4,0)),
+		#{q_num},
+		#{a_content}
+		,sysdate)
+	</insert>
+	
+	<select id="selectAllPAnswer" resultType="ProductAnswerDto">
+		select * from product_answer
+	</select>
+	
+	<update id="updatePAnswer">
+		update product_answer set a_content=#{p1}, a_date=sysdate where a_num = #{p2}
+	</update>
+	
+	<delete id="deletePAnswer">
+		delete product_answer where a_num = #{p1}
+	</delete>
+
+</mapper>
