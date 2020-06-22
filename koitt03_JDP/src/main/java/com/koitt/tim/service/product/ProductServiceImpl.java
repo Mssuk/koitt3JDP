@@ -1,10 +1,13 @@
 //이준희
 package com.koitt.tim.service.product;
 
+import com.koitt.tim.dao.order.OrderDao;
 import com.koitt.tim.dao.product.ProductDao;
+import com.koitt.tim.dao.product.ProductQuestionDao;
 import com.koitt.tim.dao.product.RelatedProductDao;
 import com.koitt.tim.dao.review.ReviewDao;
 import com.koitt.tim.dto.product.ProductDto;
+import com.koitt.tim.dto.product.ProductQuestionDto;
 import com.koitt.tim.dto.product.RelatedProductDto;
 import com.koitt.tim.dto.review.ReviewDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +25,10 @@ public class ProductServiceImpl implements ProductService {
     private ReviewDao rDao;
     @Autowired
     private RelatedProductDao rpDao;
-
+    @Autowired
+    private OrderDao oDao;
+    @Autowired
+    private ProductQuestionDao pqDao;
 
     @Override
     public List<ProductDto> relatedProduct(String pro_num) { //상품번호로 상품과 관련된 상품 리스트를 불러옴.
@@ -66,15 +72,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addReview(String id,String type, int star, String title, String content,String pro_num) {
-        rDao.insertReview(id,type,star,title,content,pro_num);
+    public void addReview(String id, int star, String title, String content,String pro_num) {
+        rDao.insertReview(id,star,title,content,pro_num);
 
     }
 
     @Override
-    public void addPhotoReview(ReviewDto rDto) {
-        rDao.insertPhotoReview(rDto);
+    public List<ProductQuestionDto> getPQuestion(String pro_num) {      //해당 상품 문의 불러오기
+        return pqDao.selectPQuestion(pro_num);
     }
+
+
+//    @Override
+//    public String getOrderNum(String pro_num,String id) {        //해당 상품번호로 주문번호를 불러오기(리뷰쓸 때 사용함)
+//        return oDao.selectOrderKey(pro_num,id);
+//    }
 
 
 }

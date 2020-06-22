@@ -50,4 +50,7 @@ public interface OrderDao {
 	List<OrderListDto> selectClaimListNone(@Param("orderNum") String o_num, @Param("p1") int startNum,
 			@Param("p2") int endNum);
 
+	//상품번호로 상품 주문했던 주문 키 가져오기(리뷰 작성에 쓰임)
+//	String selectOrderKey(String pro_num,String id);
+
 }

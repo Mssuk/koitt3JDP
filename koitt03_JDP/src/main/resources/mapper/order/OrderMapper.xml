@@ -70,5 +70,10 @@
     	select  ROWNUM,col3."c_state",col3."c_type",col.* from (select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status,col2."pro_num",col2.key from "ORDER" col1,ORDER_LIST col2 where col2."o_num"=col1."o_num" and col2."o_num"= #{orderNum}) col,change col3  where col.key=col3.key and ROWNUM <![CDATA[ >= ]]> #{p1}
           and ROWNUM <![CDATA[ <= ]]> #{p2}
     </select>
-    
+
+<!--    &lt;!&ndash;  상품 페이지 리뷰 남기기  &ndash;&gt;-->
+<!--    <select id="selectOrderKey" resultType="String">-->
+<!--        select KEY-->
+<!--    </select>-->
+
 </mapper>

@@ -342,7 +342,7 @@ $("#cartPut").click(function(){
 
                         <div class="headTitle depth">
                             <strong>상품리뷰&nbsp;</strong>상품리뷰는 상품 구매 후 작성하실 수 있습니다.
-                            <p class="btn"><a onclick="writeReview('${dto.pro_num}')">구매 후기 작성</a></p>
+                            <p class="btn"><a onclick="writeReview()">구매 후기 작성</a></p>
                         </div>
 
                         <script>

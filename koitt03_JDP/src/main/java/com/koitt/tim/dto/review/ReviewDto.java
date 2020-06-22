@@ -11,9 +11,6 @@ public class ReviewDto {
     private String hit;
     private String score;
     private String content;
-    private String image_small;
-    private String buy_check;
-    private String group_num;
     private String image;
     private String board_type;
     private String write_check;
@@ -84,30 +81,6 @@ public class ReviewDto {
         this.content = content;
     }
 
-    public String getImage_small() {
-        return image_small;
-    }
-
-    public void setImage_small(String image_small) {
-        this.image_small = image_small;
-    }
-
-    public String getBuy_check() {
-        return buy_check;
-    }
-
-    public void setBuy_check(String buy_check) {
-        this.buy_check = buy_check;
-    }
-
-    public String getGroup_num() {
-        return group_num;
-    }
-
-    public void setGroup_num(String group_num) {
-        this.group_num = group_num;
-    }
-
     public String getImage() {
         return image;
     }
@@ -139,8 +112,6 @@ public class ReviewDto {
     public void setAdmin_answer(String admin_answer) {
         this.admin_answer = admin_answer;
     }
-
-
 
 
 }
