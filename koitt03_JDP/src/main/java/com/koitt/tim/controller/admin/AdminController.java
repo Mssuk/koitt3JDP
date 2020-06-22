@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.koitt.tim.dto.admin.AnswerDto;
+import com.koitt.tim.dto.board.FaqDto;
 import com.koitt.tim.dto.board.NoticeDto;
 import com.koitt.tim.dto.category.CategoryDept1Dto;
 import com.koitt.tim.dto.category.CategoryDept2Dto;
@@ -31,10 +34,13 @@ import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.product.MainProductDto;
+import com.koitt.tim.dto.product.ProductAnswerDto;
 import com.koitt.tim.dto.product.ProductDto;
 import com.koitt.tim.dto.product.ProductQuestionDto;
 import com.koitt.tim.dto.product.ProductSerialDto;
 import com.koitt.tim.dto.product.RelatedProductDto;
+import com.koitt.tim.dto.question.QuestionDto;
+import com.koitt.tim.dto.review.ReviewDto;
 import com.koitt.tim.service.admin.AdminService;
 import com.koitt.tim.utils.CommonUtils;
 
@@ -317,6 +323,114 @@ public class AdminController {
 	public List<ProductQuestionDto> pqList() {
 
 		return adminService.getAllPQuestion();
+	}
+
+	// 상품답변글 가져오기
+	@GetMapping("pqalist")
+	public List<ProductAnswerDto> pqaList() {
+		return adminService.getAllPAnswer();
+	}
+
+	// 상품답변글 달기
+	@PostMapping("pqalist")
+	public void pqaList(@RequestBody HashMap<String, String> map) {
+		logger.info("{}", map);
+		ProductAnswerDto paDto = new ProductAnswerDto();
+		paDto.setQ_num(map.get("key"));
+		paDto.setA_content(map.get("text"));
+		adminService.insertPAnswer(paDto);
+
+	}
+
+	// 상품답변글 수정
+	@PutMapping("pqalist")
+	public void pqaListP(@RequestBody HashMap<String, String> map) {
+
+		adminService.updatePAnswer(map.get("key"), map.get("text"));
+	}
+
+	// 상품답변글 삭제
+	@DeleteMapping("pqalist/{key}")
+	public void pqaListD(@PathVariable("key") String a_num) {
+
+		adminService.deletePAnswer(a_num);
+	}
+
+	// 1:1문의글 불러오기
+	@GetMapping("qlist")
+	public List<QuestionDto> qList() {
+		return adminService.getAllQuestion();
+	}
+
+	// 1:1문의 답변글 불러오기
+	@GetMapping("alist")
+	public List<AnswerDto> aList() {
+		return adminService.getAllAnswer();
+	}
+
+	// 1:1문의답변글 등록
+	@PostMapping("alist")
+	public void alist(@RequestBody HashMap<String, String> map) {
+		logger.info("{}", map);
+		AnswerDto aDto = new AnswerDto();
+		aDto.setQ_num(map.get("key"));
+		aDto.setA_content(map.get("text"));
+		adminService.addAnswer(aDto);
+
+	}
+
+	// 1:1문의답변글 삭제
+	@DeleteMapping("alist/{key}")
+	public void aList(@PathVariable("key") String a_num) {
+		adminService.deleteAnswer(a_num);
+	}
+
+	// 1:1문의답변글 수정
+	@PutMapping("alist")
+	public void aListU(@RequestBody HashMap<String, String> map) {
+		logger.info("{}", map);
+		AnswerDto aDto = new AnswerDto();
+		aDto.setA_num(map.get("key"));
+		aDto.setA_content(map.get("text"));
+		adminService.updateAnswer(aDto);
+	}
+
+	// 1:1문의글 분류가져오기
+	@GetMapping("aqlist")
+	public List<String> aqList() {
+		return adminService.getAllQType();
+	}
+
+	// 리뷰 목록 가져오기
+	@GetMapping("rlist")
+	public List<ReviewDto> rList() {
+		return adminService.getAllReview();
+	}
+
+	// 리뷰답변 등록
+	@PatchMapping("rlist")
+	public void rListu(@RequestBody HashMap<String, String> map) {
+		logger.info("{}", map);
+		adminService.updateReviewAnswerA(map.get("key"), map.get("text"));
+	}
+
+	// 리뷰답변 삭제
+	@PatchMapping("rlist/{key}")
+	public void rListu(@PathVariable("key") String key) {
+		adminService.updateReviewAnswerD(key);
+	}
+
+	// 리뷰 상품정보 가져오기
+	@GetMapping("rlistp/{key}")
+	public HashMap<String, Object> rListp(@PathVariable("key") String key) {
+		System.out.println(adminService.getReviewPro(key));
+		return adminService.getReviewPro(key);
+	}
+
+	// faq 불러오기
+	@GetMapping("faqlist")
+	public List<FaqDto> faqList() {
+		return adminService.getAllFaq();
 	}
 
 }

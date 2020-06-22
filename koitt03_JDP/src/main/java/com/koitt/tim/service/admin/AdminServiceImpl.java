@@ -1,22 +1,30 @@
 package com.koitt.tim.service.admin;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.koitt.tim.dao.admin.AnswerDao;
+import com.koitt.tim.dao.board.FaqDao;
 import com.koitt.tim.dao.board.NoticeDao;
 import com.koitt.tim.dao.category.CategoryDao;
 import com.koitt.tim.dao.coupon.CouponDao;
 import com.koitt.tim.dao.event.EventDao;
 import com.koitt.tim.dao.member.MemberDao;
 import com.koitt.tim.dao.product.MainProductDao;
+import com.koitt.tim.dao.product.ProductAnswerDao;
 import com.koitt.tim.dao.product.ProductDao;
 import com.koitt.tim.dao.product.ProductQuestionDao;
 import com.koitt.tim.dao.product.ProductSerialDao;
 import com.koitt.tim.dao.product.RelatedProductDao;
+import com.koitt.tim.dao.question.QuestionDao;
+import com.koitt.tim.dao.review.ReviewDao;
+import com.koitt.tim.dto.admin.AnswerDto;
 import com.koitt.tim.dto.admin.MallDto;
+import com.koitt.tim.dto.board.FaqDto;
 import com.koitt.tim.dto.board.NoticeDto;
 import com.koitt.tim.dto.category.CategoryDept1Dto;
 import com.koitt.tim.dto.category.CategoryDept2Dto;
@@ -24,10 +32,13 @@ import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.product.MainProductDto;
+import com.koitt.tim.dto.product.ProductAnswerDto;
 import com.koitt.tim.dto.product.ProductDto;
 import com.koitt.tim.dto.product.ProductQuestionDto;
 import com.koitt.tim.dto.product.ProductSerialDto;
 import com.koitt.tim.dto.product.RelatedProductDto;
+import com.koitt.tim.dto.question.QuestionDto;
+import com.koitt.tim.dto.review.ReviewDto;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -56,6 +67,16 @@ public class AdminServiceImpl implements AdminService {
 	private MainProductDao mpDao;
 	@Autowired
 	private ProductQuestionDao pqDao;
+	@Autowired
+	private ProductAnswerDao paDao;
+	@Autowired
+	private QuestionDao qDao;
+	@Autowired
+	private AnswerDao aDao;
+	@Autowired
+	private ReviewDao rDao;
+	@Autowired
+	private FaqDao faqDao;
 
 	@Override
 	public MallDto getMallInfo() {
@@ -242,6 +263,97 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<ProductQuestionDto> getAllPQuestion() {
 		return pqDao.selectProductQuestions();
+	}
+
+	@Override
+	public List<ProductAnswerDto> getAllPAnswer() {
+		return paDao.selectAllPAnswer();
+	}
+
+	@Override
+	public void insertPAnswer(ProductAnswerDto paDto) {
+		paDao.insertPAnswer(paDto);
+
+	}
+
+	@Override
+	public void updatePAnswer(String key, String content) {
+		paDao.updatePAnswer(key, content);
+	}
+
+	@Override
+	public void deletePAnswer(String key) {
+		paDao.deletePAnswer(key);
+	}
+
+	@Override
+	public List<QuestionDto> getAllQuestion() {
+		return qDao.selectAllQuestion();
+
+	}
+
+	@Override
+	public List<AnswerDto> getAllAnswer() {
+
+		return aDao.selectAllAnswer();
+	}
+
+	@Override
+	public void addAnswer(AnswerDto aDto) {
+		aDao.insertAnswer(aDto);
+	}
+
+	@Override
+	public void updateAnswer(AnswerDto aDto) {
+		aDao.updateAnswer(aDto);
+	}
+
+	@Override
+	public void deleteAnswer(String key) {
+		aDao.deleteAnswer(key);
+
+	}
+
+	@Override
+	public List<String> getAllQType() {
+		return qDao.selectAllQType();
+	}
+
+	@Override
+	public List<ReviewDto> getAllReview() {
+		return rDao.selectAllReview();
+	}
+
+	@Override
+	public void updateReviewAnswerA(String key, String text) {
+		rDao.updateReviewAnswerA(key, text);
+
+	}
+
+	@Override
+	public void updateReviewAnswerD(String key) {
+		rDao.updateReviewAnswerD(key);
+
+	}
+
+	@Override
+	public HashMap<String, Object> getReviewPro(String key) {
+		return rDao.reviewProductNQ(key);
+	}
+
+	@Override
+	public List<FaqDto> getAllFaq() {
+		return faqDao.selectAllFaq();
+	}
+
+	@Override
+	public void addFaq(FaqDto faqDto) {
+		faqDao.insertFaq(faqDto);
+	}
+
+	@Override
+	public void deleteFaq(String key) {
+		faqDao.deleteFaq(key);
 	}
 
 }
