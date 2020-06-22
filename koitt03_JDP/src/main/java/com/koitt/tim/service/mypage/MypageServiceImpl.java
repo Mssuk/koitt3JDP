@@ -50,6 +50,5 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public List<OrderListDto> orderList(String orderNum) {
 		return orderDao.selectOrderList(orderNum);
-
 	}
 }

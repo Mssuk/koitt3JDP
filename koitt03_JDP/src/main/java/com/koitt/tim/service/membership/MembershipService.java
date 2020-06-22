@@ -6,7 +6,9 @@ public interface MembershipService {
 
 	int loginCheck(String id, String pw);
 
-	int signUp(MemberDto dto);
+	void signUp(MemberDto dto);
+
+	int idCheck(String id);
 
 	MemberDto getMemInfo(String id);
 

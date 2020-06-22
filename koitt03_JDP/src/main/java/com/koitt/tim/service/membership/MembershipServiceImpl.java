@@ -37,6 +37,26 @@ public class MembershipServiceImpl implements MembershipService {
 	}
 
 	@Override
+	public int idCheck(String id) {
+		// id값이 담겨있는 객체
+
+		// 0 : 중복된 id, 1 : 중복되지 않은 id
+		int result = 0;
+		MemberDto mDto = memberDao.selectOneMember(id);
+
+		
+		if(mDto == null){
+		    // 중복 x
+			result = 1;
+		} else {
+		    // 중복
+			result = 0;
+		}
+		
+		return result;
+	}
+
+	@Override
 	public int getNonMemInfo(String o_num, String orderTel) {
 		String id_check = orderDao.selectOneOrder(o_num, orderTel);
 		int result = 0;
@@ -50,9 +70,8 @@ public class MembershipServiceImpl implements MembershipService {
 	}
 
 	@Override
-	public int signUp(MemberDto mdto) {
+	public void signUp(MemberDto mdto) {
 		memberDao.insertMember(mdto);
-		return 0;
 	}
 
 	@Override

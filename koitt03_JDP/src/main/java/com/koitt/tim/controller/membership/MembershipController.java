@@ -49,6 +49,17 @@ public class MembershipController {
 		return result;
 	}
 
+	@RequestMapping("idCheck")
+	@ResponseBody
+	public int logincheck(@RequestBody HashMap<String, String> obj){
+
+		String id = obj.get("id");
+
+		int result = membershipService.idCheck(id);
+
+		return result;
+	}
+
 	// 로그인
 	@RequestMapping(value = "loginOk", method = RequestMethod.POST)
 	public String loginOk(@RequestParam("id") String id, HttpSession session) {
@@ -113,13 +124,12 @@ public class MembershipController {
 	}
 
 	@RequestMapping(value = "signUp", method = RequestMethod.POST)
-	public String signUp(MemberDto mdto, SjoinStringDto jdto, ModelMap model) throws Exception {
+	public String signUp(MemberDto mdto) throws Exception {
 
 		mdto.setBirth(mdto.getBirth1(), mdto.getBirth2(), mdto.getBirth3());
 		mdto.setPhone(mdto.getPhone1(), mdto.getPhone2(), mdto.getPhone3());
 		mdto.setEmail(mdto.getEmail1(), mdto.getEmail2());
 		mdto.setTel(mdto.getTel1(), mdto.getTel2(), mdto.getTel3());
-		System.out.println(mdto);
 
 		membershipService.signUp(mdto);
 
@@ -143,4 +153,5 @@ public class MembershipController {
 
 		return "membership/join4";
 	}
+
 }

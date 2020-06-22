@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koitt.tim.dao.product.ProductQuestionDao">
 	<select id="selectProductQuestions" resultType="ProductQuestionDto">
-		select pq.*, p.product_name from product_question pq, product p where pq.pro_num = p.pro_num
+		select pq.*, p.product_name from product_question pq, product p where pq.pro_num = p.pro_num order by pq.q_date desc
 	</select>
 
 </mapper>

@@ -83,7 +83,7 @@
                 <div class="btnAreaCenter">
                     <form action="join2" method="post">
                         <!-- <a href="#" class="gbtn">휴대폰인증</a></li> -->
-                        <button type="button" onclick="phone_auth(this.form)">휴대폰 인증</button>
+                        <button type="button" onclick="phone_auth(this.form)" class="gbtn">휴대폰 인증</button>
                     </form>
                 </div>
                 <!-- //Btn Area -->

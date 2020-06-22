@@ -31,14 +31,15 @@ public interface OrderDao {
 
 	String selectOneOrder(@Param("o_num") String o_num, @Param("orderTel") String orderTel);
 
-	List<OrderListDto> selectOrderList(@Param("orderNum") String orderNum);
-
 	// 비회원 주문번호 검색
 	OrderDto selectOrderOne(@Param("o_num") String o_num, @Param("o_tel") String o_tel);
 
 	// 비회원주문내역검색(id없음)
 	List<OrderListDto> selectOrderListNone(@Param("orderNum") String o_num, @Param("p1") int startNum,
 			@Param("p2") int endNum);
+
+	// 주문 번호를 이용해 주문명세 가져오기(나동수)
+	List<OrderListDto> selectOrderList(@Param("orderNum") String orderNum);
 
 	// 교환반품신청시 가져오는 주문목록 1개
 	OrderListDto selectOrderListOne(@Param("key") String key, @Param("orderNum") String o_num);

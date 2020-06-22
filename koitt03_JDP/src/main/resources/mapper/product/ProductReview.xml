@@ -18,4 +18,25 @@
 
 
 
+	<!--  admin 모든 리뷰 불러오기 -->
+	<select id="selectAllReview" resultType="ReviewDto">
+		select * from review order by "regist_review" desc
+	</select>
+	
+	<!--  리뷰 답변 입력 -->
+	<update id="updateReviewAnswerA">
+		update review set "admin_answer"=#{param2} where "review_num"=#{param1}
+	</update>
+	
+	<!--  리뷰답변 삭제 -->
+	<update id="updateReviewAnswerD">
+		update review set "admin_answer"=null where "review_num"=#{param1}
+	</update>
+	
+	<!-- 리뷰 상품정보(이름과 수량) -->
+	<select id="reviewProductNQ" resultType="map">
+	select ol."o_quant", ol.product_name 
+	from order_list ol, 
+	review r where ol."KEY" = r."Key" and r."review_num" = #{param1}
+	</select>
 </mapper>
