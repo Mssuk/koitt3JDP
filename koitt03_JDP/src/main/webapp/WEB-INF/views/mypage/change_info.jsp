@@ -56,35 +56,46 @@
 								</tr>
 								<tr>
 									<th scope="row"><span>비밀번호 변경 *</span></th>
-									<td><input type="text" name="pw"/></td>
+									<td><input type="password" name="pw"/></td>
 									<!-- <td><a href="password_change.html" class="nbtnMini iw86">비밀번호 변경</a></td> -->
 								</tr>
 								<tr>
 									<th scope="row"><span>이메일</span></th>
+										<script>
+												function selectEmail(frm) {
+													var email = frm.emailList.selectedIndex;
+													switch(email){
+														case 0:
+															frm.email2.value='';
+															break;
+														case 1:
+															frm.email2.value = 'naver.com';
+															break;
+														case 2:
+															frm.email2.value = 'damu.net';
+															break;
+														case 3:
+															frm.email2.value = 'nate.com';
+															break;
+														case 4:
+															frm.email2.value = 'gmail.com';
+															break;
+													}
+													return true;
+												}
+											</script>
 									<td>
 										<ul class="pta">
-											<li><input type="text" class="w134" name="email1"/></li>
+											<li><input type="text" class="w134" name="email1" id="email1" value="${mdto.email1 }"/></li>
 											<li><span class="valign">@</span></li>
-											<li class="r10"><input type="text" class="w134" name="email2" /></li>
-											<li>
-												<select id="emailList">
-													<option value="#" selected="selected">직접입력</option>
-													<option value="naver.com">naver.com</option>
-													<option value="daum.net">daum.net</option>
-													<option value="hanmail.net">hanmail.net</option>
-													<option value="nate.com">nate.com</option>    
-													<option value="yahoo.co.kr">yahoo.co.kr</option>    
-													<option value="paran.com">paran.com</option>    
-													<option value="empal.com">empal.com</option>    
-													<option value="hotmail.com">hotmail.com</option>    
-													<option value="korea.com">korea.com</option>    
-													<option value="lycos.co.kr">lycos.co.kr</option>    
-													<option value="dreamwiz.com">dreamwiz.com</option>    
-													<option value="hanafos.com">hanafos.com</option>    
-													<option value="chol.com">chol.com</option>    
-													<option value="gmail.com">gmail.com</option>    
-													<option value="empas.com">empas.com</option>
-												</select>&nbsp;&nbsp;&nbsp;
+											<li class="r10"><input type="text" class="w134" name="email2" value="${mdto.email2 }"/></li>
+											<li><select id="emailList" onchange="selectEmail(this.form)" name="emailList">
+													<option value=0 selected="selected">직접입력</option>
+													<option value=1>naver.com</option>
+													<option value=2>daum.net</option>
+													<option value=3>nate.com</option>
+													<option value=4>gmail.com</option>
+											</select>
 											</li>
 										</ul>
 									</td>
@@ -108,14 +119,82 @@
 									<th scope="row"><span>주소 *</span></th>
 									<td>
 										<ul class="pta">
-											<li>
-												<input type="text" class="w134" />&nbsp;
-											</li>
-											<li><a href="../member/zip.html" class="addressBtn"><span>우편번호 찾기</span></a></li>
-											<li class="pt5"><input type="text" class="addressType" /></li>
+											<li><input type="text" id="address1" class="w134" name="address1" readonly="readonly" value="${mdto.address1 }"/>&nbsp;</li>
+											<li><input type="button" class="addressBtn" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"></li>
+											<li class="pt5"><input type="text" id="address2" class="addressType" name="address2" value="${mdto.address2 }" readonly /></li>
+											<li class="pt5"><input type="text" id="address3" class="addressType" name="address3" placeholder="상세주소" value="${mdto.address3 }"/></li>
 											<li>
 												<span class="mvalign">※ 상품 배송 시 받으실 주소입니다. 주소를 정확히 적어 주세요.</span>
 											</li>
+											<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+												<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+											</div>
+											<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+											<script>
+												// 우편번호 찾기 화면을 넣을 element
+												var element_layer = document.getElementById('layer');
+
+												function closeDaumPostcode() {
+													// iframe을 넣은 element를 안보이게 한다.
+													element_layer.style.display = 'none';
+												}
+
+												function sample2_execDaumPostcode() {
+													new daum.Postcode({
+														oncomplete: function(data) {
+															// 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+															// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+															// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+															var addr = ''; // 주소 변수
+
+															//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+															if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+																addr = data.roadAddress;
+															} else { // 사용자가 지번 주소를 선택했을 경우(J)
+																addr = data.jibunAddress;
+															}
+
+
+															// 우편번호와 주소 정보를 해당 필드에 넣는다.
+															document.getElementById('address1').value = data.zonecode;
+															document.getElementById("address2").value = addr;
+															// 커서를 상세주소 필드로 이동한다.
+															document.getElementById("address3").focus();
+
+															// iframe을 넣은 element를 안보이게 한다.
+															// (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
+															element_layer.style.display = 'none';
+														},
+														width : '100%',
+														height : '100%',
+														maxSuggestItems : 5
+													}).embed(element_layer);
+
+													// iframe을 넣은 element를 보이게 한다.
+													element_layer.style.display = 'block';
+
+													// iframe을 넣은 element의 위치를 화면의 가운데로 이동시킨다.
+													initLayerPosition();
+												}
+
+												// 브라우저의 크기 변경에 따라 레이어를 가운데로 이동시키고자 하실때에는
+												// resize이벤트나, orientationchange이벤트를 이용하여 값이 변경될때마다 아래 함수를 실행 시켜 주시거나,
+												// 직접 element_layer의 top,left값을 수정해 주시면 됩니다.
+												function initLayerPosition(){
+													var width = 300; //우편번호서비스가 들어갈 element의 width
+													var height = 400; //우편번호서비스가 들어갈 element의 height
+													var borderWidth = 5; //샘플에서 사용하는 border의 두께
+
+													// 위에서 선언한 값들을 실제 element에 넣는다.
+													element_layer.style.width = width + 'px';
+													element_layer.style.height = height + 'px';
+													element_layer.style.border = borderWidth + 'px solid';
+													// 실행되는 순간의 화면 너비와 높이 값을 가져와서 중앙에 뜰 수 있도록 위치를 계산한다.
+													element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
+													element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
+												}
+											</script>
 										</ul>
 									</td>
 								</tr>
