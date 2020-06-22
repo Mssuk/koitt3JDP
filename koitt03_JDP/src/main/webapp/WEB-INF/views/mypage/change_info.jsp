@@ -1,12 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="../common/header.jsp"/>
+<%
+    if(session.getAttribute("loginInfo") == null){
+        response.sendRedirect("/membership/login");
+    }
+%>
 	<!-- container -->
 	<div id="container">
 
 		<div id="location">
 			<ol>
-				<li><a href="#">HOME</a></li>
-				<li><a href="#">MY PAGE</a></li>
+				<li><a href="/main">HOME</a></li>
+				<li><a href="/mypage/ordercheck">MY PAGE</a></li>
 				<li class="last">회원정보 수정</li>
 			</ol>
 		</div>
@@ -15,17 +20,17 @@
 			<div id="left">
 				<div id="title">MY PAGE<span>마이페이지</span></div>
 				<ul>	
-					<li><a href="#" id="leftNavi1">주문/배송 조회</a></li>
-					<li><a href="#" id="leftNavi2">반품/배송 현황</a></li>
-					<li><a href="#" id="leftNavi3">장바구니</a></li>
-					<li><a href="#" id="leftNavi4">위시리스트</a></li>
-					<li><a href="#" id="leftNavi5">나의 쿠폰</a></li>
-					<li><a href="#" id="leftNavi6">나의 포인트</a></li>
-					<li><a href="#" id="leftNavi7">1:1문의</a></li>
-					<li><a href="#" id="leftNavi8">회원정보 수정</a></li>
-					<li class="last"><a href="#" id="leftNavi9">회원 탈퇴</a></li>
+					<li><a href="ordercheck" id="leftNavi1">주문/배송 조회</a></li>
+	                <li><a href="takeback_delivery" id="leftNavi2">반품/배송 현황</a></li>
+	                <li><a href="cart" id="leftNavi3">장바구니</a></li>
+	                <li><a href="wishlist" id="leftNavi4">위시리스트</a></li>
+	                <li><a href="coupon" id="leftNavi5">나의 쿠폰</a></li>
+	                <li><a href="point" id="leftNavi6">나의 포인트</a></li>
+	                <li><a href="inquiry" id="leftNavi7">1:1문의</a></li>
+	                <li><a id="leftNavi8">회원정보 수정</a></li>
+	                <li class="last"><a href="get_leave" id="leftNavi9">회원 탈퇴</a></li>
 				</ul>			
-			</div><script type="text/javascript">initSubmenu(8,0);</script>
+			</div><script type="text/javascript">initSubmenu(8,0);</script> 
 
 
 			<!-- contents -->
@@ -33,23 +38,6 @@
 				<div id="mypage">
 					<h2><strong>회원정보 수정</strong><span>회원님의 개인 정보를 수정하실 수 있습니다.</span></h2>
 					
-					<div class="myInfo">
-						<ul>
-							<li class="info"><strong>가나다</strong> 님의 정보를 한눈에 확인하세요.</li>
-							<li>보유 쿠폰<br/><span class="num">199</span> <span class="unit">장</span></li>
-							<li class="point">내 포인트<br/><span class="num">100,000</span> <span class="unit">P</span></li>
-							<li class="last">진행중인 주문<br/><span class="num">199</span> <span class="unit">건</span></li>
-						</ul>
-					</div>
-						
-
-					<div class="attention">
-						<ul>
-							<li>* 표시된 항목은 필수 항목이므로 반드시 입력하셔야 합니다.</li>
-						</ul>
-					</div>
-
-
 					<div class="memberbd">
 						<table summary="이름, 아이디, 비밀번호, 비밀번호 확인, 이메일, 이메일수신여부, 주소, 휴대폰, 유선전화, 생년월일 순으로 회원가입 정보를 수정할수 있습니다." class="memberWrite" border="1" cellspacing="0">
 							<caption>회원가입 수정</caption>
@@ -59,24 +47,25 @@
 							</colgroup>
 							<tbody>
 								<tr>
-									<th scope="row"><span>이름 *</span></th>
-									<td>김슬기</td>
+									<th scope="row"><span>이름</span></th>
+									<td>${mdto.name }</td>
 								</tr>
 								<tr>
-									<th scope="row"><span>아이디 *</span></th>
-									<td>sleifhglsle123</td>
+									<th scope="row"><span>아이디</span></th>
+									<td>${mdto.id }</td>
 								</tr>
 								<tr>
 									<th scope="row"><span>비밀번호 변경 *</span></th>
-									<td><a href="password_change.html" class="nbtnMini iw86">비밀번호 변경</a></td>
+									<td><input type="text" name="pw"/></td>
+									<!-- <td><a href="password_change.html" class="nbtnMini iw86">비밀번호 변경</a></td> -->
 								</tr>
 								<tr>
 									<th scope="row"><span>이메일</span></th>
 									<td>
 										<ul class="pta">
-											<li><input type="text" class="w134" /></li>
-											<li><span class="valign">&nbsp;@&nbsp;</span></li>
-											<li class="r10"><input type="text" class="w134" /></li>
+											<li><input type="text" class="w134" name="email1"/></li>
+											<li><span class="valign">@</span></li>
+											<li class="r10"><input type="text" class="w134" name="email2" /></li>
 											<li>
 												<select id="emailList">
 													<option value="#" selected="selected">직접입력</option>

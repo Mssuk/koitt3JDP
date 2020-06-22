@@ -124,21 +124,24 @@
                         </thead>
                         <%-- 상품 구매 목록 --%>
                         <tbody>
+
                             <%--<c:choose>
-                            <c:when test="${orderList != null}">
-                                <c:forEach var="order" items="${orderList}">--%>
+                            <c:when test="${orderList != null}">--%>
+                              <c:forEach var="order" items="${orderList}">
+                              	<c:forEach var="ordersub" items="${order }">
                                 <tr>
                                     <td>
-                                        <p class="day">${order.o_date}</p>
-                                        <p class="orderNum">${order.o_num}</p>
+                                        <p class="day">${ordersub.o_date}</p>
+                                        <p class="orderNum">${ordersub.o_num}</p>
                                     </td>
                                     <td class="left">
-                                        ${order.product_name}
+                                        ${ordersub.product_name}
                                     </td>
-                                    <td class="tnone">${order.price} 원</td>
-                                    <td class="tnone">${order.o_quant}개</td>
+                                    <td class="tnone"> 
+                                    	<fmt:formatNumber value="${ordersub.price}" pattern="#,###,###"/>원 </td>
+                                    <td class="tnone">${ordersub.o_quant}개</td>
                                     <td>
-                                        <span class="heavygray">${order.status}</span>
+                                        <span class="heavygray">${ordersub.o_status}</span>
                                         <ul class="state">
                                             <li class="r5"><a href="return" class="obtnMini iw40">교환</a></li>
                                             <li><a href="return" class="nbtnMini iw40">반품</a></li>
@@ -147,8 +150,9 @@
                                         </ul>
                                     </td>
                                 </tr>
-                                    <%--  </c:forEach>
-                                  </c:when>
+                                </c:forEach>
+                                </c:forEach>
+                                   <%-- </c:when>
                                   <c:otherwise>
                                       <tr>
                                           <div class="noData">

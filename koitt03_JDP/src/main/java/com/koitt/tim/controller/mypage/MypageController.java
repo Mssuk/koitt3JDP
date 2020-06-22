@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,12 +47,29 @@ public class MypageController {
 			// o_num 전체를 불러와 ArrayList에 저장 _나동수
 			ArrayList<String> orderNumList = mypageService.orderNumList(mDto.getId()); // 해당 ID로 등록된 o_num들 전체 불러옴
 			// 불러온 o_num을 이용해 orderList 불러오기 _나동수
-			for (int i = 0; i <= orderNumList.size(); i++) {
-				List<OrderListDto> listDto = mypageService.orderList(orderNumList.get(i));
-				model.addAttribute("orderList",listDto);
+
+			List<List<OrderListDto>> listDto = new ArrayList<List<OrderListDto>>();
+			for (int i = 0; i < orderNumList.size(); i++) {
+				listDto.add(mypageService.orderList(orderNumList.get(i)));
 			}
+
+			model.addAttribute("orderList", listDto);
 		}
 		return "mypage/ordercheck";
+	}
+
+	@RequestMapping("change_info")
+	public String changeInfo(Model model, HttpSession session) {
+		MemberDto mDto = (MemberDto) session.getAttribute("loginInfo");
+		String email = mDto.getEmail();
+		String email1 = email.substring(0,email.lastIndexOf("@"));
+		String email2 = email.substring(email.lastIndexOf("@") + 1);
+//		System.out.println("1:" + email1);
+//		System.out.println("2:" + email2);
+		mDto.setEmail1(email1);
+		mDto.setEmail2(email2);
+		model.addAttribute("mdto", mDto);
+		return "mypage/change_info";
 	}
 
 	@RequestMapping("return")
@@ -67,5 +83,4 @@ public class MypageController {
 		model.addAttribute("photo", photo);
 		return "nonmember/return";
 	}
-
 }
