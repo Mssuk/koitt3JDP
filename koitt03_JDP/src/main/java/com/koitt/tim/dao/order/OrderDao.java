@@ -3,6 +3,7 @@ package com.koitt.tim.dao.order;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.koitt.tim.dto.product.ProductDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -51,4 +52,13 @@ public interface OrderDao {
 	List<OrderListDto> selectClaimListNone(@Param("orderNum") String o_num, @Param("p1") int startNum,
 			@Param("p2") int endNum);
 
+
+	//admin (모든 주문 가져오기)
+	List<OrderDto> selectAllOrder();
+
+	//admin (모든 주문내역 가져오기)
+	List<OrderListDto> selectAllOL();
+
+	//admin (주문에있는 상품정보들 가져오기)
+	List<ProductDto> selectOrderProInfo();
 }

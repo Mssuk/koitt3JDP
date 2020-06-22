@@ -3,6 +3,9 @@ package com.koitt.tim.service.admin;
 import java.util.HashMap;
 import java.util.List;
 
+import com.koitt.tim.dao.order.OrderDao;
+import com.koitt.tim.dto.order.OrderDto;
+import com.koitt.tim.dto.order.OrderListDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -77,6 +80,8 @@ public class AdminServiceImpl implements AdminService {
 	private ReviewDao rDao;
 	@Autowired
 	private FaqDao faqDao;
+	@Autowired
+	private OrderDao oDao;
 
 	@Override
 	public MallDto getMallInfo() {
@@ -354,6 +359,21 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void deleteFaq(String key) {
 		faqDao.deleteFaq(key);
+	}
+
+	@Override
+	public List<OrderDto> getAllOrder() {
+		return oDao.selectAllOrder();
+	}
+
+	@Override
+	public List<OrderListDto> getAllOL() {
+		return oDao.selectAllOL();
+	}
+
+	@Override
+	public List<ProductDto> getOrderPro() {
+		return oDao.selectOrderProInfo();
 	}
 
 }
