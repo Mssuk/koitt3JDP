@@ -43,4 +43,11 @@ public interface OrderDao {
 
 	// 교환반품신청시 가져오는 주문목록 1개
 	OrderListDto selectOrderListOne(@Param("key") String key, @Param("orderNum") String o_num);
+
+	// 주문취소
+	void updateOrderOne(@Param("orderNum") String o_num, @Param("o_type") String o_type);
+
+	// 반품 교환현황 리스트
+	List<OrderListDto> selectClaimListNone(@Param("orderNum") String o_num, @Param("p1") int startNum,
+			@Param("p2") int endNum);
 }

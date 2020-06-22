@@ -124,9 +124,9 @@
                         </thead>
                         <%-- 상품 구매 목록 --%>
                         <tbody>
-                            <c:choose>
+                            <%--<c:choose>
                             <c:when test="${orderList != null}">
-                                <c:forEach var="order" items="${orderList}">
+                                <c:forEach var="order" items="${orderList}">--%>
                                 <tr>
                                     <td>
                                         <p class="day">${order.o_date}</p>
@@ -147,16 +147,16 @@
                                         </ul>
                                     </td>
                                 </tr>
-                                </c:forEach>
-                            </c:when>
-                            <c:otherwise>
-                                <tr>
-                                    <div class="noData">
-                                        등록된 상품이 없습니다.
-                                    </div>
-                                </tr>
-                            </c:otherwise>
-                            </c:choose>
+                                    <%--  </c:forEach>
+                                  </c:when>
+                                  <c:otherwise>
+                                      <tr>
+                                          <div class="noData">
+                                              등록된 상품이 없습니다.
+                                          </div>
+                                      </tr>
+                                  </c:otherwise>
+                                  </c:choose>--%>
                         </tbody>
 
 
