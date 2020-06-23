@@ -94,6 +94,7 @@
 
 #detailContent{width:840px; margin:0 auto;}
 #detailContent .detailInfo{width:100%; overflow:hidden;}
+#detailContent .detailInfo img{max-width:100%;}
 #detailContent .headTitle{position:relative; width:100%; font-size:14px; color:#666; border-bottom:1px #5b524d solid; padding:0 0 14px 0; overflow:hidden; word-break:keep-all;}
 #detailContent .headTitle strong{font-size:24px; font-weight:600; color:#444;}
 #detailContent .headTitle .btn{position:absolute; right:0; top:0;}

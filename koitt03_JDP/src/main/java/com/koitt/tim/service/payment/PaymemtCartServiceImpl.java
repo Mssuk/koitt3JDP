@@ -97,12 +97,12 @@ public class PaymemtCartServiceImpl implements PaymentCartService {
 			ArrayList<String> arr2 = (ArrayList<String>) session.getAttribute("baspack");
 			for (int i = 0; i < arr2.size(); i++) {
 				for (int j = 0; j < pro_num.length; j++) {
-					if (arr.get(i).toString().contains(pro_num[j])) {
-						arr.set(i, pro_num[j] + "_" + (Integer.parseInt(count[j])));
+					if (arr2.get(i).toString().contains(pro_num[j])) {
+						arr2.set(i, pro_num[j] + "_" + (Integer.parseInt(count[j])));
 					}
 				}
 			} // 같은 상품이 있으면 수정
-			session.setAttribute("baspack", arr);
+			session.setAttribute("baspack", arr2);
 		}
 
 		return bascheck;

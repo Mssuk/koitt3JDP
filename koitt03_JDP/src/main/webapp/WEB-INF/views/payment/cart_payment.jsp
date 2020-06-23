@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <jsp:include page="../common/header.jsp"/>
     
  <!-- container -->
@@ -8,7 +10,7 @@
 
 		<div id="location">
 			<ol>
-				<li><a href="#">HOME</a></li>
+				<li><a href="/main">HOME</a></li>
 				<li class="last">주문/결제</li>
 			</ol>
 		</div>
@@ -38,47 +40,30 @@
 								<th scope="col">합계</th>
 							</thead>
 							<tbody>
-								<tr>
-									<td class="left">
-										<p class="img"><img src="../images/img/sample_product.jpg" alt="상품" width="66" height="66" /></p>
-
-										<ul class="goods">
-											<li>
-												<a href="#">쟈뎅 오리지널 콜롬비아 페레이라 원두커피백 15p</a>
-											</li>
-										</ul>
-									</td>
-									<td class="tnone">
-										123,400 원
-
-										<!-- 회원일 시 -->
-										<br/><span class="pointscore">1,234 Point</span>
-										<!-- //회원일 시 -->
-									</td>
-									<td>1 개</td>
-									<td>123,400 원</td>
-								</tr>
-								
-								<tr>
-									<td class="left">
-										<p class="img"><img src="../images/img/sample_product.jpg" alt="상품" width="66" height="66" /></p>
-
-										<ul class="goods">
-											<li>
-												<a href="#">가나다라마바사아자차카타파하 가나다라마바사아자차카타파하 가나다라마바사아자차카타파하</a>
-											</li>
-										</ul>
-									</td>
-									<td class="tnone">
-										123,400 원
-
-										<!-- 회원일 시 -->
-										<br/><span class="pointscore">1,234 Point</span>
-										<!-- //회원일 시 -->
-									</td>
-									<td>1 개</td>
-									<td>123,400 원</td>
-								</tr>
+								<c:forEach var="dtos" items="${list }">
+									<tr>
+										<td class="left">
+											<p class="img"><img src="${dtos.pdto.front_image1 }" alt="상품" width="66" height="66" /></p>
+	
+											<ul class="goods">
+												<li>
+													<a href="/product/detail?pro_num=${dtos.pdto.pro_num }">${dtos.pdto.product_name }</a>
+												</li>
+											</ul>
+										</td>
+										<td class="tnone">
+											<fmt:formatNumber value="${dtos.pdto.sales_price }" pattern="#,###" /> 원
+											
+											<c:if test="${member!=null }">
+												<!-- 회원일 시 -->
+												<br/><span class="pointscore"><fmt:formatNumber value="${dtos.pdto.sales_price*0.01 }" pattern="#,###" /> Point</span>
+												<!-- //회원일 시 -->
+											</c:if>
+										</td>
+										<td>${dtos.bmdto.count } 개</td>
+										<td><fmt:formatNumber value="${dtos.pdto.sales_price*dtos.bmdto.count }" pattern="#,###" /> 원</td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>
@@ -88,19 +73,21 @@
 							<li>+ 배송비 <strong>2,500</strong> 원</li>
 							<li>= 총 합계 <strong>1,134,810</strong> 원</li>
 						</ul>
+						<span>*구매금액 15,000원 이상 배송비 무료</span>
 					</div>
 					<!-- //주문 상품 -->
 					
 
 			<!-- 주문자 주소 입력 -->
 					<h3 class="diviLeft">주문자 주소 입력</h3>
+					<c:if test="${member!=null }">
 					<div class="diviRight">
 						<ul>
 							<li>수정 내용을 회원정보에도 반영합니다.&nbsp;&nbsp;</li>
 							<li><a href="#">회원정보반영</a></li>
 						</ul>
 					</div>
-
+					</c:if>
 					<div class="checkDiv">
 						<table summary="주문자 주소를 입력할 수 있는 란으로 이름, 주소, 이메일, 휴대폰 번호, 전화번호 순으로 입력 하실수 있습니다." class="checkTable" border="1" cellspacing="0">
 							<caption>주문자 주소 입력</caption>
@@ -208,10 +195,10 @@
 										</ul>
 									</td>
 								</tr>
-								<tr>
-									<th scope="row"><span>비밀번호</span></th>
-									<td><input type="password" class="w134" /></td>
-								</tr>
+<!-- 								<tr> -->
+<!-- 									<th scope="row"><span>비밀번호</span></th> -->
+<!-- 									<td><input type="password" class="w134" /></td> -->
+<!-- 								</tr> -->
 							</tbody>
 						</table>
 					</div>
@@ -221,9 +208,10 @@
 			<!-- 수취자 주소 입력 -->
 					<h3 class="dep">
 						수취자 주소 입력
-						
-						<input type="checkbox" id="infosame"/>
-						<label for="infosame">회원정보와 동일</label>
+						<c:if test="${member!=null }">
+							<input type="checkbox" id="infosame"/>
+							<label for="infosame">회원정보와 동일</label>
+						</c:if>
 					</h3>
 					<div class="checkDiv">
 						<table summary="수취자 주소를 입력할 수 있는 란으로 이름, 주소, 이메일, 휴대폰 번호, 전화번호 순으로 입력 하실수 있습니다." class="checkTable" border="1" cellspacing="0">
@@ -311,7 +299,7 @@
 					</div>
 			<!-- //수취자 주소 입력 -->
 
-
+			<c:if test="${member!=null }">
 			<!-- 쿠폰 및 포인트 사용 -->
 					<h3 class="dep">쿠폰 및 포인트 사용</h3>
 					<div class="checkDiv">
@@ -376,7 +364,7 @@
 						</table>
 					</div>
 			<!-- //쿠폰 및 포인트 사용 -->
-			
+			</c:if>
 
 			<!-- 총 주문금액 -->
 					<div class="amount">
@@ -395,7 +383,7 @@
 								<span class="title">배송비</span>
 								<span class="won"><strong>2,500</strong> 원</span>
 							</li>
-
+							<c:if test="${member!=null }">
 							<!-- 회원 일때만 -->
 							<li>
 								<span class="title">포인트 할인</span>
@@ -406,12 +394,15 @@
 								<span class="won"><strong>- 1,000</strong> 원</span>
 							</li>
 							<!-- //회원 일떄만 -->
+							</c:if>
 						</ul>
 
 						<ul class="total">
+							<c:if test="${member!=null }">
 							<!-- 회원 일때만 -->
 							<li class="mileage">(적립 포인트 <strong>11,324</strong> Point) </li>
 							<!-- //회원 일때만 -->
+							</c:if>
 
 							<li class="txt"><strong>결제 예정 금액</strong></li>
 							<li class="money"><span>1,134,810</span> 원</li>

@@ -104,7 +104,6 @@ public class NonmemberServiceImpl implements NonmemberService {
 		List<OrderListDto> list = odao.selectOrderListNone(o_num, startNum, endNum);
 		for (int i = 0; i < list.size(); i++) {
 			list.get(i).setReviewOk(rdao.selectReviewCount(list.get(i).getKey()));
-			System.out.println(rdao.selectReviewCount(list.get(i).getKey()));
 		}
 		return list;
 	}
@@ -179,39 +178,15 @@ public class NonmemberServiceImpl implements NonmemberService {
 		return check;
 	}
 
-	// 주문철회(입금전)
+	// 주문철회취소, 구매전 취소, 구매확정 등
 	@Override
-	public int cancelOrderA(String o_num) {
+	public int changeOrder(String o_num, String o_status) {
 		int check = 1;
-		String o_status = "취소승인";
 		try {
 			odao.updateOrderOne(o_num, o_status);
-		} catch (Exception e) {
-			check = 0;
-		}
-		return check;
-	}
-
-	// 주문철회(입금후-배송준비전-->클레임으로 가야함.)
-	@Override
-	public int cancelOrderB(String o_num) {
-		int check = 1;
-		String o_status = "취소신청";
-		try {
-			odao.updateOrderOne(o_num, o_status);
-		} catch (Exception e) {
-			check = 0;
-		}
-		return check;
-	}
-
-	// 주문철회를 취소(입금후-배송준비전-->클레임취소.)
-	@Override
-	public int cancelReturnB(String o_num) {
-		int check = 1;
-		String o_status = "결제완료";
-		try {
-			odao.updateOrderOne(o_num, o_status);
+			if (o_status.equals("구매확정")) {
+				odao.updateOrderDate(o_num);
+			}
 		} catch (Exception e) {
 			check = 0;
 		}

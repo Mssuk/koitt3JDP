@@ -32,15 +32,6 @@ public class PaymentCartController {
 		}
 		return check;
 	}
-//
-//	@RequestMapping("goPayment")
-//	public String payment(@RequestParam(value = "type", defaultValue = "") String type) {
-//		String viewPage = "redirect:/payment/payment";
-//		if (type.equals("basket")) {
-//			viewPage = "redirect:/cartpayment";
-//		}
-//		return viewPage;
-//	}
 
 	// 주문할 장바구니목록 가져오기
 	@RequestMapping("cartpayment")

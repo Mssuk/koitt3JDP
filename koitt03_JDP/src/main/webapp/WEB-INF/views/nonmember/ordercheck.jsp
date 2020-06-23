@@ -105,6 +105,34 @@
 			}
 	}
 </script>
+
+<script type="text/javascript">
+	//구매확정
+	function orderComple(a){
+		if(confirm("구매확정 하시겠습니까?")){
+		       
+			$.ajax({
+		        url : "/OrderComple",   // 받을 url
+		        type : "POST",   
+		        data: JSON.stringify({o_num:a}),  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
+		        contentType: "application/json",
+		        success : function (data) {
+		           if(data== 1){ //리턴값이 ok일 경우
+		              alert('구매확정완료');
+		              location.reload(); //새로고침 해준다.
+		           }else if(data == 0){
+						alert('확정 실패 \n 잠시 후 다시 시도해주세요 ');
+					}
+		        },
+		        error : function(){ //오류일경우 경고창을 띄움
+		           alert("통신 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.\n오류가 반복될 경우, 고객센터로 문의 부탁드립니다.\n(error_code: updateError)");
+		        }
+		     });
+			}
+	}
+</script>
+
+
 	
 	<!-- container -->
 	<div id="container">
@@ -150,8 +178,6 @@
 								<th scope="col">주문상태</th>
 							</thead>
 							<tbody>
-								<jsp:useBean id="now" class="java.util.Date"></jsp:useBean>
-								<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"/>
 								<c:forEach var="dtos" items="${orderList}">
 									<tr>
 										<td>
@@ -172,10 +198,12 @@
 															</ul>	
 														</c:when>
 														<c:when test="${dtos.o_status=='배송완료'||dtos.o_status=='구매확정' }">
-															<span class="heavygray">배송완료</span>
+															<jsp:useBean id="now" class="java.util.Date"></jsp:useBean>
+															<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"/>
 															<fmt:parseDate value="${dtos.o_update_date}" var="n_regist" pattern="yyyy-MM-dd"/>
 															<fmt:parseNumber value="${n_regist.time / (1000*60*60*24)}" integerOnly="true" var="regist"/>
 															<c:set value="${today - regist }" var="dayDiff" />
+															<span class="heavygray">배송완료</span>
 															<ul class="state">	
 																<c:choose>
 																	<c:when test="${dtos.o_status=='배송완료'}">
@@ -184,12 +212,12 @@
 																			<li><a href="return?num1=${dtos.key }&num2=${dtos.o_num}" class="nbtnMini iw40">반품</a></li>
 																		</c:if>
 																		<c:if test="${dayDiff <= 28}">
-																			<li><a href="updateOs?num1=${dtos.o_num}" class="decidebtn">구매확정</a></li>
+																			<li><a onclick="orderComple('${dtos.o_num }')" class="decidebtn" style="cursor: pointer;">구매확정</a></li>
 																		</c:if>
 																	</c:when>
 																	<c:when test="${dtos.o_status=='구매확정'}">
 																		<c:if test="${dayDiff <= 14 && dtos.reviewOk==0}">
-																			<li><a href="review?num1=${dtos.key }"  class="popBtn nbtnMini">리뷰작성</a></li>
+																			<li><a href="review?num1=${dtos.key }"  class="popBtn nbtnMini" style="cursor: pointer;">리뷰작성</a></li>
 																		</c:if>	
 																	</c:when>
 																</c:choose>
@@ -198,13 +226,13 @@
 														<c:when test="${dtos.o_status=='결제대기중' }">
 															<span class="lightgray">${dtos.o_status }</span>
 															<ul class="state">
-																<li><a onclick="order_cancel('${dtos.o_num }')" class="nbtnMini iw83">취소</a></li>
+																<li><a onclick="order_cancel('${dtos.o_num }')" class="nbtnMini iw83" style="cursor: pointer;">취소</a></li>
 															</ul>										
 														</c:when>
 														<c:when test="${dtos.o_status=='결제완료' }">
 																<span class="lightgray">${dtos.o_status }</span>
 																<ul class="state">
-																	<li><a onclick="order_cancel2('${dtos.o_num }')" class="nbtnMini iw83">취소</a></li>
+																	<li><a onclick="order_cancel2('${dtos.o_num }')" class="nbtnMini iw83" style="cursor: pointer;">취소</a></li>
 																</ul>										
 														</c:when>
 														<c:otherwise>

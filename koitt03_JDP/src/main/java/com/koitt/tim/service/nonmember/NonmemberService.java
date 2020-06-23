@@ -39,15 +39,6 @@ public interface NonmemberService {
 	// 교환반품신청철회
 	int cancelReturn(String key);
 
-	// 주문취소(입금전)
-	int cancelOrderA(String o_num);
-
-	// 주문취소(입금후,배송준비전)
-	int cancelOrderB(String o_num);
-
-	// 주문취소를 철회
-	int cancelReturnB(String o_num);
-
 	// 반품교환현황
 	List<OrderListDto> getClaimLists(int pageNum, String o_num);
 
@@ -59,5 +50,8 @@ public interface NonmemberService {
 
 	// 리뷰작성
 	int insertReview(ReviewDto reviewDto, HttpSession session);
+
+	// 주문취소, 구매확정
+	int changeOrder(String o_num, String type);
 
 }

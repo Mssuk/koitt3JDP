@@ -32,7 +32,8 @@ public class ChangeOrderController {
 	public int delOrderTypeA(@RequestBody HashMap<String, String> obj) {
 		String o_num = obj.get("o_num");
 		int check = 1;
-		check = nServ.cancelOrderA(o_num);
+		String o_status = "취소승인";
+		check = nServ.changeOrder(o_num, o_status);
 		return check;
 	}
 
@@ -42,7 +43,8 @@ public class ChangeOrderController {
 	public int delOrderTypeB(@RequestBody HashMap<String, String> obj) {
 		String o_num = obj.get("o_num");
 		int check = 1;
-		check = nServ.cancelOrderB(o_num);
+		String o_status = "취소신청";
+		check = nServ.changeOrder(o_num, o_status);
 		return check;
 	}
 
@@ -52,7 +54,19 @@ public class ChangeOrderController {
 	public int delChangeOneB(@RequestBody HashMap<String, String> obj) {
 		String o_num = obj.get("o_num");
 		int check = 1;
-		check = nServ.cancelReturnB(o_num);
+		String o_status = "결제완료";
+		check = nServ.changeOrder(o_num, o_status);
+		return check;
+	}
+
+	// 구매확정버튼 클릭
+	@ResponseBody
+	@RequestMapping("/OrderComple")
+	public int OrderComple(@RequestBody HashMap<String, String> obj) {
+		String o_num = obj.get("o_num");
+		int check = 1;
+		String o_status = "구매확정";
+		check = nServ.changeOrder(o_num, o_status);
 		return check;
 	}
 
