@@ -51,21 +51,21 @@
 	</select>
 	<!--비회원..(아이디없이 주문번호에 해당하는 것만 다 가져옵니다. -->
 	<select id="selectOrderListNone" resultType="orderListDto">
-      select ROWNUM,col.* from (select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status,col2."pro_num",col2.key from "ORDER" col1,ORDER_LIST col2 where col2."o_num"=col1."o_num" and col2."o_num"= #{orderNum}) col  left outer join change c on col.key=c.key where 
+      select ROWNUM,col.* from (select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status,col2."pro_num",col2.key from "ORDER" col1,ORDER_LIST col2 where col2."o_num"=col1."o_num" and col2."o_num"= #{orderNum}) col  left outer join change c on col.key=c.key where
 c.key is null and ROWNUM <![CDATA[ >= ]]> #{p1}
-          and ROWNUM <![CDATA[ <= ]]> #{p2} 
+          and ROWNUM <![CDATA[ <= ]]> #{p2}
     </select>
-    
+
     <!-- 반품교환신청시 해당 주문목록 불러가는 것 -->
     <select id="selectOrderListOne" resultType="orderListDto">
     	select  col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status,col2."pro_num",col2.key from "ORDER" col1,ORDER_LIST col2 where col2."o_num"=col1."o_num" and col2."o_num"= #{orderNum} and col2.key=#{key}
     </select>
-    
+
     <!-- 입금전 주문취소 -->
     <update id="updateOrderOne">
     	update  "ORDER" set o_status=#{o_status} where "o_num"=#{orderNum};
     </update>
-    
+
     <!-- 반품교환현황 페이지 -->
     <select id="selectClaimListNone" resultType="orderListDto">
 

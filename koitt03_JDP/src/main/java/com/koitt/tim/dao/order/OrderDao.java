@@ -61,4 +61,7 @@ public interface OrderDao {
 
 	//admin (주문에있는 상품정보들 가져오기)
 	List<ProductDto> selectOrderProInfo();
+	//상품번호로 상품 주문했던 주문 키 가져오기(리뷰 작성에 쓰임)
+//	String selectOrderKey(String pro_num,String id);
+
 }
