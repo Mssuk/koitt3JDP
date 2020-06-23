@@ -137,30 +137,20 @@
 									<th scope="row"><span>이메일</span></th>
 									<td>
 										<ul class="pta">
-											<li><input type="text" class="w134" /></li>
+											<li><input type="text" class="w134" value="${member.email1 }"/></li>
 											<li><span class="valign">&nbsp;@&nbsp;</span></li>
-											<li class="r10"><input type="text" class="w134" name="email2"/></li>
+											<li class="r10"><input type="text" class="w134" name="email2" value="${member.email2 }"/></li>
 											<li>
-												<select name="lstMail" class="select01" style="width: 150px"
+												<select name="lstMail" class="select01" style="width: 150px" id="emailbox"
                                     onchange="document.form1.email2.focus();
                               document.form1.email2.value =document.form1.lstMail[document.form1.lstMail.selectedIndex].value;
                             ">
-													<option value="" selected="selected">직접입력</option>
+													<option value="">직접입력</option>
 													<option value="naver.com">naver.com</option>
-													<option value="daum.net">daum.net</option>
 													<option value="hanmail.net">hanmail.net</option>
 													<option value="nate.com">nate.com</option>    
 													<option value="yahoo.co.kr">yahoo.co.kr</option>    
-													<option value="paran.com">paran.com</option>    
-													<option value="empal.com">empal.com</option>    
-													<option value="hotmail.com">hotmail.com</option>    
-													<option value="korea.com">korea.com</option>    
-													<option value="lycos.co.kr">lycos.co.kr</option>    
-													<option value="dreamwiz.com">dreamwiz.com</option>    
-													<option value="hanafos.com">hanafos.com</option>    
-													<option value="chol.com">chol.com</option>    
 													<option value="gmail.com">gmail.com</option>    
-													<option value="empas.com">empas.com</option>
 												</select>&nbsp;&nbsp;&nbsp;
 											</li>
 										</ul>
@@ -171,8 +161,8 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<select>
-													<option value="010" selected="selected">010</option>
+												<select name="phone1"  id="phonebox">
+													<option value="010">010</option>
 													<option value="011">011</option>
 													<option value="016">016</option>
 													<option value="017">017</option>
@@ -191,8 +181,8 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<select>
-													<option value="02" selected="selected">02</option>
+												<select name="tel1" id="telbox">
+													<option value="02">02</option>
 													<option value="031">031</option>
 													<option value="032">032</option>
 													<option value="033">033</option>
@@ -707,6 +697,38 @@ $(function(){
 			});
 		}
 	});
+	
+	//전화넣기
+	 $("#telbox option").each(function(){
+
+   	 if($(this).val()=="${member.tel1}"){
+
+      $(this).attr("selected","selected"); // attr적용안될경우 prop으로 
+
+    	}
+
+ 	 });
+	//전화넣기2
+// 	 $("#phonebox option").each(function(){
+
+//    	 if($(this).val()=="${member.phone1}"){
+
+//       $(this).attr("selected","selected"); // attr적용안될경우 prop으로 
+
+//     	}
+
+//  	 });
+	//이메일 넣기
+	 $("#emailbox option").each(function(){
+
+   	 if($(this).val()=="${member.email2}"){
+
+      $(this).attr("selected","selected"); // attr적용안될경우 prop으로 
+
+    	}
+
+ 	 });
+	 $('select[id="phonebox"]').find('option:contains("${member.phone1}")').attr("selected",true);
 	
 		//처음합계
 		var first=get_total();
