@@ -17,8 +17,8 @@
 
 	<update id="modifyMember">
 		update MEMBER set NAME = #{p2}, ADDRESS1 = #{p3}, ADDRESS2=#{p4},ADDRESS3=#{p5},PHONE=#{p7},TEL=#{p8},EMAIL=#{p9} where ID=#{p1}
-
 	</update>
+	
 	<select id="selectSearchMemberId" resultType="String">
 		select ID from member where name=#{name} and email=#{email}
 	</select>
@@ -30,5 +30,9 @@
 	<select id="selectMemberPoint" resultType="int">
 		select point from MEMBER where id=#{id}
 	</select>
+	
+	<update id="updateMember">
+		update member set pw=#{pw}, 
+	</update>
 
 </mapper>

@@ -42,6 +42,10 @@ public class MemberDto {
 		this.birth = new Timestamp(date.getTime());
 	}
 
+	public Timestamp getBirth() {
+		return birth;
+	}
+
 	public void setPhone(String phone1, String phone2, String phone3) {
 		String phone = phone1 + phone2 + phone3;
 		this.phone = phone;
@@ -146,10 +150,6 @@ public class MemberDto {
 	public void setTel(String tel1, String tel2, String tel3) {
 		String tel = tel1 + tel2 + tel3;
 		this.tel = tel;
-	}
-
-	public Timestamp getBirth() {
-		return birth;
 	}
 
 	public String getCalender_check() {

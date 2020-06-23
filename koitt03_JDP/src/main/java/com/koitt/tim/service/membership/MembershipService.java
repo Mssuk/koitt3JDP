@@ -17,4 +17,6 @@ public interface MembershipService {
 	String searchId(String name, String email);
 
 	String searchPw(String id, String email);
+
+	void modifyMember(MemberDto mDto);
 }

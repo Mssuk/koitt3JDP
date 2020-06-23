@@ -1,10 +1,10 @@
 package com.koitt.tim.service.membership;
 
-import com.koitt.tim.dao.order.OrderDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.koitt.tim.dao.member.MemberDao;
+import com.koitt.tim.dao.order.OrderDao;
 import com.koitt.tim.dto.member.MemberDto;
 
 @Service
@@ -44,15 +44,14 @@ public class MembershipServiceImpl implements MembershipService {
 		int result = 0;
 		MemberDto mDto = memberDao.selectOneMember(id);
 
-		
-		if(mDto == null){
-		    // 중복 x
+		if (mDto == null) {
+			// 중복 x
 			result = 1;
 		} else {
-		    // 중복
+			// 중복
 			result = 0;
 		}
-		
+
 		return result;
 	}
 
@@ -61,9 +60,9 @@ public class MembershipServiceImpl implements MembershipService {
 		String id_check = orderDao.selectOneOrder(o_num, orderTel);
 		int result = 0;
 		// 아이디가 존재하지 않음
-		if(id_check == null){
+		if (id_check == null) {
 			result = 0;
-		} else  //아이디 존재
+		} else // 아이디 존재
 			result = 1;
 
 		return result;
@@ -95,6 +94,11 @@ public class MembershipServiceImpl implements MembershipService {
 		System.out.println("Impl : " + pw);
 
 		return pw;
+	}
+
+	@Override
+	public void modifyMember(MemberDto mDto) {
+		memberDao.updateMember(mDto);
 	}
 
 }
