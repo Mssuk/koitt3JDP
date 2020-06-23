@@ -453,18 +453,18 @@ $("#cartPut").click(function(){
                                 <li>
                                     <div class="headArea">
                                         <div class="subject">
-                                            <a href="javascript:" class="accbtn">${qaList.key}</a>
+                                            <a href="javascript:" class="accbtn">${qaList.get("Q_TITLE")}</a>
                                         </div>
-                                        <div class="writer">[문의 아이디]</div>
+                                        <div class="writer">[${qaList.get("ID")}]</div>
                                         <div class="day">
-                                            <p>문의 날짜</p>
+                                            <p>${qaList.get("Q_DATE")}</p>
                                             <p><span class="obtnMini iw70">답변완료</span></p>
                                         </div>
                                     </div>
 
                                     <div class="hideArea">
                                         <div class="bodyArea">
-                                            문의 내용
+                                            ${qaList.get("Q_CONTENT")}
                                         </div>
 
                                         <!-- 답변 -->
@@ -475,7 +475,7 @@ $("#cartPut").click(function(){
                                                 </div>
 
                                                 <div class="atxt">
-                                                    쟈뎅 커피를 사랑해주셔서 감사합니다.<br/>배송은 결제 후 평군 2~3일 정도 소요됩니다. (공휴일 및 휴일 제외) 산간 도서지방은 배송기간이 더 소요될 수 있으므로 미리 양해 부탁드립니다.
+                                                    ${qaList.get("A_CONTENT")}
                                                 </div>
                                             </div>
                                         </div>
@@ -499,13 +499,18 @@ $("#cartPut").click(function(){
                             <!-- 페이징이동1 -->
                             <div class="allPageMoving1">
 
-                                <a href="#" class="n"><img src="/images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="#" class="pre"><img src="/images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
-                                <strong>1</strong>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#">4</a>
-                                <a href="#">5</a>
-                                <a href="#" class="next"><img src="/images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="#" class="n"><img src="/images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
+                                <a href="detail?pro_num=${dto.pro_num}&page=1" class="n"><img src="/images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="detail?pro_num=${dto.pro_num}&page=${pageQA-1}" class="pre"><img src="/images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
+                                    <c:forEach var="pageList1" items="${pageListQA}">
+                                        <c:choose>
+                                            <c:when test="${pageList1==pageQA}">
+                                                <strong>${pageList1}</strong>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="detail?pro_num=${dto.pro_num}&page=${pageList1}">${pageList1}</a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                <a href="detail?pro_num=${dto.pro_num}&page=${pageQA+1}" class="next"><img src="/images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="detail?pro_num=${dto.pro_num}&page=${lastNumQA}" class="n"><img src="/images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
 
                             </div>
                             <!-- //페이징이동1 -->

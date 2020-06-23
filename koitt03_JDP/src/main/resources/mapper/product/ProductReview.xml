@@ -15,6 +15,7 @@
         insert into REVIEW
         values (REVIEW_SEQ.nextval,#{id},'2020060306',#{title},sysdate,'0',#{star},#{content},null,null,#{pro_num})
     </insert>
+
    <!-- 비회원(회원) 리뷰 작성 -->
     <insert id="insertReviewOne" parameterType="ReviewDto">
     	 insert into REVIEW

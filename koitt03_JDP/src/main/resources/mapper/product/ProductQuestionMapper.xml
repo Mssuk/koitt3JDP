@@ -6,7 +6,8 @@
 	</select>
 
 	<select id="selectQAList" resultType="map">
-		select q.*,a.A_CONTENT from PRODUCT_QUESTION q, PRODUCT_ANSWER a where q.PRO_NUM = #{pro_num} order by q.Q_DATE desc
+		select * from (select ROWNUM rnum,q.*,a.A_CONTENT from PRODUCT_QUESTION q, PRODUCT_ANSWER a where q.PRO_NUM = #{p1} and q.Q_NUM = a.Q_NUM)
+		where rnum <![CDATA[ >= ]]> #{p2} and rnum <![CDATA[ <= ]]> #{p3}
 	</select>
 
 	<select id="selectQuestionCount" resultType="int">

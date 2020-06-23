@@ -69,12 +69,12 @@ public class ProductServiceImpl implements ProductService {
         return rDao.selectReviewList(pro_num, startNum, endNum);
     }
 
-    //밑에 페이지 나타나는거
+    //밑에 페이지 나타나는거 (리뷰)
     @Override
     public List<Integer> getPageList(String pro_num, int pageNum) {
         List<Integer> pageList = new ArrayList<>();
         // 총 게시글 갯수
-        double totalCnt = (double) this.getBoardCount(pro_num);
+        double totalCnt = this.getBoardCount(pro_num);
         // 마지막 페이지 번호 계산
         int lastPageNum = getlastNum(totalCnt);
         // 시작 페이지 번호 설정
@@ -133,15 +133,49 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<HashMap<String, Object>> getQAList(String pro_num) {      //해당 상품 문의/질의 불러오기
-        return pqDao.selectQAList(pro_num);
+    public List<HashMap<String, Object>> getQAList(String pro_num, int pageNum) {      //해당 상품 문의/질의 불러오기
+
+        int startNum = (pageNum -1)* PAGE_LIMIT+1;
+        int endNum = startNum + PAGE_LIMIT -1;
+
+        return pqDao.selectQAList(pro_num,startNum, endNum);
+    }
+    //밑에 페이지 나타나는거 (질문문의)
+    @Override
+    public List<Integer> getPageListQA(String pro_num, int pageNum) {
+        List<Integer> pageListQA = new ArrayList<>();
+        // 총 게시글 갯수
+        double totalCnt = this.getBoardCountQA(pro_num);
+        // 마지막 페이지 번호 계산
+        int lastPageNum = getlastNumQA(totalCnt);
+        // 시작 페이지 번호 설정
+        int startPageNumQA = ((int) (Math.ceil((double) pageNum / ROW_LIMIT) - 1) * ROW_LIMIT) + 1;
+        // 현재 페이지를 기준으로 마지막 페이지 번호 조정
+        lastPageNum = Math.min(lastPageNum, startPageNumQA + ROW_LIMIT - 1);
+        // 페이지 번호 할당
+        for (int val = startPageNumQA; val <= lastPageNum; val++) {
+            pageListQA.add(val);
+        }
+        System.out.println(pageListQA.size());
+        return pageListQA;
+    }
+    // 마지막 페이지 번호 계산
+    public int getlastNumQA(double cnt) {
+        return (int) (Math.ceil(cnt / PAGE_LIMIT));
+    }
+    // 전체 질문/문의 글 카운트
+    public int getBoardCountQA(String pro_num) {
+        return pqDao.selectQuestionCount(pro_num);
+    }
+
+    //페이징 마지막 번호 호출
+    @Override
+    public int LastpageNumQA(String pro_num) {
+        return getlastNumQA(this.getBoardCountQA(pro_num));
     }
 
 
-//    @Override
-//    public String getOrderNum(String pro_num,String id) {        //해당 상품번호로 주문번호를 불러오기(리뷰쓸 때 사용함)
-//        return oDao.selectOrderKey(pro_num,id);
-//    }
+
 
 
 }

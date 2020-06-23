@@ -252,14 +252,24 @@
 									<td>
 										<ul class="pta">
 											<!-- selct 선택하면 email창에 자동으로 입력되는 함수 -->
-											<script language="JavaScript">
+											<script>
 												function selectEmail(frm) {
-
-													var email = frm.emailList.selectedIndex ;
-
+													var email = frm.emailList.selectedIndex;
 													switch(email){
+														case 0:
+															frm.email2.value='';
+															break;
 														case 1:
 															frm.email2.value = 'naver.com';
+															break;
+														case 2:
+															frm.email2.value = 'damu.net';
+															break;
+														case 3:
+															frm.email2.value = 'nate.com';
+															break;
+														case 4:
+															frm.email2.value = 'gmail.com';
 															break;
 													}
 													return true;
@@ -269,22 +279,11 @@
 											<li><span class="valign">&nbsp;@&nbsp;</span></li>
 											<li class="r10"><input type="text" class="w134" name="email2" /></li>
 											<li><select id="emailList" onchange="selectEmail(this.form)" name="emailList">
-													<option value="#" selected="selected">직접입력</option>
+													<option value=0 selected="selected">직접입력</option>
 													<option value=1>naver.com</option>
-													<option value="daum.net">daum.net</option>
-													<option value="hanmail.net">hanmail.net</option>
-													<option value="nate.com">nate.com</option>
-													<option value="yahoo.co.kr">yahoo.co.kr</option>
-													<option value="paran.com">paran.com</option>
-													<option value="empal.com">empal.com</option>
-													<option value="hotmail.com">hotmail.com</option>
-													<option value="korea.com">korea.com</option>
-													<option value="lycos.co.kr">lycos.co.kr</option>
-													<option value="dreamwiz.com">dreamwiz.com</option>
-													<option value="hanafos.com">hanafos.com</option>
-													<option value="chol.com">chol.com</option>
-													<option value="gmail.com">gmail.com</option>
-													<option value="empas.com">empas.com</option>
+													<option value=2>daum.net</option>
+													<option value=3>nate.com</option>
+													<option value=4>gmail.com</option>
 											</select>
 
 											</li>

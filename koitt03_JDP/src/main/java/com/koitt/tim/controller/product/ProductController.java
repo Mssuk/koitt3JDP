@@ -46,7 +46,7 @@ public class ProductController {
     }
 
     @RequestMapping("detail")
-    public String productDetail(String pro_num, Model model,@RequestParam(value = "page", defaultValue = "1") int page){
+    public String productDetail(String pro_num, Model model,@RequestParam(value = "page", defaultValue = "1") int page,@RequestParam(value = "pageQA", defaultValue = "1") int pageQA){
 
         List<ProductDto> relatedProduct = pServ.relatedProduct(pro_num); //상품번호로 연관상품 불러오기
         List<ReviewDto> reviewDtos = pServ.getReviewList(pro_num, page);  //상품번호로 상품에 달린 리뷰 리스트 불러오기
@@ -55,10 +55,13 @@ public class ProductController {
         int lastNum = pServ.LastpageNum(pro_num);   //페이징 마지막 번호 호출
         int allReview = pServ.getBoardCount(pro_num);   //해당 상품 전체 리뷰 카운트 호출
 
+
         int questionCount = pServ.getQuestionCount(pro_num);        //해당 상품 문의 카운트
         //List<ProductQuestionDto> pQuestionDtos = pServ.getPQuestion(pro_num);   //해당 상품 문의 불러오기
-        List<HashMap<String,Object>> QAList = pServ.getQAList(pro_num);       //해당 상품 문의/질의 전부 불러오기
-        System.out.println(QAList);
+        List<HashMap<String,Object>> QAList = pServ.getQAList(pro_num,pageQA);       //해당 상품 문의/질의 전부 불러오기
+        List<Integer> getPageListQA = pServ.getPageListQA(pro_num,pageQA);
+        int allQA=pServ.getBoardCountQA(pro_num);  //해당 상품 전체 질문/문의 카운트
+        int lastNumQA=pServ.LastpageNumQA(pro_num);  //페이징 마지막 번호 호출(질문/문의)
 
 
         model.addAttribute("dto",pDto);
@@ -71,8 +74,11 @@ public class ProductController {
         model.addAttribute("allReview",allReview);
         model.addAttribute("qCount",questionCount);
 
+        model.addAttribute("pageQA",pageQA);
         model.addAttribute("qaList",QAList);
-
+        model.addAttribute("pageListQA",getPageListQA);
+        model.addAttribute("allQA",allQA);
+        model.addAttribute("lastNumQA",lastNumQA);
         return "product/detail";
     }
 
