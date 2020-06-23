@@ -98,4 +98,8 @@ c.key is null and ROWNUM <![CDATA[ >= ]]> #{p1}
         where pn."pro_num" = p.PRO_NUM
     </select>
 
+    <!-- 주문상태 변경 -->
+    <select id="updateOrderStatus">
+        update "ORDER" set O_STATUS = #{param2} where "o_num"=#{param1}
+    </select>
 </mapper>
