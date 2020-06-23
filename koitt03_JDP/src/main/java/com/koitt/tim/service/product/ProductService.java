@@ -18,6 +18,9 @@ public interface ProductService {
     int getBoardCount(String pro_num);  //해당 상품 전체 리뷰 카운트
     int LastpageNum(String pro_num);  //페이징 마지막 번호 호출(리뷰)
 
+    List<ReviewDto> getReviewPhotoList(String pro_num,int pageNum);     //포토리뷰 불러오기(이미지 있는 것만)
+    List<Integer> getPageListPhoto(String pro_num,int pageNum); //포토리뷰 페이징
+    int LastpageNumPhoto(String pro_num);       //포토리뷰 마지막 번호 호출
 
     List<ProductDto> getProductList();
     ProductDto getProductChoice(String pro_num);

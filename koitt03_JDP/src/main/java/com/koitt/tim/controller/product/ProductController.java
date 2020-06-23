@@ -46,11 +46,17 @@ public class ProductController {
     }
 
     @RequestMapping("detail")
-    public String productDetail(String pro_num, Model model,@RequestParam(value = "page", defaultValue = "1") int page,@RequestParam(value = "pageQA", defaultValue = "1") int pageQA){
+    public String productDetail(String pro_num, Model model,@RequestParam(value = "page", defaultValue = "1") int page,@RequestParam(value = "pageQA", defaultValue = "1") int pageQA,@RequestParam(value = "pagePhoto", defaultValue = "1") int pagePhoto){
 
         List<ProductDto> relatedProduct = pServ.relatedProduct(pro_num); //상품번호로 연관상품 불러오기
-        List<ReviewDto> reviewDtos = pServ.getReviewList(pro_num, page);  //상품번호로 상품에 달린 리뷰 리스트 불러오기
         ProductDto pDto = pServ.getProductChoice(pro_num);  //상품번호로 상품 정보 불러오기
+
+        List<ReviewDto> photoReviewDtos = pServ.getReviewPhotoList(pro_num,pagePhoto);       //상품번호로 상품 리뷰리스트 불러오기(포토리뷰)
+        List<Integer> getPageListPhoto = pServ.getPageListPhoto(pro_num,pagePhoto);     //포토리뷰 페이징
+        int lastNumPhoto = pServ.LastpageNumPhoto(pro_num); //포토리뷰 마지막 페이징 번호 호출
+
+
+        List<ReviewDto> reviewDtos = pServ.getReviewList(pro_num, page);  //상품번호로 상품에 달린 리뷰 리스트 불러오기
         List<Integer> getPageList = pServ.getPageList(pro_num,page);   //리뷰 페이징
         int lastNum = pServ.LastpageNum(pro_num);   //페이징 마지막 번호 호출
         int allReview = pServ.getBoardCount(pro_num);   //해당 상품 전체 리뷰 카운트 호출
@@ -79,6 +85,12 @@ public class ProductController {
         model.addAttribute("pageListQA",getPageListQA);
         model.addAttribute("allQA",allQA);
         model.addAttribute("lastNumQA",lastNumQA);
+
+        model.addAttribute("pagePhoto",pagePhoto);
+        model.addAttribute("photoReviewDtos",photoReviewDtos);
+        model.addAttribute("pageListPhoto",getPageListPhoto);
+        model.addAttribute("lastNumPhoto",lastNumPhoto);
+
         return "product/detail";
     }
 

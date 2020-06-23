@@ -14,7 +14,8 @@ import com.koitt.tim.dto.review.ReviewDto;
 
 @Repository
 public interface ReviewDao {
-	List<ReviewDto> selectReviewList(@Param("p1") String pro_num, @Param("p2") int startNum, @Param("p3") int endNum); // 상품번호로 제품리뷰 리스트 불러오기
+	List<ReviewDto> selectReviewList(@Param("p1") String pro_num, @Param("p2") int startNum, @Param("p3") int endNum); // 상품번호로 리뷰 리스트 불러오기
+	List<ReviewDto> selectReviewPhotoList(@Param("p1") String pro_num,@Param("p2") int startNum,@Param("p3") int endNum);	//상품번호로 포토리뷰 리스트 불러오기
 
 	void insertReview(@Param("id") String id, @Param("type") String type, @Param("star") int star,
 			@Param("title") String title, @Param("content") String content, @Param("pro_num") String pro_num); // 리뷰 추가
@@ -22,7 +23,7 @@ public interface ReviewDao {
 	void insertPhotoReview(ReviewDto rDto);
 
 	int selectCountReview(String pro_num);	//해당 상품 리뷰 카운트
-
+	int selectCountReviewPhoto(String pro_num);	//해당 상품 포토리뷰 카운트
 	// 모든 제품리뷰 불러오기 (admin)
 	List<ReviewDto> selectAllReview();
 

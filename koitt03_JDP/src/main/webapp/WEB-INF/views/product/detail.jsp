@@ -129,7 +129,7 @@
                     <ul>
                         <li class="dep"><a href="javascript:;" onclick="return false;" id="detailInfo">상품상세 정보</a></li>
                         <li><a href="javascript:;" onclick="return false;" id="goodsRelation">관련상품</a></li>
-                        <li class="dep"><a href="javascript:;" onclick="return false;" id="goodsReview">상품리뷰 <span>(${allReview})</span></a></li>
+                        <li class="dep"><a href="javascript:;" onclick="return false;" id="goodsReview">상품리뷰 <span>()</span></a></li>
                         <li><a href="javascript:;" onclick="return false;" id="goodsQna">질문과 답변 <span>(${qCount})</span></a></li>
                         <li class="last"><a href="javascript:;" onclick="return false;" id="goodsNotice">정책 및 공지</a></li>
                     </ul>
@@ -286,22 +286,24 @@ $("#cartPut").click(function(){
                         <!-- 포토 구매후기 -->
                         <div class="imgListType">
                             <ul>
-                                <c:forEach var="reviewList" items="${reviewDtos}">
-                                    <c:if test="${reviewList.image eq not null}">
+                                <c:forEach var="photoReviewList" items="${photoReviewDtos}">
+                                    <c:choose>
+                                        <c:when test="${photoReviewList.image != null}">
+
                                 <!-- List -->
                                 <li>
-                                    <div class="img"><img src="${reviewList.image}" width="155" height="160" alt="" /></div>
+                                    <div class="img"><img src="${photoReviewList.image}" width="155" height="160" alt="" /></div>
                                     <div class="txt">
                                         <div class="subject">
-                                            <a href="#"><span class="orange">${reviewList.board_type}</span> ${reviewList.title}</a>
+                                            <a href="#"><span class="orange"></span> ${photoReviewList.title}</a>
                                         </div>
                                         <div class="conf">
-                                            ${reviewList.content}
+                                            ${photoReviewList.content}
                                         </div>
                                         <div class="data">
-                                            <p>작성자 <span>${reviewList.id} id뒤에 일부는 *로 표시</span></p>
-                                            <p>등록일 <span>${reviewList.regist_review}</span></p>
-                                            <p>조회수 <span>${reviewList.hit}</span></p>
+                                            <p>작성자 <span>${photoReviewList.id} id뒤에 일부는 *로 표시</span></p>
+                                            <p>등록일 <span>${photoReviewList.regist_review}</span></p>
+                                            <p>조회수 <span>${photoReviewList.hit}</span></p>
                                             <p>평점
                                                 <span class="ty">
 												<img src="/images/ico/ico_star.gif" alt="별점" />
@@ -314,9 +316,11 @@ $("#cartPut").click(function(){
                                         </div>
                                     </div>
                                 </li>
-                                    </c:if>
-                                <!-- //List -->
+                                        </c:when>
+                                    </c:choose>
                                 </c:forEach>
+                                <!-- //List -->
+
 
                             </ul>
                         </div>
@@ -326,13 +330,18 @@ $("#cartPut").click(function(){
                             <!-- 페이징이동1 -->
                             <div class="allPageMoving1">
 
-                                <a href="#" class="n"><img src="/images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="#" class="pre"><img src="/images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
-                                <strong>1</strong>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#">4</a>
-                                <a href="#">5</a>
-                                <a href="#" class="next"><img src="/images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="#" class="n"><img src="/images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
+                                <a href="detail?pro_num=${dto.pro_num}&page=1" class="n"><img src="/images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="detail?pro_num=${dto.pro_num}&page=${pagePhoto-1}" class="pre"><img src="/images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
+                                <c:forEach var="pageListPhoto" items="${pageListPhoto}">
+                                    <c:choose>
+                                        <c:when test="${pageListPhoto==pagePhoto}">
+                                            <strong>${pageListPhoto}</strong>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="detail?pro_num=${dto.pro_num}&page=${pageListPhoto}"></a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <a href="detail?pro_num=${dto.pro_num}&page=${pagePhoto+1}" class="next"><img src="/images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="detail?pro_num=${dto.pro_num}&page=${lastNumPhoto}" class="n"><img src="/images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
 
                             </div>
                             <!-- //페이징이동1 -->
@@ -360,7 +369,8 @@ $("#cartPut").click(function(){
                             <ul>
                                 <!-- 반복 -->
                                 <c:forEach var="reviewList" items="${reviewDtos}">
-<%--                                    <c:if test=" ${reviewList.image eq null}">--%>
+                                    <c:choose>
+                                        <c:when test="${reviewList.image ==null}">
                                 <li>
                                     <div class="headArea">
                                         <div class="subject">
@@ -406,7 +416,8 @@ $("#cartPut").click(function(){
                                     </div>
                                 </li>
                                 <!-- //반복 -->
-<%--                                    </c:if>--%>
+                                        </c:when>
+                                    </c:choose>
                                 </c:forEach>
 
                             </ul>
