@@ -125,7 +125,7 @@
                             </c:otherwise>
                         </c:choose>
                         <li><a href="/mypage/ordercheck">MY PAGE</a></li>
-                        <li><a href="#">CART</a></li>
+                        <li><a href="/goCart">CART</a></li>
                     </ul>
 
                     <div id="search">

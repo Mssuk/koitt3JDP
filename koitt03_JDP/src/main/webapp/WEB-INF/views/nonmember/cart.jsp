@@ -125,17 +125,6 @@
 						</ul>
 					</div>
 
-				<!-- //장바구니에 상품이 있을경우 -->
-
-
-				<!-- 장바구니에 상품이 없을경우
-					<div class="noting">
-						<div class="point"><span class="orange">장바구니</span>에 담긴 상품이 없습니다.</div>
-
-						<a href="#">쇼핑 계속하기</a>
-					</div>
-				 //장바구니에 상품이 없을경우 -->
-
 
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">

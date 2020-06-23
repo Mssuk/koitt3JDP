@@ -72,8 +72,8 @@
 												</li>
 											</ul>
 										</td>
-										<td class="tnone">
-											<span><fmt:formatNumber value="${dtos.pdto.sales_price }" pattern="#,###" /></span> 원
+										<td class="tnone cart_price">
+											<em><fmt:formatNumber value="${dtos.pdto.sales_price }" pattern="#,###" /></em> 원
 											
 											<c:if test="${member!=null }">
 												<!-- 회원일 시 -->
@@ -90,9 +90,9 @@
 					</div>
 					<div class="poroductTotal">
 						<ul>	
-							<li>상품 합계금액 <strong>1,132,310</strong> 원</li>
-							<li>+ 배송비 <strong>2,500</strong> 원</li>
-							<li>= 총 합계 <strong>1,134,810</strong> 원</li>
+							<li class="whole_total">상품 합계금액 <strong>1,132,310</strong> 원</li>
+							<li class="whole_deliver">+ 배송비 <strong>2,500</strong> 원</li>
+							<li class="result_total">= 총 합계 <strong>1,134,810</strong> 원</li>
 						</ul>
 					</div>
 					</form>
@@ -220,10 +220,6 @@
 										</ul>
 									</td>
 								</tr>
-<!-- 								<tr> -->
-<!-- 									<th scope="row"><span>비밀번호</span></th> -->
-<!-- 									<td><input type="password" class="w134" /></td> -->
-<!-- 								</tr> -->
 							</tbody>
 						</table>
 					</div>
@@ -235,7 +231,7 @@
 					<form action="" name="form2" method="post">
 					<h3 class="dep">
 						수취자 주소 입력
-						<input type="checkbox" id="infosame"/>
+						<input type="checkbox" id="infosame" onclick=""/>
 						<label for="infosame">주문자 정보와 동일</label>
 					</h3>
 					<div class="checkDiv">
@@ -248,7 +244,7 @@
 							<tbody>
 								<tr>
 									<th scope="row"><span>이름</span></th>
-									<td><input type="text" class="w134" value="홍길동" /></td>
+									<td><input type="text" class="w134" name="p_name"  /></td>
 								</tr>
 
 								<tr>
@@ -256,7 +252,7 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<input type="text" class="w134" id="zip2"/>&nbsp;
+												<input type="text" class="w134" id="zip2" name="address1"/>&nbsp;
 											</li>
 											<li><a href="javascript:;" onclick="post2()" class="addressBtn"><span>우편번호 찾기</span></a></li>
 											<li class="pt5"><input type="text" class="addressType2" name="address2" id="address3"/></li>
@@ -269,7 +265,7 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<select>
+												<select name="phone1">
 													<option value="010" selected="selected">010</option>
 													<option value="011">011</option>
 													<option value="016">016</option>
@@ -279,8 +275,8 @@
 												</select>
 											</li>
 											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
-											<li class="r10"><input type="text" class="w74" maxlength="4" /></li>
+											<li><input type="text" class="w74" maxlength="4"  name="phone2"/> <span class="valign">-</span>&nbsp;</li>
+											<li class="r10"><input type="text" class="w74" maxlength="4"  name="phone3" /></li>
 										</ul>
 									</td>
 								</tr>
@@ -414,11 +410,11 @@
 						<ul class="info">
 							<li>
 								<span class="title">상품 합계금액</span>
-								<span class="won"><strong>1,132,310</strong> 원</span>
+								<span class="won whole_total"><strong>1,132,310</strong> 원</span>
 							</li>
 							<li>
 								<span class="title">배송비</span>
-								<span class="won"><strong>2,500</strong> 원</span>
+								<span class="won whole_deliver"><strong>2,500</strong> 원</span>
 							</li>
 							<c:if test="${member!=null }">
 								<!-- 회원 일때만 -->
@@ -432,6 +428,9 @@
 								</li>
 								<!-- //회원 일떄만 -->
 							</c:if>
+							<li style="color:#fe6124;border-bottom: none;">
+								<span class="won del_text"><strong style="color:#fe6124;"></strong></span>
+							</li>
 						</ul>
 
 						<ul class="total">
@@ -442,12 +441,11 @@
 							</c:if>
 
 							<li class="txt"><strong>결제 예정 금액</strong></li>
-							<li class="money"><span>1,134,810</span> 원</li>
+							<li class="money result_total"><span>1,134,810</span> 원</li>
 						</ul>
 					</div>
 				</form>	
 			<!-- //총 주문금액 -->
-
 
 
 			<!-- 결제수단 선택 -->
@@ -516,7 +514,12 @@
 										<th scope="row"><span>입금은행</span></th>
 										<td>
 											<select name="bank">
-												<option value="" >선택하세요.</option>
+												<option value="" disabled="disabled" hidden="" selected="selected">선택하세요.</option>
+												<option value="국민">국민</option>
+												<option value="신한">신한</option>
+												<option value="우리">우리</option>
+												<option value="농협">농협</option>
+												<option value="카카오뱅크" >카카오뱅크</option>
 											</select>
 										</td>
 									</tr>
@@ -545,7 +548,7 @@
 								<dd>
 									<ul>
 										<li><input type="radio" name="individual" id="phone" checked="checked" /><label for="phone">휴대폰</label></li>
-										<li><input type="radio" name="individual" id="securitynumber" /><label for="securitynumber">주민등록번호</label></li>
+<!-- 										<li><input type="radio" name="individual" id="securitynumber" /><label for="securitynumber">주민등록번호</label></li> -->
 										<li><input type="radio" name="individual" id="cashreceipts" /><label class="fn" for="cashreceipts">현금영수증카드</label></li>
 									</ul>
 								</dd>
@@ -558,12 +561,12 @@
 								<li><input type="text" class="w134" /></li>
 							</ul>
 
-							<ul class="inform securitynumber"><!-- 주민등록번호 -->
-								<li class="title">이름</li>
-								<li class="interval"><input type="text" class="w134" /></li>
-								<li class="title cb">주민등록번호</li>
-								<li><input type="text" class="w134" /></li>
-							</ul>
+<!-- 							<ul class="inform securitynumber">주민등록번호 -->
+<!-- 								<li class="title">이름</li> -->
+<!-- 								<li class="interval"><input type="text" class="w134" /></li> -->
+<!-- 								<li class="title cb">주민등록번호</li> -->
+<!-- 								<li><input type="text" class="w134" /></li> -->
+<!-- 							</ul> -->
 
 							<ul class="inform cashreceipts"><!-- 현금영수증카드 -->
 								<li class="title">이름</li>
@@ -707,6 +710,57 @@ $(function(){
 			});
 		}
 	});
+	
+		//처음합계
+		var first=get_total();
+		 $( ".whole_total strong" ).text(first);
+		//처음배송료
+		var f_deliver=get_deliver(first);
+		$( ".whole_deliver strong" ).text(f_deliver);
+		//처음 총가격
+		var f_total=get_re_total(first,f_deliver);
+		$( ".result_total strong" ).text(f_total);
+		$( ".result_total span" ).text(f_total);
+		//전체 상품 금액합계
+		 function get_total() {
+				var cnt=$(".cart_price").length;
+				var sum=0;
+				for(var i=0;i<cnt;i++){
+				var cart=$(".cart_price em").eq(i).text();
+				cart=cart.replace(/[^0-9]/g,'');
+				cart=Number(cart);
+				sum+=cart;
+				}
+				sum=sum.toLocaleString();
+				return sum;
+		}
+		//배송비
+		function get_deliver(x){
+			var del=2500;
+			x=x.replace(/[^0-9]/g,'');
+			x=Number(x);
+			if(x>=15000){
+				del=0;
+			}
+			if(del==0){
+				$( ".del_text strong" ).text("*15,000원 이상 구매시 배송비 무료");
+			}else{
+				$( ".del_text strong" ).text("");
+			}
+			
+			del=del.toLocaleString();
+			return del;
+		}
+		//최종합계
+		function get_re_total(a,b){
+			a=a.replace(/[^0-9]/g,'');
+			a=Number(a);
+			b=b.replace(/[^0-9]/g,'');
+			b=Number(b);
+			var result=a+b;
+			result=result.toLocaleString();
+			return result;
+		}
 
 
 });
