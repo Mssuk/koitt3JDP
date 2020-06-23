@@ -42,8 +42,7 @@
 				<div id="mypage">
 					<h2><strong>주문/결제</strong></h2>
 					
-					<!-- 주문 상품 -->
-					<form action="" name="product" method="post">
+					<!-- 주문 상품 --><%--주문상품은 session에서 정보를 가져온다 --%>
 					<h3 class="dep">주문 제품 확인</h3>
 					<div class="orderDivNm">
 						<table summary="주문 제품 확인 게시판으로 상품명, 가격, 수량, 합계순으로 조회 하실수 있습니다." class="orderTable" border="1" cellspacing="0">
@@ -74,7 +73,6 @@
 										</td>
 										<td class="tnone cart_price">
 											<em><fmt:formatNumber value="${dtos.pdto.sales_price }" pattern="#,###" /></em> 원
-											
 											<c:if test="${member!=null }">
 												<!-- 회원일 시 -->
 												<br/><span class="pointscore"><fmt:formatNumber value="${dtos.pdto.sales_price*0.01 }" pattern="#,###" /> Point</span>
@@ -95,7 +93,6 @@
 							<li class="result_total">= 총 합계 <strong>1,134,810</strong> 원</li>
 						</ul>
 					</div>
-					</form>
 					<!-- //주문 상품 -->
 					
 
@@ -120,7 +117,7 @@
 							<tbody>
 								<tr>
 									<th scope="row"><span>이름</span></th>
-									<td><input type="text" class="w134" value="" /></td>
+									<td><input type="text" class="w134" value="${member.name }" /></td>
 								</tr>
 
 								<tr>
@@ -128,11 +125,11 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<input type="text" class="w134" id="zip1"/>&nbsp;
+												<input type="text" class="w134" id="zip1" value="${member.address1 }" disabled="disabled"/>&nbsp;
 											</li>
 											<li><a href="javascript:;" onclick="post()" class="addressBtn"><span>우편번호 찾기</span></a></li>
-											<li class="pt5"><input type="text" class="addressType2" name="address2" id="address1"/></li>
-											<li class="pt5"><input type="text" class="addressType2" name="address3" id="address2" /></li>
+											<li class="pt5"><input type="text" class="addressType2" name="address2" id="address1" value="${member.address2 }" disabled="disabled"/></li>
+											<li class="pt5"><input type="text" class="addressType2" name="address3" id="address2" value="${member.address3 }" /></li>
 										</ul>
 									</td>
 								</tr>
