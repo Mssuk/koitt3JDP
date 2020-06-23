@@ -9,4 +9,25 @@
 		insert into PRODUCT_SERIAL  
 		values(#{pro_num},#{cate_code_d1},#{cate_code_d2})
 	</insert>
+	
+	<!-- select serial -->
+	<select id="selectAllSerial" resultType="ProductSerialDto">
+		select * from product_serial
+	</select>
+	
+	<!-- delete serial -->
+	<delete id="deleteProductSerial">
+		delete PRODUCT_SERIAL where PRO_NUM = #{param1}
+	</delete>
+	
+	<!-- one of select serial  -->
+	<select id="selectSerial" resultType="ProductSerialDto">
+		select * from product_serial where pro_num = #{param1}
+	</select>
+
+	<!-- update serial -->
+	<update id="updateProductCategory">
+		update PRODUCT_SERIAL set CATE_CODE_D1=#{cate_code_d1} , CATE_CODE_D2=#{cate_code_d2}
+		where PRO_NUM=#{pro_num}
+	</update>
 </mapper>

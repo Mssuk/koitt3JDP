@@ -11,11 +11,15 @@ import org.springframework.stereotype.Service;
 import com.koitt.tim.dao.order.ChangeDao;
 import com.koitt.tim.dao.order.OrderDao;
 import com.koitt.tim.dao.product.ProductDao;
+import com.koitt.tim.dao.review.ReviewDao;
 import com.koitt.tim.dto.basket.BasketMemberDto;
 import com.koitt.tim.dto.basket.CartViewDto;
+import com.koitt.tim.dto.member.MemberDto;
+import com.koitt.tim.dto.order.ChangeDto;
 import com.koitt.tim.dto.order.OrderDto;
 import com.koitt.tim.dto.order.OrderListDto;
 import com.koitt.tim.dto.product.ProductDto;
+import com.koitt.tim.dto.review.ReviewDto;
 
 @Service
 public class NonmemberServiceImpl implements NonmemberService {
@@ -27,6 +31,9 @@ public class NonmemberServiceImpl implements NonmemberService {
 
 	@Autowired
 	private ChangeDao cdao;
+
+	@Autowired
+	private ReviewDao rdao;
 
 	private static final int ROW_LIMIT = 5; // 밑에 몇개씩 보여줄건지
 	private static final int PAGE_LIMIT = 5; // 한페이지에 글 몇개 보여줄건지
@@ -78,6 +85,10 @@ public class NonmemberServiceImpl implements NonmemberService {
 			// 주문은 있으나 아이디가있음(회원임)
 			if (odto.getId() != null)
 				orch = -1;
+
+			if (odto.getO_status() == "취소승인")// 주문을 완료하지않음(임시주문번호만 생긴 그것..0
+
+				orch = 0;
 		}
 
 		return orch;
@@ -92,11 +103,8 @@ public class NonmemberServiceImpl implements NonmemberService {
 		int endNum = startNum + PAGE_LIMIT - 1;
 		List<OrderListDto> list = odao.selectOrderListNone(o_num, startNum, endNum);
 		for (int i = 0; i < list.size(); i++) {
-			String c_state = "";
-			if (cdao.selectChangeState(list.get(i).getKey()) != null) {
-				c_state = cdao.selectChangeState(list.get(i).getKey());
-			}
-			list.get(i).setC_state(c_state);
+			list.get(i).setReviewOk(rdao.selectReviewCount(list.get(i).getKey()));
+			System.out.println(rdao.selectReviewCount(list.get(i).getKey()));
 		}
 		return list;
 	}
@@ -145,6 +153,121 @@ public class NonmemberServiceImpl implements NonmemberService {
 	public OrderListDto getOrderListOne(String key, String o_num) {
 		OrderListDto odto = odao.selectOrderListOne(key, o_num);
 		return odto;
+	}
+
+	// 교환반품을 신청함.
+	@Override
+	public int doReturn(ChangeDto changeDto) {
+		int check = 1;
+		try {
+			cdao.insertChangeOne(changeDto);
+		} catch (Exception e) {
+			check = 0;
+		}
+		return check;
+	}
+
+	// 교환반품을 철회함
+	@Override
+	public int cancelReturn(String key) {
+		int check = 1;
+		try {
+			cdao.deleteChangeOne(key);
+		} catch (Exception e) {
+			check = 0;
+		}
+		return check;
+	}
+
+	// 주문철회(입금전)
+	@Override
+	public int cancelOrderA(String o_num) {
+		int check = 1;
+		String o_status = "취소승인";
+		try {
+			odao.updateOrderOne(o_num, o_status);
+		} catch (Exception e) {
+			check = 0;
+		}
+		return check;
+	}
+
+	// 주문철회(입금후-배송준비전-->클레임으로 가야함.)
+	@Override
+	public int cancelOrderB(String o_num) {
+		int check = 1;
+		String o_status = "취소신청";
+		try {
+			odao.updateOrderOne(o_num, o_status);
+		} catch (Exception e) {
+			check = 0;
+		}
+		return check;
+	}
+
+	// 주문철회를 취소(입금후-배송준비전-->클레임취소.)
+	@Override
+	public int cancelReturnB(String o_num) {
+		int check = 1;
+		String o_status = "결제완료";
+		try {
+			odao.updateOrderOne(o_num, o_status);
+		} catch (Exception e) {
+			check = 0;
+		}
+		return check;
+	}
+
+	// 반품교환 현황리스트
+	@Override
+	public List<OrderListDto> getClaimLists(int pageNum, String o_num) {
+		// 시작 글넘버
+		int startNum = (pageNum - 1) * PAGE_LIMIT + 1;
+		// 끝 글넘버
+		int endNum = startNum + PAGE_LIMIT - 1;
+		return odao.selectClaimListNone(o_num, startNum, endNum);
+	}
+
+	// 반품교환 이유
+	@Override
+	public String getReason(String key) {
+		ChangeDto cdto = cdao.selectChangeOne(key);
+		String reason = cdto.getC_reason();
+		return reason;
+	}
+
+	// 반품교환 사유변경
+	@Override
+	public int updateReason(ChangeDto changeDto) {
+		int check = 1;
+		try {
+			cdao.updateChange(changeDto);
+		} catch (Exception e) {
+			check = 0;
+		}
+
+		return check;
+	}
+
+	// 리뷰작성
+	@Override
+	public int insertReview(ReviewDto reviewDto, HttpSession session) {
+		String o_num = (String) session.getAttribute("nonOk");
+		OrderListDto odto = odao.selectOrderListOne(reviewDto.getKey(), o_num);
+		String id = "";
+		if (session.getAttribute("loginInfo") != null) {
+			MemberDto mdto = (MemberDto) session.getAttribute("loginInfo");
+			id = mdto.getId();
+		}
+		reviewDto.setId(id);
+		reviewDto.setPro_num(odto.getPro_num());
+		int check = 1;
+		try {
+			rdao.insertReviewOne(reviewDto);
+		} catch (Exception e) {
+			check = 0;
+		}
+		return check;
 	}
 
 }

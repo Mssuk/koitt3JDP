@@ -150,6 +150,9 @@ public class BasketServiceImpl implements BasketService {
 				}
 			} // 같은 상품이 있으면 수정
 			session.setAttribute("baspack", arr);
+			if (arr.isEmpty()) {
+				session.removeAttribute("baspack");
+			}
 		}
 
 		return bascheck;

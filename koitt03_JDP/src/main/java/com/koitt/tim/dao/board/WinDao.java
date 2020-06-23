@@ -27,4 +27,5 @@ public interface WinDao {
 
 	// 조회수 1증가
 	void updateUpHit(@Param("w_num") String w_num);
+
 }

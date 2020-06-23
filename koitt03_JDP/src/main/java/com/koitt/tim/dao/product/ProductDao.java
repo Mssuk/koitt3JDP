@@ -14,4 +14,10 @@ public interface ProductDao {
 
 	// insert Product
 	void insertProduct(ProductDto pDto);
+
+	// delete Product
+	void deleteProduct(String code);
+
+	// update Product
+	void updateProduct(ProductDto pDto);
 }

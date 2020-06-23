@@ -2,7 +2,7 @@ package com.koitt.tim.dto.basket;
 
 import com.koitt.tim.dto.product.ProductDto;
 
-//비회원 장바구니 출력용 빈.
+// 장바구니 출력용 빈.
 public class CartViewDto {
 	private BasketMemberDto bmdto;
 	private ProductDto pdto;

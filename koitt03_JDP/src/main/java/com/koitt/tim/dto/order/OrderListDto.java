@@ -13,6 +13,9 @@ public class OrderListDto {
 	private int o_quant;
 	private String o_status;
 	private String c_state;
+	private String c_type;
+	private Timestamp o_update_date;// 반품신청가능기한, 구매확정기한의 기준
+	private int reviewOk; // key에 해당하는 리뷰개수를 담는다.
 
 	public String getKey() {
 		return key;
@@ -84,5 +87,29 @@ public class OrderListDto {
 
 	public void setC_state(String c_state) {
 		this.c_state = c_state;
+	}
+
+	public String getC_type() {
+		return c_type;
+	}
+
+	public void setC_type(String c_type) {
+		this.c_type = c_type;
+	}
+
+	public Timestamp getO_update_date() {
+		return o_update_date;
+	}
+
+	public void setO_update_date(Timestamp o_update_date) {
+		this.o_update_date = o_update_date;
+	}
+
+	public int getReviewOk() {
+		return reviewOk;
+	}
+
+	public void setReviewOk(int reviewOk) {
+		this.reviewOk = reviewOk;
 	}
 }

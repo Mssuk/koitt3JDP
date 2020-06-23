@@ -1,5 +1,6 @@
 package com.koitt.tim.service.event;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -79,5 +80,8 @@ public interface EventService {
 
 	// 조회수 중복방지
 	Cookie updateWinUpHit(HttpServletRequest request, HttpSession session);
+
+	// 쿠폰다운
+	int getEventCoupon(HttpSession session, HashMap<String, String> obj);
 
 }

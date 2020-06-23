@@ -4,12 +4,67 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.koitt.tim.dao.review.ReviewDao">
+
     <select id="selectReviewList" resultType="com.koitt.tim.dto.review.ReviewDto">
-        select r."review_num", "id", "title", "regist_review", "hit", "score", "content", "image_small", "buy_check", "group_num", "image", "board_type", "write_check", "admin_answer"
-        from REVIEW r,ORDER_LIST o
-        where r."Key"=o.KEY and o."pro_num"=#{pro_num}
+		select * from (select ROWNUM rnum, r."review_num", "id", "title", "regist_review", "hit", "score", "content", "image", "admin_answer"
+		from REVIEW r,ORDER_LIST o
+		where r."Key"=o.KEY and o."pro_num"=#{p1}) where rnum <![CDATA[ >= ]]> #{p2} and rnum <![CDATA[ <= ]]> #{p3}
     </select>
 
+    <insert id="insertReview">
+        insert into REVIEW
+        values (REVIEW_SEQ.nextval,#{id},'2020060306',#{title},sysdate,'0',#{star},#{content},null,null,#{pro_num})
+    </insert>
 
+
+    </insert>
+   <!-- 비회원(회원) 리뷰 작성 -->
+    <insert id="insertReviewOne" parameterType="ReviewDto">
+    	 insert into REVIEW
+        values (
+                REVIEW_SEQ.nextval,
+                #{id,jdbcType=VARCHAR},
+                #{key,jdbcType=VARCHAR},
+                #{title},
+                sysdate,
+                0,
+                #{score},
+                #{content},
+                #{image,jdbcType=VARCHAR},
+                '',
+                #{pro_num,jdbcType=VARCHAR}
+               )
+    </insert>
+
+    <select id="selectReviewCount" resultType="int">
+    	select count(*) from REVIEW where "Key"=#{key}
+    </select>
+
+	<!--  admin 모든 리뷰 불러오기 -->
+	<select id="selectAllReview" resultType="ReviewDto">
+		select * from review order by "regist_review" desc
+	</select>
+
+	<!--  리뷰 답변 입력 -->
+	<update id="updateReviewAnswerA">
+		update review set "admin_answer"=#{param2} where "review_num"=#{param1}
+	</update>
+
+	<!--  리뷰답변 삭제 -->
+	<update id="updateReviewAnswerD">
+		update review set "admin_answer"=null where "review_num"=#{param1}
+	</update>
+
+	<!-- 리뷰 상품정보(이름과 수량) -->
+	<select id="reviewProductNQ" resultType="map">
+	select ol."o_quant", ol.product_name
+	from order_list ol,
+	review r where ol."KEY" = r."Key" and r."review_num" = #{param1}
+	</select>
+
+	<!-- 해당 상품 전체 리뷰 카운트	-->
+	<select id="selectCountReview" resultType="int">
+		select COUNT(*) from REVIEW where PRO_NUM = #{pro_num}
+	</select>
 
 </mapper>

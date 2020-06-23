@@ -11,5 +11,13 @@
 		 #{q_type},
 		 #{q_file, jdbcType=VARCHAR})
 	</insert>
+	
+	<select id="selectAllQuestion" resultType="QuestionDto">
+		select * from question order by q_date desc
+	</select>
 
+	<!--  분류만 가져오기 -->
+	<select id="selectAllQType" resultType="string">
+	select distinct q_type from question
+	</select>
 </mapper>

@@ -3,6 +3,7 @@ package com.koitt.tim.dao.order;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.koitt.tim.dto.product.ProductDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +13,7 @@ import com.koitt.tim.dto.order.OrderListDto;
 @Repository
 public interface OrderDao {
 
-	int selectOrderCount(String id);
+	int selectOrderCount(@Param("id") String id);
 
 	// 로그인 id로 주문번호 가져오기
 	String selectOrderNum1(@Param("id") String id);
@@ -45,9 +46,22 @@ public interface OrderDao {
 	OrderListDto selectOrderListOne(@Param("key") String key, @Param("orderNum") String o_num);
 
 	// 주문취소
-	void updateOrderOne(@Param("orderNum") String o_num, @Param("o_type") String o_type);
+	void updateOrderOne(@Param("orderNum") String o_num, @Param("o_status") String o_status);
 
 	// 반품 교환현황 리스트
 	List<OrderListDto> selectClaimListNone(@Param("orderNum") String o_num, @Param("p1") int startNum,
 			@Param("p2") int endNum);
+
+
+	//admin (모든 주문 가져오기)
+	List<OrderDto> selectAllOrder();
+
+	//admin (모든 주문내역 가져오기)
+	List<OrderListDto> selectAllOL();
+
+	//admin (주문에있는 상품정보들 가져오기)
+	List<ProductDto> selectOrderProInfo();
+	//상품번호로 상품 주문했던 주문 키 가져오기(리뷰 작성에 쓰임)
+//	String selectOrderKey(String pro_num,String id);
+
 }

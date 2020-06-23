@@ -8,6 +8,7 @@ public class OrderDto {
 	private int o_point;// 주문시 사용했던 포인트
 	private String o_status;// 주문상태
 	private Timestamp o_date;// 주문일
+	private Timestamp o_update_date;// 수정일
 	private String o_name;// 주문자명
 	private String o_tel;// 주문자전화번호
 	private int o_cost;// 배송료
@@ -74,5 +75,21 @@ public class OrderDto {
 
 	public void setO_cost(int o_cost) {
 		this.o_cost = o_cost;
+	}
+
+	public Timestamp getO_update_date() {
+		return o_update_date;
+	}
+
+	public void setO_update_date(Timestamp o_update_date) {
+		this.o_update_date = o_update_date;
+	}
+
+	public String getO_status() {
+		return o_status;
+	}
+
+	public void setO_status(String o_status) {
+		this.o_status = o_status;
 	}
 }

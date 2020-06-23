@@ -69,10 +69,11 @@
 										</tr>
 									</c:when>
 									<c:otherwise>
+										<jsp:useBean id="now" class="java.util.Date"></jsp:useBean>
 										<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"/>
 										<c:forEach var="dtos" items="${list}">
 										<tr>
-											<td class="tnone">${dtos.rnum }</td>
+											<td class="tnone">${dtos.rnum } </td>
 											<td class="left">
 											<c:choose>
 												<c:when test="${text!='' }">
@@ -82,14 +83,23 @@
 												<a href="notice_view?n_num=${dtos.n_num }&pageNum=${pageNum}" class="lightgray">${dtos.n_title }</a>
 											</c:otherwise>
 											</c:choose>
-											
 											<fmt:parseDate value="${dtos.n_regist}" var="n_regist" pattern="yyyy-MM-dd"/>
 											<fmt:parseNumber value="${n_regist.time / (1000*60*60*24)}" integerOnly="true" var="regist"/>
-											<c:if test="${today - regist > 1}">
+											<c:set value="${today - regist }" var="dayDiff" />
+											<c:if test="${dayDiff < 2}">
 												<img src="../images/ico/ico_new.gif" alt="NEW">
-												</c:if>
+											</c:if>
 											</td>
-											<td> <fmt:formatDate value="${dtos.n_regist }" pattern="yyyy-MM-dd"/></td>
+											<td>
+											<c:choose>
+											    <c:when test="${dayDiff == 1 }">
+											        <fmt:formatDate value="${dtos.n_regist }" pattern="HH:mm:ss"/>
+											    </c:when>
+											    <c:otherwise>
+											        <fmt:formatDate value="${dtos.n_regist }" pattern="yyyy-MM-dd"/>
+											    </c:otherwise>
+											</c:choose>
+											</td>
 											<td class="tnone right">${dtos.n_hit }</td>
 										</tr>
 									</c:forEach>

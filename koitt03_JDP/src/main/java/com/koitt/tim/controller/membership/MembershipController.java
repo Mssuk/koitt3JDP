@@ -80,7 +80,7 @@ public class MembershipController {
 	// 로그아웃
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
-		session.invalidate();
+		session.removeAttribute("loginInfo");
 		return "redirect:/main";
 	}
 

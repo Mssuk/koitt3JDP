@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koitt.tim.dao.order.ChangeDao">
-<!-- change가 있다면 가져옵니다. -->
+	<!-- change가 있다면 가져옵니다. (폐기예정)-->
     <select id="selectChangeState" resultType="String">
 		select C_STATe from change where key=#{key}
     </select>
+    
+    <insert id="insertChangeOne" parameterType="ChangeDto">
+    	insert into change values(
+    			#{key, jdbcType=VARCHAR},
+                '신청',
+                #{c_reason, jdbcType=VARCHAR},
+                #{c_type, jdbcType=VARCHAR})
+    </insert>
+    
+    <delete id="deleteChangeOne">
+		delete from change where key=#{key}    
+    </delete>
+    
+    <select id="selectChangeOne" resultType="ChangeDto">
+		select * from change where key=#{key}    
+    </select>
+    
+    <update id="updateChange">
+    	update change set "c_reason"=#{c_reason} where key=#{key}
+    </update>
 </mapper>
