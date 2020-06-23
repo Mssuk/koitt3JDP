@@ -18,6 +18,7 @@
 
 
 
+
    <!-- 비회원(회원) 리뷰 작성 -->
     <insert id="insertReviewOne" parameterType="ReviewDto">
     	 insert into REVIEW

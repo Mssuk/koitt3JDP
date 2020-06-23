@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.koitt.tim.dao.order.OrderDao;
+import com.koitt.tim.dao.payment.PaymentDao;
 import com.koitt.tim.dto.order.OrderDto;
 import com.koitt.tim.dto.order.OrderListDto;
+import com.koitt.tim.dto.order.PaymentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,6 +84,8 @@ public class AdminServiceImpl implements AdminService {
 	private FaqDao faqDao;
 	@Autowired
 	private OrderDao oDao;
+	@Autowired
+	private PaymentDao payDao;
 
 	@Override
 	public MallDto getMallInfo() {
@@ -374,6 +378,16 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<ProductDto> getOrderPro() {
 		return oDao.selectOrderProInfo();
+	}
+
+	@Override
+	public void updateOrderStatus(String o_num, String o_status) {
+		oDao.updateOrderStatus(o_num, o_status);
+	}
+
+	@Override
+	public List<PaymentDto> getPaymentInfo(String o_num) {
+		return payDao.selectPaymentInfo(o_num);
 	}
 
 }
