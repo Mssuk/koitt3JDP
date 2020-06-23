@@ -59,15 +59,14 @@ public class MypageController {
 	}
 
 	@RequestMapping("change_info")
-	public String changeInfo(Model model, HttpSession session) {
-		MemberDto mDto = (MemberDto) session.getAttribute("loginInfo");
-		String email = mDto.getEmail();
-		String email1 = email.substring(0,email.lastIndexOf("@"));
-		String email2 = email.substring(email.lastIndexOf("@") + 1);
-//		System.out.println("1:" + email1);
-//		System.out.println("2:" + email2);
-		mDto.setEmail1(email1);
-		mDto.setEmail2(email2);
+	public String changeInfo(Model model, HttpSession session, MemberDto mDto) {
+		mDto = (MemberDto) session.getAttribute("loginInfo");
+
+		mypageService.subEmail(mDto);
+		mypageService.subBirth(mDto);
+		mypageService.subPhone(mDto);
+		mypageService.subTel(mDto);
+
 		model.addAttribute("mdto", mDto);
 		return "mypage/change_info";
 	}
@@ -82,5 +81,11 @@ public class MypageController {
 		model.addAttribute("odto", odto);
 		model.addAttribute("photo", photo);
 		return "nonmember/return";
+	}
+
+	@RequestMapping("modifyMember")
+	public String modifyMember(MemberDto mDto) {
+		membershipService.modifyMember(mDto);
+		return "mypage/ordercheck";
 	}
 }

@@ -35,6 +35,7 @@
 
 			<!-- contents -->
 			<div id="contents">
+				<form action="modify" method="post">  
 				<div id="mypage">
 					<h2><strong>회원정보 수정</strong><span>회원님의 개인 정보를 수정하실 수 있습니다.</span></h2>
 					
@@ -42,8 +43,8 @@
 						<table summary="이름, 아이디, 비밀번호, 비밀번호 확인, 이메일, 이메일수신여부, 주소, 휴대폰, 유선전화, 생년월일 순으로 회원가입 정보를 수정할수 있습니다." class="memberWrite" border="1" cellspacing="0">
 							<caption>회원가입 수정</caption>
 							<colgroup>
-							<col width="22%" class="tw30" />
-							<col width="*" />
+								<col width="22%" class="tw30" />
+								<col width="*" />
 							</colgroup>
 							<tbody>
 								<tr>
@@ -106,10 +107,10 @@
 										<p>쟈뎅에서 진행되는 이벤트와 쇼핑에 대한 정보를 이메일로 받아보시겠습니까?</p>
 										<ul class="question">
 											<li>
-												<input type="radio" name="receive" id="receive_yes" class="radio_t" checked="checked"/><label for="receive_yes">예</label>
+												<input type="radio" name="receive" name="email_check" id="receive_yes" class="radio_t" checked="checked"/><label for="receive_yes">예</label>
 											</li>
 											<li>
-												<input type="radio" name="receive" id="receive_no" class="radio_t"/><label for="receive_no">아니오</label>
+												<input type="radio" name="receive" name="email_check" id="receive_no" class="radio_t"/><label for="receive_no">아니오</label>
 											</li>
 										</ul>
 										<p class="gray">* 거래관련 정보는 고객님의 거래안전을 위하여 이메일 수신거부와 관계없이 발송됩니다.</p>
@@ -120,7 +121,7 @@
 									<td>
 										<ul class="pta">
 											<li><input type="text" id="address1" class="w134" name="address1" readonly="readonly" value="${mdto.address1 }"/>&nbsp;</li>
-											<li><input type="button" class="addressBtn" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"></li>
+											<li><input type="button" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"></li>
 											<li class="pt5"><input type="text" id="address2" class="addressType" name="address2" value="${mdto.address2 }" readonly /></li>
 											<li class="pt5"><input type="text" id="address3" class="addressType" name="address3" placeholder="상세주소" value="${mdto.address3 }"/></li>
 											<li>
@@ -203,8 +204,9 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<select>
-													<option value="010" selected="selected">010</option>
+												<select name="phone1">
+													<option >${mdto.phone1 }</option>
+													<option value="010">010</option>
 													<option value="011">011</option>
 													<option value="016">016</option>
 													<option value="017">017</option>
@@ -212,9 +214,9 @@
 													<option value="019">019</option>    
 												</select>
 											</li>
-											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
-											<li class="r10"><input type="text" class="w74" maxlength="4" /></li>
+											<li><span class="valign">-</span></li>
+											<li><input type="text" name="phone2"class="w74" maxlength="4" value="${mdto.phone2 }"/> <span class="valign">-</span>&nbsp;</li>
+											<li class="r10"><input type="text" name="phone3" class="w74" maxlength="4" value="${mdto.phone3 }"/></li>
 											<li class="cb pt5"><span class="mvalign">※ SMS 서비스를 받아보시겠습니까?</span></li>
 											<li class="pt5">
 												<ul class="baseQues">
@@ -234,8 +236,9 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<select>
-													<option value="02" selected="selected">02</option>
+												<select name="tel1">
+													<option >${mdto.tel1 }</option>
+													<option value="02">02</option>
 													<option value="031">031</option>
 													<option value="032">032</option>
 													<option value="033">033</option>
@@ -255,8 +258,8 @@
 												</select>
 											</li>
 											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /></li>
+											<li><input type="text" name="tel2" class="w74" maxlength="4" value="${mdto.tel2 }"/> <span class="valign">-</span>&nbsp;</li>
+											<li><input type="text" name="tel3" class="w74" maxlength="4" value="${mdto.tel3 }"/></li>
 										</ul>
 									</td>
 								</tr>
@@ -265,12 +268,12 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<select>
-													<option value='' selected="selected">선택하세요</option>
+												<select name="birth1">
+													<option value='' selected="selected">${mdto.birth1 }</option>
 													<script type="text/javascript">
 													//<![CDATA[
 														for(var i=1940; i<=2014; i++){
-															document.write("<option value=''>" + i + "년"+ "</option>");	
+															document.write("<option value=''>" + i + "</option>");	
 														};
 													//]]>
 													</script>
@@ -278,15 +281,15 @@
 											</li>
 											<li>&nbsp;<span class="valign">년</span>&nbsp;&nbsp;&nbsp;</li>
 											<li>
-												<select>
-													<option value='' selected="selected">선택하세요</option>
+												<select name="birth2">
+													<option value='' selected="selected">${mdto.birth2 }</option>
 													<script type="text/javascript">
 													//<![CDATA[
 														for(var i=1; i<=12; i++){
 															if(i<10){
-																document.write("<option value=''>0" + i + "월"+"</option>");
+																document.write("<option value=''>0" + i +"</option>");
 															}else{
-																document.write("<option value=''>" + i + "월"+ "</option>");
+																document.write("<option value=''>" + i + "</option>");
 															};
 														};
 													//]]>
@@ -295,15 +298,15 @@
 											</li>
 											<li>&nbsp;<span class="valign">월</span>&nbsp;&nbsp;&nbsp;</li>
 											<li>
-												<select>
-													<option value='' selected="selected">선택하세요</option>
+												<select name="birth3">
+													<option value='' selected="selected">${mdto.birth3 }</option>
 													<script type="text/javascript">
 													//<![CDATA[
 														for(var i=1; i<=31; i++){
 															if(i<10){
-																document.write("<option value=''>0" + i + "일"+"</option>");
+																document.write("<option value=''>0" + i +"</option>");
 															}else{
-																document.write("<option value=''>" + i + "일"+ "</option>");
+																document.write("<option value=''>" + i + "</option>");
 															};
 														};
 													//]]>
@@ -337,11 +340,13 @@
 						<div class="bCenter">
 							<ul>
 								<li><a href="#" class="nbtnbig">취소하기</a></li>
-								<li><a href="#" class="sbtnMini">수정하기</a></li>
+								<li><button type="submit" class="sbtnMini">수정하기</a></li>
 							</ul>
 						</div>
 					</div>
 					<!-- //Btn Area -->
+					</form>
+					
 
 
 <script type="text/javascript" src="../js/jquery.fancybox-1.3.4.pack.js"></script>
