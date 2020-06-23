@@ -37,6 +37,14 @@ public class OrderDto {
 		this.o_point = o_point;
 	}
 
+	public String getO_status() {
+		return o_status;
+	}
+
+	public void setO_status(String o_status) {
+		this.o_status = o_status;
+	}
+
 	public Timestamp getO_date() {
 		return o_date;
 	}
@@ -75,13 +83,5 @@ public class OrderDto {
 
 	public void setO_update_date(Timestamp o_update_date) {
 		this.o_update_date = o_update_date;
-	}
-
-	public String getO_status() {
-		return o_status;
-	}
-
-	public void setO_status(String o_status) {
-		this.o_status = o_status;
 	}
 }

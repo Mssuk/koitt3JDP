@@ -18,7 +18,10 @@ public interface OrderDao {
 	// 로그인 id로 주문번호 가져오기
 	String selectOrderNum1(@Param("id") String id);
 
-	ArrayList<String> selectOrderNum2(@Param("id") String id);
+	ArrayList<String> selectOrderNumList(String id);
+
+	// 주문 번호를 이용해 주문명세 가져오기(나동수)
+	List<OrderListDto> selectOrderList(String orderNum);
 
 	// 주문 생성
 	void insertOrder(@Param("date") String date, @Param("id") String id, @Param("orderPoint") String orderPoint,
@@ -38,9 +41,6 @@ public interface OrderDao {
 	// 비회원주문내역검색(id없음)
 	List<OrderListDto> selectOrderListNone(@Param("orderNum") String o_num, @Param("p1") int startNum,
 			@Param("p2") int endNum);
-
-	// 주문 번호를 이용해 주문명세 가져오기(나동수)
-	List<OrderListDto> selectOrderList(@Param("orderNum") String orderNum);
 
 	// 교환반품신청시 가져오는 주문목록 1개
 	OrderListDto selectOrderListOne(@Param("key") String key, @Param("orderNum") String o_num);

@@ -11,6 +11,7 @@ import com.koitt.tim.dto.order.OrderListDto;
 import com.koitt.tim.dto.review.ReviewDto;
 
 public interface NonmemberService {
+
 	// 비회원 장바구니 아이템 정리
 	List<BasketMemberDto> getNonmemCart(HttpSession session);
 

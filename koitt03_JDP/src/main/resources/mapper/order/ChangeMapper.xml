@@ -3,7 +3,7 @@
 <mapper namespace="com.koitt.tim.dao.order.ChangeDao">
 	<!-- change가 있다면 가져옵니다. (폐기예정)-->
     <select id="selectChangeState" resultType="String">
-		select "c_state" from change where key=#{key}    
+		select C_STATe from change where key=#{key}
     </select>
     
     <insert id="insertChangeOne" parameterType="ChangeDto">

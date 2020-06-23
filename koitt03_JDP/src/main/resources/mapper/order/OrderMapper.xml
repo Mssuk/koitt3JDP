@@ -18,8 +18,8 @@
         select "o_num" from "ORDER" where "id"=#{id} and rownum =1  order by O_DATE desc
     </select>
 
-    <select id="selectOrderNum2" resultType="String">
-        select "o_num" from "ORDER" where "id"=#{id}
+    <select id="selectOrderNumList" resultType="String">
+        select * from "ORDER" where "id"=#{id}
     </select>
 
 
@@ -39,16 +39,17 @@
         select count(*) from "ORDER" where "id"=#{id}
     </select>
 
-
-
+    <!-- 회원 주문조회 -->
     <select id="selectOrderList" resultType="orderListDto">
-        select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status from "ORDER" col1 join ORDER_LIST col2 on col1."o_num" = #{orderNum}
+        select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status
+            from  ORDER_LIST col2, "ORDER" col1 where col1."o_num" = col2."o_num" and col2."o_num" = #{orderNum}
     </select>
 
 	<!-- 비회원 주문조회 (아이디조회)-->
 	<select id="selectOrderOne" resultType="OrderDto">
 		select *  from "ORDER" where "o_num"=#{o_num} and "o_tel"=#{o_tel}
 	</select>
+
 	<!--비회원..(아이디없이 주문번호에 해당하는 것만 다 가져옵니다. -->
 	<select id="selectOrderListNone" resultType="orderListDto">
       select ROWNUM,col.* from (select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status,col2."pro_num",col2.key from "ORDER" col1,ORDER_LIST col2 where col2."o_num"=col1."o_num" and col2."o_num"= #{orderNum}) col  left outer join change c on col.key=c.key where
