@@ -3,10 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.koitt.tim.dao.product.PaymentDao">
-    <select id="selectOne" resultType="ProductDto">
+<mapper namespace="com.koitt.tim.dao.payment.PaymentDao">
+    <!--<select id="selectOne" resultType="ProductDto">
         select * from PRODUCT where PRO_NUM = #{pro_num}
     </select>
+    -->
+
+<select id="selectPaymentInfo" resultType="PaymentDto">
+    select p.* from PAYMENT p, "ORDER" o where p."o_num" = o."o_num" and p."o_num"=#{param1}
+</select>
+
+
 
 
 </mapper>

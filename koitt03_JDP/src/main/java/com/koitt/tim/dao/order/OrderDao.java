@@ -59,9 +59,15 @@ public interface OrderDao {
 	//admin (모든 주문내역 가져오기)
 	List<OrderListDto> selectAllOL();
 
-	//admin (주문에있는 상품정보들 가져오기)
+	//admin (주문에 있는 상품정보들 가져오기)
 	List<ProductDto> selectOrderProInfo();
+
+	//admin (주문상태 변경)
+	void updateOrderStatus(String o_num, String o_status);
+
 	//상품번호로 상품 주문했던 주문 키 가져오기(리뷰 작성에 쓰임)
 //	String selectOrderKey(String pro_num,String id);
+
+
 
 }
