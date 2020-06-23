@@ -23,6 +23,10 @@
 	<select id="selectMemberCoupon" resultType="int">
 		select count(*) from COUPON_MEMBER where id = #{id} and coupon_num=#{coupon_num}
 	</select>
+	<!-- 쿠폰 기한 경과여부 확인 -->
+	<select id="selectEndCoupon" resultType="int">
+		select count(*) from COUPON where coupon_num=#{coupon_num} and <![CDATA[ endday<sysdate ]]>
+	</select>
 	<!-- 멤버쿠폰발급 -->
 	<insert id="insertMemberCoupon">
 		insert into COUPON_MEMBER values(

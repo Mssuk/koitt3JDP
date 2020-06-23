@@ -355,7 +355,7 @@
 												<span class="valign"><strong>원</strong></span>
 											</li>
 											<li class="r10"><span class="valign">( 보유 쿠폰 내역 : 7장 )&nbsp;</span></li>
-											<li><a href="coupon_list.html" class="nbtn">쿠폰목록</a></li>
+											<li><a href="coupon_list.jsp" class="nbtn">쿠폰목록</a></li>
 										</ul>
 									</td>
 								</tr>
@@ -398,11 +398,18 @@
 			<!-- 총 주문금액 -->
 			<form name="orderTotal" method="post" >
 					<div class="amount">
-
-						<!-- 회원 일때 -->
-						<h4 class="member">총 주문금액</h4>
-						<!-- 회원 일때 -->
-						<!-- 비회원 일때  <h4>총 주문금액</h4> //비회원 일때 -->
+						
+						<c:choose>
+							<c:when test="${member!=null }">
+								<!-- 회원 일때 -->
+								<h4 class="member">총 주문금액</h4>
+								<!-- 회원 일때 -->
+							</c:when>
+							<c:otherwise>
+								<!-- 비회원 일때  -->
+								<h4>총 주문금액</h4>
+							</c:otherwise>
+						</c:choose>	
 
 						<ul class="info">
 							<li>
@@ -414,24 +421,24 @@
 								<span class="won"><strong>2,500</strong> 원</span>
 							</li>
 							<c:if test="${member!=null }">
-							<!-- 회원 일때만 -->
-							<li>
-								<span class="title">포인트 할인</span>
-								<span class="won"><strong>- 1,000</strong> P</span>
-							</li>
-							<li>
-								<span class="title">쿠폰 할인</span>
-								<span class="won"><strong>- 1,000</strong> 원</span>
-							</li>
-							<!-- //회원 일떄만 -->
+								<!-- 회원 일때만 -->
+								<li>
+									<span class="title">포인트 할인</span>
+									<span class="won"><strong>- 1,000</strong> P</span>
+								</li>
+								<li>
+									<span class="title">쿠폰 할인</span>
+									<span class="won"><strong>- 1,000</strong> 원</span>
+								</li>
+								<!-- //회원 일떄만 -->
 							</c:if>
 						</ul>
 
 						<ul class="total">
 							<c:if test="${member!=null }">
-							<!-- 회원 일때만 -->
-							<li class="mileage">(적립 포인트 <strong>11,324</strong> Point) </li>
-							<!-- //회원 일때만 -->
+								<!-- 회원 일때만 -->
+								<li class="mileage">(적립 포인트 <strong>11,324</strong> Point) </li>
+								<!-- //회원 일때만 -->
 							</c:if>
 
 							<li class="txt"><strong>결제 예정 금액</strong></li>

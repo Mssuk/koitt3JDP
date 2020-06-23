@@ -26,4 +26,7 @@ public interface CouponDao {
 	// 쿠폰발급
 	void insertMemberCoupon(@Param("id") String id, @Param("coupon_num") String coupon_num);
 
+	// 쿠폰기한이 지났는지 확인
+	int selectEndCoupon(@Param("coupon_num") String coupon_num);
+
 }
