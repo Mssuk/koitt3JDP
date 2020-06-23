@@ -8,6 +8,7 @@ import com.koitt.tim.dto.basket.BasketMemberDto;
 import com.koitt.tim.dto.basket.CartViewDto;
 import com.koitt.tim.dto.order.ChangeDto;
 import com.koitt.tim.dto.order.OrderListDto;
+import com.koitt.tim.dto.review.ReviewDto;
 
 public interface NonmemberService {
 	// 비회원 장바구니 아이템 정리
@@ -52,5 +53,11 @@ public interface NonmemberService {
 
 	// 반품교환 현황에서 이유
 	String getReason(String key);
+
+	// 반품교환사유변경
+	int updateReason(ChangeDto changeDto);
+
+	// 리뷰작성
+	int insertReview(ReviewDto reviewDto, HttpSession session);
 
 }

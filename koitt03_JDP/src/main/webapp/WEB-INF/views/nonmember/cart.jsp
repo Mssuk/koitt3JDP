@@ -71,7 +71,7 @@
 											<td class="cart_price"><span><fmt:formatNumber value="${dtos.pdto.sales_price*dtos.bmdto.count }" pattern="#,###" /></span> 원</td>
 											<td class="tnone">
 												<ul class="order">	
-													<li><a href="#" class="obtnMini iw70">바로구매</a></li>
+													<li><a href="#" class="obtnMini iw70 buy">바로구매</a></li>
 													<li><a href="#" onclick="del_one('${dtos.pdto.pro_num }')" class="nbtnMini iw70">상품삭제</a></li>
 												</ul>
 											</td>
@@ -119,8 +119,8 @@
 
 					<div class="cartarea">
 						<ul>
-							<li><a href="#" class="ty1">선택상품 <span>주문하기</span></a></li>
-							<li><a href="#" class="ty2">전체상품 <span>주문하기</span></a></li>
+							<li><a href="#" class="buys ty1">선택상품 <span>주문하기</span></a></li>
+							<li><a href="#" class="buy_all ty2">전체상품 <span>주문하기</span></a></li>
 							<li class="last"><a href="/product/list" class="ty3">쇼핑 <span>계속하기</span></a></li>
 						</ul>
 					</div>
@@ -270,6 +270,10 @@ function del_one(a){ // 매개변수를 받는다.
 <script type="text/javascript">
 //선택수정
 $("#modis").click(function(){ // 매개변수를 받는다.
+	if($('input:checkbox[name=pro_num]').length==0){
+		alert('체크된 상품이 없습니다');
+		return false;
+	}
 	if(confirm("개수를 수정하시겠습니까?")){
 	var mcnt=$(".order_pro").length;
 	var numlist='';
@@ -308,6 +312,11 @@ $("#modis").click(function(){ // 매개변수를 받는다.
 <script type="text/javascript">
 //선택삭제
 $("#delis").click(function(){ // 매개변수를 받는다.
+	
+	if($('input:checkbox[name=pro_num]').length==0){
+		alert('체크된 상품이 없습니다');
+		return false;
+	}
 	if(confirm("선택한 상품을 삭제하시겠습니까?")){
 	var dcnt=$(".order_pro").length;
 	var numlist='';
@@ -340,6 +349,108 @@ $("#delis").click(function(){ // 매개변수를 받는다.
 	}
 });	
 </script>
+
+<script type="text/javascript">
+//구매 1개
+$(".buy").click(function(){ // 매개변수를 받는다.
+	
+	var k=$(".buy").index(this);
+	var ch=$(".spinner").eq(k).val();
+	var list=$(".order_pro").eq(k).val();
+	
+	$.ajax({
+        url : "/addOrderCart",   // 받을 url
+        type : "POST",   
+        data: JSON.stringify({pro_num:list,count:ch}),  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
+        contentType: "application/json",
+        success : function (data) {
+           if(data== 1){ //리턴값이 ok일 경우
+        	  location.href='/cartpayment'; //새로고침 해준다.
+           }else if(data == 0){
+				alert('주문이동 실패');
+			}
+        },
+        error : function(){ //오류일경우 경고창을 띄움
+           alert("통신 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.\n오류가 반복될 경우, 고객센터로 문의 부탁드립니다.\n(error_code: buysError)");
+        }
+     });
+	
+});	
+</script>
+<script type="text/javascript">
+//선택구매
+$(".buys").click(function(){ // 매개변수를 받는다.
+	
+	if($('input:checkbox[name=pro_num]').length==0){
+		alert('체크된 상품이 없습니다');
+		return false;
+	}
+	var mcnt=$(".order_pro").length;
+	var numlist='';
+	var countlist='';
+	for(var j=0;j<mcnt;j++){
+		if($(".order_pro").eq(j).is(":checked")){
+			var list=$(".order_pro").eq(j).val();
+			var ch=$(".spinner").eq(j).val();
+			numlist+=list+"_";
+			countlist+=ch+"_";
+		}
+	}
+	
+	$.ajax({
+        url : "/addOrderCart",   // 받을 url
+        type : "POST",   
+        data: JSON.stringify({pro_num:numlist,count:countlist}),  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
+        contentType: "application/json",
+        success : function (data) {
+           if(data== 1){ //리턴값이 ok일 경우
+        	  location.href='/cartpayment'; 
+           }else if(data == 0){
+				alert('주문이동 실패');
+			}
+        },
+        error : function(){ //오류일경우 경고창을 띄움
+           alert("통신 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.\n오류가 반복될 경우, 고객센터로 문의 부탁드립니다.\n(error_code: buysError)");
+        }
+     });
+	
+});	
+</script>
+<script type="text/javascript">
+//전체구매
+$(".buy_all").click(function(){ // 매개변수를 받는다.
+	
+	var mcnt=$(".order_pro").length;
+	var numlist='';
+	var countlist='';
+	for(var j=0;j<mcnt;j++){
+		var list=$(".order_pro").eq(j).val();
+		var ch=$(".spinner").eq(j).val();
+		numlist+=list+"_";
+		countlist+=ch+"_";
+	}
+	
+	$.ajax({
+        url : "/addOrderCart",   // 받을 url
+        type : "POST",   
+        data: JSON.stringify({pro_num:numlist,count:countlist}),  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
+        contentType: "application/json",
+        success : function (data) {
+           if(data== 1){ //리턴값이 ok일 경우
+        	  location.href='/cartpayment'; //새로고침 해준다.
+           }else if(data == 0){
+				alert('주문이동 실패');
+			}
+        },
+        error : function(){ //오류일경우 경고창을 띄움
+           alert("통신 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.\n오류가 반복될 경우, 고객센터로 문의 부탁드립니다.\n(error_code: buysError)");
+        }
+     });
+	
+});	
+</script>
+
+
 
 				</div>
 			</div>

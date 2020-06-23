@@ -1,6 +1,7 @@
 package com.koitt.tim.service.event;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.koitt.tim.dao.board.WinDao;
+import com.koitt.tim.dao.coupon.CouponDao;
 import com.koitt.tim.dao.event.EventDao;
 import com.koitt.tim.dto.board.WinDto;
 import com.koitt.tim.dto.event.EventCouponBean;
@@ -19,6 +21,7 @@ import com.koitt.tim.dto.event.EventPreNextBean;
 import com.koitt.tim.dto.event.EventReplyBean;
 import com.koitt.tim.dto.event.EventReplyDto;
 import com.koitt.tim.dto.event.WinPreNextBean;
+import com.koitt.tim.dto.member.MemberDto;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -28,6 +31,9 @@ public class EventServiceImpl implements EventService {
 
 	@Autowired
 	private WinDao wdao;
+
+	@Autowired
+	private CouponDao cdao;
 
 	private static final int ROW_LIMIT = 5; // 밑에 몇개씩 보여줄건지
 	private static final int PAGE_LIMIT = 10; // 한페이지에 글 몇개 보여줄건지
@@ -300,6 +306,27 @@ public class EventServiceImpl implements EventService {
 			cookie.setMaxAge(60 * 60 * 24 * 30);
 		} // 쿠키가 없을경우 생성
 		return cookie;
+	}
+
+	// 이벤트 쿠폰다운
+	@Override
+	public int getEventCoupon(HttpSession session, HashMap<String, String> obj) {
+		MemberDto mDto = (MemberDto) session.getAttribute("loginInfo");
+		String id = mDto.getId();
+		String coupon_num = obj.get("coupon_num");
+		int check = 0;
+		// 쿠폰보유여부 조회
+		check = cdao.selectMemberCoupon(id, coupon_num);
+		if (check != 1) {// 이미 보유
+			try {
+				cdao.insertMemberCoupon(id, coupon_num);
+				check = 2;// 발급성공
+			} catch (Exception e) {
+				check = 0;// 발급오류
+			}
+		}
+
+		return check;
 	}
 
 }

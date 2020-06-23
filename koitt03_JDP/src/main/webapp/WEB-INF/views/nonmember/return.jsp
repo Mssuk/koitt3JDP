@@ -39,7 +39,7 @@
     </style>
 </head>
 <body>
-<form id="layerWrap" name="change" method="post" action="/doReturn">
+<form id="layerWrap" name="change" method="post" action="/nonmember/doReturn">
 
     <div class="inputWrap">
 

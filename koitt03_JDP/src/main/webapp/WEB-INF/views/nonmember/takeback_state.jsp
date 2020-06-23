@@ -11,24 +11,69 @@
 		window.location.href='/membership/login';
 	</script>
 </c:if>	
-<c:if test="${doChange!=null }">
+<c:if test="${claimList==null||claimList.size()==0 }">
+	<script type="text/javascript">
+		alert('교환/반품내역이 없습니다.');
+		window.location.href='/nonmember/ordercheck_view?o_num='+${o_num };
+	</script>
+</c:if>
+<c:if test="${docheck!=null }">
 
 	<c:choose>
-		<c:when test="${doChange==1 }">
-		<script type="text/javascript">
-			alert('신청이 완료되었습니다.');
-			</script>
+		<c:when test="${docheck==1 }">
+			<script type="text/javascript">
+ 			alert('신청이 완료되었습니다.'); 
+ 			</script>
 		</c:when>
 		<c:otherwise>
 			<script type="text/javascript">
-			alert('신청 실패. \n 잠시후 다시 시도해주세요');
-			window.location.href='/nonmember/ordercheck_view?o_num='+${o_num };
-			</script>
+ 			alert('신청 실패. \n 잠시후 다시 시도해주세요');
+         	window.location.href='/nonmember/ordercheck_view?o_num='+${o_num };
+ 			</script>
 		</c:otherwise>
 	</c:choose>
 	
 </c:if>
+<c:if test="${upcheck!=null }">
+
+	<c:choose>
+		<c:when test="${upcheck==1 }">
+		<script type="text/javascript">
+		alert('변경이 완료되었습니다.');
+		</script>
+		</c:when>
+		<c:otherwise>
+			<script type="text/javascript">
+		alert('변경 실패. \n 잠시후 다시 시도해주세요'); 
+ 			</script> 
+		</c:otherwise>
+	</c:choose>
 	
+</c:if>
+<script type="text/javascript">
+	function retu_cancel(a){
+		if(confirm("반품/교환 신청을 취소하시겠습니까?")){
+		       
+			$.ajax({
+		        url : "/delChangeOne",   // 받을 url
+		        type : "POST",   
+		        data: JSON.stringify({key:a}),  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
+		        contentType: "application/json",
+		        success : function (data) {
+		           if(data== 1){ //리턴값이 ok일 경우
+		        	  location.reload(); //새로고침 해준다.
+		              alert('취소 완료');
+		           }else if(data == 0){
+						alert('취소 실패');
+					}
+		        },
+		        error : function(){ //오류일경우 경고창을 띄움
+		           alert("통신 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.\n오류가 반복될 경우, 고객센터로 문의 부탁드립니다.\n(error_code: deleteError)");
+		        }
+		     });
+			}
+	}
+</script>		
 	
 	<!-- container -->
 	<div id="container">
@@ -90,40 +135,32 @@
 											${dtos.product_name }
 										</td>
 										<td class="tnone"><span><fmt:formatNumber value="${dtos.price }" pattern="#,###" /></span> 원</td>
-										<td><span class="orange">${dtos.c_state }</span></td>
+										<td>
+										<span class="orange">${dtos.c_type }${dtos.c_state }</span>
+										<c:if test="${dtos.c_state=='신청' }">
+										<ul class="state" style="text-align: center; width:50px;">
+										<li><a href="javascript:;" onclick="retu_cancel('${dtos.key}')" class="nbtnMini" style="width:50px;">취소</a></li>
+										</ul>
+										</c:if>
+										</td>
 										<td class="tnone">
-											<a href="reason?num1=${dtos.key }" class="nbtnbig iwc80">사유보기</a>
+											<a href="reason?num1=${dtos.key }&type=${dtos.c_state }" class="nbtnbig iwc80">사유보기</a>
 										</td>
 									</tr>
 								</c:forEach>
 								</c:if>
-<%-- 								<c:if test="${claimList.size()<5 }"> --%>
-<%-- 									<c:forEach begin="0" step="1" end="${4-claimList.size() }"> --%>
-<!-- 										<tr> -->
-<!-- 											<td></td> -->
-<!-- 											<td class="tnone"></td> -->
-<!-- 											<td class="left"></td> -->
-<!-- 											<td class="tnone"></td> -->
-<!-- 											<td></td> -->
-<!-- 											<td class="tnone"></td> -->
-<!-- 										</tr> -->
-<%-- 									</c:forEach> --%>
-<%-- 								</c:if> --%>
 							</tbody>
 						</table>
-						<c:if test="${claimList==null }">
-							<div class="noData">
-								등록된 상품이 없습니다.
-							</div>
-<!-- 							<div class="noData"> -->
-<!-- 							</div> -->
-<!-- 							<div class="noData"> -->
-<!-- 							</div> -->
-<!-- 							<div class="noData"> -->
-<!-- 							</div> -->
-<!-- 							<div class="noData"> -->
-<!-- 							</div> -->
-						</c:if>
+								<c:if test="${claimList.size()<5 }">
+									<div class="noData web">
+										이하 여백
+									</div>
+									<c:forEach begin="0" step="1" end="${3-claimList.size() }">
+										<div class="noData web">
+											 
+										</div>
+									</c:forEach>
+								</c:if>
 					</div>
 					
 
@@ -190,18 +227,13 @@ $(function(){
 </script>
 
 
+
 				</div>
 			</div>
 			<!-- //contents -->
 
 
 		</div>
-
-			<!-- quickmenu -->
-		<jsp:include page="../common/quickmenu.jsp" />
-		<!-- //quickmenu -->
-
-	</div>
 	<!-- //container -->
 <!--footer입니다. -->
 <jsp:include page="../common/footer.jsp" />

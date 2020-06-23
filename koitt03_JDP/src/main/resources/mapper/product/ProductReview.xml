@@ -37,6 +37,27 @@
                )
 
     </insert>
+   <!-- 비회원(회원) 리뷰 작성 -->
+    <insert id="insertReviewOne" parameterType="ReviewDto">
+    	 insert into REVIEW
+        values (
+                REVIEW_SEQ.nextval,
+                #{id,jdbcType=VARCHAR},
+                #{key,jdbcType=VARCHAR},
+                #{title},
+                sysdate,
+                0,
+                #{score},
+                #{content},
+                #{image,jdbcType=VARCHAR},
+                '',
+                #{pro_num,jdbcType=VARCHAR}
+               )
+    </insert>
+    
+    <select id="selectReviewCount" resultType="int">
+    	select count(*) from REVIEW where "Key"=#{key}
+    </select>
 
 	<!--  admin 모든 리뷰 불러오기 -->
 	<select id="selectAllReview" resultType="ReviewDto">

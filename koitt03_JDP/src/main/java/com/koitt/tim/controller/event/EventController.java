@@ -1,6 +1,7 @@
 //조미선
 package com.koitt.tim.controller.event;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -8,8 +9,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koitt.tim.dto.event.EventCouponBean;
 import com.koitt.tim.dto.event.EventDto;
@@ -149,4 +152,12 @@ public class EventController {
 		return "event/fin_event";
 	}
 
+	// 이벤트 쿠폰 다운
+	@ResponseBody
+	@RequestMapping("getECoupon")
+	public int event_get_coupon(HttpSession session, @RequestBody HashMap<String, String> obj) {
+		int check = 1;
+		check = eServ.getEventCoupon(session, obj);
+		return check;
+	}
 }

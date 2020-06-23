@@ -11,12 +11,15 @@ import org.springframework.stereotype.Service;
 import com.koitt.tim.dao.order.ChangeDao;
 import com.koitt.tim.dao.order.OrderDao;
 import com.koitt.tim.dao.product.ProductDao;
+import com.koitt.tim.dao.review.ReviewDao;
 import com.koitt.tim.dto.basket.BasketMemberDto;
 import com.koitt.tim.dto.basket.CartViewDto;
+import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.order.ChangeDto;
 import com.koitt.tim.dto.order.OrderDto;
 import com.koitt.tim.dto.order.OrderListDto;
 import com.koitt.tim.dto.product.ProductDto;
+import com.koitt.tim.dto.review.ReviewDto;
 
 @Service
 public class NonmemberServiceImpl implements NonmemberService {
@@ -28,6 +31,9 @@ public class NonmemberServiceImpl implements NonmemberService {
 
 	@Autowired
 	private ChangeDao cdao;
+
+	@Autowired
+	private ReviewDao rdao;
 
 	private static final int ROW_LIMIT = 5; // 밑에 몇개씩 보여줄건지
 	private static final int PAGE_LIMIT = 5; // 한페이지에 글 몇개 보여줄건지
@@ -79,7 +85,9 @@ public class NonmemberServiceImpl implements NonmemberService {
 			// 주문은 있으나 아이디가있음(회원임)
 			if (odto.getId() != null)
 				orch = -1;
-			if (odto.getO_status() == "접수대기" || odto.getO_status() == "주문취소")// 주문을 완료하지않음(임시주문번호만 생긴 그것..0
+
+			if (odto.getO_status() == "취소승인")// 주문을 완료하지않음(임시주문번호만 생긴 그것..0
+
 				orch = 0;
 		}
 
@@ -95,12 +103,8 @@ public class NonmemberServiceImpl implements NonmemberService {
 		int endNum = startNum + PAGE_LIMIT - 1;
 		List<OrderListDto> list = odao.selectOrderListNone(o_num, startNum, endNum);
 		for (int i = 0; i < list.size(); i++) {
-			String c_state = "";
-			if (cdao.selectChangeOne(list.get(i).getKey()) != null) {
-				ChangeDto cdto = cdao.selectChangeOne(list.get(i).getKey());
-				c_state = cdto.getC_state();
-			}
-			list.get(i).setC_state(c_state);
+			list.get(i).setReviewOk(rdao.selectReviewCount(list.get(i).getKey()));
+			System.out.println(rdao.selectReviewCount(list.get(i).getKey()));
 		}
 		return list;
 	}
@@ -179,7 +183,7 @@ public class NonmemberServiceImpl implements NonmemberService {
 	@Override
 	public int cancelOrderA(String o_num) {
 		int check = 1;
-		String o_status = "주문취소";
+		String o_status = "취소승인";
 		try {
 			odao.updateOrderOne(o_num, o_status);
 		} catch (Exception e) {
@@ -192,13 +196,8 @@ public class NonmemberServiceImpl implements NonmemberService {
 	@Override
 	public int cancelOrderB(String o_num) {
 		int check = 1;
-		List<OrderListDto> list = odao.selectOrderList(o_num);
-		String type = "취소";
-		String o_status = "취소신청중";
+		String o_status = "취소신청";
 		try {
-			for (int i = 0; i < list.size(); i++) {
-				cdao.insertChangeOrder(list.get(i).getKey(), type);
-			}
 			odao.updateOrderOne(o_num, o_status);
 		} catch (Exception e) {
 			check = 0;
@@ -210,12 +209,8 @@ public class NonmemberServiceImpl implements NonmemberService {
 	@Override
 	public int cancelReturnB(String o_num) {
 		int check = 1;
-		List<OrderListDto> list = odao.selectOrderList(o_num);
-		String o_status = "입금완료";
+		String o_status = "결제완료";
 		try {
-			for (int i = 0; i < list.size(); i++) {
-				cdao.deleteChangeOne(list.get(i).getKey());
-			}
 			odao.updateOrderOne(o_num, o_status);
 		} catch (Exception e) {
 			check = 0;
@@ -239,6 +234,40 @@ public class NonmemberServiceImpl implements NonmemberService {
 		ChangeDto cdto = cdao.selectChangeOne(key);
 		String reason = cdto.getC_reason();
 		return reason;
+	}
+
+	// 반품교환 사유변경
+	@Override
+	public int updateReason(ChangeDto changeDto) {
+		int check = 1;
+		try {
+			cdao.updateChange(changeDto);
+		} catch (Exception e) {
+			check = 0;
+		}
+
+		return check;
+	}
+
+	// 리뷰작성
+	@Override
+	public int insertReview(ReviewDto reviewDto, HttpSession session) {
+		String o_num = (String) session.getAttribute("nonOk");
+		OrderListDto odto = odao.selectOrderListOne(reviewDto.getKey(), o_num);
+		String id = "";
+		if (session.getAttribute("loginInfo") != null) {
+			MemberDto mdto = (MemberDto) session.getAttribute("loginInfo");
+			id = mdto.getId();
+		}
+		reviewDto.setId(id);
+		reviewDto.setPro_num(odto.getPro_num());
+		int check = 1;
+		try {
+			rdao.insertReviewOne(reviewDto);
+		} catch (Exception e) {
+			check = 0;
+		}
+		return check;
 	}
 
 }
