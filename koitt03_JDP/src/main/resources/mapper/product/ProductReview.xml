@@ -6,9 +6,9 @@
 <mapper namespace="com.koitt.tim.dao.review.ReviewDao">
 
     <select id="selectReviewList" resultType="com.koitt.tim.dto.review.ReviewDto">
-        select r."review_num", "id", "title", "regist_review", "hit", "score", "content", "image", "admin_answer"
-        from REVIEW r,ORDER_LIST o
-        where r."Key"=o.KEY and o."pro_num"=#{pro_num}
+		select * from (select ROWNUM rnum, r."review_num", "id", "title", "regist_review", "hit", "score", "content", "image", "admin_answer"
+		from REVIEW r,ORDER_LIST o
+		where r."Key"=o.KEY and o."pro_num"=#{p1}) where rnum <![CDATA[ >= ]]> #{p2} and rnum <![CDATA[ <= ]]> #{p3}
     </select>
 
     <insert id="insertReview">
@@ -39,4 +39,10 @@
 	from order_list ol, 
 	review r where ol."KEY" = r."Key" and r."review_num" = #{param1}
 	</select>
+
+	<!-- 해당 상품 전체 리뷰 카운트	-->
+	<select id="selectCountReview" resultType="int">
+		select COUNT(*) from REVIEW where PRO_NUM = #{pro_num}
+	</select>
+
 </mapper>

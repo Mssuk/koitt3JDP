@@ -129,8 +129,8 @@
                     <ul>
                         <li class="dep"><a href="javascript:;" onclick="return false;" id="detailInfo">상품상세 정보</a></li>
                         <li><a href="javascript:;" onclick="return false;" id="goodsRelation">관련상품</a></li>
-                        <li class="dep"><a href="javascript:;" onclick="return false;" id="goodsReview">상품리뷰 <span>(3)</span></a></li>
-                        <li><a href="javascript:;" onclick="return false;" id="goodsQna">질문과 답변 <span>(1)</span></a></li>
+                        <li class="dep"><a href="javascript:;" onclick="return false;" id="goodsReview">상품리뷰 <span>(${allReview})</span></a></li>
+                        <li><a href="javascript:;" onclick="return false;" id="goodsQna">질문과 답변 <span>(${qCount})</span></a></li>
                         <li class="last"><a href="javascript:;" onclick="return false;" id="goodsNotice">정책 및 공지</a></li>
                     </ul>
                 </div><script type="text/javascript">$(function(){$(".detailTab ul li a:eq(0)").click();});</script>
@@ -287,10 +287,10 @@ $("#cartPut").click(function(){
                         <div class="imgListType">
                             <ul>
                                 <c:forEach var="reviewList" items="${reviewDtos}">
-                                    <c:if test="${reviewList.image_small eq not null}">
+                                    <c:if test="${reviewList.image eq not null}">
                                 <!-- List -->
                                 <li>
-                                    <div class="img"><img src="${reviewList.image_small}" width="155" height="160" alt="" /></div>
+                                    <div class="img"><img src="${reviewList.image}" width="155" height="160" alt="" /></div>
                                     <div class="txt">
                                         <div class="subject">
                                             <a href="#"><span class="orange">${reviewList.board_type}</span> ${reviewList.title}</a>
@@ -360,7 +360,7 @@ $("#cartPut").click(function(){
                             <ul>
                                 <!-- 반복 -->
                                 <c:forEach var="reviewList" items="${reviewDtos}">
-                                    <c:if test="${reviewList.image_small eq null}">
+<%--                                    <c:if test=" ${reviewList.image eq null}">--%>
                                 <li>
                                     <div class="headArea">
                                         <div class="subject">
@@ -406,7 +406,7 @@ $("#cartPut").click(function(){
                                     </div>
                                 </li>
                                 <!-- //반복 -->
-                                    </c:if>
+<%--                                    </c:if>--%>
                                 </c:forEach>
 
                             </ul>
@@ -415,15 +415,19 @@ $("#cartPut").click(function(){
                         <div class="btnAreaList">
                             <!-- 페이징이동1 -->
                             <div class="allPageMoving1">
+                                <a href="detail?pro_num=${dto.pro_num}&page=1" class="n"><img src="/images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="detail?pro_num=+${dto.pro_num}+&page=${page-1}" class="pre"><img src="/images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
 
-                                <a href="#" class="n"><img src="/images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="#" class="pre"><img src="/images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
-                                <strong>1</strong>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#">4</a>
-                                <a href="#">5</a>
-                                <a href="#" class="next"><img src="/images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="#" class="n"><img src="/images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
-
+                                <c:forEach var="pageList1" items="${pageList}">
+                                    <c:choose>
+                                        <c:when test="${pageList1 == page}">
+                                            <strong>${pageList1}</strong>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="detail?pro_num=${dto.pro_num}&page=${pageList1}">${pageList1}</a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <a href="detail?pro_num=${dto.pro_num}&page=${page+1}" class="next"><img src="/images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="detail?pro_num=${dto.pro_num}&page=${lastNum}" class="n"><img src="/images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
                             </div>
                             <!-- //페이징이동1 -->
                         </div>
@@ -443,46 +447,24 @@ $("#cartPut").click(function(){
                         <!-- 질문과 답변 -->
                         <div class="accordion">
                             <ul>
-                                <li>
-                                    <div class="headArea">
-                                        <div class="subject">
-                                            <a href="javascript:;" class="accbtn">배송기간은 얼마나 걸리나요?</a>
-                                        </div>
-                                        <div class="writer">[ezlin****]</div>
-                                        <div class="day">
-                                            <p>2014-03-24</p>
-                                            <p><span class="nbtnMini iw70">답변대기</span></p>
-                                        </div>
-                                    </div>
 
-                                    <div class="hideArea">
-                                        <div class="bodyArea">
-                                            배송일은 얼마나 걸리나요?<br/>빨리 받아보고 싶습니다.
-                                        </div>
-
-                                        <div class="modify">
-                                            <a href="#">수정</a>
-                                            <a href="#">삭제</a>
-                                        </div>
-                                    </div>
-
-                                </li>
+                                <c:forEach var="qaList" items="${qaList}">
 
                                 <li>
                                     <div class="headArea">
                                         <div class="subject">
-                                            <a href="javascript:;" class="accbtn">배송기간은 얼마나 걸리나요?</a>
+                                            <a href="javascript:" class="accbtn">${qaList.key}</a>
                                         </div>
-                                        <div class="writer">[ezlin****]</div>
+                                        <div class="writer">[문의 아이디]</div>
                                         <div class="day">
-                                            <p>2014-03-24</p>
+                                            <p>문의 날짜</p>
                                             <p><span class="obtnMini iw70">답변완료</span></p>
                                         </div>
                                     </div>
 
                                     <div class="hideArea">
                                         <div class="bodyArea">
-                                            배송일은 얼마나 걸리나요?<br/>빨리 받아보고 싶습니다.
+                                            문의 내용
                                         </div>
 
                                         <!-- 답변 -->
@@ -507,47 +489,7 @@ $("#cartPut").click(function(){
                                     </div>
                                 </li>
 
-                                <li>
-                                    <div class="headArea">
-                                        <div class="subject">
-                                            <a href="../event/password.html" class="passbtn">
-                                                배송기간은 얼마나 걸리나요?
-                                                <img src="/images/ico/ico_lock.gif" alt="비밀글" />
-                                            </a>
-                                        </div>
-                                        <div class="writer">[ezlin****]</div>
-                                        <div class="day">
-                                            <p>2014-03-24</p>
-                                            <p><span class="obtnMini iw70">답변완료</span></p>
-                                        </div>
-                                    </div>
-
-                                    <div class="hideArea">
-                                        <div class="bodyArea">
-                                            배송일은 얼마나 걸리나요?<br/>빨리 받아보고 싶습니다.
-                                        </div>
-
-                                        <!-- 답변 -->
-                                        <div class="answer">
-                                            <div class="inbox">
-                                                <div class="aname">
-                                                    <p>담당자</p>
-                                                </div>
-
-                                                <div class="atxt">
-                                                    쟈뎅 커피를 사랑해주셔서 감사합니다.<br/>배송은 결제 후 평군 2~3일 정도 소요됩니다. (공휴일 및 휴일 제외) 산간 도서지방은 배송기간이 더 소요될 수 있으므로 미리 양해 부탁드립니다.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- //답변 -->
-
-                                        <div class="modify">
-                                            <a href="#">수정</a>
-                                            <a href="#">삭제</a>
-                                        </div>
-                                    </div>
-                                </li>
-
+                                </c:forEach>
 
                             </ul>
                         </div>

@@ -5,4 +5,12 @@
 		select pq.*, p.product_name from product_question pq, product p where pq.pro_num = p.pro_num order by pq.q_date desc
 	</select>
 
+	<select id="selectQAList" resultType="map">
+		select q.*,a.A_CONTENT from PRODUCT_QUESTION q, PRODUCT_ANSWER a where q.PRO_NUM = #{pro_num} order by q.Q_DATE desc
+	</select>
+
+	<select id="selectQuestionCount" resultType="int">
+		select count(*) from PRODUCT_QUESTION where PRO_NUM=#{pro_num}
+	</select>
+
 </mapper>
