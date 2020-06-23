@@ -18,4 +18,17 @@
 	<select id="selectAllCoupon" resultType="CouponDto">
 		select * from COUPON
 	</select>
+	
+	<!-- 멤버쿠폰 발급여부 확인 -->
+	<select id="selectMemberCoupon" resultType="int">
+		select count(*) from COUPON_MEMBER where id = #{id} and coupon_num=#{coupon_num}
+	</select>
+	<!-- 멤버쿠폰발급 -->
+	<insert id="insertMemberCoupon">
+		insert into COUPON_MEMBER values(
+		#{id},
+		#{coupon_num, jdbcType=VARCHAR},
+		sysdate,
+		'')
+	</insert>
 </mapper>

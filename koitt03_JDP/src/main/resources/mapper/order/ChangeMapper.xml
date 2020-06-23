@@ -9,7 +9,7 @@
     <insert id="insertChangeOne" parameterType="ChangeDto">
     	insert into change values(
     			#{key, jdbcType=VARCHAR},
-                '대기중',
+                '신청',
                 #{c_reason, jdbcType=VARCHAR},
                 #{c_type, jdbcType=VARCHAR})
     </insert>
@@ -18,16 +18,11 @@
 		delete from change where key=#{key}    
     </delete>
     
-    
-    <insert id="insertChangeOrder">
-    	insert into change values(
-    			#{key, jdbcType=VARCHAR},
-                '취소대기중',
-                '주문취소',
-                #{c_type, jdbcType=VARCHAR})
-    </insert>
-    
     <select id="selectChangeOne" resultType="ChangeDto">
 		select * from change where key=#{key}    
     </select>
+    
+    <update id="updateChange">
+    	update change set "c_reason"=#{c_reason} where key=#{key}
+    </update>
 </mapper>

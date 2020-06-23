@@ -17,19 +17,35 @@
 		window.location.href='/nonmember/ordercheck_view?o_num='+${o_num };
 	</script>
 </c:if>
-<c:if test="${doChange!=null }">
+<c:if test="${docheck!=null }">
 
 	<c:choose>
-		<c:when test="${doChange==1 }">
-		<script type="text/javascript">
-			alert('신청이 완료되었습니다.');
-			</script>
+		<c:when test="${docheck==1 }">
+			<script type="text/javascript">
+ 			alert('신청이 완료되었습니다.'); 
+ 			</script>
 		</c:when>
 		<c:otherwise>
 			<script type="text/javascript">
-			alert('신청 실패. \n 잠시후 다시 시도해주세요');
-			window.location.href='/nonmember/ordercheck_view?o_num='+${o_num };
-			</script>
+ 			alert('신청 실패. \n 잠시후 다시 시도해주세요');
+         	window.location.href='/nonmember/ordercheck_view?o_num='+${o_num };
+ 			</script>
+		</c:otherwise>
+	</c:choose>
+	
+</c:if>
+<c:if test="${upcheck!=null }">
+
+	<c:choose>
+		<c:when test="${upcheck==1 }">
+		<script type="text/javascript">
+		alert('변경이 완료되었습니다.');
+		</script>
+		</c:when>
+		<c:otherwise>
+			<script type="text/javascript">
+		alert('변경 실패. \n 잠시후 다시 시도해주세요'); 
+ 			</script> 
 		</c:otherwise>
 	</c:choose>
 	
@@ -128,7 +144,7 @@
 										</c:if>
 										</td>
 										<td class="tnone">
-											<a href="reason?num1=${dtos.key }" class="nbtnbig iwc80">사유보기</a>
+											<a href="reason?num1=${dtos.key }&type=${dtos.c_state }" class="nbtnbig iwc80">사유보기</a>
 										</td>
 									</tr>
 								</c:forEach>

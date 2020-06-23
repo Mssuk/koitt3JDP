@@ -38,6 +38,22 @@
 			}
 	}
 </script>
+<c:if test="${incheck!=null }">
+
+	<c:choose>
+		<c:when test="${incheck==1 }">
+		<script type="text/javascript">
+		alert('리뷰등록이 완료되었습니다.');
+		</script>
+		</c:when>
+		<c:otherwise>
+			<script type="text/javascript">
+		alert('등록 실패. \n 잠시후 다시 시도해주세요'); 
+ 			</script> 
+		</c:otherwise>
+	</c:choose>
+	
+</c:if>
 
 <script type="text/javascript">
 	//입금후 취소
@@ -172,9 +188,9 @@
 																		</c:if>
 																	</c:when>
 																	<c:when test="${dtos.o_status=='구매확정'}">
-<%-- 																		<c:if test="${dayDiff <= 14}"> --%>
-																			<li><a href="review?num1=${dtos.key }" id="popBtn" class="nbtnMini">리뷰작성</a></li>
-<%-- 																		</c:if>	 --%>
+																		<c:if test="${dayDiff <= 14 && dtos.reviewOk==0}">
+																			<li><a href="review?num1=${dtos.key }"  class="popBtn nbtnMini">리뷰작성</a></li>
+																		</c:if>	
 																	</c:when>
 																</c:choose>
 															</ul>										
@@ -202,9 +218,18 @@
 							</tbody>
 						</table>
 						<c:if test="${orderList.size()<5 }">
-							<div class="noData web">
-								이하 여백
-							</div>
+							<c:choose>
+								<c:when test="${orderList.size()==0 }">
+									<div class="noData web">
+										반품/교환 목록을 확인하세요
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="noData web">
+										이하 여백
+									</div>
+								</c:otherwise>
+							</c:choose>
 							<c:forEach begin="0" step="1" end="${3-orderList.size() }">
 								<div class="noData web">
 							</div>
@@ -281,7 +306,7 @@ $(function(){
 			});
 		}
 	});
-	$("#popBtn").fancybox({
+	$(".popBtn").fancybox({
         'autoDimensions'    : false,
         'showCloseButton'	: false,
         'width' : popCheck,

@@ -27,9 +27,9 @@ $(document).ready(function(){
 	//댓글유효성
 	function reply_ok(aa){
 		var k=aa;
-		var croodx = '<%=(String)session.getAttribute("loginInfo")%>';
-		if(croodx=='null'){
-			alert('로그인 후 등록가능합니다.');
+		var croodx = '<%=session.getAttribute("loginInfo")%>';
+		if(croodx==null){
+			alert('로그인 후 다운가능합니다.');
 			return false;
 		}
 		if(event_reply.event_re_content.value==''){
@@ -69,7 +69,10 @@ $(document).ready(function(){
 		$("#"+a).val(k);
 	}
 	//
-	
+	function disableDown(){
+		alert('쿠폰 다운로드 기한이 만료되었습니다');
+		return false;
+	}
 </script>
 
 	
@@ -122,9 +125,23 @@ $(document).ready(function(){
 											<p><fmt:formatDate value="${event_view.couponDto.endday }" pattern="yyyy-MM-dd"/>까지 사용가능</p>
 								    </li>
 								    <li>
-										<a href="#" class="download">
-											<span>다운로드</span>
-										</a>
+								    	<jsp:useBean id="now" class="java.util.Date"></jsp:useBean>
+										<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"/>
+										<fmt:parseDate value="${event_view.couponDto.endday}" var="coupon" pattern="yyyy-MM-dd"/>
+										<fmt:parseNumber value="${coupon.time / (1000*60*60*24)}" integerOnly="true" var="couT"/>
+										<c:set value="${today - couT }" var="dayDiff" />
+										<c:choose>
+											<c:when test="${dayDiff<=0 }">
+												<a href="javascript:;" onclick="getCou('${event_view.eventDto.coupon_num}')" class="download">
+													<span>다운로드</span>
+												</a>
+											</c:when>
+											<c:otherwise>
+												<a href="javascript:;" onclick="disableDown()"  class="download">
+													<span>다운로드</span>
+												</a>
+											</c:otherwise>
+										</c:choose>
 								    </li>
 							    </ul>
 								</c:if>
@@ -300,7 +317,37 @@ $(function(){
 
 });
 </script>
+<script type="text/javascript">
+//선택삭제
+function getCou(a){ // 매개변수를 받는다.
+	var croodx = '<%=session.getAttribute("loginInfo")%>';
+	if(croodx==null){
+		alert('로그인 후 다운가능합니다.');
+		return false;
+	}
+	
+	$.ajax({
+        url : "getECoupon",   // 받을 url
+        type : "POST",   
+        data: JSON.stringify({coupon_num:a}),  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
+        contentType: "application/json",
+        success : function (data) {
+           if(data== 2){ //리턴값이 ok일 경우
+              alert('쿠폰이 발급되었습니다');
+           }else if(data == 1){
+				alert('이미 발급받은 쿠폰입니다');
+			}else if(data == 0){
+				alert('쿠폰 발급 실패. 잠시 후 다시 시도해주세요');
+			}
+        },
+        error : function(){ //오류일경우 경고창을 띄움
+           alert("통신 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.\n오류가 반복될 경우, 고객센터로 문의 부탁드립니다.\n(error_code: downError)");
+        }
+     });
+	
+	}
 
+</script>
 		</div>
 		<!-- quickmenu -->
 		<jsp:include page="../common/quickmenu.jsp" />

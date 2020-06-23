@@ -90,13 +90,9 @@ public class ProductController {
         rDto.setId(id);
         rDto.setContent(content);
         rDto.setTitle(title);
-        rDto.setBoard_type(type);
-        rDto.setScore(star);
         if(smallImage.getOriginalFilename() != ""){
-            rDto.setImage_small(utils.FileUploaderCDN(smallImage,"review/"));
         }else{
             String smallImageNon="";
-            rDto.setImage_small(smallImageNon);
         }
         try{
             pServ.addPhotoReview(rDto);

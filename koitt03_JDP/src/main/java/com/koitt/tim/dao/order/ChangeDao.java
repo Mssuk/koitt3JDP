@@ -16,10 +16,10 @@ public interface ChangeDao {
 	// 반품 교환신청 철회
 	public void deleteChangeOne(@Param("key") String key);
 
-	// 주문취소(입금완료 ,배송전 취소라서 클레임처리)
-	public void insertChangeOrder(@Param("key") String key, @Param("c_type") String type);
-
 	// 주문리스트 번호에 해당하는 change를 가져옴
 	public ChangeDto selectChangeOne(String key);
+
+	// 반품교환사유변경
+	public void updateChange(ChangeDto changeDto);
 
 }

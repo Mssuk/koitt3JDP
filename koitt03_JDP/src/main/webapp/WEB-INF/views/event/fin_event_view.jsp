@@ -27,9 +27,9 @@ $(document).ready(function(){
 	//댓글유효성
 	function reply_ok(aa){
 		var k=aa;
-		var croodx = '<%=(String)session.getAttribute("loginInfo")%>';
-		if(croodx=='null'){
-			alert('로그인 후 등록가능합니다.');
+		var croodx = '<%=session.getAttribute("loginInfo")%>';
+		if(croodx==null){
+			alert('로그인 후 다운가능합니다.');
 			return false;
 		}
 		if(event_reply.event_re_content.value==''){
@@ -70,6 +70,11 @@ $(document).ready(function(){
 	}
 	//
 	
+	function disableDown(){
+		alert('쿠폰 다운로드 기한이 만료되었습니다');
+		return false;
+	}
+	//
 	//
 </script>
 
@@ -128,7 +133,7 @@ $(document).ready(function(){
 											<p><fmt:formatDate value="${event_view.couponDto.endday }" pattern="yyyy-MM-dd"/>까지 사용가능</p>
 								    </li>
 								    <li>
-										<a href="#" class="download">
+										<a href="javascript:;" onclick="disableDown()"  class="download">
 											<span>다운로드</span>
 										</a>
 								    </li>

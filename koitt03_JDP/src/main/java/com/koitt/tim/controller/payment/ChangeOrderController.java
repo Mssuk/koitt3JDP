@@ -4,12 +4,10 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.koitt.tim.dto.order.ChangeDto;
 import com.koitt.tim.service.nonmember.NonmemberService;
 
 @Controller
@@ -17,15 +15,6 @@ public class ChangeOrderController {
 
 	@Autowired
 	NonmemberService nServ;
-
-	// 반품교환 신청완료
-	@RequestMapping("/doReturn")
-	public String do_return(ChangeDto changeDto, Model model) {
-		int check = 1;
-		check = nServ.doReturn(changeDto);
-		model.addAttribute("doChange", check);
-		return "redirect:nonmember/takeback_state";
-	}
 
 	// 반품교환 철회
 	@ResponseBody
@@ -66,4 +55,5 @@ public class ChangeOrderController {
 		check = nServ.cancelReturnB(o_num);
 		return check;
 	}
+
 }

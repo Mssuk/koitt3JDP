@@ -45,7 +45,7 @@ public interface OrderDao {
 	OrderListDto selectOrderListOne(@Param("key") String key, @Param("orderNum") String o_num);
 
 	// 주문취소
-	void updateOrderOne(@Param("orderNum") String o_num, @Param("o_type") String o_type);
+	void updateOrderOne(@Param("orderNum") String o_num, @Param("o_status") String o_status);
 
 	// 반품 교환현황 리스트
 	List<OrderListDto> selectClaimListNone(@Param("orderNum") String o_num, @Param("p1") int startNum,

@@ -16,17 +16,29 @@
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>
     <script type="text/javascript">
-        $(function() {
-
-        });
-    </script>
+       function reviewGo(){
+	    	if(review.title.value==''){
+	    		alert('제목을 입력해주세요');
+	    		review.title.focus();
+	    		return false;
+	    	}
+	    	if(review.content.value==''){
+	    		content('내용을 입력해주세요');
+	    		review.content.focus();
+	    		return false;
+	    	}
+	    	document.review.target = "_parent";
+	    	document.review.submit();
+	    	self.close();
+       }
+</script>
 </head>
 <body>
 <div id="layerWrap">
 
     <div class="inputWrap">
 
-        <form class="inputBody"  enctype="multipart/form-data" name="review" action="writereview" method="post">
+        <form class="inputBody"  enctype="multipart/form-data" name="review" action="/nonmember/writereview" method="post">
             <div class="title">구매 후기 작성하기</div>
             <p class="close"><a onclick="parent.$.fancybox.close();" href="javascript:;" style="display: inline-block;"><img src="../images/btn/btn_input_close.gif" alt="닫기" /></a></p>
             <div class="checkDivMt">
@@ -98,6 +110,7 @@
                         <th scope="row"><span>내용</span></th>
                         <td>
                             <textarea class="tta" name="content"></textarea>
+                            <input type="text" name="key" value="${key }" hidden="">
                         </td>
                     </tr>
                      <tr>
@@ -114,7 +127,7 @@
             <div class="btnArea">
                 <div class="bCenter">
                     <ul>
-                        <li><a href="#" class="sbtnMini">확인</a></li>
+                        <li><a href="#" onclick="reviewGo()" class="sbtnMini">확인</a></li>
                         <li><a onclick="parent.$.fancybox.close();" href="javascript:;" class="nbtnbig">취소</a></li>
                     </ul>
                 </div>
