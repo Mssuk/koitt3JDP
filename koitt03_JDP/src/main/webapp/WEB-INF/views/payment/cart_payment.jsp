@@ -4,7 +4,27 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <jsp:include page="../common/header.jsp"/>
-    
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script type="text/javascript">
+    function post(){
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	        	jQuery("#zip1").val(data.zonecode);
+	      		jQuery("#address1").val(data.address);
+	      		jQuery("#address2").focus();
+	        }
+	    }).open();
+	}
+    function post2(){
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	        	jQuery("#zip2").val(data.zonecode);
+	      		jQuery("#address3").val(data.address);
+	      		jQuery("#address4").focus();
+	        }
+	    }).open();
+	}
+    </script>
  <!-- container -->
 	<div id="container">
 
@@ -23,6 +43,7 @@
 					<h2><strong>주문/결제</strong></h2>
 					
 					<!-- 주문 상품 -->
+					<form action="" name="product" method="post">
 					<h3 class="dep">주문 제품 확인</h3>
 					<div class="orderDivNm">
 						<table summary="주문 제품 확인 게시판으로 상품명, 가격, 수량, 합계순으로 조회 하실수 있습니다." class="orderTable" border="1" cellspacing="0">
@@ -35,7 +56,7 @@
 							</colgroup>
 							<thead>
 								<th scope="col">상품명</th>
-								<th scope="col" class="tnone">가격/포인트</th>
+								<th scope="col" class="tnone">가격  <c:if test="${member!=null }">/포인트</c:if></th>
 								<th scope="col">수량</th>
 								<th scope="col">합계</th>
 							</thead>
@@ -52,7 +73,7 @@
 											</ul>
 										</td>
 										<td class="tnone">
-											<fmt:formatNumber value="${dtos.pdto.sales_price }" pattern="#,###" /> 원
+											<span><fmt:formatNumber value="${dtos.pdto.sales_price }" pattern="#,###" /></span> 원
 											
 											<c:if test="${member!=null }">
 												<!-- 회원일 시 -->
@@ -60,8 +81,8 @@
 												<!-- //회원일 시 -->
 											</c:if>
 										</td>
-										<td>${dtos.bmdto.count } 개</td>
-										<td><fmt:formatNumber value="${dtos.pdto.sales_price*dtos.bmdto.count }" pattern="#,###" /> 원</td>
+										<td><span>${dtos.bmdto.count }</span> 개</td>
+										<td><span><fmt:formatNumber value="${dtos.pdto.sales_price*dtos.bmdto.count }" pattern="#,###" /></span> 원</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -73,12 +94,13 @@
 							<li>+ 배송비 <strong>2,500</strong> 원</li>
 							<li>= 총 합계 <strong>1,134,810</strong> 원</li>
 						</ul>
-						<span>*구매금액 15,000원 이상 배송비 무료</span>
 					</div>
+					</form>
 					<!-- //주문 상품 -->
 					
 
 			<!-- 주문자 주소 입력 -->
+					<form action="" name="form1" method="post">
 					<h3 class="diviLeft">주문자 주소 입력</h3>
 					<c:if test="${member!=null }">
 					<div class="diviRight">
@@ -98,7 +120,7 @@
 							<tbody>
 								<tr>
 									<th scope="row"><span>이름</span></th>
-									<td><input type="text" class="w134" value="홍길동" /></td>
+									<td><input type="text" class="w134" value="" /></td>
 								</tr>
 
 								<tr>
@@ -106,11 +128,11 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<input type="text" class="w134" />&nbsp;
+												<input type="text" class="w134" id="zip1"/>&nbsp;
 											</li>
-											<li><a href="../member/zip.html" class="addressBtn"><span>우편번호 찾기</span></a></li>
-											<li class="pt5"><input type="text" class="addressType2" /></li>
-											<li class="pt5"><input type="text" class="addressType2" /></li>
+											<li><a href="javascript:;" onclick="post()" class="addressBtn"><span>우편번호 찾기</span></a></li>
+											<li class="pt5"><input type="text" class="addressType2" name="address2" id="address1"/></li>
+											<li class="pt5"><input type="text" class="addressType2" name="address3" id="address2" /></li>
 										</ul>
 									</td>
 								</tr>
@@ -120,10 +142,13 @@
 										<ul class="pta">
 											<li><input type="text" class="w134" /></li>
 											<li><span class="valign">&nbsp;@&nbsp;</span></li>
-											<li class="r10"><input type="text" class="w134" /></li>
+											<li class="r10"><input type="text" class="w134" name="email2"/></li>
 											<li>
-												<select id="emailList">
-													<option value="#" selected="selected">직접입력</option>
+												<select name="lstMail" class="select01" style="width: 150px"
+                                    onchange="document.form1.email2.focus();
+                              document.form1.email2.value =document.form1.lstMail[document.form1.lstMail.selectedIndex].value;
+                            ">
+													<option value="" selected="selected">직접입력</option>
 													<option value="naver.com">naver.com</option>
 													<option value="daum.net">daum.net</option>
 													<option value="hanmail.net">hanmail.net</option>
@@ -202,16 +227,16 @@
 							</tbody>
 						</table>
 					</div>
+					</form>
 			<!-- //주문자 주소 입력 -->
 
 
 			<!-- 수취자 주소 입력 -->
+					<form action="" name="form2" method="post">
 					<h3 class="dep">
 						수취자 주소 입력
-						<c:if test="${member!=null }">
-							<input type="checkbox" id="infosame"/>
-							<label for="infosame">회원정보와 동일</label>
-						</c:if>
+						<input type="checkbox" id="infosame"/>
+						<label for="infosame">주문자 정보와 동일</label>
 					</h3>
 					<div class="checkDiv">
 						<table summary="수취자 주소를 입력할 수 있는 란으로 이름, 주소, 이메일, 휴대폰 번호, 전화번호 순으로 입력 하실수 있습니다." class="checkTable" border="1" cellspacing="0">
@@ -231,11 +256,11 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<input type="text" class="w134" />&nbsp;
+												<input type="text" class="w134" id="zip2"/>&nbsp;
 											</li>
-											<li><a href="../member/zip.html" class="addressBtn"><span>우편번호 찾기</span></a></li>
-											<li class="pt5"><input type="text" class="addressType2" /></li>
-											<li class="pt5"><input type="text" class="addressType2" /></li>
+											<li><a href="javascript:;" onclick="post2()" class="addressBtn"><span>우편번호 찾기</span></a></li>
+											<li class="pt5"><input type="text" class="addressType2" name="address2" id="address3"/></li>
+											<li class="pt5"><input type="text" class="addressType2" name="address3" id="address4" /></li>
 										</ul>
 									</td>
 								</tr>
@@ -296,10 +321,13 @@
 								</tr>
 							</tbody>
 						</table>
+						
 					</div>
+					</form>
 			<!-- //수취자 주소 입력 -->
 
 			<c:if test="${member!=null }">
+					<form action="" method="post" name="coupoint">
 			<!-- 쿠폰 및 포인트 사용 -->
 					<h3 class="dep">쿠폰 및 포인트 사용</h3>
 					<div class="checkDiv">
@@ -363,10 +391,12 @@
 							</tbody>
 						</table>
 					</div>
+					</form>
 			<!-- //쿠폰 및 포인트 사용 -->
 			</c:if>
 
 			<!-- 총 주문금액 -->
+			<form name="orderTotal" method="post" >
 					<div class="amount">
 
 						<!-- 회원 일때 -->
@@ -408,11 +438,13 @@
 							<li class="money"><span>1,134,810</span> 원</li>
 						</ul>
 					</div>
+				</form>	
 			<!-- //총 주문금액 -->
 
 
 
 			<!-- 결제수단 선택 -->
+				<form name="payMethod" method="post">
 					<h3 class="dep">결제수단 선택</h3>
 					<div class="checkDiv">
 						<table summary="신용카드 결제, 실시간 계좌이체, 가상계좌, 가상계좌(에스크로), 무통장 입금 순으로 결제수단을 선택하실 수 있습니다." class="checkTable" border="1" cellspacing="0">
@@ -568,7 +600,7 @@
 						<!-- //사업자 지출증빙 -->
 
 					</div>
-
+					</form>
 
 						
 				
@@ -578,7 +610,7 @@
 					<div class="btnArea">
 						<div class="orderCenter">
 							<ul>
-								<li><a href="#" class="nbtnbig iw0140">뒤로가기</a></li>
+								<li><a href="javascript:history.go(-1);" class="nbtnbig iw0140">뒤로가기</a></li>
 								<li><a href="#" class="sbtnMini iw0140">주문 / 결제</a></li>								
 							</ul>
 						</div>
@@ -649,25 +681,10 @@ $(function(){
 	// layer popup
 	var winWidth = $(window).width();
 	if(winWidth > 767){
-		var layerCheck = 540;
 		var couponCheck = 760;
 	}else{
-		var layerCheck = 320;
 		var couponCheck = 320;
 	}
-
-	$(".addressBtn").fancybox({
-		'autoDimensions'    : false,
-		'showCloseButton'	: false,
-		'width' : layerCheck,
-		'padding' : 0,
-		'type'			: 'iframe',
-		'onComplete' : function() {
-			$('#fancybox-frame').load(function() { // wait for frame to load and then gets it's height
-			$('#fancybox-content').height($(this).contents().find('body').height());
-			});
-		}
-	});
 
 	$(".nbtn").fancybox({
 		'autoDimensions'    : false,

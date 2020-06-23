@@ -270,10 +270,6 @@ function del_one(a){ // 매개변수를 받는다.
 <script type="text/javascript">
 //선택수정
 $("#modis").click(function(){ // 매개변수를 받는다.
-	if($('input:checkbox[name=pro_num]').length==0){
-		alert('체크된 상품이 없습니다');
-		return false;
-	}
 	if(confirm("개수를 수정하시겠습니까?")){
 	var mcnt=$(".order_pro").length;
 	var numlist='';
@@ -285,6 +281,10 @@ $("#modis").click(function(){ // 매개변수를 받는다.
 			numlist+=list+"_";
 			countlist+=ch+"_";
 		}
+	}
+	if(numlist==''){
+		alert('체크된 상품이 없습니다');
+		return false;
 	}
 	
 	$.ajax({
@@ -313,10 +313,6 @@ $("#modis").click(function(){ // 매개변수를 받는다.
 //선택삭제
 $("#delis").click(function(){ // 매개변수를 받는다.
 	
-	if($('input:checkbox[name=pro_num]').length==0){
-		alert('체크된 상품이 없습니다');
-		return false;
-	}
 	if(confirm("선택한 상품을 삭제하시겠습니까?")){
 	var dcnt=$(".order_pro").length;
 	var numlist='';
@@ -326,7 +322,10 @@ $("#delis").click(function(){ // 매개변수를 받는다.
 			numlist+=list+"_";
 		}
 	}
-	
+	if(numlist==''){
+		alert('체크된 상품이 없습니다');
+		return false;
+	}
 	$.ajax({
         url : "/delCart",   // 받을 url
         type : "POST",   
@@ -381,10 +380,7 @@ $(".buy").click(function(){ // 매개변수를 받는다.
 //선택구매
 $(".buys").click(function(){ // 매개변수를 받는다.
 	
-	if($('input:checkbox[name=pro_num]').length==0){
-		alert('체크된 상품이 없습니다');
-		return false;
-	}
+	
 	var mcnt=$(".order_pro").length;
 	var numlist='';
 	var countlist='';
@@ -395,6 +391,10 @@ $(".buys").click(function(){ // 매개변수를 받는다.
 			numlist+=list+"_";
 			countlist+=ch+"_";
 		}
+	}
+	if(numlist==''){
+		alert('체크된 상품이 없습니다');
+		return false;
 	}
 	
 	$.ajax({
