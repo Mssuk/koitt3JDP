@@ -7,6 +7,8 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
+import com.koitt.tim.dto.order.OrderDto;
+import com.koitt.tim.dto.order.OrderListDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -433,4 +435,21 @@ public class AdminController {
 		return adminService.getAllFaq();
 	}
 
+	//order 목록 불러오기
+	@GetMapping("olist")
+	public List<OrderDto> oList(){
+		return adminService.getAllOrder();
+	}
+
+	//orderList 목록 불러오기
+	@GetMapping("ollist")
+	public List<OrderListDto> olList(){
+		return adminService.getAllOL();
+	}
+
+	//orderProductList 목록불러오기
+	@GetMapping("olplist")
+	public List<ProductDto> olpList(){
+		return adminService.getOrderPro();
+	}
 }

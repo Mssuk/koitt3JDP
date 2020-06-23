@@ -79,7 +79,7 @@ public class NonmemberServiceImpl implements NonmemberService {
 			// 주문은 있으나 아이디가있음(회원임)
 			if (odto.getId() != null)
 				orch = -1;
-			if (odto.getO_state() == "접수대기" || odto.getO_state() == "주문취소")// 주문을 완료하지않음(임시주문번호만 생긴 그것..0
+			if (odto.getO_status() == "접수대기" || odto.getO_status() == "주문취소")// 주문을 완료하지않음(임시주문번호만 생긴 그것..0
 				orch = 0;
 		}
 

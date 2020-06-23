@@ -12,6 +12,8 @@ import com.koitt.tim.dto.category.CategoryDept2Dto;
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
+import com.koitt.tim.dto.order.OrderDto;
+import com.koitt.tim.dto.order.OrderListDto;
 import com.koitt.tim.dto.product.MainProductDto;
 import com.koitt.tim.dto.product.ProductAnswerDto;
 import com.koitt.tim.dto.product.ProductDto;
@@ -150,4 +152,13 @@ public interface AdminService {
 
 	// FAQ 삭제하기
 	void deleteFaq(String key);
+
+	//order 목록 가져오기
+	List<OrderDto> getAllOrder();
+
+	//orderList 목록 가져오기
+	List<OrderListDto> getAllOL();
+
+	//order에 있는 상품목록들
+	List<ProductDto> getOrderPro();
 }
