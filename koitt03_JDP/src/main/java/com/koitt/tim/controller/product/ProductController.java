@@ -94,28 +94,7 @@ public class ProductController {
 
         return "product/photo";
     }
-    @PostMapping(value="addPhotoReview",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String addPhotoReview(HttpSession session,@RequestParam(value="smallImage")MultipartFile smallImage,String type,String star,String title,String content) throws IOException {
-        MemberDto mDto = (MemberDto) session.getAttribute("abcd1234");
-        String id = mDto.getId();
-        int check =0;
-
-        ReviewDto rDto = new ReviewDto();
-        rDto.setId(id);
-        rDto.setContent(content);
-        rDto.setTitle(title);
-        if(smallImage.getOriginalFilename() != ""){
-        }else{
-            String smallImageNon="";
-        }
-        try{
-            pServ.addPhotoReview(rDto);
-        }catch(Exception e){
-            check =1;
-        }
-        System.out.println("결과는 ======="+check);
+    
 
 
-        return "";
-    }
 }
