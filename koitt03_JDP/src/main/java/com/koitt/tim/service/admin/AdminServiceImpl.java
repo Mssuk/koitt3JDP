@@ -3,13 +3,11 @@ package com.koitt.tim.service.admin;
 import java.util.HashMap;
 import java.util.List;
 
+import com.koitt.tim.dao.order.ChangeDao;
 import com.koitt.tim.dao.order.OrderDao;
 import com.koitt.tim.dao.payment.PayeeDao;
 import com.koitt.tim.dao.payment.PaymentDao;
-import com.koitt.tim.dto.order.OrderDto;
-import com.koitt.tim.dto.order.OrderListDto;
-import com.koitt.tim.dto.order.PayeeDto;
-import com.koitt.tim.dto.order.PaymentDto;
+import com.koitt.tim.dto.order.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -90,6 +88,8 @@ public class AdminServiceImpl implements AdminService {
 	private PaymentDao payDao;
 	@Autowired
 	private PayeeDao payeeDao;
+	@Autowired
+	private ChangeDao cDao;
 
 	@Override
 	public MallDto getMallInfo() {
@@ -397,6 +397,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<PayeeDto> getPayeeInfo(String o_num) {
 		return payeeDao.selectPayeeInfo(o_num);
+	}
+
+	@Override
+	public List<ChangeDto> getChangeList() {
+		return cDao.selectAllChange();
 	}
 
 }

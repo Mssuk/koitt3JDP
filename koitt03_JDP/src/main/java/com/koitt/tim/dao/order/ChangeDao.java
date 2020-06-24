@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.koitt.tim.dto.order.ChangeDto;
 
+import java.util.List;
+
 @Repository
 public interface ChangeDao {
 	// 주문리스트 번호에 해당하는 c_state를 가져옴
@@ -21,5 +23,8 @@ public interface ChangeDao {
 
 	// 반품교환사유변경
 	public void updateChange(ChangeDto changeDto);
+
+	//모든 반품리스트 가져옴(admin)
+	List<ChangeDto> selectAllChange();
 
 }

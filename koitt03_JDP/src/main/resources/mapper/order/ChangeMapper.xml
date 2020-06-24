@@ -25,4 +25,8 @@
     <update id="updateChange">
     	update change set "c_reason"=#{c_reason} where key=#{key}
     </update>
+
+    <select id="selectAllChange" resultType="ChangeDto">
+        select * from change
+    </select>
 </mapper>

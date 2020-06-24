@@ -8,10 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.koitt.tim.dao.payment.PayeeDao;
-import com.koitt.tim.dto.order.OrderDto;
-import com.koitt.tim.dto.order.OrderListDto;
-import com.koitt.tim.dto.order.PayeeDto;
-import com.koitt.tim.dto.order.PaymentDto;
+import com.koitt.tim.dto.order.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -474,4 +471,9 @@ public class AdminController {
         return adminService.getPayeeInfo(o_num);
     }
 
+    //반품리스트 가져오기
+    @GetMapping("clist")
+    public List<ChangeDto> cList(){
+        return adminService.getChangeList();
+    }
 }
