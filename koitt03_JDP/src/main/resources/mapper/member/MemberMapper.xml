@@ -31,8 +31,9 @@
 		select point from MEMBER where id=#{id}
 	</select>
 	
-	<update id="updateMember">
-		update member set pw=#{pw}, 
+	<update id="updateMember" parameterType="MemberDto">
+		update member set pw=#{pw}, email1=#{email1}, email2=#{email2}, email_check=#{email_check}, address1=#{address1}, address2=#{address2}, address3=#{address3},
+			phone = #{phone}, sms=#{sms}, tel=#{tel}, birth=#{birth}, calender_check =#{calender_check} where id=#{id}
 	</update>
 
 </mapper>

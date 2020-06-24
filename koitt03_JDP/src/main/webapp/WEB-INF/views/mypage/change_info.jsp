@@ -35,7 +35,7 @@
 
 			<!-- contents -->
 			<div id="contents">
-				<form action="modify" method="post">  
+				<form action="modifyMember" method="post">  
 				<div id="mypage">
 					<h2><strong>회원정보 수정</strong><span>회원님의 개인 정보를 수정하실 수 있습니다.</span></h2>
 					
@@ -107,10 +107,10 @@
 										<p>쟈뎅에서 진행되는 이벤트와 쇼핑에 대한 정보를 이메일로 받아보시겠습니까?</p>
 										<ul class="question">
 											<li>
-												<input type="radio" name="receive" name="email_check" id="receive_yes" class="radio_t" checked="checked"/><label for="receive_yes">예</label>
+												<input type="radio" name="email_check" id="receive_yes" class="radio_t" checked="checked"/><label for="receive_yes">예</label>
 											</li>
 											<li>
-												<input type="radio" name="receive" name="email_check" id="receive_no" class="radio_t"/><label for="receive_no">아니오</label>
+												<input type="radio"name="email_check" id="receive_no" class="radio_t"/><label for="receive_no">아니오</label>
 											</li>
 										</ul>
 										<p class="gray">* 거래관련 정보는 고객님의 거래안전을 위하여 이메일 수신거부와 관계없이 발송됩니다.</p>
@@ -205,7 +205,7 @@
 										<ul class="pta">
 											<li>
 												<select name="phone1">
-													<option >${mdto.phone1 }</option>
+													<option value="${mdto.phone1 }">${mdto.phone1 }</option>
 													<option value="010">010</option>
 													<option value="011">011</option>
 													<option value="016">016</option>
@@ -221,10 +221,10 @@
 											<li class="pt5">
 												<ul class="baseQues">
 													<li>
-														<input type="radio" name="sms" id="sms_yes" class="radio_t" checked="checked"/><label for="sms_yes">예</label>
+														<input type="radio" name="sms" id="sms_yes" class="radio_t" value="y"/><label for="sms_yes">예</label>
 													</li>
 													<li>
-														<input type="radio" name="sms" id="sms_no" class="radio_t"/><label for="sms_no">아니오</label>
+														<input type="radio" name="sms" id="sms_no" class="radio_t" value="n"/><label for="sms_no">아니오</label>
 													</li>
 												</ul>
 											</li>
@@ -236,8 +236,11 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<select name="tel1">
-													<option >${mdto.tel1 }</option>
+												<select name="tel1" id="tel1">
+												<!-- <script>
+													var index = $("#tel1 option").index($("#tel1 option:selected"));
+												</script> -->
+												<%-- <option value="${mdto.tel1 }">${mdto.tel1 }</option> --%>
 													<option value="02">02</option>
 													<option value="031">031</option>
 													<option value="032">032</option>
@@ -256,9 +259,14 @@
 													<option value="064">064</option>
 													<option value="070">070</option>
 												</select>
+												<script>
+												var selectValue = ${mdto.tel1};
+													$("#tel1").var("selectValue").attr("selected", "selected");
+												</script>
 											</li>
 											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" name="tel2" class="w74" maxlength="4" value="${mdto.tel2 }"/> <span class="valign">-</span>&nbsp;</li>
+											<li><input type="text" name="tel2" class="w74" maxlength="4" value="${mdto.tel2 }"/>
+												<span class="valign">-</span>&nbsp;</li>
 											<li><input type="text" name="tel3" class="w74" maxlength="4" value="${mdto.tel3 }"/></li>
 										</ul>
 									</td>
@@ -269,11 +277,12 @@
 										<ul class="pta">
 											<li>
 												<select name="birth1">
-													<option value='' selected="selected">${mdto.birth1 }</option>
+													<option value='${mdto.birth1 }' selected="selected">${mdto.birth1 }</option>
 													<script type="text/javascript">
 													//<![CDATA[
 														for(var i=1940; i<=2014; i++){
 															document.write("<option value=''>" + i + "</option>");	
+															
 														};
 													//]]>
 													</script>
@@ -282,7 +291,7 @@
 											<li>&nbsp;<span class="valign">년</span>&nbsp;&nbsp;&nbsp;</li>
 											<li>
 												<select name="birth2">
-													<option value='' selected="selected">${mdto.birth2 }</option>
+													<option value='${mdto.birth2 }' selected="selected">${mdto.birth2 }</option>
 													<script type="text/javascript">
 													//<![CDATA[
 														for(var i=1; i<=12; i++){
@@ -299,7 +308,7 @@
 											<li>&nbsp;<span class="valign">월</span>&nbsp;&nbsp;&nbsp;</li>
 											<li>
 												<select name="birth3">
-													<option value='' selected="selected">${mdto.birth3 }</option>
+													<option value='${mdto.birth3 }' selected="selected">${mdto.birth3 }</option>
 													<script type="text/javascript">
 													//<![CDATA[
 														for(var i=1; i<=31; i++){
@@ -317,10 +326,10 @@
 											<li class="pt5">
 												<ul class="baseQues">
 													<li>
-														<input type="radio" name="birth" id="solar" class="radio_t" checked="checked"/><label for="solar">양력</label>
+														<input type="radio" name="calender_check" id="solar" class="radio_t" value="solar"/><label for="solar">양력</label>
 													</li>
 													<li>
-														<input type="radio" name="birth" id="lunar" class="radio_t"/><label for="lunar">음력</label>
+														<input type="radio" name="calender_check" id="lunar" class="radio_t" value="lunar"/><label for="lunar">음력</label>
 													</li>
 												</ul>
 											</li>

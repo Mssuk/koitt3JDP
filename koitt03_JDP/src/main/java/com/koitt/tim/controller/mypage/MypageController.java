@@ -62,11 +62,6 @@ public class MypageController {
 	public String changeInfo(Model model, HttpSession session, MemberDto mDto) {
 		mDto = (MemberDto) session.getAttribute("loginInfo");
 
-		mypageService.subEmail(mDto);
-		mypageService.subBirth(mDto);
-		mypageService.subPhone(mDto);
-		mypageService.subTel(mDto);
-
 		model.addAttribute("mdto", mDto);
 		return "mypage/change_info";
 	}
