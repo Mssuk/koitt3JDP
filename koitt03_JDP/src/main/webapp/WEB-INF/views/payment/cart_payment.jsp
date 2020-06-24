@@ -342,8 +342,8 @@
 									<td>
 										<ul class="pta">
 											<li class="r10">
-												<input type="text" class="w134" />&nbsp;&nbsp;
-												<span class="valign"><strong>원</strong></span>
+												<input type="text" class="w134" id="topCou" value="0" disabled="disabled"/>&nbsp;&nbsp;
+												<span class="valign"><strong></strong><input type="text" hidden=""  id="coucou" value="">원</span>
 											</li>
 											<li class="r10"><span class="valign">( 보유 쿠폰 내역 : ${member.couponCount }장 )&nbsp;</span></li>
 											<li><a href="coupon_cart_list" class="nbtn">쿠폰목록</a></li>
@@ -357,7 +357,7 @@
 									<td>
 										<ul class="pta">
 											<li class="r10">
-												<input type="text" class="w134" />&nbsp;&nbsp;
+												<input type="text" class="w134" id="topPoin" value="0" onblur="changePoint(this)"/>&nbsp;&nbsp;
 												<span class="valign"><strong>Point</strong></span>
 											</li>
 											<li>
@@ -374,7 +374,8 @@
 									<th scope="row"><span>총 결제금액</span></th>
 									<td>
 										<ul class="pta">
-											<li><span class="valign"><strong>1,133,810 원</strong> (총주문금액 <span class="whole_total"><strong>1,132,310</strong></span>원 + 배송비 <span class="whole_deliver"><strong>1,132,310</strong></span>원 - 포인트 1,000 = 1,133,801원)</span></li>
+											<li><span class="valign"><span class="money whole_total"><strong>1,133,810 </strong>원</span> (총주문금액 <span class="whole_total"><strong>1,132,310</strong></span>원 + 배송비 <span class="whole_deliver"><strong>1,132,310</strong></span>원
+											 - 포인트 <span><strong class="mempoint">0</strong></span>원 - 쿠폰할인 <span><strong id="midCou">0</strong></span>원 = <span class="money whole_total"><strong>1,133,801</strong></span>원)</span></li>
 										</ul>
 									</td>
 								</tr>
@@ -415,11 +416,11 @@
 								<!-- 회원 일때만 -->
 								<li>
 									<span class="title">포인트 할인</span>
-									<span class="won"><strong>- 1,000</strong> P</span>
+									<span class="won">-<strong class="mempoint">0</strong> P</span>
 								</li>
 								<li>
 									<span class="title">쿠폰 할인</span>
-									<span class="won"><strong>- 1,000</strong> 원</span>
+									<span class="won">-<strong id="boCou">0</strong> 원</span>
 								</li>
 								<!-- //회원 일떄만 -->
 							</c:if>
@@ -712,22 +713,87 @@ $(function(){
 		var f_total=get_re_total(first,f_deliver);
 		$( ".result_total strong" ).text(f_total);
 		$( ".result_total span" ).text(f_total);
-		//처음 포인트
+		//처음 포인트(적립예정)
 		var f_point=get_point(first);
 		$(".mileage strong").text(f_point);
+		
+		//쿠폰 적용
+		$(".nbtn").click(function(){
+			$("#topCou").focus();
+		})
+		
+		if($("#topCou").focus()){
+			$(window).scroll(function(){
+				if($("#topCou").val()!=0){
+					var point=$("#topPoin").val();
+		 			var coupon=$("#topCou").val();
+		 			var total=get_total();
+		 			var deliver=get_deliver(total);
+		 			//변동 최종 금액
+		 			var lastTotal=get_mem_total(total,deliver,coupon,point)
+		 			$( ".money span" ).text(lastTotal);
+		 			$( ".money strong" ).text(lastTotal);
+				}
+			});
+		}//
 });
 </script>
 <c:if test="${member!=null }">
 	<script type="text/javascript">
+	$(function(){
 	//select박스
 	$('select[id="emailOne"]').find('option:contains("${member.email2}")').prop("selected",true);
 	$('select[id="phoneOne"]').find('option:contains("${member.phone1}")').prop("selected",true);
 	$('select[id="telOne"]').find('option:contains("${member.tel1}")').prop("selected",true);
+	
+		//사용포인트 변동확인
+		$('#topPoin').keyup(function() {
+			var c=$(this).val().replace(/(^0+)/, "");
+			$(this).val(c.replace(/[^0-9]/g,""));
+			var k=$(this).val();
+			if(k>= ${member.point}){
+				alert('보유 포인트를 넘을 수 없습니다');
+				$(this).val('');
+			}
+		});
+	});
+	
 	</script>
 </c:if>
 
 <script type="text/javascript">
+		//회원 합계(합계+배송비-포인트-쿠폰가격)
+		function get_mem_total(a,b,c,d){
+			a=a.replace(/[^0-9]/g,'');
+			a=Number(a);
+			b=b.replace(/[^0-9]/g,'');
+			b=Number(b);
+			c=c.replace(/[^0-9]/g,'');
+			c=Number(c);
+			d=d.replace(/[^0-9]/g,'');
+			d=Number(d);
+			var result=a+b-c-d;
+			if(result<0){
+				result=0;
+			}
+			result=result.toLocaleString();
+			return result;
+		}
+		//포인트 반영
+		function changePoint(a){
+			var point=a.value;
+			$(".mempoint").text(point);
+			
+			var coupon=$("#topCou").val();
+			var total=get_total();
+			var deliver=get_deliver(total);
+			//변동 최종 금액
+			var lastTotal=get_mem_total(total,deliver,coupon,point)
+			$( ".money span" ).text(lastTotal);
+			$( ".money strong" ).text(lastTotal);
+		}	
 
+		
 //전체 상품 금액합계
 function get_total() {
 		var cnt=$(".cart_price").length;
@@ -770,7 +836,7 @@ function get_point(x){
 
 
 
-//최종합계
+//합계(상품가격+배송비)
 function get_re_total(a,b){
 	a=a.replace(/[^0-9]/g,'');
 	a=Number(a);
@@ -800,6 +866,8 @@ function sameInfo(){
 		form2.phone3.value=form1.phone3.value;
     }
 }
+
+	
 </script>
 
 

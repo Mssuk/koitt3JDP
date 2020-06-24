@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class MemberCouponDto {
 	private String id;
 	private String coupon_num;
-	private Timestamp register_coupon;
+	private Timestamp regist_coupon;
 	private Timestamp use_date;
 
 	public String getId() {
@@ -24,19 +24,19 @@ public class MemberCouponDto {
 		this.coupon_num = coupon_num;
 	}
 
-	public Timestamp getRegister_coupon() {
-		return register_coupon;
-	}
-
-	public void setRegister_coupon(Timestamp register_coupon) {
-		this.register_coupon = register_coupon;
-	}
-
 	public Timestamp getUse_date() {
 		return use_date;
 	}
 
 	public void setUse_date(Timestamp use_date) {
 		this.use_date = use_date;
+	}
+
+	public Timestamp getRegist_coupon() {
+		return regist_coupon;
+	}
+
+	public void setRegist_coupon(Timestamp regist_coupon) {
+		this.regist_coupon = regist_coupon;
 	}
 }

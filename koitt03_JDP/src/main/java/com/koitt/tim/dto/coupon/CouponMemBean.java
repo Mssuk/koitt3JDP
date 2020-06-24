@@ -10,7 +10,7 @@ public class CouponMemBean {
 	private int coupon_pay;// 쿠폰 할인금액
 	private Timestamp startday;//
 	private Timestamp endday;//
-	private Timestamp register_coupon;// 발급일
+	private Timestamp regist_coupon;// 발급일
 	private Timestamp use_date;// 사용일
 
 	public String getCoupon_num() {
@@ -61,14 +61,6 @@ public class CouponMemBean {
 		this.endday = endday;
 	}
 
-	public Timestamp getRegister_coupon() {
-		return register_coupon;
-	}
-
-	public void setRegister_coupon(Timestamp register_coupon) {
-		this.register_coupon = register_coupon;
-	}
-
 	public Timestamp getUse_date() {
 		return use_date;
 	}
@@ -83,5 +75,13 @@ public class CouponMemBean {
 
 	public void setRownum(int rownum) {
 		this.rownum = rownum;
+	}
+
+	public Timestamp getRegist_coupon() {
+		return regist_coupon;
+	}
+
+	public void setRegist_coupon(Timestamp regist_coupon) {
+		this.regist_coupon = regist_coupon;
 	}
 }

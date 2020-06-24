@@ -17,9 +17,15 @@
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/common.js"></script>
 <script type="text/javascript">
-$(function() {
+function goParent(){
+	parent.document.getElementById('topCou').value = document.getElementById('coumoney').value; //쿠폰에 해당하는 금액 보냄
+	parent.document.getElementById('midCou').innerText  = document.getElementById('coumoney').value; //쿠폰에 해당하는 금액 보냄
+	parent.document.getElementById('boCou').innerText  = document.getElementById('coumoney').value; //쿠폰에 해당하는 금액 보냄
+	parent.document.getElementById('coucou').value = document.getElementById('counum').value; //쿠폰 넘버 보냄
+	parent.$.fancybox.close();
+}
 
-});
+
 </script>
 </head>
 <body>
@@ -30,32 +36,32 @@ $(function() {
 	<div class="inputBody">
 		<div class="title">쿠폰 조회</div>
 		<p class="close"><a onclick="parent.$.fancybox.close();" href="javascript:;"><img src="../images/btn/btn_input_close.gif" alt="닫기" /></a></p>
-		<div id="member">	
+		<form id="member" name="form1">	
 			<!-- 나의 쿠폰 내역 -->
 			<div class="couponrDiv">
 				<table summary="No, 쿠폰번호/쿠폰내용, 등록날짜/사용기간, 할인금액, 상태, 적용순으로 쿠폰내역을 조회하실 수 있습니다." class="orderTable3" border="1" cellspacing="0">
 					<caption>나의 쿠폰 내역</caption>
 					<colgroup>
+					<col width="8%" class="tnone" />
 					<col width="*" class="tw40" />
 					<col width="26%" class="tw40" />
 					<col width="12%" class="tnone" />
-					<col width="10%" class="tw20" />
+					<col width="10%" class="tnone" />
 					</colgroup>
 					<thead>
 						<tr>
 						<th scope="col">쿠폰번호 / <span>쿠폰내용</span></th>
 						<th scope="col">등록날짜 / <span>사용기간</span></th>
-						<th scope="col" class="tnone">할인금액</th>
-						<th scope="col">상태</th>
+						<th scope="col">할인금액</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="dtos" items="${list }">
 							<tr>
-								<td class="left">MSCP11010988 ${dtos.coupon_num}<br/><span>${dtos.coupon_name} [${dtos.coupon_type}]</span></td>
-								<td>2014-04-20 <u>18:36:24</u><br/><span>(2014-01-10 ~ 2014-04-30)</span></td>
-								<td class="tnone">1,000원</td>
-								<td><span class="orange">사용<u>가능</u></span></td> 
+								<td class="left">${dtos.coupon_num}[${dtos.coupon_type}]<br/><span>${dtos.coupon_name} </span></td>
+								<td class="web"><fmt:formatDate value="${dtos.regist_coupon }" pattern="yyyy-MM-dd hh:mm:ss"/><br/><span>(<fmt:formatDate value="${dtos.startday }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dtos.endday }" pattern="yyyy-MM-dd"/>)</span></td>
+								<td class="mobile"><fmt:formatDate value="${dtos.regist_coupon }" pattern="yyyy-MM-dd"/><br/><span>(<fmt:formatDate value="${dtos.startday }" pattern="yyyy-MM-dd"/><br> ~ <fmt:formatDate value="${dtos.endday }" pattern="yyyy-MM-dd"/>)</span></td>
+								<td><span class="orange"><fmt:formatNumber value="${dtos.coupon_pay }" pattern="#,###" /></span>원</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -65,23 +71,23 @@ $(function() {
 			<div class="popGraybox">
 				<div class="choose">
 					쿠폰선택&nbsp;&nbsp;
-					<select>
-						<option value="">쿠폰선택</option>
+					<select name="coupon_num" class="select01" style="width: 150px"
+                                    onchange="document.form1.coupon_pay.value =document.form1.coupon_num[document.form1.coupon_num.selectedIndex].value;
+                               document.form1.num.value =document.form1.coupon_num[document.form1.coupon_num.selectedIndex].text;
+                            " id="emailOne">
+							<option value="" disabled="disabled" selected="selected">쿠폰선택</option>
+						<c:forEach var="selecdto" items="${list }">
+							<option value="<fmt:formatNumber value="${selecdto.coupon_pay }" pattern="#,###" />">${selecdto.coupon_num}</option>
+						</c:forEach>
 					</select>
-				</div>
-
-				<div class="result">
-					<div class="point">* 옵션가와 배송비는 제외</div>
-					<div class="discount">
-						쿠폰 할인 금액 : <span>0</span> 원
-					</div>
 				</div>
 			</div>
 
 			<!-- 쿠폰할인 금액 합계 -->
 			<div class="amount popamount">
 				<ul class="coupon">
-					<li>쿠폰 할인 금액 합계 : <span class="orange">0</span> 원</li>
+					<li>쿠폰 할인 금액 합계 :<input type="text" name="num" value="" hidden="" id="counum"> 
+					<input type="text" value="0" name="coupon_pay" disabled="disabled" style="border: none;background-color:white;font-weight: bold;text-align: right;" class="orange" id="coumoney"> 원</li>
 				</ul>
 			</div>
 			<!-- //쿠폰할인 금액 합계 -->
@@ -89,14 +95,14 @@ $(function() {
 			<div class="btnArea">
 				<div class="bCenter">
 					<ul>								
-						<li><a href="#" class="sbtnMini">확인</a></li>
+						<li><a href="javascript:;" onclick="goParent()" class="sbtnMini">확인</a></li>
 						<li><a onclick="parent.$.fancybox.close();" href="javascript:;" class="nbtnbig">취소</a></li>
 					</ul>
 				</div>
 			</div>
 			<!-- //Btn Area -->
 
-		</div>
+		</form>
 
 	</div>
 

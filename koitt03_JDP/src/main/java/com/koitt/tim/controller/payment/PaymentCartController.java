@@ -65,6 +65,7 @@ public class PaymentCartController {
 	public String coupon_cart_list(HttpSession session, Model model) {
 		List<CouponMemBean> coupons = pcServ.getCoupons(session);
 		model.addAttribute("list", coupons);
+		System.out.println(coupons.get(0).getRownum());
 		return "payment/coupon_cart_list";
 	}
 

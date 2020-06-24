@@ -3,7 +3,7 @@
 <mapper namespace="com.koitt.tim.dao.point.PointDao">
 
 	<select id="selectPointSum" resultType="int">
-	select sum(point) from point_member where id=#{id}
+	select nvl(sum(point_member.point),0) from point_member where id=#{id}
 	</select>
 
 </mapper>
