@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import com.koitt.tim.dto.basket.BasketMemberDto;
 import com.koitt.tim.dto.basket.CartViewDto;
+import com.koitt.tim.dto.coupon.CouponMemBean;
 import com.koitt.tim.dto.member.MemberDto;
 
 public interface PaymentCartService {
@@ -24,5 +25,8 @@ public interface PaymentCartService {
 
 	// 장바구니서 구매할 상품 session에 담아버리는 메소드 :D
 	void inputOrderCart(HashMap<String, String> ormap, HttpSession session);
+
+	// 쿠폰가져오기
+	List<CouponMemBean> getCoupons(HttpSession session);
 
 }

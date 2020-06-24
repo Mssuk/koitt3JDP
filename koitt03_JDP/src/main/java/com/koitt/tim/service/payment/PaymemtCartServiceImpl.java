@@ -10,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.koitt.tim.dao.basket.BasketDao;
+import com.koitt.tim.dao.coupon.CouponDao;
 import com.koitt.tim.dao.member.MemberDao;
+import com.koitt.tim.dao.point.PointDao;
 import com.koitt.tim.dao.product.ProductDao;
 import com.koitt.tim.dto.basket.BasketMemberDto;
 import com.koitt.tim.dto.basket.CartViewDto;
+import com.koitt.tim.dto.coupon.CouponMemBean;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.product.ProductDto;
 
@@ -21,13 +24,19 @@ import com.koitt.tim.dto.product.ProductDto;
 public class PaymemtCartServiceImpl implements PaymentCartService {
 
 	@Autowired
-	ProductDao pdao;
+	private ProductDao pdao;
 
 	@Autowired
-	BasketDao bdao;
+	private BasketDao bdao;
 
 	@Autowired
-	MemberDao mdao;
+	private MemberDao mdao;
+
+	@Autowired
+	private PointDao podao;
+
+	@Autowired
+	private CouponDao cdao;
 
 	// orderpack에 해당하는 장바구니모양의 session가져옴
 	@Override
@@ -114,7 +123,10 @@ public class PaymemtCartServiceImpl implements PaymentCartService {
 	public MemberDto getMember(HttpSession session) {
 		MemberDto mdto = (MemberDto) session.getAttribute("loginInfo");
 		String id = mdto.getId();
-		return mdao.selectOneMember(id);
+		mdto = mdao.selectOneMember(id);
+		mdto.setPoint(podao.selectPointSum(id));
+		mdto.setCouponCount(cdao.selectCountCouponP(id));
+		return mdto;
 	}
 
 	// 오더 장바구니 만들기 :D
@@ -128,6 +140,14 @@ public class PaymemtCartServiceImpl implements PaymentCartService {
 			arr.add(value);
 		}
 		session.setAttribute("orderpack", arr);
+	}
+
+	// 회원쿠폰 가져오기
+	@Override
+	public List<CouponMemBean> getCoupons(HttpSession session) {
+		MemberDto mdto = (MemberDto) session.getAttribute("loginInfo");
+		String id = mdto.getId();
+		return cdao.selectMemberCoupons(id);
 	}
 
 }

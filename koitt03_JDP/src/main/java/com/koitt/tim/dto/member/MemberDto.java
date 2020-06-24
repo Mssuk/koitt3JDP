@@ -31,10 +31,11 @@ public class MemberDto {
 	private String birth3;
 	private Timestamp birth;
 	private String calender_check;
-	private int point;
+	private int point;// 회원이 가지고있는 point 총합
 	private Timestamp join_date;
 	private Timestamp delete_date;
 	private DateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
+	private int couponCount;// 회원이 가지고있는 쿠폰 개수 (유효기간이 남아있는거만 받아옵니다).
 
 	public void setBirth(String birth1, String birth2, String birth3) throws Exception {
 		String birth = birth1 + "-" + birth2 + "-" + birth3;
@@ -287,6 +288,14 @@ public class MemberDto {
 
 	public void setPhone3(String phone3) {
 		this.phone3 = phone3;
+	}
+
+	public int getCouponCount() {
+		return couponCount;
+	}
+
+	public void setCouponCount(int couponCount) {
+		this.couponCount = couponCount;
 	}
 
 }
