@@ -71,7 +71,7 @@
 												</li>
 											</ul>
 										</td>
-										<td class="tnone cart_price">
+										<td class="tnone">
 											<em><fmt:formatNumber value="${dtos.pdto.sales_price }" pattern="#,###" /></em> 원
 											<c:if test="${member!=null }">
 												<!-- 회원일 시 -->
@@ -80,7 +80,7 @@
 											</c:if>
 										</td>
 										<td><span>${dtos.bmdto.count }</span> 개</td>
-										<td><span><fmt:formatNumber value="${dtos.pdto.sales_price*dtos.bmdto.count }" pattern="#,###" /></span> 원</td>
+										<td class="cart_price"><span><fmt:formatNumber value="${dtos.pdto.sales_price*dtos.bmdto.count }" pattern="#,###" /></span> 원</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -117,7 +117,7 @@
 							<tbody>
 								<tr>
 									<th scope="row"><span>이름</span></th>
-									<td><input type="text" class="w134" value="${member.name }" /></td>
+									<td><input type="text" class="w134" value="${member.name }" name="name" /></td>
 								</tr>
 
 								<tr>
@@ -125,7 +125,7 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<input type="text" class="w134" id="zip1" value="${member.address1 }" disabled="disabled"/>&nbsp;
+												<input type="text" class="w134" id="zip1" value="${member.address1 }" disabled="disabled" name="address1"/>&nbsp;
 											</li>
 											<li><a href="javascript:;" onclick="post()" class="addressBtn"><span>우편번호 찾기</span></a></li>
 											<li class="pt5"><input type="text" class="addressType2" name="address2" id="address1" value="${member.address2 }" disabled="disabled"/></li>
@@ -137,15 +137,15 @@
 									<th scope="row"><span>이메일</span></th>
 									<td>
 										<ul class="pta">
-											<li><input type="text" class="w134" value="${member.email1 }"/></li>
+											<li><input type="text" class="w134" value="${member.email1 }" name="email1"/></li>
 											<li><span class="valign">&nbsp;@&nbsp;</span></li>
 											<li class="r10"><input type="text" class="w134" name="email2" value="${member.email2 }"/></li>
 											<li>
-												<select name="lstMail" class="select01" style="width: 150px" id="emailbox"
+												<select name="lstMail" class="select01" style="width: 150px"
                                     onchange="document.form1.email2.focus();
                               document.form1.email2.value =document.form1.lstMail[document.form1.lstMail.selectedIndex].value;
-                            ">
-													<option value="">직접입력</option>
+                            " id="emailOne">
+													<option value="" selected="selected">직접입력</option>
 													<option value="naver.com">naver.com</option>
 													<option value="hanmail.net">hanmail.net</option>
 													<option value="nate.com">nate.com</option>    
@@ -161,7 +161,99 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<select name="phone1"  id="phonebox">
+												<select name="phone1" id="phoneOne">
+													<option value="010" selected="selected">010</option>
+													<option value="011">011</option>
+													<option value="016">016</option>
+													<option value="017">017</option>
+													<option value="018">018</option>    
+													<option value="019">019</option>    
+												</select>
+											</li>
+											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
+											<li><input type="text" class="w74" maxlength="4" value="${member.phone2 }" name="phone2" /> <span class="valign">-</span>&nbsp;</li>
+											<li class="r10"><input type="text" class="w74" maxlength="4" name="phone3"  value="${member.phone3 }"/></li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row"><span>전화번호</span></th>
+									<td>
+										<ul class="pta">
+											<li>
+												<select name="tel1" id="telOne">
+													<option value="02"selected="selected">02</option>
+													<option value="031">031</option>
+													<option value="032">032</option>
+													<option value="033">033</option>
+													<option value="041">041</option>
+													<option value="042">042</option>
+													<option value="043">043</option>
+													<option value="051">051</option>
+													<option value="052">052</option>
+													<option value="053">053</option>
+													<option value="054">054</option>
+													<option value="055">055</option>
+													<option value="061">061</option>
+													<option value="062">062</option>
+													<option value="063">063</option>
+													<option value="064">064</option>
+													<option value="070">070</option>
+												</select>
+											</li>
+											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
+											<li><input type="text" class="w74" maxlength="4" value="${member.tel2 }" name="tel2"/> <span class="valign">-</span>&nbsp;</li>
+											<li><input type="text" class="w74" maxlength="4" value="${member.tel3 }"  name="tel3"/></li>
+										</ul>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+			<!-- //주문자 주소 입력 -->
+
+
+			<!-- 수취자 주소 입력 -->
+					<h3 class="dep">
+						수취자 주소 입력
+						<input type="checkbox" id="infosame" onclick="sameInfo()"/>
+						<label for="infosame">주문자 정보와 동일</label>
+					</h3>
+					</form>
+					
+					<form action="" name="form2" method="post">
+					<div class="checkDiv">
+						<table summary="수취자 주소를 입력할 수 있는 란으로 이름, 주소, 이메일, 휴대폰 번호, 전화번호 순으로 입력 하실수 있습니다." class="checkTable" border="1" cellspacing="0">
+							<caption>수취자 주소 입력</caption>
+							<colgroup>
+							<col width="22%" class="tw30" />
+							<col width="*" />
+							</colgroup>
+							<tbody>
+								<tr>
+									<th scope="row"><span>이름</span></th>
+									<td><input type="text" class="w134" name="p_name"  /></td>
+								</tr>
+
+								<tr>
+									<th scope="row"><span>주소</span></th>
+									<td>
+										<ul class="pta">
+											<li>
+												<input type="text" class="w134" id="zip2" name="p_address1"/>&nbsp;
+											</li>
+											<li><a href="javascript:;" onclick="post2()" class="addressBtn"><span>우편번호 찾기</span></a></li>
+											<li class="pt5"><input type="text" class="addressType2" name="p_address2" id="address3"/></li>
+											<li class="pt5"><input type="text" class="addressType2" name="p_address3" id="address4" /></li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row"><span>휴대폰 번호</span></th>
+									<td>
+										<ul class="pta">
+											<li>
+												<select name="phone1" id="p_phone1">
 													<option value="010">010</option>
 													<option value="011">011</option>
 													<option value="016">016</option>
@@ -171,8 +263,8 @@
 												</select>
 											</li>
 											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
-											<li class="r10"><input type="text" class="w74" maxlength="4" /></li>
+											<li><input type="text" class="w74" maxlength="4"  name="phone2"/> <span class="valign">-</span>&nbsp;</li>
+											<li class="r10"><input type="text" class="w74" maxlength="4"  name="phone3" /></li>
 										</ul>
 									</td>
 								</tr>
@@ -181,7 +273,7 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<select name="tel1" id="telbox">
+												<select name="tel1" id="p_tel1">
 													<option value="02">02</option>
 													<option value="031">031</option>
 													<option value="032">032</option>
@@ -202,99 +294,8 @@
 												</select>
 											</li>
 											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /></li>
-										</ul>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					</form>
-			<!-- //주문자 주소 입력 -->
-
-
-			<!-- 수취자 주소 입력 -->
-					<form action="" name="form2" method="post">
-					<h3 class="dep">
-						수취자 주소 입력
-						<input type="checkbox" id="infosame" onclick=""/>
-						<label for="infosame">주문자 정보와 동일</label>
-					</h3>
-					<div class="checkDiv">
-						<table summary="수취자 주소를 입력할 수 있는 란으로 이름, 주소, 이메일, 휴대폰 번호, 전화번호 순으로 입력 하실수 있습니다." class="checkTable" border="1" cellspacing="0">
-							<caption>수취자 주소 입력</caption>
-							<colgroup>
-							<col width="22%" class="tw30" />
-							<col width="*" />
-							</colgroup>
-							<tbody>
-								<tr>
-									<th scope="row"><span>이름</span></th>
-									<td><input type="text" class="w134" name="p_name"  /></td>
-								</tr>
-
-								<tr>
-									<th scope="row"><span>주소</span></th>
-									<td>
-										<ul class="pta">
-											<li>
-												<input type="text" class="w134" id="zip2" name="address1"/>&nbsp;
-											</li>
-											<li><a href="javascript:;" onclick="post2()" class="addressBtn"><span>우편번호 찾기</span></a></li>
-											<li class="pt5"><input type="text" class="addressType2" name="address2" id="address3"/></li>
-											<li class="pt5"><input type="text" class="addressType2" name="address3" id="address4" /></li>
-										</ul>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row"><span>휴대폰 번호</span></th>
-									<td>
-										<ul class="pta">
-											<li>
-												<select name="phone1">
-													<option value="010" selected="selected">010</option>
-													<option value="011">011</option>
-													<option value="016">016</option>
-													<option value="017">017</option>
-													<option value="018">018</option>    
-													<option value="019">019</option>    
-												</select>
-											</li>
-											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4"  name="phone2"/> <span class="valign">-</span>&nbsp;</li>
-											<li class="r10"><input type="text" class="w74" maxlength="4"  name="phone3" /></li>
-										</ul>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row"><span>전화번호</span></th>
-									<td>
-										<ul class="pta">
-											<li>
-												<select>
-													<option value="02" selected="selected">02</option>
-													<option value="031">031</option>
-													<option value="032">032</option>
-													<option value="033">033</option>
-													<option value="041">041</option>
-													<option value="042">042</option>
-													<option value="043">043</option>
-													<option value="051">051</option>
-													<option value="052">052</option>
-													<option value="053">053</option>
-													<option value="054">054</option>
-													<option value="055">055</option>
-													<option value="061">061</option>
-													<option value="062">062</option>
-													<option value="063">063</option>
-													<option value="064">064</option>
-													<option value="070">070</option>
-												</select>
-											</li>
-											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /></li>
+											<li><input type="text" class="w74" maxlength="4" name="tel2"/> <span class="valign">-</span>&nbsp;</li>
+											<li><input type="text" class="w74" maxlength="4" name="tel3"/></li>
 										</ul>
 									</td>
 								</tr>
@@ -582,7 +583,7 @@
 								<li class="title">이름</li>
 								<li class="interval"><input type="text" class="w134" /></li>
 								<li class="title2 cb">사업자등록 번호</li>
-								<li><input type="text" class="w134" /></li>
+								<li><input type="text" class="w134"/></li>
 							</ul>
 
 							<ul class="inform corporate_cash"><!-- 현금영수증카드 -->
@@ -671,7 +672,10 @@ $(function(){
 		$("ul." + divchk).css("display","block");
 	});
 
-
+	//select박스
+	$('select[id="emailOne"]').find('option:contains("${member.email2}")').prop("selected",true);
+	$('select[id="phoneOne"]').find('option:contains("${member.phone1}")').prop("selected",true);
+	$('select[id="telOne"]').find('option:contains("${member.tel1}")').prop("selected",true);
 
 
 
@@ -698,38 +702,6 @@ $(function(){
 		}
 	});
 	
-	//전화넣기
-	 $("#telbox option").each(function(){
-
-   	 if($(this).val()=="${member.tel1}"){
-
-      $(this).attr("selected","selected"); // attr적용안될경우 prop으로 
-
-    	}
-
- 	 });
-	//전화넣기2
-// 	 $("#phonebox option").each(function(){
-
-//    	 if($(this).val()=="${member.phone1}"){
-
-//       $(this).attr("selected","selected"); // attr적용안될경우 prop으로 
-
-//     	}
-
-//  	 });
-	//이메일 넣기
-	 $("#emailbox option").each(function(){
-
-   	 if($(this).val()=="${member.email2}"){
-
-      $(this).attr("selected","selected"); // attr적용안될경우 prop으로 
-
-    	}
-
- 	 });
-	 $('select[id="phonebox"]').find('option:contains("${member.phone1}")').attr("selected",true);
-	
 		//처음합계
 		var first=get_total();
 		 $( ".whole_total strong" ).text(first);
@@ -740,49 +712,70 @@ $(function(){
 		var f_total=get_re_total(first,f_deliver);
 		$( ".result_total strong" ).text(f_total);
 		$( ".result_total span" ).text(f_total);
-		//전체 상품 금액합계
-		 function get_total() {
-				var cnt=$(".cart_price").length;
-				var sum=0;
-				for(var i=0;i<cnt;i++){
-				var cart=$(".cart_price em").eq(i).text();
-				cart=cart.replace(/[^0-9]/g,'');
-				cart=Number(cart);
-				sum+=cart;
-				}
-				sum=sum.toLocaleString();
-				return sum;
-		}
-		//배송비
-		function get_deliver(x){
-			var del=2500;
-			x=x.replace(/[^0-9]/g,'');
-			x=Number(x);
-			if(x>=15000){
-				del=0;
-			}
-			if(del==0){
-				$( ".del_text strong" ).text("*15,000원 이상 구매시 배송비 무료");
-			}else{
-				$( ".del_text strong" ).text("");
-			}
-			
-			del=del.toLocaleString();
-			return del;
-		}
-		//최종합계
-		function get_re_total(a,b){
-			a=a.replace(/[^0-9]/g,'');
-			a=Number(a);
-			b=b.replace(/[^0-9]/g,'');
-			b=Number(b);
-			var result=a+b;
-			result=result.toLocaleString();
-			return result;
-		}
-
-
+		
 });
+</script>
+<script type="text/javascript">
+
+//전체 상품 금액합계
+function get_total() {
+		var cnt=$(".cart_price").length;
+		var sum=0;
+		for(var i=0;i<cnt;i++){
+		var cart=$(".cart_price span").eq(i).text();
+		cart=cart.replace(/[^0-9]/g,'');
+		cart=Number(cart);
+		sum+=cart;
+		}
+		sum=sum.toLocaleString();
+		return sum;
+}
+//배송비
+function get_deliver(x){
+	var del=2500;
+	x=x.replace(/[^0-9]/g,'');
+	x=Number(x);
+	if(x>=15000){
+		del=0;
+	}
+	if(del==0){
+		$( ".del_text strong" ).text("*15,000원 이상 구매시 배송비 무료");
+	}else{
+		$( ".del_text strong" ).text("");
+	}
+	
+	del=del.toLocaleString();
+	return del;
+}
+//최종합계
+function get_re_total(a,b){
+	a=a.replace(/[^0-9]/g,'');
+	a=Number(a);
+	b=b.replace(/[^0-9]/g,'');
+	b=Number(b);
+	var result=a+b;
+	result=result.toLocaleString();
+	return result;
+}
+
+
+//수취자 정보 동일
+function sameInfo(){
+	
+	form2.p_name.value=form1.name.value;
+ 	form2.p_address1.value=$("#zip1").val();
+ 	$("#zip2").attr( 'disabled', true ); 
+ 	form2.p_address2.value=$("#address1").val();
+ 	$("#address3").attr( 'disabled', true ); 
+	form2.p_address3.value=form1.address3.value;
+	$("#p_tel1 option[value="+form1.tel1.value+"]").prop("selected", true);
+	form2.tel2.value=form1.tel2.value;
+	form2.tel3.value=form1.tel3.value;
+	$("#p_phone1 option[value="+form1.phone1.value+"]").prop("selected", true);
+	form2.phone2.value=form1.phone2.value;
+	form2.phone3.value=form1.phone3.value;
+	
+}
 </script>
 
 
