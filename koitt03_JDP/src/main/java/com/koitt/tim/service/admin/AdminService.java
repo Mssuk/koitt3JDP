@@ -14,6 +14,7 @@ import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.order.OrderDto;
 import com.koitt.tim.dto.order.OrderListDto;
+import com.koitt.tim.dto.order.PayeeDto;
 import com.koitt.tim.dto.order.PaymentDto;
 import com.koitt.tim.dto.product.MainProductDto;
 import com.koitt.tim.dto.product.ProductAnswerDto;
@@ -168,4 +169,7 @@ public interface AdminService {
 
 	//order에 대한 결제내역 가져오기
 	List<PaymentDto> getPaymentInfo(String o_num);
+
+	//order에 대한 수취자 정보 가져오기
+	List<PayeeDto> getPayeeInfo(String o_num);
 }

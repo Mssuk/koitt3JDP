@@ -7,8 +7,10 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
+import com.koitt.tim.dao.payment.PayeeDao;
 import com.koitt.tim.dto.order.OrderDto;
 import com.koitt.tim.dto.order.OrderListDto;
+import com.koitt.tim.dto.order.PayeeDto;
 import com.koitt.tim.dto.order.PaymentDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -464,6 +466,12 @@ public class AdminController {
     @GetMapping("paylist/{key}")
     public List<PaymentDto> payList(@PathVariable("key") String o_num) {
         return adminService.getPaymentInfo(o_num);
+    }
+
+    //order에 대한 payee 정보 가져오기
+    @GetMapping("payeelist/{key}")
+    public List<PayeeDto> payeeList(@PathVariable("key") String o_num){
+        return adminService.getPayeeInfo(o_num);
     }
 
 }
