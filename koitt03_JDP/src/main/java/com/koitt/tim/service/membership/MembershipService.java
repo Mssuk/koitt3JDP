@@ -1,5 +1,9 @@
 package com.koitt.tim.service.membership;
 
+import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
+
 import com.koitt.tim.dto.member.MemberDto;
 
 public interface MembershipService {
@@ -19,4 +23,7 @@ public interface MembershipService {
 	String searchPw(String id, String email);
 
 	void modifyMember(MemberDto mDto);
+
+	// 주문시 회원정보변경
+	int orderModifyMember(HashMap<String, String> obj, HttpSession session);
 }

@@ -87,7 +87,7 @@ function goParent(){
                                     onchange="document.form1.coupon_pay.value =document.form1.coupon_num[document.form1.coupon_num.selectedIndex].value;
                                document.form1.num.value =document.form1.coupon_num[document.form1.coupon_num.selectedIndex].text;
                             " id="emailOne">
-							<option value="" disabled="disabled" selected="selected">쿠폰선택</option>
+							<option value="0" selected="selected">쿠폰선택</option>
 						<c:forEach var="selecdto" items="${list }">
 							<option value="<fmt:formatNumber value="${selecdto.coupon_pay }" pattern="#,###" />">${selecdto.coupon_num}</option>
 						</c:forEach>

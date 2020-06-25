@@ -1,5 +1,7 @@
 package com.koitt.tim.service.payment;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,12 +14,15 @@ import org.springframework.stereotype.Service;
 import com.koitt.tim.dao.basket.BasketDao;
 import com.koitt.tim.dao.coupon.CouponDao;
 import com.koitt.tim.dao.member.MemberDao;
+import com.koitt.tim.dao.order.OrderDao;
 import com.koitt.tim.dao.point.PointDao;
 import com.koitt.tim.dao.product.ProductDao;
 import com.koitt.tim.dto.basket.BasketMemberDto;
 import com.koitt.tim.dto.basket.CartViewDto;
 import com.koitt.tim.dto.coupon.CouponMemBean;
 import com.koitt.tim.dto.member.MemberDto;
+import com.koitt.tim.dto.order.DoOrderDto;
+import com.koitt.tim.dto.order.GetOrderNum;
 import com.koitt.tim.dto.product.ProductDto;
 
 @Service
@@ -37,6 +42,9 @@ public class PaymemtCartServiceImpl implements PaymentCartService {
 
 	@Autowired
 	private CouponDao cdao;
+
+	@Autowired
+	private OrderDao odao;
 
 	// orderpack에 해당하는 장바구니모양의 session가져옴
 	@Override
@@ -148,6 +156,73 @@ public class PaymemtCartServiceImpl implements PaymentCartService {
 		MemberDto mdto = (MemberDto) session.getAttribute("loginInfo");
 		String id = mdto.getId();
 		return cdao.selectMemberCoupons(id);
+	}
+
+	// 오더 처리기
+	@Override
+	public int doOrderCart(DoOrderDto doOrderDto, HttpSession session) {
+		LocalDate date = LocalDate.now();
+		// 주문용 오늘날짜
+		String orderDay = date.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+		String id = "";// null 방지 id
+		// 로그인을 했음 ㅇㅇ
+		if (session.getAttribute("loginInfo") != null) {
+			MemberDto mDto = (MemberDto) session.getAttribute("loginInfo");
+			// 로그인한 아이디
+			id = mDto.getId();
+		}
+		// 포인트(사용)
+		int o_point = 0;
+		if (doOrderDto.getPay_point() != null && doOrderDto.getPay_point() != "") {
+			o_point = Integer.parseInt(doOrderDto.getPay_point());
+		}
+		// 쿠폰
+
+		// 주문폼에 넣을 데이터
+		String o_name = doOrderDto.getName();
+		String o_tel = doOrderDto.getPhone1() + "-" + doOrderDto.getPhone2() + "-" + doOrderDto.getPhone3();
+		// 주문 리스트
+		List<CartViewDto> plist = getCartProduct(getCart(session));
+		// 주문금액>>total
+		int total = 0;
+		for (int i = 0; i < plist.size(); i++) {
+			// 상품개수*상품가격
+			int count = plist.get(i).getBmdto().getCount();
+			int pay = plist.get(i).getPdto().getSales_price();
+			total += count * pay;
+		}
+		int o_cost = 2500;
+		// 배송비>> 15000원 이상이면 배송비무료
+		if (total >= 15000) {
+			o_cost = 0;
+		}
+		// 적립포인트>> 주문금액*0.01
+		int increpoint = (int) Math.floor(total * 0.01);
+
+		String o_status = "결제대기중";
+		if (doOrderDto.getMethod().equals("card") || doOrderDto.getMethod().equals("bankpay")) {
+			o_status = "결제완료";
+		}
+		GetOrderNum getOrderNum = new GetOrderNum();
+		getOrderNum.setId(id);
+		getOrderNum.setO_cost(o_cost);
+		getOrderNum.setO_name(o_name);
+		getOrderNum.setO_point(o_point);
+		getOrderNum.setO_status(o_status);
+		getOrderNum.setO_tel(o_tel);
+		getOrderNum.setOrderDay(orderDay);
+
+		// order에 데이터 넣기 (o_num반환)
+		odao.insertOrderOne(getOrderNum);
+		System.out.println(getOrderNum.getNum());
+
+		if (id != "") {
+			// 사용쿠폰 업데이트
+			// 사용포인트 업데이트
+			// 적립포인트 업데이트
+		}
+
+		return 0;
 	}
 
 }

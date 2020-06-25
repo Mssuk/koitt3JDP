@@ -9,6 +9,7 @@ import com.koitt.tim.dto.basket.BasketMemberDto;
 import com.koitt.tim.dto.basket.CartViewDto;
 import com.koitt.tim.dto.coupon.CouponMemBean;
 import com.koitt.tim.dto.member.MemberDto;
+import com.koitt.tim.dto.order.DoOrderDto;
 
 public interface PaymentCartService {
 	// order로 들어올때 담은 장바구니를 가져옴
@@ -28,5 +29,8 @@ public interface PaymentCartService {
 
 	// 쿠폰가져오기
 	List<CouponMemBean> getCoupons(HttpSession session);
+
+	// 주문하기!
+	int doOrderCart(DoOrderDto doOrderDto, HttpSession session);
 
 }

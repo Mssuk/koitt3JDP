@@ -8,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koitt.tim.dto.member.MemberDto;
-import com.koitt.tim.dto.member.SjoinStringDto;
 import com.koitt.tim.service.membership.MembershipService;
 
 @Controller
@@ -50,7 +48,7 @@ public class MembershipController {
 
 	@RequestMapping("idCheck")
 	@ResponseBody
-	public int logincheck(@RequestBody HashMap<String, String> obj){
+	public int logincheck(@RequestBody HashMap<String, String> obj) {
 
 		String id = obj.get("id");
 

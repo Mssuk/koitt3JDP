@@ -1,6 +1,7 @@
 package com.koitt.tim.controller.mypage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -8,8 +9,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.order.OrderListDto;
@@ -87,5 +90,15 @@ public class MypageController {
 	public String modifyMember(MemberDto mDto) {
 		membershipService.modifyMember(mDto);
 		return "mypage/ordercheck";
+	}
+
+	// 주문시 회원정보변경
+	@RequestMapping("updateMemInfo")
+	@ResponseBody
+	public int updateMemInfo(@RequestBody HashMap<String, String> obj, HttpSession session) {
+
+		int result = membershipService.orderModifyMember(obj, session);
+
+		return result;
 	}
 }
