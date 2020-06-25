@@ -476,4 +476,10 @@ public class AdminController {
     public List<ChangeDto> cList(){
         return adminService.getChangeList();
     }
+
+    //반품상태 업데이트
+    @PatchMapping("clist/{code}/{val1}/{val2}")
+    public void cList(@PathVariable("code") String key, @PathVariable("val1") String c_type, @PathVariable("val2") String c_state){
+        adminService.updateChangeInfo(key, c_type, c_state);
+    }
 }

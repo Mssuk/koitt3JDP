@@ -29,4 +29,8 @@
     <select id="selectAllChange" resultType="ChangeDto">
         select * from change
     </select>
+
+    <update id="updateChangeStatus">
+        update CHANGE set "c_type" = #{type} , C_STATE=#{state} where key=#{key}
+    </update>
 </mapper>

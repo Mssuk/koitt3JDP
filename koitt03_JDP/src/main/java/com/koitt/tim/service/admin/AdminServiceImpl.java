@@ -404,4 +404,9 @@ public class AdminServiceImpl implements AdminService {
 		return cDao.selectAllChange();
 	}
 
+	@Override
+	public void updateChangeInfo(String key, String c_type, String c_state) {
+		cDao.updateChangeStatus(key, c_type, c_state);
+	}
+
 }

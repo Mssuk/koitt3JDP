@@ -172,4 +172,7 @@ public interface AdminService {
 
 	//반품리스트 가져오기
 	List<ChangeDto> getChangeList();
+
+	//반품정보 업데이트
+	void updateChangeInfo(String key, String c_type, String c_state);
 }

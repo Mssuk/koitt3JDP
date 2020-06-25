@@ -27,4 +27,7 @@ public interface ChangeDao {
 	//모든 반품리스트 가져옴(admin)
 	List<ChangeDto> selectAllChange();
 
+	//반품상태 업데이트
+	void updateChangeStatus(@Param("key") String key, @Param("type") String c_type, @Param("state") String c_state);
+
 }
