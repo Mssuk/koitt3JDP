@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="common/header.jsp"/>
@@ -77,7 +79,7 @@ $(document).ready(function() {
 	<!-- mainSection -->
 	<div id="mainSection">
 
-		<!-- main rolling -->
+		<!-- main 배너 rolling -->
 		<div id="mainRoll">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide">
@@ -105,21 +107,14 @@ $(document).ready(function() {
 			<div class="mtitle"><h2>JARDIN BEST SELLER</h2></div>
 			<div id="bestseller">
 				<div class="swiper-wrapper">
+					<c:forEach var="hitPro" items="${hitPro }">
 					<div class="swiper-slide">
 						<div class="img"><a href="#"><img src="images/img/sample_best_seller.jpg" alt="Best seller 상품" /></a></div>
-						<div class="name">쟈뎅 바리스타 벨벳<br/>에스프레소 원두커피</div>
-						<div class="price">5,600원</div>
+						<div class="name"><br/>${hitPro.product_name }</div>
+						<div class="price">
+						 <fmt:formatNumber value="${hitPro.sales_price }" pattern="##,###"/></div>
 					</div>
-					<div class="swiper-slide">
-						<div class="img"><a href="#"><img src="images/img/sample_best_seller.jpg" alt="Best seller 상품" /></a></div>
-						<div class="name">쟈뎅 바리스타 벨벳<br/>에스프레소 원두커피</div>
-						<div class="price">5,000원</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="img"><a href="#"><img src="images/img/sample_best_seller.jpg" alt="Best seller 상품" /></a></div>
-						<div class="name">쟈뎅 바리스타 벨벳<br/>에스프레소 원두커피</div>
-						<div class="price">6,000원</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 			<div class="rollbtn">
