@@ -103,23 +103,22 @@
 	</div>
 
 	<div id="outbox">
-		<div id="left">
-			<div id="title2">
-				MEMBERSHIP<span>멤버쉽</span>
-			</div>
-			<ul>
-				<li><a href="/membership/login" id="leftNavi1">로그인</a></li>
-				<li><a href="location:void(0)" id="leftNavi2">회원가입</a></li>
-				<li><a href="/membership/idsearch" id="leftNavi3">아이디/<span>비밀번호 찾기</span></a></li>
-				<li><a href="#" id="leftNavi4">회원약관</a></li>
-				<li><a href="#" id="leftNavi5">개인정보<span>취급방침</span></a></li>
-				<li class="last"><a href="#" id="leftNavi6">이메일무단<span>수집거부</span></a></li>
-			</ul>
-		</div>
-		<script type="text/javascript">
-			initSubmenu(2, 0);
-		</script>
-
+	<div id="left">
+	<div id="title2">
+		MEMBERSHIP<span>멤버쉽</span>
+	</div>
+		<ul>
+			<li><a href="/membership/login" id="leftNavi1">로그인</a></li>
+			<li><a href="location:void(0)" id="leftNavi2">회원가입</a></li>
+			<li><a href="/membership/idsearch" id="leftNavi3">아이디/<span>비밀번호 찾기</span></a></li>
+			<li><a href="#" id="leftNavi4">회원약관</a></li>
+			<li><a href="#" id="leftNavi5">개인정보<span>취급방침</span></a></li>
+			<li class="last"><a href="#" id="leftNavi6">이메일무단<span>수집거부</span></a></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		initSubmenu(2, 0);
+	</script>
 
 		<!-- contents -->
 		<form action="signUp" name="signUp" id="signUp"></form>
@@ -464,7 +463,6 @@
 															document
 																	.write("<option value="+i+">"
 																			+ i
-																			+ "년"
 																			+ "</option>");
 														};
 														//]]>
@@ -480,13 +478,11 @@
 																document
 																		.write("<option value="+i+">0"
 																				+ i
-																				+ "월"
 																				+ "</option>");
 															} else {
 																document
 																		.write("<option value="+i+">"
 																				+ i
-																				+ "월"
 																				+ "</option>");
 															}
 															;
@@ -506,13 +502,11 @@
 																document
 																		.write("<option value="+i+">0"
 																				+ i
-																				+ "일"
 																				+ "</option>");
 															} else {
 																document
 																		.write("<option value="+i+">"
 																				+ i
-																				+ "일"
 																				+ "</option>");
 															}
 															;
