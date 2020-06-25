@@ -1,6 +1,8 @@
 package com.koitt.tim.dto.coupon;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CouponMemBean {
 	private int rownum;
@@ -50,6 +52,8 @@ public class CouponMemBean {
 	}
 
 	public void setStartday(Timestamp startday) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		String string = dateFormat.format(new Date());
 		this.startday = startday;
 	}
 

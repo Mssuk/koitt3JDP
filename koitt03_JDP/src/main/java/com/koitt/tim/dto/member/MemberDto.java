@@ -39,7 +39,7 @@ public class MemberDto {
 
 	public void setBirth(String birth1, String birth2, String birth3) throws Exception {
 		String birth = birth1 + "-" + birth2 + "-" + birth3;
-		Date date = (Date) formatter.parse("1984-05-16");
+		Date date = (Date) formatter.parse(birth);
 		this.birth = new Timestamp(date.getTime());
 	}
 

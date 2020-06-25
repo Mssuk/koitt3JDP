@@ -15,6 +15,7 @@ public interface CouponDao {
 	// 모든 쿠폰을 갖고 옴
 	List<CouponDto> selectAllCoupon();
 
+	// 해당 멤버의 전체 쿠폰 가져옴
 	List<CouponDto> selectAllMemCoupon(String id);
 
 	int selectCountCoupon(@Param("id") String id);

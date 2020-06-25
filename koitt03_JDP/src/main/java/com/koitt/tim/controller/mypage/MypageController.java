@@ -1,8 +1,10 @@
 package com.koitt.tim.controller.mypage;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.koitt.tim.dto.coupon.CouponDto;
+import com.koitt.tim.dto.coupon.CouponMemBean;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.order.OrderListDto;
 import com.koitt.tim.service.membership.MembershipService;
@@ -62,11 +66,6 @@ public class MypageController {
 	public String changeInfo(Model model, HttpSession session, MemberDto mDto) {
 		mDto = (MemberDto) session.getAttribute("loginInfo");
 
-		mypageService.subEmail(mDto);
-		mypageService.subBirth(mDto);
-		mypageService.subPhone(mDto);
-		mypageService.subTel(mDto);
-
 		model.addAttribute("mdto", mDto);
 		return "mypage/change_info";
 	}
@@ -84,8 +83,36 @@ public class MypageController {
 	}
 
 	@RequestMapping("modifyMember")
-	public String modifyMember(MemberDto mDto) {
-		membershipService.modifyMember(mDto);
-		return "mypage/ordercheck";
+	public String modifyMember(MemberDto mdto, HttpServletResponse response) throws Exception {
+//		String id = mdto.getId();
+		mdto.setBirth(mdto.getBirth1(), mdto.getBirth2(), mdto.getBirth3());
+		mdto.setPhone(mdto.getPhone1(), mdto.getPhone2(), mdto.getPhone3());
+		mdto.setEmail(mdto.getEmail1(), mdto.getEmail2());
+		mdto.setTel(mdto.getTel1(), mdto.getTel2(), mdto.getTel3());
+
+		membershipService.modifyMember(mdto);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.println("<script>alert('수정이 완료되었습니다')</script>");
+		return "redirect:ordercheck";
+	}
+
+	@RequestMapping("coupon")
+	public String coupon_list(CouponDto cDto, Model model, HttpSession session) {
+		MemberDto mdto = (MemberDto) session.getAttribute("loginInfo"); // session에서 login 정보 뽑아옴
+
+		int userCoupon = mypageService.countCoupon(mdto.getId());
+		model.addAttribute("userCoupon", userCoupon);
+
+		int userPoint = mypageService.havePoint(mdto.getId());
+		model.addAttribute("userPoint", userPoint);
+
+		int orderCount = mypageService.orderCount(mdto.getId());
+		model.addAttribute("orderCount", orderCount);
+
+		// loginInfo 에서 id 뽑아서 쿠폰리스트 생성성
+		List<CouponMemBean> couponList = mypageService.getMemberCoupons(mdto.getId());
+		model.addAttribute("cList", couponList);
+		return "mypage/coupon";
 	}
 }

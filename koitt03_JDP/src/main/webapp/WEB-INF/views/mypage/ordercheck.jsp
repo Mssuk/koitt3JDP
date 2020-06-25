@@ -131,8 +131,8 @@
                               	<c:forEach var="ordersub" items="${order }">
                                 <tr>
                                     <td>
-                                        <p class="day">${ordersub.o_date}</p>
-                                        <p class="orderNum">${ordersub.o_num}</p>
+                                 		<p class="day"><fmt:formatDate value="${ordersub.o_date}" pattern="yyyy-MM-dd"/></p>
+                                    	<p class="orderNum">${ordersub.o_num}</p>
                                     </td>
                                     <td class="left">
                                         ${ordersub.product_name}
@@ -142,12 +142,52 @@
                                     <td class="tnone">${ordersub.o_quant}개</td>
                                     <td>
                                         <span class="heavygray">${ordersub.o_status}</span>
-                                        <ul class="state">
-                                            <li class="r5"><a href="return" class="obtnMini iw40">교환</a></li>
-                                            <li><a href="return" class="nbtnMini iw40">반품</a></li>
-                                            <li><a href="#" class="reviewbtn">리뷰작성</a></li>
-                                            <li><a href="#" class="decidebtn">구매확정</a></li>
-                                        </ul>
+                                        <c:choose>
+											<c:when test="${ordersub.o_status=='취소신청' }">
+												<ul class="state">
+													<li><a href="javascript:;" onclick="retu_cancel2('${ordersub.o_num}')" class="nbtnMini">취소</a></li>
+												</ul>	
+											</c:when>
+											<c:when test="${ordersub.o_status=='배송완료'||ordersub.o_status=='구매확정' }">
+												<jsp:useBean id="now" class="java.util.Date"></jsp:useBean>
+												<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"/>
+												<fmt:parseDate value="${ordersub.o_update_date}" var="n_regist" pattern="yyyy-MM-dd"/>
+												<fmt:parseNumber value="${n_regist.time / (1000*60*60*24)}" integerOnly="true" var="regist"/>
+												<c:set value="${today - regist }" var="dayDiff" />
+												<span class="heavygray">배송완료</span>
+												<ul class="state">	
+													<c:choose>
+														<c:when test="${ordersub.o_status=='배송완료'}">
+															<c:if test="${dayDiff <= 14}">
+																<li class="r5"><a href="return?num1=${ordersub.key }&num2=${ordersub.o_num}" class="obtnMini iw40">교환</a></li>
+																<li><a href="return?num1=${ordersub.key }&num2=${ordersub.o_num}" class="nbtnMini iw40">반품</a></li>
+															</c:if>
+															<c:if test="${dayDiff <= 28}">
+																<li><a onclick="orderComple('${ordersub.o_num }')" class="decidebtn" style="cursor: pointer;">구매확정</a></li>
+															</c:if>
+														</c:when>
+														<c:when test="${ordersub.o_status=='구매확정'}">
+															<c:if test="${dayDiff <= 14 && ordersub.reviewOk==0}">
+																<li><a href="review?num1=${ordersub.key }"  class="popBtn nbtnMini" style="cursor: pointer;">리뷰작성</a></li>
+															</c:if>	
+														</c:when>
+													</c:choose>
+												</ul>										
+											</c:when>
+											<c:when test="${ordersub.o_status=='결제대기중' }">
+												<ul class="state">
+													<li><a onclick="order_cancel('${ordersub.o_num }')" class="nbtnMini iw83" style="cursor: pointer;">취소</a></li>
+												</ul>										
+											</c:when>
+											<c:when test="${ordersub.o_status=='결제완료' }">
+													<ul class="state">
+														<li><a onclick="order_cancel2('${ordersub.o_num }')" class="nbtnMini iw83" style="cursor: pointer;">취소</a></li>
+													</ul>										
+											</c:when>
+											<c:otherwise>
+													<span class="orange ">${ordersub.o_status }</span>									
+											</c:otherwise>
+										</c:choose>
                                     </td>
                                 </tr>
                                 </c:forEach>

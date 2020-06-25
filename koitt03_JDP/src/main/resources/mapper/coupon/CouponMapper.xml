@@ -44,4 +44,9 @@
 		sysdate,
 		'')
 	</insert>
+	
+	<select id="selectCouponNum" resultType="String">
+		select * from coupon_member where id=#{id} 
+	</select>
+	
 </mapper>
