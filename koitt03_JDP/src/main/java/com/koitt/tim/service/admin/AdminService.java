@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.koitt.tim.dto.admin.AnswerDto;
+import com.koitt.tim.dto.admin.BannerDto;
 import com.koitt.tim.dto.admin.MallDto;
 import com.koitt.tim.dto.board.FaqDto;
 import com.koitt.tim.dto.board.NoticeDto;
@@ -175,4 +176,7 @@ public interface AdminService {
 
 	//반품정보 업데이트
 	void updateChangeInfo(String key, String c_type, String c_state);
+
+	//모든 배너 가져오기
+	List<BannerDto> getAllBanner();
 }

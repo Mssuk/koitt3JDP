@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.koitt.tim.dao.payment.PayeeDao;
+import com.koitt.tim.dto.admin.BannerDto;
 import com.koitt.tim.dto.order.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -481,5 +482,11 @@ public class AdminController {
     @PatchMapping("clist/{code}/{val1}/{val2}")
     public void cList(@PathVariable("code") String key, @PathVariable("val1") String c_type, @PathVariable("val2") String c_state){
         adminService.updateChangeInfo(key, c_type, c_state);
+    }
+
+    //배너정보 가져오기
+    @GetMapping("blist")
+    public List<BannerDto> bList(){
+        return adminService.getAllBanner();
     }
 }
