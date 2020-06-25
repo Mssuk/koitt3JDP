@@ -787,7 +787,10 @@
 
 
 /* SELECT CHANGE */
-span.searchStyleSelectBox{height:19px; font-size:12px;background:url('../images/bg/bg_select.gif') right center #fff no-repeat;padding:1px 20px 0 0; border-left:1px #dfdfdf solid;}
+select{height:19px; font-size:12px;
+padding:1px 20px 0 0; border-left:1px #dfdfdf solid;font-size:12px;white-space:nowrap; line-height:1.4; }
+span.searchStyleSelectBox{height:19px; font-size:12px;background:url('../images/bg/bg_select.gif') right center #fff no-repeat;background-size: contain;
+padding:1px 20px 0 0; border-left:1px #dfdfdf solid;}
 span.searchStyleSelectBox.changed{background-color: #fff;}
 .searchStyleSelectBoxInner{font-size:12px;white-space:nowrap; line-height:1.4; padding:0 40px 0 4px;}
 

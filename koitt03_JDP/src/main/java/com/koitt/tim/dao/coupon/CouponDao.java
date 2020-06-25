@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.koitt.tim.dto.coupon.CouponDto;
+import com.koitt.tim.dto.coupon.CouponMemBean;
 import com.koitt.tim.dto.member.MemberCouponDto;
 
 @Repository
@@ -16,7 +17,7 @@ public interface CouponDao {
 
 	List<CouponDto> selectAllMemCoupon(String id);
 
-	int selectCountCoupon(String id);
+	int selectCountCoupon(@Param("id") String id);
 
 	List<MemberCouponDto> selectAllMemberCoupon();
 
@@ -28,5 +29,11 @@ public interface CouponDao {
 
 	// 쿠폰기한이 지났는지 확인
 	int selectEndCoupon(@Param("coupon_num") String coupon_num);
+
+	// 회원의 유효한 쿠폰개수만 가져옴
+	int selectCountCouponP(@Param("id") String id);
+
+	// 회원의 유효한 쿠폰 정보를 다 가져와야함
+	List<CouponMemBean> selectMemberCoupons(@Param("id") String id);
 
 }
