@@ -357,7 +357,7 @@
 									<td>
 										<ul class="pta">
 											<li class="r10">
-												<input type="text" class="w134" id="topPoin" value="0" onblur="changePoint(this)"/>&nbsp;&nbsp;
+												<input type="text" class="w134" id="topPoin" value="" onblur="changePoint(this)"/>&nbsp;&nbsp;
 												<span class="valign"><strong>Point</strong></span>
 											</li>
 											<li>
@@ -437,7 +437,7 @@
 							</c:if>
 
 							<li class="txt"><strong>결제 예정 금액</strong></li>
-							<li class="money result_total"><span>1,134,810</span> 원</li>
+							<li class="money result_total"><span id="jardinTotal">1,134,810</span> 원</li>
 						</ul>
 					</div>
 				</form>	
@@ -751,7 +751,7 @@ $(function(){
 			var c=$(this).val().replace(/(^0+)/, "");
 			$(this).val(c.replace(/[^0-9]/g,""));
 			var k=$(this).val();
-			if(k>= ${member.point}){
+			if(parseInt(k)>'${member.point}'){
 				alert('보유 포인트를 넘을 수 없습니다');
 				$(this).val('');
 			}
@@ -770,7 +770,8 @@ $(function(){
 			b=Number(b);
 			c=c.replace(/[^0-9]/g,'');
 			c=Number(c);
-			d=d.replace(/[^0-9]/g,'');
+			if(d==''){d=0;}else{
+			d=d.replace(/[^0-9]/g,'');}
 			d=Number(d);
 			var result=a+b-c-d;
 			if(result<0){
@@ -782,8 +783,10 @@ $(function(){
 		//포인트 반영
 		function changePoint(a){
 			var point=a.value;
+			if(point==''){
+				point=0;
+			}
 			$(".mempoint").text(point);
-			
 			var coupon=$("#topCou").val();
 			var total=get_total();
 			var deliver=get_deliver(total);

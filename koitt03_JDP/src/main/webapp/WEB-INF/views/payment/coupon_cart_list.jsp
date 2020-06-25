@@ -18,6 +18,18 @@
 <script type="text/javascript" src="../js/common.js"></script>
 <script type="text/javascript">
 function goParent(){
+	
+	var getTotal=parent.document.getElementById('jardinTotal').innerText;
+	getTotal=getTotal.replace(/,/g,"");
+	getTotal=Number(getTotal);
+	var discount=document.getElementById('coumoney').value;
+	discount=discount.replace(/,/g,"");
+	discount=Number(discount);
+	if(parseInt(getTotal) < parseInt(discount)){
+		if(!(confirm('구매금액보다 쿠폰할인금액이 높습니다. \n 정말 사용하시겠습니까?'))){
+			return false;
+		}
+	}
 	parent.document.getElementById('topCou').value = document.getElementById('coumoney').value; //쿠폰에 해당하는 금액 보냄
 	parent.document.getElementById('midCou').innerText  = document.getElementById('coumoney').value; //쿠폰에 해당하는 금액 보냄
 	parent.document.getElementById('boCou').innerText  = document.getElementById('coumoney').value; //쿠폰에 해당하는 금액 보냄
