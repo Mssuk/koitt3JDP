@@ -48,8 +48,8 @@ $(function(){
 		searchStyle : function(options) {
 			this.each(function() {
 
-				var currentSelected = $(this).find(':selected');
-				$(this).after('<span class="searchStyleSelectBox"><span class="searchStyleSelectBoxInner">'+currentSelected.text()+'</span></span>').css({position:'absolute', opacity:0,fontSize:$(this).next().css('font-size')});
+//				var currentSelected = $(this).find(':selected');																											//이부분의 opacity를 1로 바꿧어오
+//				$(this).after('<span class="searchStyleSelectBox"><span class="searchStyleSelectBoxInner">'+currentSelected.text()+'</span></span>').css({position:'absolute',opacity:1,fontSize:$(this).next().css('font-size')});
 				
 				var selectBoxSpan = $(this).next();
 				var selectBoxWidth = parseInt($(this).width()) - parseInt(selectBoxSpan.css('padding-left'));   
@@ -62,9 +62,10 @@ $(function(){
 				
 				var selectWidth = $(this).width();
 				$(this).css("width",selectWidth+40+"px");
+				
 
 				$(this).height(selectBoxHeight).change(function(){
-					selectBoxSpanInner.text($(this).find(':selected').text()).parent().addClass('changed');
+					selectBoxSpanInner.text($(this).find(':selected').text()).addClass('changed');
 					});
 				});
 			

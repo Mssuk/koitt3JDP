@@ -31,10 +31,11 @@ public class MemberDto {
 	private String birth3;
 	private Timestamp birth;
 	private String calender_check;
-	private int point;
+	private int point;// 회원이 가지고있는 point 총합
 	private Timestamp join_date;
 	private Timestamp delete_date;
 	private DateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
+	private int couponCount;// 회원이 가지고있는 쿠폰 개수 (유효기간이 남아있는거만 받아옵니다).
 
 	public void setBirth(String birth1, String birth2, String birth3) throws Exception {
 		String birth = birth1 + "-" + birth2 + "-" + birth3;
@@ -42,12 +43,29 @@ public class MemberDto {
 		this.birth = new Timestamp(date.getTime());
 	}
 
+	public void setBirth(Timestamp birth) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String birthDto = sdf.format(birth);
+		this.birth1 = birthDto.substring(0, 4);
+		this.birth2 = birthDto.substring(5, 7);
+		this.birth3 = birthDto.substring(8);
+		this.birth = birth;
+	}
+
 	public Timestamp getBirth() {
 		return birth;
 	}
 
 	public void setPhone(String phone1, String phone2, String phone3) {
-		String phone = phone1 + phone2 + phone3;
+		String phone = phone1 + "-" + phone2 + "-" + phone3;
+		this.phone = phone;
+	}
+
+	public void setPhone(String phone) {
+		String[] em = phone.split("-");
+		this.phone1 = em[0];
+		this.phone2 = em[1];
+		this.phone3 = em[2];
 		this.phone = phone;
 	}
 
@@ -147,8 +165,16 @@ public class MemberDto {
 		this.tel3 = tel3;
 	}
 
+	public void setTel(String tel) {
+		String[] em = tel.split("-");
+		this.tel1 = em[0];
+		this.tel2 = em[1];
+		this.tel3 = em[2];
+		this.tel = tel;
+	}
+
 	public void setTel(String tel1, String tel2, String tel3) {
-		String tel = tel1 + tel2 + tel3;
+		String tel = tel1 + "-" + tel2 + "-" + tel3;
 		this.tel = tel;
 	}
 
@@ -204,6 +230,13 @@ public class MemberDto {
 		return email;
 	}
 
+	public void setEmail(String email) {
+		String[] em = email.split("@");
+		this.email1 = em[0];
+		this.email2 = em[1];
+		this.email = email;
+	}
+
 	public void setEmail(String email1, String email2) {
 		String email = email1 + "@" + email2;
 		this.email = email;
@@ -255,6 +288,14 @@ public class MemberDto {
 
 	public void setPhone3(String phone3) {
 		this.phone3 = phone3;
+	}
+
+	public int getCouponCount() {
+		return couponCount;
+	}
+
+	public void setCouponCount(int couponCount) {
+		this.couponCount = couponCount;
 	}
 
 }
