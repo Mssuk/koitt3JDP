@@ -19,8 +19,9 @@ public class MainController {
 
 	@GetMapping(path = { "/", "main" })
 	public String main(Model model) {
-		List<ProductDto> hitPro = mainService.hitProduct();
+		List<List<ProductDto>> hitPro = mainService.hitProduct();
 
+		System.out.println(hitPro);
 		model.addAttribute("hitPro", hitPro);
 		return "main";
 	}

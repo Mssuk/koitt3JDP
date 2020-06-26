@@ -16,12 +16,12 @@ public class MainServiceImpl implements MainService {
 	MainProductDao mainProductDao;
 
 	@Override
-	public List<ProductDto> hitProduct() {
+	public List<List<ProductDto>> hitProduct() {
 		ArrayList<String> proNum = mainProductDao.selectProNum();
-		List<ProductDto> list = new ArrayList<ProductDto>();
+		List<List<ProductDto>> list = new ArrayList<List<ProductDto>>();
 		for (int i = 0; i < proNum.size(); i++) {
 			System.out.println(proNum.get(i));
-			list = mainProductDao.selectHit(proNum.get(i));
+			list.add(mainProductDao.selectHit(proNum.get(i)));
 		}
 		return list;
 	}

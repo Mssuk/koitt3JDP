@@ -156,8 +156,8 @@ transition-property:transform, left, top; transition-duration:0s; transform:tran
 
 #bestseller{width:100%; height:282px; margin:0 0 30px 0; z-index:999; overflow:hidden;}
 #bestseller .swiper-slide{position:relative; width:300px; height:282px; overflow:hidden;}
-#bestseller .swiper-slide .img{width:243px; height:226px; margin:0 0 0 28px;}
-#bestseller .swiper-slide .name{width:150px; text-align:center; line-height:1.2; color:#666; margin:0 auto;}
+#bestseller .swiper-slide .img{width:243px; height:226px; margin:0 auto;}
+#bestseller .swiper-slide .name{text-align:center; line-height:1.2; color:#666; margin:0 auto;}
 #bestseller .swiper-slide .price{width:150px; text-align:center; font-size:22px; color:#f15e23; font-weight:600; margin:4px auto 0;}
 
 #mainSale{width:100%; height:210px; margin:0 0 30px 0; z-index:999; overflow:hidden;}

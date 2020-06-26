@@ -5,6 +5,6 @@ import java.util.List;
 import com.koitt.tim.dto.product.ProductDto;
 
 public interface MainService {
-	List<ProductDto> hitProduct();
+	List<List<ProductDto>> hitProduct();
 
 }

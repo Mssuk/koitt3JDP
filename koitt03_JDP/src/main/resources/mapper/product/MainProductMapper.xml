@@ -23,6 +23,6 @@
 	</select>
 	
 	<select id="selectHit" resultType="productDto"> 
-		 select product_name, sales_price from product where pro_num = #{proNum}
+		 select * from product where pro_num = #{proNum}
 	</select>
 </mapper>

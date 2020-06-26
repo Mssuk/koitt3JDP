@@ -107,13 +107,14 @@ $(document).ready(function() {
 			<div class="mtitle"><h2>JARDIN BEST SELLER</h2></div>
 			<div id="bestseller">
 				<div class="swiper-wrapper">
-					<c:forEach var="hitPro" items="${hitPro }">
-					<div class="swiper-slide">
-						<div class="img"><a href="#"><img src="images/img/sample_best_seller.jpg" alt="Best seller 상품" /></a></div>
-						<div class="name"><br/>${hitPro.product_name }</div>
-						<div class="price">
-						 <fmt:formatNumber value="${hitPro.sales_price }" pattern="##,###"/></div>
-					</div>
+					<c:forEach var="hit" items="${hitPro }">
+						<c:forEach var="hitPro" items="${hit }">
+						<div class="swiper-slide">
+							<div class="img"><a href="#"><img src="${hitPro.front_image1 }" alt="Best seller 상품" width="100%"/></a></div>
+							<div class="name"><br/>${hitPro.product_name }</div>
+							<div class="price"><fmt:formatNumber value="${hitPro.sales_price }" pattern="##,###"/></div>
+						</div>
+						</c:forEach>
 					</c:forEach>
 				</div>
 			</div>
