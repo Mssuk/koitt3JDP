@@ -24,8 +24,12 @@ public interface MainProductDao {
 	// 메인 상품정보 업데이트
 	void updateMProduct(@Param("p1") String code, @Param("p2") String index, @Param("p3") int value);
 
-	ArrayList<String> selectProNum();
+	ArrayList<String> selectHitPro();
+
+	ArrayList<String> selectSalesPro();
 
 	List<ProductDto> selectHit(String proNum);
+
+	List<ProductDto> selectSale(String proNum);
 
 }

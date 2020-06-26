@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.koitt.tim.dto.admin.BannerDto;
 import com.koitt.tim.dto.product.ProductDto;
 import com.koitt.tim.service.main.MainService;
 
@@ -20,9 +21,12 @@ public class MainController {
 	@GetMapping(path = { "/", "main" })
 	public String main(Model model) {
 		List<List<ProductDto>> hitPro = mainService.hitProduct();
-
-		System.out.println(hitPro);
+		List<List<ProductDto>> salePro = mainService.saleProduct();
+		List<BannerDto> banner = mainService.banner();
 		model.addAttribute("hitPro", hitPro);
+		model.addAttribute("salePro", salePro);
+		model.addAttribute("banner", banner);
+
 		return "main";
 	}
 

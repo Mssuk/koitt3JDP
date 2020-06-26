@@ -82,18 +82,11 @@ $(document).ready(function() {
 		<!-- main 배너 rolling -->
 		<div id="mainRoll">
 			<div class="swiper-wrapper">
+				<c:forEach var="banner" items="${banner }">
 				<div class="swiper-slide">
-					<a href="#"><img src="images/img/main_visible01.jpg" alt="" /></a>
+					<a href="#"><img src="${banner.banner_image }" alt="" /></a>
 				</div>
-				<div class="swiper-slide">
-					<a href="#"><img src="images/img/main_visible01.jpg" alt="" /></a>
-				</div>
-				<div class="swiper-slide">
-					<a href="#"><img src="images/img/main_visible01.jpg" alt="" /></a>
-				</div>
-				<div class="swiper-slide">
-					<a href="#"><img src="images/img/main_visible01.jpg" alt="" /></a>
-				</div>
+				</c:forEach>
 			</div>
 			<div id="mainThum"></div>
 		</div>
@@ -110,7 +103,7 @@ $(document).ready(function() {
 					<c:forEach var="hit" items="${hitPro }">
 						<c:forEach var="hitPro" items="${hit }">
 						<div class="swiper-slide">
-							<div class="img"><a href="#"><img src="${hitPro.front_image1 }" alt="Best seller 상품" width="100%"/></a></div>
+							<div class="img"><a href="/product/detail?pro_num=${hitPro.pro_num }"><img src="${hitPro.front_image1 }" alt="Best seller 상품" height="100%"/></a></div>
 							<div class="name"><br/>${hitPro.product_name }</div>
 							<div class="price"><fmt:formatNumber value="${hitPro.sales_price }" pattern="##,###"/></div>
 						</div>
@@ -132,7 +125,7 @@ $(document).ready(function() {
 						<a href="#"><img src="images/img/img_fresh_roast_bean.jpg" alt="FRESH ROAST BEAN" /></a>
 						<p class="title">FRESH ROAST<br/>BEAN</p>
 					</li>
-					<li class="review"><a href="#"><img src="images/img/img_review.jpg" alt="REVIEW" /></a></li>
+					<li class="review"><a href="product/review"><img src="images/img/img_review.jpg" alt="REVIEW" /></a></li>
 					<li class="last">
 						<a href="#">
 							<p class="title">SPECIALTY<br/>COFFEE<span>스페셜티 커피 전문점 커피 휘엘</span></p>
@@ -183,36 +176,16 @@ $(document).ready(function() {
 			<div class="mtitle"><h2>SALE</h2></div>
 			<div id="mainSale">
 				<div class="swiper-wrapper">
-					<div class="swiper-slide">
-						<div class="img"><a href="#"><img src="images/img/sample_sale.jpg" alt="sale 상품" /></a></div>
-						<div class="name">쟈뎅 바리스타 벨벳<br/>에스프레소 원두커피</div>
-						<div class="price">5,600원</div>
-						<div class="discount">20%</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="img"><a href="#"><img src="images/img/sample_sale.jpg" alt="sale 상품" /></a></div>
-						<div class="name">쟈뎅 바리스타 벨벳<br/>에스프레소 원두커피</div>
-						<div class="price">5,000원</div>
-						<div class="discount">20%</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="img"><a href="#"><img src="images/img/sample_sale.jpg" alt="sale 상품" /></a></div>
-						<div class="name">쟈뎅 바리스타 벨벳<br/>에스프레소 원두커피</div>
-						<div class="price">6,000원</div>
-						<div class="discount">20%</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="img"><a href="#"><img src="images/img/sample_sale.jpg" alt="sale 상품" /></a></div>
-						<div class="name">쟈뎅 바리스타 벨벳<br/>에스프레소 원두커피</div>
-						<div class="price">6,000원</div>
-						<div class="discount">20%</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="img"><a href="#"><img src="images/img/sample_sale.jpg" alt="sale 상품" /></a></div>
-						<div class="name">쟈뎅 바리스타 벨벳<br/>에스프레소 원두커피</div>
-						<div class="price">6,000원</div>
-						<div class="discount">20%</div>
-					</div>
+				<c:forEach var="sale" items="${salePro }">
+					<c:forEach var="salePro" items="${sale }">
+						<div class="swiper-slide">
+							<div class="img"><a href="/product/detail?pro_num=${salePro.pro_num }"><img src="${salePro.front_image1 }" alt="sale 상품" height="100%"/></a></div>
+							<div class="name" width="100%">${salePro.product_name }</div>
+							<div class="price"><fmt:formatNumber value="${salePro.sales_price }" pattern="##,###"/></div>
+							<div class="discount">20%</div>
+						</div>
+					</c:forEach>
+				</c:forEach>
 				</div>
 			</div>	
 			<div class="rollbtn">
