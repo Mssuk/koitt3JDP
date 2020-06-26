@@ -374,7 +374,7 @@ public class PaymemtCartServiceImpl implements PaymentCartService {
 			// 사용쿠폰 업데이트
 			if (o_coupon_num != "") {
 				try {
-					cdao.updateMemberCoupon(o_coupon_num);
+					cdao.updateMemberCoupon(o_coupon_num, id);
 				} catch (Exception e) {
 					check = -6;// 쿠폰 업댓 실패
 					System.out.println(check);

@@ -41,6 +41,6 @@ public interface CouponDao {
 	CouponMemBean selectCouponOne(@Param("id") String id, @Param("coupon_num") String coupon_num);
 
 	// 회원 쿠폰 상태 업데이트
-	void updateMemberCoupon(@Param("coupon_num") String o_coupon_num);
+	void updateMemberCoupon(@Param("coupon_num") String o_coupon_num, @Param("id") String id);
 
 }
