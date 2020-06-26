@@ -44,6 +44,7 @@
         select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status
             from  ORDER_LIST col2, "ORDER" col1 where col1."o_num" = col2."o_num" and col2."o_num" = #{orderNum}
     </select>
+
 	<!-- 아래부터 비회원 -->
 	<!-- 비회원 주문조회 (아이디조회)-->
 	<select id="selectOrderOne" resultType="OrderDto">

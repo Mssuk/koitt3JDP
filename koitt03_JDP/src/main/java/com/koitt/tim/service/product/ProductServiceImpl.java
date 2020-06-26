@@ -158,9 +158,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addReview(String id, int star, String title, String content,String pro_num) {
-        rDao.insertReview(id,star,title,content,pro_num);
-
+    public void addReview(String id,String key,String title,String stars,String content,String image1,String proNum) {
+        rDao.insertReview(id,key,title,stars,content,image1,proNum);
     }
 
 //    @Override

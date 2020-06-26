@@ -133,7 +133,8 @@
                         <li><a href="javascript:;" onclick="return false;" id="goodsQna">질문과 답변 <span>(${qCount})</span></a></li>
                         <li class="last"><a href="javascript:;" onclick="return false;" id="goodsNotice">정책 및 공지</a></li>
                     </ul>
-                </div><script type="text/javascript">$(function(){$(".detailTab ul li a:eq(0)").click();});</script>
+                </div><script type="text/javascript">$(function(){$(".detailTab ul li a:eq(${initVal})").click();});</script>
+
                 <!-- //tab -->
 
 
@@ -330,18 +331,18 @@ $("#cartPut").click(function(){
                             <!-- 페이징이동1 -->
                             <div class="allPageMoving1">
 
-                                <a href="detail?pro_num=${dto.pro_num}&page=1" class="n"><img src="/images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="detail?pro_num=${dto.pro_num}&page=${pagePhoto-1}" class="pre"><img src="/images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
+                                <a href="detail?pro_num=${dto.pro_num}&pagePhoto=1" class="n"><img src="/images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="detail?pro_num=${dto.pro_num}&pagePhoto=${pagePhoto-1}" class="pre"><img src="/images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
                                 <c:forEach var="pageListPhoto" items="${pageListPhoto}">
                                     <c:choose>
                                         <c:when test="${pageListPhoto==pagePhoto}">
                                             <strong>${pageListPhoto}</strong>
                                         </c:when>
                                         <c:otherwise>
-                                            <a href="detail?pro_num=${dto.pro_num}&page=${pageListPhoto}"></a>
+                                            <a href="detail?pro_num=${dto.pro_num}&pagePhoto=${pageListPhoto}&initVal=2"></a>
                                         </c:otherwise>
                                     </c:choose>
                                 </c:forEach>
-                                <a href="detail?pro_num=${dto.pro_num}&page=${pagePhoto+1}" class="next"><img src="/images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="detail?pro_num=${dto.pro_num}&page=${lastNumPhoto}" class="n"><img src="/images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
+                                <a href="detail?pro_num=${dto.pro_num}&pagePhoto=${pagePhoto+1}" class="next"><img src="/images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="detail?pro_num=${dto.pro_num}&pagePhoto=${lastNumPhoto}" class="n"><img src="/images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
 
                             </div>
                             <!-- //페이징이동1 -->
@@ -426,7 +427,7 @@ $("#cartPut").click(function(){
                         <div class="btnAreaList">
                             <!-- 페이징이동1 -->
                             <div class="allPageMoving1">
-                                <a href="detail?pro_num=${dto.pro_num}&page=1" class="n"><img src="/images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="detail?pro_num=+${dto.pro_num}+&page=${page-1}" class="pre"><img src="/images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
+                                <a href="detail?pro_num=${dto.pro_num}&page=1&initVal=2" class="n"><img src="/images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="detail?pro_num=${dto.pro_num}&page=${page-1}&initVal=2" class="pre"><img src="/images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
 
                                 <c:forEach var="pageList1" items="${pageList}">
                                     <c:choose>
@@ -434,11 +435,11 @@ $("#cartPut").click(function(){
                                             <strong>${pageList1}</strong>
                                         </c:when>
                                         <c:otherwise>
-                                            <a href="detail?pro_num=${dto.pro_num}&page=${pageList1}">${pageList1}</a>
+                                            <a href="detail?pro_num=${dto.pro_num}&page=${pageList1}&initVal=2">${pageList1}</a>
                                         </c:otherwise>
                                     </c:choose>
                                 </c:forEach>
-                                <a href="detail?pro_num=${dto.pro_num}&page=${page+1}" class="next"><img src="/images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="detail?pro_num=${dto.pro_num}&page=${lastNum}" class="n"><img src="/images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
+                                <a href="detail?pro_num=${dto.pro_num}&page=${page+1}&initVal=2" class="next"><img src="/images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="detail?pro_num=${dto.pro_num}&page=${lastNum}&initVal=2" class="n"><img src="/images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
                             </div>
                             <!-- //페이징이동1 -->
                         </div>
@@ -510,18 +511,18 @@ $("#cartPut").click(function(){
                             <!-- 페이징이동1 -->
                             <div class="allPageMoving1">
 
-                                <a href="detail?pro_num=${dto.pro_num}&page=1" class="n"><img src="/images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="detail?pro_num=${dto.pro_num}&page=${pageQA-1}" class="pre"><img src="/images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
+                                <a href="detail?pro_num=${dto.pro_num}&pageQA=1" class="n"><img src="/images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="detail?pro_num=${dto.pro_num}&pageQA=${pageQA-1}" class="pre"><img src="/images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
                                     <c:forEach var="pageList1" items="${pageListQA}">
                                         <c:choose>
                                             <c:when test="${pageList1==pageQA}">
                                                 <strong>${pageList1}</strong>
                                             </c:when>
                                             <c:otherwise>
-                                                <a href="detail?pro_num=${dto.pro_num}&page=${pageList1}">${pageList1}</a>
+                                                <a href="detail?pro_num=${dto.pro_num}&pageQA=${pageList1}">${pageList1}</a>
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forEach>
-                                <a href="detail?pro_num=${dto.pro_num}&page=${pageQA+1}" class="next"><img src="/images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="detail?pro_num=${dto.pro_num}&page=${lastNumQA}" class="n"><img src="/images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
+                                <a href="detail?pro_num=${dto.pro_num}&pageQA=${pageQA+1}" class="next"><img src="/images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="detail?pro_num=${dto.pro_num}&pageQA=${lastNumQA}" class="n"><img src="/images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
 
                             </div>
                             <!-- //페이징이동1 -->

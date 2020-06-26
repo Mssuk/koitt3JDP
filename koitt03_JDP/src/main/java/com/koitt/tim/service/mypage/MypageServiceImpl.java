@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.koitt.tim.dao.review.ReviewDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +20,13 @@ public class MypageServiceImpl implements MypageService {
 
 	@Autowired
 	CouponDao couponDao;
-
 	@Autowired
 	MemberDao memberDao;
-
 	@Autowired
 	OrderDao orderDao;
+	@Autowired
+	ReviewDao reviewDao;
+
 
 	@Override
 	public int countCoupon(String id) {
@@ -106,5 +108,15 @@ public class MypageServiceImpl implements MypageService {
 		mDto.setPhone1(phone1);
 		mDto.setPhone2(phone2);
 		mDto.setPhone3(phone3);
+	}
+	//리뷰 작성중 주문내역 key 호출  -이준희
+	@Override
+	public String getReviewKey(String oNum) {
+		return reviewDao.selectReviewKey(oNum);
+	}
+	//리뷰 작성중 상품번호 호출  -이준희
+	@Override
+	public String getReviewPro_num(String oNum) {
+		return reviewDao.selectReviewPro_num(oNum);
 	}
 }

@@ -19,7 +19,7 @@
 
     <insert id="insertReview">
         insert into REVIEW
-        values (REVIEW_SEQ.nextval,#{id},'2020060306',#{title},sysdate,'0',#{star},#{content},null,null,#{pro_num})
+        values (REVIEW_SEQ.nextval,#{id},#{key},#{title},sysdate,'0',#{stars},#{content},#{image1},null,#{proNum})
     </insert>
 
    <!-- 비회원(회원) 리뷰 작성 -->
@@ -43,6 +43,16 @@
     <select id="selectReviewCount" resultType="int">
     	select count(*) from REVIEW where "Key"=#{key}
     </select>
+
+    <select id="selectReviewKey" resultType="String">
+        select ol.KEY from ORDER_LIST ol,"ORDER" o where o."o_num"=#{oNum} and o."o_num" = ol."o_num"
+    </select>
+
+    <select id="selectReviewPro_num" resultType="String">
+        select ol."pro_num" from "ORDER" o,ORDER_LIST ol where o."o_num"=#{oNum} and o."o_num"=ol."o_num"
+    </select>
+
+
 
 	<!--  admin 모든 리뷰 불러오기 -->
 	<select id="selectAllReview" resultType="ReviewDto">

@@ -24,7 +24,9 @@ public interface ProductService {
 
     List<ProductDto> getProductList();
     ProductDto getProductChoice(String pro_num);
-    void addReview(String id,int star,String title,String content,String pro_num);   //review 추가
+
+
+    void addReview(String id,String key,String title,String stars,String content,String image1,String proNum);   //review 추가
 
 
     //List<ProductQuestionDto> getPQuestion(String pro_num);      //해당 상품 문의 불러오기
