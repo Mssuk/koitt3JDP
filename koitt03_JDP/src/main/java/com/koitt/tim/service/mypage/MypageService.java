@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.koitt.tim.dto.coupon.CouponMemBean;
+import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.order.OrderListDto;
 
 public interface MypageService {

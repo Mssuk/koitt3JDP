@@ -1,9 +1,12 @@
 package com.koitt.tim.service.mypage;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.koitt.tim.dao.review.ReviewDao;
+import com.koitt.tim.dto.member.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +61,11 @@ public class MypageServiceImpl implements MypageService {
 	public List<CouponMemBean> getMemberCoupons(String id) {
 		return couponDao.selectMemberCoupons(id);
 
+	}
+
+	@Override
+	public void subEmail(MemberDto mDto) {
+		
 	}
 
 	@Override
