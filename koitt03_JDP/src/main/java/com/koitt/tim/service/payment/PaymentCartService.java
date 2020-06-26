@@ -31,6 +31,6 @@ public interface PaymentCartService {
 	List<CouponMemBean> getCoupons(HttpSession session);
 
 	// 주문하기!
-	int doOrderCart(DoOrderDto doOrderDto, HttpSession session);
+	String doOrderCart(DoOrderDto doOrderDto, HttpSession session);
 
 }

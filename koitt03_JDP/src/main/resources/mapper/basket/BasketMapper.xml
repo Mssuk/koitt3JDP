@@ -6,7 +6,7 @@
 <mapper namespace="com.koitt.tim.dao.basket.BasketDao">
 
    <select id="selectBasketMember" resultType="BasketMemberDto">
-       select * from basket_member where pro_num=#{pro_num, jdbcType=VARCHAR} and id=#{id, jdbcType=VARCHAR}
+       select * from basket_member where pro_num=#{pro_num} and id=#{id}
    </select>
    <insert id="insertBasketMember" parameterType="BasketMemberDto">
    insert into basket_member values
@@ -17,10 +17,10 @@
 		 #{count})
    </insert>
    <update id="updateBasketMember" parameterType="BasketMemberDto">
-  	 update basket_member set count=count+#{count} where id=#{id, jdbcType=VARCHAR} and pro_num=#{pro_num, jdbcType=VARCHAR}
+  	 update basket_member set count=count+#{count} where id=#{id} and pro_num=#{pro_num}
    </update>
    <delete id="deleteBasketMember" parameterType="BasketMemberDto">
-  	 delete from basket_member where id=#{id, jdbcType=VARCHAR} and pro_num=#{pro_num, jdbcType=VARCHAR}
+  	 delete from basket_member where id=#{id} and pro_num=#{pro_num}
    </delete>
    
    

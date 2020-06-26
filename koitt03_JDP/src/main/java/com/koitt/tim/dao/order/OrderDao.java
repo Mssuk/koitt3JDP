@@ -73,7 +73,13 @@ public interface OrderDao {
 
 //	String selectOrderKey(String pro_num,String id);
 
-	// 장바구니~~~order가는 거
+	// 장바구니~~~>구매
+	// 1.order주문
 	void insertOrderOne(GetOrderNum getOrderNum);
+
+	// 2.orderlist 삽입
+	void insertOrderlistOne(@Param("orderDay") String orderDay, @Param("o_num") String o_num,
+			@Param("pro_num") String pro_num, @Param("product_name") String product_name, @Param("o_quant") int o_quant,
+			@Param("product_price") int product_price);
 
 }

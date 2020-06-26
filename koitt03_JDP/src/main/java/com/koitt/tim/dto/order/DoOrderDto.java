@@ -23,10 +23,16 @@ public class DoOrderDto {
 	private String bank;// 입금은행
 	private String bank_name;// 입금자이름
 	private String receiptChk;// 영수증발급여부
-	private String receiptChk_name;// 발급자이름
-	private String receiptChk_num;// 발급번호
 	private String individual;// 현영일경우
+	private String phone_name;// individual-phone
+	private String phone_num;// individual-phone
+	private String cashreceipts_name;// individual- cashreceipts
+	private String cashreceipts_num;// individual- cashreceipts
 	private String corporate;// 사업자일경우
+	private String corporatenumber_name;// corporate- corporate
+	private String corporatenumber_num;// corporate- corporate
+	private String corporate_cash_name;// corporate- corporate_cash
+	private String corporate_cash_num;// corporate- corporate_cash
 
 	public String getName() {
 		return name;
@@ -196,20 +202,68 @@ public class DoOrderDto {
 		this.receiptChk = receiptChk;
 	}
 
-	public String getReceiptChk_name() {
-		return receiptChk_name;
+	public String getPhone_name() {
+		return phone_name;
 	}
 
-	public void setReceiptChk_name(String receiptChk_name) {
-		this.receiptChk_name = receiptChk_name;
+	public void setPhone_name(String phone_name) {
+		this.phone_name = phone_name;
 	}
 
-	public String getReceiptChk_num() {
-		return receiptChk_num;
+	public String getPhone_num() {
+		return phone_num;
 	}
 
-	public void setReceiptChk_num(String receiptChk_num) {
-		this.receiptChk_num = receiptChk_num;
+	public void setPhone_num(String phone_num) {
+		this.phone_num = phone_num;
+	}
+
+	public String getCashreceipts_name() {
+		return cashreceipts_name;
+	}
+
+	public void setCashreceipts_name(String cashreceipts_name) {
+		this.cashreceipts_name = cashreceipts_name;
+	}
+
+	public String getCashreceipts_num() {
+		return cashreceipts_num;
+	}
+
+	public void setCashreceipts_num(String cashreceipts_num) {
+		this.cashreceipts_num = cashreceipts_num;
+	}
+
+	public String getCorporatenumber_name() {
+		return corporatenumber_name;
+	}
+
+	public void setCorporatenumber_name(String corporatenumber_name) {
+		this.corporatenumber_name = corporatenumber_name;
+	}
+
+	public String getCorporatenumber_num() {
+		return corporatenumber_num;
+	}
+
+	public void setCorporatenumber_num(String corporatenumber_num) {
+		this.corporatenumber_num = corporatenumber_num;
+	}
+
+	public String getCorporate_cash_name() {
+		return corporate_cash_name;
+	}
+
+	public void setCorporate_cash_name(String corporate_cash_name) {
+		this.corporate_cash_name = corporate_cash_name;
+	}
+
+	public String getCorporate_cash_num() {
+		return corporate_cash_num;
+	}
+
+	public void setCorporate_cash_num(String corporate_cash_num) {
+		this.corporate_cash_num = corporate_cash_num;
 	}
 
 	public String getIndividual() {

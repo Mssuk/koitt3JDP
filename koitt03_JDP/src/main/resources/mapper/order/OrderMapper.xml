@@ -113,5 +113,15 @@ c.key is null and ROWNUM <![CDATA[ >= ]]> #{p1}
     		SELECT ORDER_SEQ.currval AS num FROM DUAL
     	</selectKey>
     </insert>
+    <!-- 주문리스트 생성 -->
+    <insert id="insertOrderlistOne">
+    	insert into ORDER_LIST values(
+    	concat(#{orderDay},lpad(ORDERLIST_SEQ.nextval,5,0)),
+                #{o_num},
+                #{pro_num},
+                #{o_quant},
+                #{product_price},
+                #{product_name})
+    </insert>
     
 </mapper>

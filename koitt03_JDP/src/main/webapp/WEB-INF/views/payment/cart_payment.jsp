@@ -443,7 +443,9 @@
 												<span class="valign"><strong></strong><input type="text" name="coupon_num" hidden=""  id="coucou" value="">원</span>
 											</li>
 											<li class="r10"><span class="valign">( 보유 쿠폰 내역 : ${member.couponCount }장 )&nbsp;</span></li>
-											<li><a href="coupon_cart_list" class="nbtn">쿠폰목록</a></li>
+											<c:if test="${member.couponCount>0 }">
+												<li><a href="coupon_cart_list" class="nbtn">쿠폰목록</a></li>
+											</c:if>
 										</ul>
 									</td>
 								</tr>
@@ -647,9 +649,9 @@
 							
 							<ul class="inform phone"><!-- 휴대폰 -->
 								<li class="title">이름</li>
-								<li class="interval"><input type="text" class="w134" name="receiptChk_name"/></li>
+								<li class="interval"><input type="text" class="w134" name="phone_name"/></li>
 								<li class="title cb">휴대폰</li>
-								<li><input type="text" class="w134" name="receiptChk_num"/></li>
+								<li><input type="text" class="w134" name="phone_num"/></li>
 							</ul>
 
 <!-- 							<ul class="inform securitynumber">주민등록번호 -->
@@ -661,9 +663,9 @@
 
 							<ul class="inform cashreceipts"><!-- 현금영수증카드 -->
 								<li class="title">이름</li>
-								<li class="interval"><input type="text" class="w134" name="receiptChk_name"/></li>
+								<li class="interval"><input type="text" class="w134" name="cashreceipts_name"/></li>
 								<li class="title2 cb">현금영수증카드 번호</li>
-								<li><input type="text" class="w134" name="receiptChk_num"/></li>
+								<li><input type="text" class="w134" name="cashreceipts_num"/></li>
 							</ul>
 
 							<p class="txt">* 번호 입력시 하이픈(-)을 제외한 숫자만 입력하세요.</p>
@@ -684,16 +686,16 @@
 
 							<ul class="inform corporatenumber"><!-- 사업자번호 -->
 								<li class="title">이름</li>
-								<li class="interval"><input type="text" class="w134" name="receiptChk_name"/></li>
+								<li class="interval"><input type="text" class="w134" name="corporatenumber_name"/></li>
 								<li class="title2 cb">사업자등록 번호</li>
-								<li><input type="text" class="w134" name="receiptChk_num"/></li>
+								<li><input type="text" class="w134" name="corporatenumber_num"/></li>
 							</ul>
 
 							<ul class="inform corporate_cash"><!-- 현금영수증카드 -->
 								<li class="title">이름</li>
-								<li class="interval"><input type="text" class="w134"  name="receiptChk_name"/></li>
+								<li class="interval"><input type="text" class="w134"  name="corporate_cash_name"/></li>
 								<li class="title2 cb">현금영수증카드 번호</li>
-								<li><input type="text" class="w134" name="receiptChk_num"/></li>
+								<li><input type="text" class="w134" name="corporate_cash_num"/></li>
 							</ul>
 
 							<p class="txt">* 번호 입력시 하이픈(-)을 제외한 숫자만 입력하세요.</p>
@@ -822,9 +824,9 @@
     	        type : "POST",   
     	        data: params,  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
     	        success : function (data) {
-    	           if(data== 1){ //리턴값이 ok일 경우
+    	           if(data!= 0){ //리턴값이 ok일 경우
     	              alert('주문성공');
-//     	              location.href='/cartpayment';
+    	           		location.href='/main';
     	           }else if(data == 0){
     					alert('실패');
     				}

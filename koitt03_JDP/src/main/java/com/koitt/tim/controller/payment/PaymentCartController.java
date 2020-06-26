@@ -73,9 +73,14 @@ public class PaymentCartController {
 	// order로 들어옴 '0')/
 	@ResponseBody
 	@RequestMapping("/DoOrder")
-	public int do_order_cart(HttpSession session, DoOrderDto doOrderDto) {
-		int check = 1;
-		check = pcServ.doOrderCart(doOrderDto, session);
+	public String do_order_cart(HttpSession session, DoOrderDto doOrderDto) {
+		String check = "1";
+		try {
+			String o_num = pcServ.doOrderCart(doOrderDto, session);
+			check = o_num;
+		} catch (Exception e) {
+			check = "0";
+		}
 		return check;
 	}
 

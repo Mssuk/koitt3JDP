@@ -22,7 +22,7 @@
 	<select id="selectAllMemberCoupon" resultType="CouponDto">
 		select * from COUPON_MEMBER
 	</select>
-
+	
 	<!-- 쿠폰리스트 다불러오는거 -->
 	<select id="selectAllCoupon" resultType="CouponDto">
 		select * from COUPON
@@ -44,4 +44,14 @@
 		sysdate,
 		'')
 	</insert>
+	<!-- 적용한 쿠폰 -->
+	<select id="selectCouponOne"  resultType="CouponMemBean">
+		select col1.id,col1.regist_coupon,col1.use_date,col2.coupon_num,col2.coupon_name,col2.coupon_type,col2.coupon_pay,col2.startday,col2.endday from COUPON_MEMBER col1,coupon col2 where col2.coupon_num=col1.coupon_num and col1.id= #{id} and col1.coupon_num=#{coupon_num}
+	</select>
+	
+	<!-- 쿠폰사용상태 변경 -->
+	<update id="updateMemberCoupon">
+		update coupon_member set use_date=sysdate where coupon_num=#{coupon_num}
+	</update>
+	
 </mapper>

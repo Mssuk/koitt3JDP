@@ -12,8 +12,13 @@
 <select id="selectPaymentInfo" resultType="PaymentDto">
     select p.* from PAYMENT p, "ORDER" o where p."o_num" = o."o_num" and p."o_num"=#{param1}
 </select>
-
-
-
+<!-- 수취자 -->
+<insert id="insertPayeeOne">
+	insert into payee values(#{o_num},#{p_name},#{p_address},#{p_phone},#{p_tel},#{p_demand})
+</insert>
+<!-- 결제생성 -->
+<insert id="insertPaymentOne">
+	insert into payment values(#{o_num},#{o_way},sysdate,#{o_sum},#{o_coupon_num},#{bank},#{bank_name})
+</insert>
 
 </mapper>
