@@ -149,7 +149,7 @@ transition-property:transform, left, top; transition-duration:0s; transform:tran
 #mainRoll .swiper-slide a{position:relative; display:block; width:100%; height:370px;}
 #mainRoll .swiper-slide a img{position:absolute; left:50%; top:0; margin:0 0 0 -960px;}
 
-#mainThum{position:absolute; left:50%; top:220px; margin:0 0 0 -435px; z-index:9999;}
+#mainThum{position:absolute; left:50%; top:300px; margin:0 0 0 -435px; z-index:9999;}
 #mainThum div{position:relative; float:left; width:16px; height:16px; margin:0 14px 0 0; cursor:pointer; overflow:hidden;}
 #mainThum .swiper-pagination-switch{display:block; width:16px; height:16px; background:url('../images/btn/mainroll_off.png') left top no-repeat; overflow:hidden;}
 #mainThum .swiper-active-switch{background:url('../images/btn/mainroll_on.png') left top no-repeat;}
@@ -162,7 +162,7 @@ transition-property:transform, left, top; transition-duration:0s; transform:tran
 
 #mainSale{width:100%; height:210px; margin:0 0 30px 0; z-index:999; overflow:hidden;}
 #mainSale .swiper-slide{position:relative; width:180px; height:210px; overflow:hidden;}
-#mainSale .swiper-slide .img{width:180px; height:152px; margin:0 auto;}
+#mainSale .swiper-slide .img{width:180px; height:152px; margin:0 auto; text-align: center;}
 #mainSale .swiper-slide .name{width:150px; text-align:center; line-height:1.2; color:#666; margin:0 auto;}
 #mainSale .swiper-slide .price{width:150px; text-align:center; font-size:22px; color:#f15e23; font-weight:600; margin:4px auto 0;}
 #mainSale .discount{position:absolute; left:10%; top:0; width:44px; height:38px; padding:16px 0 0 16px; font-size:14px; color:#fff; font-weight:600; letter-spacing:-1px; background:url('../images/bg/sale_bg_arrow.png') left top no-repeat;}

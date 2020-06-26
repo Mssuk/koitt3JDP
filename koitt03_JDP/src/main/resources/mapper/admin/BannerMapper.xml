@@ -4,4 +4,8 @@
     <select id="selectAllBanner" resultType="BannerDto">
         select * from BANNER
     </select>
+    
+    <select id="selectBanner"	resultType="BannerDto">
+    	select * from banner where banner_exposure = 1
+    </select>
 </mapper>
