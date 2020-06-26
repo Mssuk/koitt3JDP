@@ -146,34 +146,34 @@
             <div class="btnArea">
                 <div class="bCenter">
                     <ul>
-                        <li><a onclick="addReviewData()" class="sbtnMini">확인</a></li>
+                        <li><a onclick="" class="sbtnMini">확인</a></li>
                         <li><a onclick="parent.$.fancybox.close();" href="javascript:" class="nbtnbig">취소</a></li>
                     </ul>
                 </div>
             </div>
             <!-- //Btn Area -->
 
-            <script>
-                function addReviewData() {
-                    var type=document.getElementById("reviewCheck");
-                    type = type.options[type.selectedIndex].text;
-                    var star=document.querySelector('input[name="appraisal"]:checked').value;
-                    star = parseInt(star);
-                    var title = document.getElementById("reviewTitle").value;
-                    var content = document.getElementById("reviewContent").value;
-                    var pro_num = '${pro_num}';
+<%--            <script>--%>
+<%--                function addReviewData() {--%>
+<%--                    var type=document.getElementById("reviewCheck");--%>
+<%--                    type = type.options[type.selectedIndex].text;--%>
+<%--                    var star=document.querySelector('input[name="appraisal"]:checked').value;--%>
+<%--                    star = parseInt(star);--%>
+<%--                    var title = document.getElementById("reviewTitle").value;--%>
+<%--                    var content = document.getElementById("reviewContent").value;--%>
+<%--                    var pro_num = '${pro_num}';--%>
 
-                    console.log(type);
-                    console.log(star);
-                    console.log(title);
-                    console.log(content);
-                    console.log(pro_num);
+<%--                    console.log(type);--%>
+<%--                    console.log(star);--%>
+<%--                    console.log(title);--%>
+<%--                    console.log(content);--%>
+<%--                    console.log(pro_num);--%>
 
-                    window.location.href=".addReview?type="+type+"&star="+star+"&title="+title+"&content="+content+"&pro_num="+pro_num;
-                    alert("등록되었습니다.");
-                    window.close();
-                }
-            </script>
+<%--                    window.location.href=".addReview?type="+type+"&star="+star+"&title="+title+"&content="+content+"&pro_num="+pro_num;--%>
+<%--                    alert("등록되었습니다.");--%>
+<%--                    window.close();--%>
+<%--                }--%>
+<%--            </script>--%>
         </div>
 
     </div>

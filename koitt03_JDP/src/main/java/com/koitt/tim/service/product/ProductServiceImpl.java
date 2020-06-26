@@ -96,12 +96,53 @@ public class ProductServiceImpl implements ProductService {
     public int getBoardCount(String pro_num) {
         return rDao.selectCountReview(pro_num);
     }
-
     //페이징 마지막 번호 호출
     @Override
     public int LastpageNum(String pro_num) {
         return getlastNum(this.getBoardCount(pro_num));
     }
+
+
+
+    @Override
+    public List<ReviewDto> getReviewPhotoList(String pro_num, int pageNum) {    // 포토리뷰 불러오기
+        int startNum = (pageNum -1)* PAGE_LIMIT+1;
+        int endNum = startNum + PAGE_LIMIT -1;
+
+        return rDao.selectReviewPhotoList(pro_num, startNum, endNum);
+    }
+    //포토리뷰 페이징
+    public List<Integer> getPageListPhoto(String pro_num,int pageNum){
+        List<Integer> pageList = new ArrayList<>();
+        //총 게시글 갯수
+        double totalCnt = this.getBoardCountPhoto(pro_num);
+        //마지막 페이지 번호 계산
+        int lastPageNum = getlastNumPhoto(totalCnt);
+        //시작 페이지 번호 설정
+        int startPageNum = ((int)(Math.ceil((double)pageNum / ROW_LIMIT)-1)*ROW_LIMIT)+1;
+        //현재 페이지를 기준으로 마지막 페이지 번호 조정
+        lastPageNum = Math.min(lastPageNum,startPageNum+ROW_LIMIT-1);
+        //페이지 번호 할당
+        for(int val=startPageNum; val<=lastPageNum;val++){
+            pageList.add(val);
+        }
+        return pageList;
+    }
+    // 마지막 페이지 번호 계산
+    public int getlastNumPhoto(double cnt) {
+        return (int) (Math.ceil(cnt / PAGE_LIMIT));
+    }
+    // 전체 게시글 카운트
+    public int getBoardCountPhoto(String pro_num) {
+        return rDao.selectCountReviewPhoto(pro_num);
+    }
+    //페이징 마지막 번호 호출
+    @Override
+    public int LastpageNumPhoto(String pro_num) {
+        return getlastNumPhoto(this.getBoardCountPhoto(pro_num));
+    }
+
+
 
 
     @Override
@@ -117,9 +158,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addReview(String id, int star, String title, String content,String pro_num) {
-        rDao.insertReview(id,star,title,content,pro_num);
-
+    public void addReview(String id,String key,String title,String stars,String content,String image1,String proNum) {
+        rDao.insertReview(id,key,title,stars,content,image1,proNum);
     }
 
 //    @Override

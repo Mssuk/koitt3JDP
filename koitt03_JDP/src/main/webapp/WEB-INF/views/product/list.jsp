@@ -23,14 +23,15 @@
 
                 <div class="brandTab">
                     <ul>
-                        <li><a href="#" class="hover">드립커피백</a></li>
-                        <li><a href="#">오리지널 커피백</a></li>
-                        <li><a href="#">마일드 커피백</a></li>
-                        <li><a href="#">카페모리</a></li>
-                        <li><a href="#">카페포드</a></li>
-                        <li><a href="#">카페리얼</a></li>
-                        <li><a href="#">워터커피</a></li>
-                        <li><a href="#">클래스</a></li>
+                        <li><a onclick="return false;" >드립커피백</a></li>
+                        <li><a onclick="return false;">오리지널 커피백</a></li>
+                        <li><a onclick="return false;">마일드 커피백</a></li>
+                        <li><a onclick="return false;">카페모리</a></li>
+                        <li><a onclick="return false;">카페포드</a></li>
+                        <li><a onclick="return false;">카페리얼</a></li>
+                        <li><a onclick="return false;">워터커피</a></li>
+                        <li><a onclick="return false;">클래스</a></li>
+                        <script type="text/javascript">$(function(){$(".brandTab ul li a:eq(2)").click();});</script>
                     </ul>
                 </div>
 

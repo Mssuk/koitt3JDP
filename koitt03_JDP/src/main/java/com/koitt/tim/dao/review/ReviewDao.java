@@ -14,14 +14,18 @@ import com.koitt.tim.dto.review.ReviewDto;
 
 @Repository
 public interface ReviewDao {
-	List<ReviewDto> selectReviewList(@Param("p1") String pro_num, @Param("p2") int startNum, @Param("p3") int endNum); // 상품번호로 제품리뷰 리스트 불러오기
+	List<ReviewDto> selectReviewList(@Param("p1") String pro_num, @Param("p2") int startNum, @Param("p3") int endNum); // 상품번호로 리뷰 리스트 불러오기
+	List<ReviewDto> selectReviewPhotoList(@Param("p1") String pro_num,@Param("p2") int startNum,@Param("p3") int endNum);	//상품번호로 포토리뷰 리스트 불러오기
 
-	void insertReview(@Param("id") String id, @Param("type") String type, @Param("star") int star,
-			@Param("title") String title, @Param("content") String content, @Param("pro_num") String pro_num); // 리뷰 추가
+	void insertReview(@Param("id") String id,@Param("key")String key,@Param("title")String title,@Param("stars")String stars,@Param("content")String content,@Param("image1")String image1,@Param("proNum")String proNum); // 리뷰 추가
 
-	void insertPhotoReview(ReviewDto rDto);
 
 	int selectCountReview(String pro_num);	//해당 상품 리뷰 카운트
+	int selectCountReviewPhoto(String pro_num);	//해당 상품 포토리뷰 카운트
+
+	String selectReviewKey(String oNum);		//리뷰 작성중 주문내역 key 호출  -이준희
+	String selectReviewPro_num(String oNum);	//리뷰 작성중 상품번호 호출  -이준희
+
 
 	// 모든 제품리뷰 불러오기 (admin)
 	List<ReviewDto> selectAllReview();

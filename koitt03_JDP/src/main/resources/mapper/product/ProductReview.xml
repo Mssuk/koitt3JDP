@@ -5,15 +5,21 @@
 
 <mapper namespace="com.koitt.tim.dao.review.ReviewDao">
 
-    <select id="selectReviewList" resultType="com.koitt.tim.dto.review.ReviewDto">
+    <select id="selectReviewList" resultType="ReviewDto">
 		select * from (select ROWNUM rnum, r."review_num", "id", "title", "regist_review", "hit", "score", "content", "image", "admin_answer"
 		from REVIEW r,ORDER_LIST o
-		where r."Key"=o.KEY and o."pro_num"=#{p1}) where rnum <![CDATA[ >= ]]> #{p2} and rnum <![CDATA[ <= ]]> #{p3}
+		where r."Key"=o.KEY and o."pro_num"=#{p1} and r."image" is null) where rnum <![CDATA[ >= ]]> #{p2} and rnum <![CDATA[ <= ]]> #{p3}
+    </select>
+
+    <select id="selectReviewPhotoList" resultType="ReviewDto">
+        select * from (select ROWNUM rnum, r."review_num", "id", "title", "regist_review", "hit", "score", "content", "image", "admin_answer"
+                       from REVIEW r,ORDER_LIST o
+                       where r."Key"=o.KEY and o."pro_num"=#{p1} and r."image" is not null) where rnum <![CDATA[ >= ]]> #{p2} and rnum <![CDATA[ <= ]]> #{p3}
     </select>
 
     <insert id="insertReview">
         insert into REVIEW
-        values (REVIEW_SEQ.nextval,#{id},'2020060306',#{title},sysdate,'0',#{star},#{content},null,null,#{pro_num})
+        values (REVIEW_SEQ.nextval,#{id},#{key},#{title},sysdate,'0',#{stars},#{content},#{image1},null,#{proNum})
     </insert>
 
    <!-- 비회원(회원) 리뷰 작성 -->
@@ -38,6 +44,16 @@
     	select count(*) from REVIEW where "Key"=#{key}
     </select>
 
+    <select id="selectReviewKey" resultType="String">
+        select ol.KEY from ORDER_LIST ol,"ORDER" o where o."o_num"=#{oNum} and o."o_num" = ol."o_num"
+    </select>
+
+    <select id="selectReviewPro_num" resultType="String">
+        select ol."pro_num" from "ORDER" o,ORDER_LIST ol where o."o_num"=#{oNum} and o."o_num"=ol."o_num"
+    </select>
+
+
+
 	<!--  admin 모든 리뷰 불러오기 -->
 	<select id="selectAllReview" resultType="ReviewDto">
 		select * from review order by "regist_review" desc
@@ -60,9 +76,14 @@
 	review r where ol."KEY" = r."Key" and r."review_num" = #{param1}
 	</select>
 
-	<!-- 해당 상품 전체 리뷰 카운트	-->
+	<!-- 해당 상품 리뷰 카운트	-->
 	<select id="selectCountReview" resultType="int">
-		select COUNT(*) from REVIEW where PRO_NUM = #{pro_num}
+		select COUNT(*) from REVIEW r where r.PRO_NUM = #{pro_num} and r."image" is null
 	</select>
+
+    <!-- 해당 상품 포토리뷰 카운트	-->
+    <select id="selectCountReviewPhoto" resultType="int">
+        select COUNT(*) from REVIEW r where PRO_NUM = #{pro_num} and r."image" is not null
+    </select>
 
 </mapper>
