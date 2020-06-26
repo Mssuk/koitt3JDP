@@ -137,7 +137,7 @@
                                     <td class="left">
                                         ${ordersub.product_name}
                                     </td>
-                                    <td class="tnone"> 
+                                    <td class="tnone">
                                     	<fmt:formatNumber value="${ordersub.price}" pattern="#,###,###"/>원 </td>
                                     <td class="tnone">${ordersub.o_quant}개</td>
                                     <td>
@@ -146,7 +146,7 @@
 											<c:when test="${ordersub.o_status=='취소신청' }">
 												<ul class="state">
 													<li><a href="javascript:;" onclick="retu_cancel2('${ordersub.o_num}')" class="nbtnMini">취소</a></li>
-												</ul>	
+												</ul>
 											</c:when>
 											<c:when test="${ordersub.o_status=='배송완료'||ordersub.o_status=='구매확정' }">
 												<jsp:useBean id="now" class="java.util.Date"></jsp:useBean>
@@ -169,25 +169,32 @@
 														<c:when test="${ordersub.o_status=='구매확정'}">
 															<c:if test="${dayDiff <= 14 && ordersub.reviewOk==0}">
 																<li><a href="review?num1=${ordersub.key }"  class="popBtn nbtnMini" style="cursor: pointer;">리뷰작성</a></li>
-															</c:if>	
+															</c:if>
 														</c:when>
 													</c:choose>
-												</ul>										
+												</ul>
 											</c:when>
 											<c:when test="${ordersub.o_status=='결제대기중' }">
 												<ul class="state">
 													<li><a onclick="order_cancel('${ordersub.o_num }')" class="nbtnMini iw83" style="cursor: pointer;">취소</a></li>
-												</ul>										
+												</ul>
 											</c:when>
 											<c:when test="${ordersub.o_status=='결제완료' }">
 													<ul class="state">
 														<li><a onclick="order_cancel2('${ordersub.o_num }')" class="nbtnMini iw83" style="cursor: pointer;">취소</a></li>
-													</ul>										
+													</ul>
 											</c:when>
 											<c:otherwise>
-													<span class="orange ">${ordersub.o_status }</span>									
+													<span class="orange ">${ordersub.o_status }</span>
 											</c:otherwise>
 										</c:choose>
+                                        <ul class="state">
+                                            <li class="r5"><a href="return" class="obtnMini iw40">교환</a></li>
+                                            <li><a href="return" class="nbtnMini iw40">반품</a></li>
+
+                                            <li><a href=".writeReview?oNum=${ordersub.o_num}" class="reviewbtn">리뷰작성</a></li>
+                                            <li><a href="#" class="decidebtn">구매확정</a></li>
+                                        </ul>
                                     </td>
                                 </tr>
                                 </c:forEach>

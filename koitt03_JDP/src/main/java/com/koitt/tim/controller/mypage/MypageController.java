@@ -52,9 +52,9 @@ public class MypageController {
 			model.addAttribute("orderCount", orderCount);
 
 			// o_num 전체를 불러와 ArrayList에 저장 _나동수
-			ArrayList<String> orderNumList = mypageService.orderNumList(mDto.getId()); // 해당 ID로 등록된 o_num들 전체 불러옴
-			// 불러온 o_num을 이용해 orderList 불러오기 _나동수
+			ArrayList<String> orderNumList = mypageService.orderNumList(mDto.getId()); // 해당 ID로 등록된 o_num들 전체 불러옴(order)
 
+			// 불러온 o_num을 이용해 orderList 불러오기 _나동수
 			List<List<OrderListDto>> listDto = new ArrayList<List<OrderListDto>>();
 			for (int i = 0; i < orderNumList.size(); i++) {
 				listDto.add(mypageService.orderList(orderNumList.get(i)));
@@ -128,4 +128,17 @@ public class MypageController {
 
 		return result;
 	}
+	@RequestMapping(".writeReview")
+	public String writeReview(Model model, String oNum){
+
+		String key = mypageService.getReviewKey(oNum);		//주문번호로 주문리스트의 key 호출
+		String pro_num = mypageService.getReviewPro_num(oNum);	//주문번호로 주문리스트의 상품 번호 호출
+
+		model.addAttribute("o_num",oNum);
+		model.addAttribute("key",key);
+		model.addAttribute("pro_num",pro_num);
+
+		return "product/photo";
+	}
+
 }
