@@ -1,11 +1,13 @@
 package com.koitt.tim.dao.product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.koitt.tim.dto.product.MainProductDto;
+import com.koitt.tim.dto.product.ProductDto;
 
 @Repository
 public interface MainProductDao {
@@ -21,4 +23,13 @@ public interface MainProductDao {
 
 	// 메인 상품정보 업데이트
 	void updateMProduct(@Param("p1") String code, @Param("p2") String index, @Param("p3") int value);
+
+	ArrayList<String> selectHitPro();
+
+	ArrayList<String> selectSalesPro();
+
+	List<ProductDto> selectHit(String proNum);
+
+	List<ProductDto> selectSale(String proNum);
+
 }

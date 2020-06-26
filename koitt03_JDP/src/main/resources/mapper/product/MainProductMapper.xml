@@ -17,4 +17,20 @@
 	<update id="updateMProduct">
 		update main_product set ${p2} = #{p3} where pro_num = #{p1}
 	</update>
+	
+	<select id="selectHitPro" resultType="String">
+		select pro_num from main_product where hit_p = 1
+	</select>
+	
+	<select id="selectSalesPro" resultType="String">
+		select pro_num from main_product where sale_p = 1
+	</select>
+	
+	<select id="selectHit" resultType="productDto"> 
+		 select * from product where pro_num = #{proNum}
+	</select>
+	
+	<select id="selectSale" resultType="productDto"> 
+		 select * from product where pro_num = #{proNum}
+	</select>
 </mapper>

@@ -1,4 +1,11 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+	if (session.getAttribute("loginInfo") == null) {
+		response.sendRedirect("/membership/login");
+	}
+%>
 <jsp:include page="../common/header.jsp"/>
 <!-- container -->
 <div id="container">
@@ -13,14 +20,14 @@
         <div id="left">
             <div id="title">MY PAGE<span>마이페이지</span></div>
             <ul>
-                <li><a href="#" id="leftNavi1">주문/배송 조회</a></li>
+                <li><a href="ordercheck" id="leftNavi1">주문/배송 조회</a></li>
                 <li><a href="#" id="leftNavi2">반품/배송 현황</a></li>
                 <li><a href="#" id="leftNavi3">장바구니</a></li>
                 <li><a href="#" id="leftNavi4">위시리스트</a></li>
-                <li><a href="#" id="leftNavi5">나의 쿠폰</a></li>
+                <li><a href="coupon" id="leftNavi5">나의 쿠폰</a></li>
                 <li><a href="#" id="leftNavi6">나의 포인트</a></li>
                 <li><a href="#" id="leftNavi7">1:1문의</a></li>
-                <li><a href="#" id="leftNavi8">회원정보 수정</a></li>
+                <li><a href="change_info" id="leftNavi8">회원정보 수정</a></li>
                 <li class="last"><a href="#" id="leftNavi9">회원 탈퇴</a></li>
             </ul>
         </div>
@@ -33,10 +40,11 @@
 
                 <div class="myInfo">
                     <ul>
-                        <li class="info"><strong>가나다</strong> 님의 정보를 한눈에 확인하세요.</li>
-                        <li>보유 쿠폰<br/><span class="num">199</span> <span class="unit">장</span></li>
-                        <li class="point">내 포인트<br/><span class="num">100,000</span> <span class="unit">P</span></li>
-                        <li class="last">진행중인 주문<br/><span class="num">199</span> <span class="unit">건</span></li>
+                        <li class="info"><strong>${loginInfo.name }</strong> 님의 정보를 한눈에 확인하세요.</li>
+                        <li>보유 쿠폰<br/><span class="num">${userCoupon }</span> <span class="unit">장</span></li>
+                        <li class="point">내 포인트<br/><span class="num">
+                        	<fmt:formatNumber value="${userPoint}" pattern="#,###,###"/></span> <span class="unit">P</span></li>
+                        <li class="last">진행중인 주문<br/><span class="num">${orderCount }</span> <span class="unit">건</span></li>
                     </ul>
                 </div>
 
@@ -53,7 +61,7 @@
 
                 <!-- Serviceable -->
                 <div class="tab_serviceable couponnone">
-                    <div class="shortTxt">현재 사용 가능한 쿠폰은 <span class="orange">3</span>장입니다.</div>
+                    <div class="shortTxt">현재 사용 가능한 쿠폰은 <span class="orange">${userCoupon }</span>장입니다.</div>
                     <div class="orderDivNm">
                         <table summary="사용가능 한 쿠폰으로 No, 종류, 쿠폰명, 사용기한, 상태를 조회 하실수 있습니다." class="orderTable2" border="1"
                                cellspacing="0">
@@ -73,40 +81,31 @@
                             <th scope="col">상태</th>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="tnone">1</td>
-                                <td>10% 할인쿠폰</td>
-                                <td class="tnone">쟈뎅샵 1주년 기념 쿠폰</td>
-                                <td>14-01-28 ~ 14-05-31</td>
-                                <td><span class="heavygray">사용가능</span></td>
-                            </tr>
-
-                            <tr>
-                                <td class="tnone">2</td>
-                                <td>원두 전품목 5%</td>
-                                <td class="tnone">쟈뎅샵 오픈기념 이벤트 쿠폰</td>
-                                <td>14-01-28 ~ 14-05-31</td>
-                                <td><span class="heavygray">사용가능</span></td>
-                            </tr>
-
-                            <tr>
-                                <td class="tnone">3</td>
-                                <td>회원가입 감사 쿠폰</td>
-                                <td class="tnone">회원가입 기념 전품목 5% 할인 쿠폰</td>
-                                <td>14-01-28 ~ 14-05-31</td>
-                                <td><span class="heavygray">사용가능</span></td>
-                            </tr>
-                            </tbody>
+	                            <c:if test="${cList != null }">
+		                            <c:forEach var="cList" items="${cList }"> 
+		                            <tr>
+		                               		<fmt:formatDate value="${cList.startday }" pattern="yyyy-MM-dd" var="startday" />
+		                                	<fmt:formatDate value="${cList.endday }" pattern="yyyy-MM-dd" var="endday" />
+		                               	<td class="tnone">1</td>
+		                                <td>${cList.coupon_type }</td>
+		                                <td class="tnone">${cList.coupon_name }</td>
+		                                <td>${startday } ~ ${endday }</td>
+		                                <td><span class="heavygray">사용가능</span></td>
+		                            </tr>
+		                            </c:forEach>
+    	                    	</c:if>
+		                        <c:if test="${cList == null }">
+				                        <div class="noData">
+				                            	등록된 상품이 없습니다.
+				                        </div>
+				                </c:if>
+	                            </tbody>
                         </table>
-
-                        <div class="noData">
-                            등록된 상품이 없습니다.
-                        </div>
                     </div>
 
 
-                    <div class="btnAreaList">
-                        <!-- 페이징이동1 -->
+                    <!-- <div class="btnAreaList">
+               		    //페이징이동1
                         <div class="allPageMoving1">
 
                             <a href="#" class="n"><img src="../images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="#"
@@ -122,8 +121,8 @@
                                 src="../images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
 
                         </div>
-                        <!-- //페이징이동1 -->
-                    </div>
+                        //페이징이동1
+                    </div> -->
                 </div>
                 <!-- //Serviceable -->
 

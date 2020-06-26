@@ -36,6 +36,7 @@
 
 
     <select id="selectOrderCount" resultType="int">
+<!--         select count(*) from "ORDER" where "id"=#{id} -->
         select count(*) from "ORDER" where "id"=#{id}
     </select>
 

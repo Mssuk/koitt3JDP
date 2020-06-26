@@ -3,7 +3,7 @@ package com.koitt.tim.service.mypage;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.koitt.tim.dto.member.MemberDto;
+import com.koitt.tim.dto.coupon.CouponMemBean;
 import com.koitt.tim.dto.order.OrderListDto;
 
 public interface MypageService {
@@ -18,11 +18,5 @@ public interface MypageService {
 
 	List<OrderListDto> orderList(String OrderNum);
 
-	void subEmail(MemberDto mDto);
-
-	void subBirth(MemberDto mDto);
-
-	void subTel(MemberDto mDto);
-
-	void subPhone(MemberDto mDto);
+	List<CouponMemBean> getMemberCoupons(String id);
 }

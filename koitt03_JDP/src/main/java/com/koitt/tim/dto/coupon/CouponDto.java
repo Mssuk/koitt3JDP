@@ -4,12 +4,12 @@ import java.sql.Timestamp;
 
 public class CouponDto {
 
-	private String coupon_num;
-	private String coupon_name;
 	private String coupon_type;
-	private int coupon_pay;
+	private String coupon_name;
+	private String coupon_num;
 	private Timestamp startday;
 	private Timestamp endday;
+	private int coupon_pay;
 
 	public String getCoupon_num() {
 		return coupon_num;
