@@ -25,11 +25,9 @@ $(document).ready(function(){
 });
 	
 	//댓글유효성
-	function reply_ok(aa){
-		var k=aa;
-		var croodx = '<%=session.getAttribute("loginInfo")%>';
-		if(croodx==null){
-			alert('로그인 후 다운가능합니다.');
+	function reply_ok(a){
+		if(a==''){
+			alert('로그인 후 작성가능합니다.');
 			return false;
 		}
 		if(event_reply.event_re_content.value==''){
@@ -132,7 +130,7 @@ $(document).ready(function(){
 										<c:set value="${today - couT }" var="dayDiff" />
 										<c:choose>
 											<c:when test="${dayDiff<=0 }">
-												<a href="javascript:;" onclick="getCou('${event_view.eventDto.coupon_num}')" class="download">
+												<a href="javascript:;" onclick="getCou('${event_view.eventDto.coupon_num}','${authuser }')" class="download">
 													<span>다운로드</span>
 												</a>
 											</c:when>
@@ -205,7 +203,7 @@ $(document).ready(function(){
 								<p class="password">비밀번호&nbsp;&nbsp;<input type="password" class="replynum" name="pw" /></p>
 								<textarea class="replyType" name="event_re_content"></textarea>
 							</li>
-							<li class="btn"><input type="button" onclick="reply_ok(this.form)" class="replyBtn" value="등록" style="border:none;cursor: pointer;"></li>
+							<li class="btn"><input type="button" onclick="reply_ok('${authuser }')" class="replyBtn" value="등록" style="border:none;cursor: pointer;"></li>
 						</ul>
 						<p class="ntic">※ 비밀번호를 입력하시면 댓글이 비밀글로 등록 됩니다.</p>
 					</form>
@@ -319,9 +317,8 @@ $(function(){
 </script>
 <script type="text/javascript">
 //선택삭제
-function getCou(a){ // 매개변수를 받는다.
-	var croodx = '<%=session.getAttribute("loginInfo")%>';
-	if(croodx==null){
+function getCou(a,b){ // 매개변수를 받는다.
+	if(b==''){
 		alert('로그인 후 다운가능합니다.');
 		return false;
 	}
@@ -332,11 +329,13 @@ function getCou(a){ // 매개변수를 받는다.
         data: JSON.stringify({coupon_num:a}),  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
         contentType: "application/json",
         success : function (data) {
-           if(data== 2){ //리턴값이 ok일 경우
+           if(data== 0){ //리턴값이 ok일 경우
               alert('쿠폰이 발급되었습니다');
            }else if(data == 1){
+				alert('기한이 경과한 쿠폰입니다');
+			}else if(data == 2){
 				alert('이미 발급받은 쿠폰입니다');
-			}else if(data == 0){
+			}else if(data == 3){
 				alert('쿠폰 발급 실패. 잠시 후 다시 시도해주세요');
 			}
         },
@@ -352,7 +351,6 @@ function getCou(a){ // 매개변수를 받는다.
 		<!-- quickmenu -->
 		<jsp:include page="../common/quickmenu.jsp" />
 		<!-- //quickmenu -->
-
 	</div>
 	<!-- //container -->
 

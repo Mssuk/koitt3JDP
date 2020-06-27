@@ -77,13 +77,16 @@
 	        }
 	     });
 	}
-
-	function nonMem_ch() {
-
-	}
-
 </script>
-
+<script type="text/javascript">
+$(function(){
+	//비회원 입력폼 양식제한
+	$('.wnum74').keyup(function() {
+		var c=$(this).val();
+		$(this).val(c.replace(/[^0-9-]/g,""));//숫자 -가 아니면 입력못함
+	});
+});
+</script>
 
 <!-- container -->
 <div id="container">
@@ -159,10 +162,10 @@
 				<div class="informbox">
 					<form class="inform" name="o_check" method="post">
 						<ul>
-							<li><input type="text" class="ordererType" name="o_num"
+							<li><input type="text" class="ordererType" name="o_num" maxlength="13"
 								onfocus="this.className='mfocus'"
 								onblur="if (this.value.length==0) {this.className='ordererType'}else {this.className='mfocusnot'}" /></li>
-							<li><input type="text" class="ordernumType" name="o_tel"
+							<li><input type="text" class="ordernumType wnum74" name="o_tel" maxlength="13"
 								onfocus="this.className='mfocus'"
 								onblur="if (this.value.length==0) {this.className='ordererType'}else {this.className='mfocusnot'}" /></li>
 						</ul>

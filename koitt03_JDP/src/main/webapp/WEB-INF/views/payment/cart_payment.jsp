@@ -187,7 +187,11 @@
 											</li>
 											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
 											<li><input type="text" class="w74" maxlength="4" value="${member.phone2 }" name="phone2" /> <span class="valign">-</span>&nbsp;</li>
-											<li class="r10"><input type="text" class="w74" maxlength="4" name="phone3"  value="${member.phone3 }"/></li>
+											<li class="r10"><input type="text" class="w74" maxlength="4" name="phone3"  value="${member.phone3 }"/> 
+											<c:if test="${member==null }">
+											<span style="color:#fe6124;">주문 조회시 사용됩니다</span>
+											</c:if>
+											</li>
 										</ul>
 									</td>
 								</tr>
@@ -948,6 +952,8 @@ $(function(){
 		var f_total=get_re_total(first,f_deliver);
 		$( ".result_total strong" ).text(f_total);
 		$( ".result_total span" ).text(f_total);
+		$( ".money span" ).text(f_total);
+		$( ".money strong" ).text(f_total);
 		//처음 포인트(적립예정)
 		var f_point=get_point(first);
 		$(".mileage strong").text(f_point);

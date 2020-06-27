@@ -25,11 +25,9 @@ $(document).ready(function(){
 });
 	
 	//댓글유효성
-	function reply_ok(aa){
-		var k=aa;
-		var croodx = '<%=session.getAttribute("loginInfo")%>';
-		if(croodx==null){
-			alert('로그인 후 다운가능합니다.');
+	function reply_ok(a){
+		if(a==''){
+			alert('로그인 후 작성가능합니다.');
 			return false;
 		}
 		if(event_reply.event_re_content.value==''){
@@ -204,7 +202,7 @@ $(document).ready(function(){
 								<p class="password">비밀번호&nbsp;&nbsp;<input type="password" class="replynum" name="pw" /></p>
 								<textarea class="replyType" name="event_re_content"></textarea>
 							</li>
-							<li class="btn"><input type="button" onclick="reply_ok(this.form)" class="replyBtn" value="등록" style="border:none;cursor: pointer;"></li>
+							<li class="btn"><input type="button" onclick="reply_ok('${authuser }')" class="replyBtn" value="등록" style="border:none;cursor: pointer;"></li>
 						</ul>
 						<p class="ntic">※ 비밀번호를 입력하시면 댓글이 비밀글로 등록 됩니다.</p>
 					</form>

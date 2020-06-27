@@ -63,6 +63,23 @@ public class NonMemberController {
 		int orch = 1;
 		String o_num = reqMap.get("o_num");
 		String o_tel = reqMap.get("o_tel");
+		o_tel = o_tel.trim();
+		o_tel = o_tel.replace("-", "");
+		o_tel = o_tel.replace(" ", "");
+		String o_tel1 = "";
+		String o_tel2 = "";
+		String o_tel3 = "";
+		if (o_tel.length() == 10) {
+			o_tel1 = o_tel.substring(0, 3);
+			o_tel2 = o_tel.substring(3, 6);
+			o_tel3 = o_tel.substring(6, o_tel.length());
+		} else {
+			o_tel1 = o_tel.substring(0, 3);
+			o_tel2 = o_tel.substring(3, 7);
+			o_tel3 = o_tel.substring(7, o_tel.length());
+		}
+		o_tel = o_tel1 + "-" + o_tel2 + "-" + o_tel3;
+
 		orch = nServ.getOrderList(o_num, o_tel);
 		if (orch == 1) {
 			session.setAttribute("nonOk", o_num);
