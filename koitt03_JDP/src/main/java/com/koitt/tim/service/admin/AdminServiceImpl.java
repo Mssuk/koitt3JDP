@@ -3,24 +3,22 @@ package com.koitt.tim.service.admin;
 import java.util.HashMap;
 import java.util.List;
 
-import com.koitt.tim.dao.admin.BannerDao;
-import com.koitt.tim.dao.order.ChangeDao;
-import com.koitt.tim.dao.order.OrderDao;
-import com.koitt.tim.dao.payment.PayeeDao;
-import com.koitt.tim.dao.payment.PaymentDao;
-import com.koitt.tim.dto.admin.BannerDto;
-import com.koitt.tim.dto.order.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.koitt.tim.dao.admin.AnswerDao;
+import com.koitt.tim.dao.admin.BannerDao;
 import com.koitt.tim.dao.board.FaqDao;
 import com.koitt.tim.dao.board.NoticeDao;
 import com.koitt.tim.dao.category.CategoryDao;
 import com.koitt.tim.dao.coupon.CouponDao;
 import com.koitt.tim.dao.event.EventDao;
 import com.koitt.tim.dao.member.MemberDao;
+import com.koitt.tim.dao.order.ChangeDao;
+import com.koitt.tim.dao.order.OrderDao;
+import com.koitt.tim.dao.payment.PayeeDao;
+import com.koitt.tim.dao.payment.PaymentDao;
 import com.koitt.tim.dao.product.MainProductDao;
 import com.koitt.tim.dao.product.ProductAnswerDao;
 import com.koitt.tim.dao.product.ProductDao;
@@ -30,6 +28,7 @@ import com.koitt.tim.dao.product.RelatedProductDao;
 import com.koitt.tim.dao.question.QuestionDao;
 import com.koitt.tim.dao.review.ReviewDao;
 import com.koitt.tim.dto.admin.AnswerDto;
+import com.koitt.tim.dto.admin.BannerDto;
 import com.koitt.tim.dto.admin.MallDto;
 import com.koitt.tim.dto.board.FaqDto;
 import com.koitt.tim.dto.board.NoticeDto;
@@ -38,6 +37,11 @@ import com.koitt.tim.dto.category.CategoryDept2Dto;
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
+import com.koitt.tim.dto.order.ChangeDto;
+import com.koitt.tim.dto.order.OrderDto;
+import com.koitt.tim.dto.order.OrderListDto;
+import com.koitt.tim.dto.order.PayeeDto;
+import com.koitt.tim.dto.order.PaymentDto;
 import com.koitt.tim.dto.product.MainProductDto;
 import com.koitt.tim.dto.product.ProductAnswerDto;
 import com.koitt.tim.dto.product.ProductDto;
@@ -146,22 +150,26 @@ public class AdminServiceImpl implements AdminService {
 		return categoryDao.selectAllDept2();
 	}
 
-	@Transactional
 	@Override
-	public void insertProduct(ProductSerialDto psDto, ProductDto pDto) {
+	@Transactional
+	public void insertProduct(ProductSerialDto psDto, ProductDto pDto) throws Exception {
 
-		// 상품번호 넣기
-		psDao.insertProductSerial(psDto);
-		String pro_num = psDto.getPro_num();
-		pDto.setPro_num(pro_num);
+		try {
+			// 상품번호 넣기
+			psDao.insertProductSerial(psDto);
+			String pro_num = psDto.getPro_num();
+			pDto.setPro_num(pro_num);
 
-		// 상품 넣기
-		pDao.insertProduct(pDto);
-		// 연관상품 넣기
-		rpDao.insertRProduct(pro_num);
+			// 상품 넣기
+			pDao.insertProduct(pDto);
+			// 연관상품 넣기
+			rpDao.insertRProduct(pro_num);
 
-		// 메인화면 상품 넣기
-		mpDao.insertMProduct(pro_num);
+			// 메인화면 상품 넣기
+			mpDao.insertMProduct(pro_num);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	@Override

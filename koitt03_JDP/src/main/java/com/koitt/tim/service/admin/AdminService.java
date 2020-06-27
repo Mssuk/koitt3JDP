@@ -13,7 +13,11 @@ import com.koitt.tim.dto.category.CategoryDept2Dto;
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
-import com.koitt.tim.dto.order.*;
+import com.koitt.tim.dto.order.ChangeDto;
+import com.koitt.tim.dto.order.OrderDto;
+import com.koitt.tim.dto.order.OrderListDto;
+import com.koitt.tim.dto.order.PayeeDto;
+import com.koitt.tim.dto.order.PaymentDto;
 import com.koitt.tim.dto.product.MainProductDto;
 import com.koitt.tim.dto.product.ProductAnswerDto;
 import com.koitt.tim.dto.product.ProductDto;
@@ -55,7 +59,7 @@ public interface AdminService {
 	List<CategoryDept2Dto> getAllCate2();
 
 	// Product insert
-	void insertProduct(ProductSerialDto psDto, ProductDto pDto);
+	void insertProduct(ProductSerialDto psDto, ProductDto pDto) throws Exception;
 
 	// Related product
 	List<RelatedProductDto> getAllRelatedProducts();
@@ -153,30 +157,30 @@ public interface AdminService {
 	// FAQ 삭제하기
 	void deleteFaq(String key);
 
-	//order 목록 가져오기
+	// order 목록 가져오기
 	List<OrderDto> getAllOrder();
 
-	//orderList 목록 가져오기
+	// orderList 목록 가져오기
 	List<OrderListDto> getAllOL();
 
-	//order에 있는 상품목록들
+	// order에 있는 상품목록들
 	List<ProductDto> getOrderPro();
 
-	//order 주문상태 변경
+	// order 주문상태 변경
 	void updateOrderStatus(String o_num, String o_status);
 
-	//order에 대한 결제내역 가져오기
+	// order에 대한 결제내역 가져오기
 	List<PaymentDto> getPaymentInfo(String o_num);
 
-	//order에 대한 수취자 정보 가져오기
+	// order에 대한 수취자 정보 가져오기
 	List<PayeeDto> getPayeeInfo(String o_num);
 
-	//반품리스트 가져오기
+	// 반품리스트 가져오기
 	List<ChangeDto> getChangeList();
 
-	//반품정보 업데이트
+	// 반품정보 업데이트
 	void updateChangeInfo(String key, String c_type, String c_state);
 
-	//모든 배너 가져오기
+	// 모든 배너 가져오기
 	List<BannerDto> getAllBanner();
 }
