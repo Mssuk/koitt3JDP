@@ -16,6 +16,7 @@ import com.koitt.tim.dao.coupon.CouponDao;
 import com.koitt.tim.dao.member.MemberDao;
 import com.koitt.tim.dao.order.OrderDao;
 import com.koitt.tim.dao.order.ReceiptDao;
+import com.koitt.tim.dao.payment.PayeeDao;
 import com.koitt.tim.dao.payment.PaymentDao;
 import com.koitt.tim.dao.point.PointDao;
 import com.koitt.tim.dao.product.ProductDao;
@@ -25,6 +26,11 @@ import com.koitt.tim.dto.coupon.CouponMemBean;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.order.DoOrderDto;
 import com.koitt.tim.dto.order.GetOrderNum;
+import com.koitt.tim.dto.order.OrderConfirmBean;
+import com.koitt.tim.dto.order.OrderDto;
+import com.koitt.tim.dto.order.OrderListDto;
+import com.koitt.tim.dto.order.PayeeDto;
+import com.koitt.tim.dto.order.PaymentDto;
 import com.koitt.tim.dto.product.ProductDto;
 
 @Service
@@ -49,6 +55,9 @@ public class PaymemtCartServiceImpl implements PaymentCartService {
 	private OrderDao odao;
 	@Autowired
 	private PaymentDao paydao;
+
+	@Autowired
+	private PayeeDao payeedao;
 
 	@Autowired
 	private ReceiptDao rdao;
@@ -292,7 +301,7 @@ public class PaymemtCartServiceImpl implements PaymentCartService {
 			p_demand = doOrderDto.getP_demand();
 		}
 		try {
-			paydao.insertPayeeOne(o_num, p_name, p_address, p_phone, p_tel, p_demand);
+			payeedao.insertPayeeOne(o_num, p_name, p_address, p_phone, p_tel, p_demand);
 		} catch (Exception e) {
 			check = -3;//
 			System.out.println("수취자 정보넣기");
@@ -483,6 +492,37 @@ public class PaymemtCartServiceImpl implements PaymentCartService {
 		}
 
 		return o_num;
+	}
+
+	// 주문정보가져오기
+	@Override
+	public OrderConfirmBean getOrderInfo(String o_num) {
+		// orderlist
+		List<OrderListDto> orderlist = odao.selectOrderConfirmList(o_num);
+		// 주문정보
+		OrderDto orderInfo = odao.selectOrder(o_num);
+		// 수취자 정보
+		PayeeDto payeeDto = payeedao.selectPayeeOne(o_num);
+		// 결제정보
+		PaymentDto paymentDto = paydao.selectPaymentOne(o_num);
+		// 배송비
+		int deliver = 2500;
+		if (orderInfo.getO_cost() >= 15000)
+			deliver = 0;
+		OrderConfirmBean confirm = new OrderConfirmBean();
+		confirm.setOrderInfo(orderInfo);
+		confirm.setOrderlist(orderlist);
+		confirm.setPayee(payeeDto);
+		confirm.setPayment(paymentDto);
+		confirm.setDeliver(deliver);
+		// 쿠폰정보
+		CouponMemBean coupon = null;
+		if (paymentDto.getO_coupon_num() != null) {
+			coupon = cdao.selectCouponOne(orderInfo.getId(), paymentDto.getO_coupon_num());
+			confirm.setCoupon(coupon);
+		}
+
+		return confirm;
 	}
 
 }

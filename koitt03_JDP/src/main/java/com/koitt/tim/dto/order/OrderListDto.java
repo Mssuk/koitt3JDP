@@ -16,6 +16,7 @@ public class OrderListDto {
 	private String c_type;
 	private Timestamp o_update_date;// 반품신청가능기한, 구매확정기한의 기준
 	private int reviewOk; // key에 해당하는 리뷰개수를 담는다.
+	private String front_image1;// 상품썸네일
 
 	public String getKey() {
 		return key;
@@ -111,5 +112,13 @@ public class OrderListDto {
 
 	public void setReviewOk(int reviewOk) {
 		this.reviewOk = reviewOk;
+	}
+
+	public String getFront_image1() {
+		return front_image1;
+	}
+
+	public void setFront_image1(String front_image1) {
+		this.front_image1 = front_image1;
 	}
 }

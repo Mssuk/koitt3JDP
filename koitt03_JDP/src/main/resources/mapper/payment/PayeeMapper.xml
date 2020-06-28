@@ -7,6 +7,12 @@
     <select id="selectPayeeInfo" resultType="PayeeDto">
         select * from PAYEE where "o_num" = #{param1}
     </select>
-
-
+<!-- 수취자 -->
+<insert id="insertPayeeOne">
+	insert into payee values(#{o_num},#{p_name},#{p_address},#{p_phone},#{p_tel},#{p_demand})
+</insert>
+<select id="selectPayeeOne" resultType="PayeeDto">
+        select * from PAYEE where "o_num" = #{o_num}
+    </select>
+	
 </mapper>

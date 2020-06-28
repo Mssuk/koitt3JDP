@@ -82,4 +82,10 @@ public interface OrderDao {
 			@Param("pro_num") String pro_num, @Param("product_name") String product_name, @Param("o_quant") int o_quant,
 			@Param("product_price") int product_price);
 
+	// 주문확인페이지-주문정보1
+	List<OrderListDto> selectOrderConfirmList(@Param("o_num") String o_num);
+
+	// 주문확인페이지-주문정보2 주문정보2금액등 불러오기 위한
+	OrderDto selectOrder(@Param("o_num") String o_num);
+
 }

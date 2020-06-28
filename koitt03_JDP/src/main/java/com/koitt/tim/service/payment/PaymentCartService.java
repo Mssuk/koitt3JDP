@@ -10,6 +10,7 @@ import com.koitt.tim.dto.basket.CartViewDto;
 import com.koitt.tim.dto.coupon.CouponMemBean;
 import com.koitt.tim.dto.member.MemberDto;
 import com.koitt.tim.dto.order.DoOrderDto;
+import com.koitt.tim.dto.order.OrderConfirmBean;
 
 public interface PaymentCartService {
 	// order로 들어올때 담은 장바구니를 가져옴
@@ -32,5 +33,8 @@ public interface PaymentCartService {
 
 	// 주문하기!
 	String doOrderCart(DoOrderDto doOrderDto, HttpSession session);
+
+	// 주문정보가져오기
+	OrderConfirmBean getOrderInfo(String o_num);
 
 }

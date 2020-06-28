@@ -17,6 +17,7 @@ import com.koitt.tim.dto.basket.BasketMemberDto;
 import com.koitt.tim.dto.basket.CartViewDto;
 import com.koitt.tim.dto.coupon.CouponMemBean;
 import com.koitt.tim.dto.order.DoOrderDto;
+import com.koitt.tim.dto.order.OrderConfirmBean;
 import com.koitt.tim.service.payment.PaymentCartService;
 
 @Controller
@@ -87,7 +88,10 @@ public class PaymentCartController {
 
 	// 주문확인페이지
 	@RequestMapping("/orderConfirmC")
-	public String ordercartconfirm(@RequestParam(value = "o_num") String o_num) {
+	public String ordercartconfirm(@RequestParam(value = "o_num") String o_num, Model model) {
+
+		OrderConfirmBean confirm = pcServ.getOrderInfo(o_num);
+		model.addAttribute("confirm", confirm);
 		return "payment/order_cart_confirmation";
 	}
 }

@@ -41,7 +41,7 @@
     </select>
 
     <!-- 회원 주문조회 -->
-    <select id="selectOrderList" resultType="orderListDto">
+    <select id="selectOrderList" resultType="OrderListDto">
         select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status
             from  ORDER_LIST col2, "ORDER" col1 where col1."o_num" = col2."o_num" and col2."o_num" = #{orderNum}
     </select>
@@ -106,6 +106,14 @@ c.key is null and ROWNUM <![CDATA[ >= ]]> #{p1}
         update "ORDER" set O_STATUS = #{param2} where "o_num"=#{param1}
     </select>
     
+    <!-- 주문확인 이미지 썸네일 포함 -->
+    <select id="selectOrderConfirmList" resultType="OrderListDto">
+     select p.front_image1,col.* from (select col1.o_date,col1.o_update_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status,col2."pro_num",col2.key from "ORDER" col1,ORDER_LIST col2 where col2."o_num"=col1."o_num" and col2."o_num"=#{o_num}) col  left outer join product p on col."pro_num"=p.pro_num
+    </select>
+    
+     <select id="selectOrder" resultType="OrderDto">
+     select * from  "ORDER"  where "o_num"=#{o_num}
+    </select>
     
     
     <!-- 장바구니형 구매>주문 -->

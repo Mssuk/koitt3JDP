@@ -11,7 +11,7 @@ public class OrderDto {
 	private Timestamp o_update_date;// 수정일
 	private String o_name;// 주문자명
 	private String o_tel;// 주문자전화번호
-	private int o_cost;// 배송료
+	private int o_cost;// 총 주문금액
 
 	public String getO_num() {
 		return o_num;

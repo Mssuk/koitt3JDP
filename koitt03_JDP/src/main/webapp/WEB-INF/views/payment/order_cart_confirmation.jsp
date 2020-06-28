@@ -43,36 +43,37 @@
                                 <th scope="col">합계</th>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="left">
-                                        <p class="img"><img src="images/img/sample_product.jpg" alt="상품" width="66" height="66" /></p>
-
-                                        <ul class="goods">
-                                            <li>
-                                                <a href="#">쟈뎅 오리지널 콜롬비아 페레이라 원두커피백 15p</a>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td class="tnone">
-                                        123,400 원
-
-                                        <!-- 회원일 시 -->
-                                        <br/><span class="pointscore">1,234 Point</span>
-                                        <!-- //회원일 시 -->
-                                    </td>
-                                    <td>1 개</td>
-                                    <td>123,400 원</td>
-                                </tr>
-
-                               
+                                <c:forEach var="dtos" items="${confirm.orderlist }">
+	                                <tr>
+	                                    <td class="left">
+	                                        <p class="img"><img src="${dtos.front_image1 }" alt="상품" width="66" height="66" /></p>
+	
+	                                        <ul class="goods">
+	                                            <li>
+	                                                <a href="/product/detail?pro_num=${dtos.pro_num }">${dtos.product_name }</a>
+	                                            </li>
+	                                        </ul>
+	                                    </td>
+	                                    <td class="tnone">
+	                                        <fmt:formatNumber value="${dtos.price/dtos.o_quant }" pattern="#,###" />원
+											<c:if test="${confirm.orderInfo.id!=null }">
+		                                        <!-- 회원일 시 -->
+		                                        <br/><span class="pointscore"><fmt:formatNumber value="${dtos.price/dtos.o_quant/100 }" pattern="#,###" /> Point</span>
+		                                        <!-- //회원일 시 -->
+											</c:if>
+	                                    </td>
+	                                    <td>${dtos.o_quant } 개</td>
+	                                    <td><fmt:formatNumber value="${dtos.price }" pattern="#,###" /> 원</td>
+	                                </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
                         <div class="poroductTotal">
                             <ul>
-                                <li>상품 합계금액 <strong>1,132,310</strong> 원</li>
-                                <li>+ 배송비 <strong>2,500</strong> 원</li>
-                                <li>= 총 합계 <strong>1,134,810</strong> 원</li>
+                                <li>상품 합계금액 <strong><fmt:formatNumber value="${confirm.orderInfo.o_cost }" pattern="#,###" /></strong> 원</li>
+                                <li>+ 배송비 <strong><fmt:formatNumber value="${confirm.deliver }" pattern="#,###" /></strong> 원</li>
+                                <li>= 총 합계 <strong><fmt:formatNumber value="${confirm.orderInfo.o_cost+confirm.deliver }" pattern="#,###" /></strong> 원</li>
                             </ul>
                         </div>
                         <!-- //주문 상품 -->
@@ -80,41 +81,52 @@
 
                         <!-- 총 주문금액 -->
                         <div class="amount">
-
+							<c:if test="${confirm.orderInfo.id!=null }">
                             <!-- 회원 일때 -->
                             <h4 class="member">총 주문금액</h4>
                             <!-- 회원 일때 -->
-                            <!-- 비회원 일때  <h4>총 주문금액</h4> //비회원 일때 -->
-
+							</c:if>
+                            <c:if test="${confirm.orderInfo.id==null }">
+                             <h4>총 주문금액</h4>
+                            </c:if>
                             <ul class="info">
                                 <li>
                                     <span class="title">상품 합계금액</span>
-                                    <span class="won"><strong>1,132,310</strong> 원</span>
+                                    <span class="won"><strong><fmt:formatNumber value="${confirm.orderInfo.o_cost }" pattern="#,###" /></strong> 원</span>
                                 </li>
                                 <li>
                                     <span class="title">배송비</span>
-                                    <span class="won"><strong>2,500</strong> 원</span>
+                                    <span class="won"><strong><fmt:formatNumber value="${confirm.deliver }" pattern="#,###" /></strong> 원</span>
                                 </li>
-
+								<c:if test="${confirm.orderInfo.id!=null }">
                                 <!-- 회원 일때만 -->
                                 <li>
                                     <span class="title">포인트 할인</span>
-                                    <span class="won"><strong>- 1,000</strong> P</span>
+                                    <span class="won"><strong>- <fmt:formatNumber value="${confirm.orderInfo.o_point }" pattern="#,###" /></strong> P</span>
                                 </li>
                                 <li>
                                     <span class="title">쿠폰 할인</span>
-                                    <span class="won"><strong>- 1,000</strong> 원</span>
+                                    <c:choose>
+                                    	<c:when test="${confirm.coupon==null }">
+                                    		<span class="won"><strong>- 0</strong> 원</span>
+                                    	</c:when>
+                                    	<c:otherwise>
+		                                    <span class="won"><strong>- <fmt:formatNumber value="${confirm.coupon.coupon_pay }" pattern="#,###" /></strong> 원</span>
+                                    	</c:otherwise>
+                                    </c:choose>
                                 </li>
                                 <!-- //회원 일떄만 -->
+                                </c:if>
                             </ul>
 
                             <ul class="total">
+                            	<c:if test="${confirm.orderInfo.id!=null }">
                                 <!-- 회원 일때만 -->
-                                <li class="mileage">(적립 포인트 <strong>11,324</strong> Point) </li>
+                                <li class="mileage">(적립 포인트 <strong><fmt:formatNumber value="${confirm.orderInfo.o_cost/100 }" pattern="#,###" /></strong> Point) </li>
                                 <!-- //회원 일때만 -->
-
+								</c:if>
                                 <li class="txt"><strong>결제 예정 금액</strong></li>
-                                <li class="money"><span>1,134,810</span> 원</li>
+                                <li class="money"><span><fmt:formatNumber value="${confirm.payment.o_sum }" pattern="#,###" /></span> 원</li>
                             </ul>
                         </div>
                         <!-- //총 주문금액 -->
@@ -134,21 +146,9 @@
                                 <tbody>
                                 <tr>
                                     <th scope="row"><span>이름</span></th>
-                                    <td>홍길동</td>
-                                    <th scope="row"><span>이메일</span></th>
-                                    <td>sldkfje@naver.com</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row" rowspan="2"><span>주소</span></th>
-                                    <td rowspan="2">220 - 920<br/>강원도 원주시 원동<br/>123-456</td>
+                                    <td>${confirm.orderInfo.o_name }</td>
                                     <th scope="row"><span>휴대폰 <u>번호</u></span></th>
-                                    <td>010-2456-7894</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row"><span>전화<u>번호</u></span></th>
-                                    <td>02-6534-8652</td>
+                                    <td>${confirm.orderInfo.o_tel }</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -170,24 +170,24 @@
                                 <tbody>
                                 <tr>
                                     <th scope="row"><span>이름</span></th>
-                                    <td colspan="3">홍길동</td>
+                                    <td colspan="3">${confirm.payee.p_name }</td>
                                 </tr>
 
                                 <tr>
                                     <th scope="row" rowspan="2"><span>주소</span></th>
-                                    <td rowspan="2">220 - 920<br/>강원도 원주시 원동<br/>123-456</td>
+                                    <td rowspan="2">${confirm.payee.p_address }</td>
                                     <th scope="row"><span>휴대폰 <u>번호</u></span></th>
-                                    <td>010-2456-7894</td>
+                                    <td>${confirm.payee.p_phone }</td>
                                 </tr>
 
                                 <tr>
                                     <th scope="row"><span>전화<u>번호</u></span></th>
-                                    <td>02-6534-8652</td>
+                                    <td>${confirm.payee.p_tel }</td>
                                 </tr>
 
                                 <tr>
                                     <th scope="row"><span>배송시 <u>요구사항</u></span></th>
-                                    <td colspan="3">부재시 경비실에 맡겨주세요.</td>
+                                    <td colspan="3">${confirm.payee.p_demand }</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -207,24 +207,31 @@
                                     <col width="*" class="tw25" />
                                 </colgroup>
                                 <tbody>
-                                <tr>
-                                    <th scope="row"><span>총 주문<u>금액</u></span></th>
-                                    <td>1,132,132원</td>
-                                    <th scope="row"><span>쿠폰 <u>할인</u></span></th>
-                                    <td>132,132원</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row"><span>배송비</span></th>
-                                    <td>2,500 원 (선불)</td>
-                                    <th scope="row"><span>포인트 <u>사용</u></span></th>
-                                    <td>1,000 Point</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row"><span>총 결제<u>금액</u></span></th>
-                                    <td colspan="3"><strong>22,820 원</strong></td>
-                                </tr>
+	                                <tr>
+	                                    <th scope="row"><span>총 주문<u>금액</u></span></th>
+	                                    <td><fmt:formatNumber value="${confirm.orderInfo.o_cost }" pattern="#,###" />원</td>
+	                                    <th scope="row"><span>배송비</span></th>
+	                                    <td><fmt:formatNumber value="${confirm.deliver }" pattern="#,###" /> 원 (선불)</td>
+	                                </tr>
+									<c:if test="${confirm.orderInfo.id!=null }">
+	                                <tr>
+	                                    <th scope="row"><span>쿠폰 <u>할인</u></span></th>
+	                                    <c:choose>
+                                    	<c:when test="${confirm.coupon==null }">
+                                    		<td>0원</td>
+                                    	</c:when>
+                                    	<c:otherwise>
+		                                    <td><fmt:formatNumber value="${confirm.coupon.coupon_pay }" pattern="#,###" /> 원</td>
+                                    	</c:otherwise>
+                                    </c:choose>
+	                                    <th scope="row"><span>포인트 <u>사용</u></span></th>
+	                                    <td><fmt:formatNumber value="${confirm.orderInfo.o_point }" pattern="#,###" /> Point</td>
+	                                </tr>
+	                                </c:if>
+	                                <tr>
+	                                    <th scope="row"><span>총 결제<u>금액</u></span></th>
+	                                    <td colspan="3"><strong><fmt:formatNumber value="${confirm.payment.o_sum }" pattern="#,###" /> 원</strong></td>
+	                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -245,24 +252,31 @@
                                 <tbody>
                                 <tr>
                                     <th scope="row"><span>주문번호</span></th>
-                                    <td>201404253254-1354</td>
+                                    <td>${confirm.payment.o_num}</td>
                                     <th scope="row"><span>결제수단</span></th>
-                                    <td>무통장 입금</td>
+                                    <td>${confirm.payment.o_way}</td>
                                 </tr>
 
                                 <tr>
                                     <th scope="row"><span>주문일</span></th>
-                                    <td>2014-04-20</td>
-                                    <th scope="row"><span>입금은행</span></th>
-                                    <td>신한은행 1234-45-786135 (주)쟈뎅</td>
-                                </tr>
-
-                                <tr>
+                                    <td><fmt:formatDate value="${confirm.orderInfo.o_date }" pattern="yyyy-MM-dd"/></td>
                                     <th scope="row"><span>요구사항</span></th>
-                                    <td>부재시 경비실에 맡겨주세요.</td>
-                                    <th scope="row"><span>입금자 <u>명</u></span></th>
-                                    <td>홍길동</td>
+                                    <td>${confirm.payee.p_demand }</td>
                                 </tr>
+								<c:if test="${confirm.payment.o_way=='무통장입금' }">
+	                                <tr>
+	                                    <th scope="row"><span>입금은행</span></th>
+	                                    <td>신한은행 1234-45-786135 (주)쟈뎅</td>
+	                                    <th scope="row"><span>입금자 <u>명</u></span></th>
+	                                    <td>${confirm.payment.bank_name}</td>
+	                                </tr>
+								</c:if>
+								<c:if test="${fn:contains(confirm.payment.o_way,'가상계좌') }">
+									<tr>
+	                                    <th scope="row"><span>입금은행</span></th>
+	                                    <td>신한은행 1234-45-786135 (주)쟈뎅</td>
+	                                </tr>    
+								</c:if>
                                 </tbody>
                             </table>
                         </div>
