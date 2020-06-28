@@ -426,4 +426,27 @@ public class AdminServiceImpl implements AdminService {
 		return bDao.selectAllBanner();
 	}
 
+	@Override
+	public String getBannerSeq() {
+		return bDao.selectBannerSeq();
+	}
+
+	@Override
+	public void insertBanner(BannerDto bDto) {
+		bDao.insertBanner(bDto);
+
+	}
+
+	@Override
+	public void updateBanner(String key, String val) {
+		bDao.updateBanner(key, val);
+
+	}
+
+	@Override
+	public void deleteBanner(String key) {
+		bDao.deleteBanner(key);
+
+	}
+
 }

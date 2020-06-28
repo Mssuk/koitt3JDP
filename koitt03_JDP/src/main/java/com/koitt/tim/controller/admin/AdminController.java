@@ -493,4 +493,36 @@ public class AdminController {
 	public List<BannerDto> bList() {
 		return adminService.getAllBanner();
 	}
+
+	// 배너시퀀스
+	@GetMapping("blistSeq")
+	public String bListSeq() {
+		return adminService.getBannerSeq();
+	}
+
+	// 배너 저장
+	@PostMapping(value = "blist", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<?> bList(MultipartFile file, BannerDto bDto) {
+
+		try {
+			bDto.setBanner_image(utils.FileUploaderCDN(file, "banner/"));
+			adminService.insertBanner(bDto);
+			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>(e.toString(), HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	// 배너 업데이트
+	@PatchMapping("blist/{key}/{val}")
+	public void bList(@PathVariable("key") String key, @PathVariable("val") String val) {
+		adminService.updateBanner(key, val);
+	}
+
+	// 배너 삭제
+	@DeleteMapping("blistD/{key}")
+	public void bListD(@PathVariable("key") String key) {
+		adminService.deleteBanner(key);
+	}
 }

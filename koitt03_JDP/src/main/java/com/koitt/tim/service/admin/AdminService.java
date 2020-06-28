@@ -183,4 +183,16 @@ public interface AdminService {
 
 	// 모든 배너 가져오기
 	List<BannerDto> getAllBanner();
+
+	// 배너 시퀀스가져오기
+	String getBannerSeq();
+
+	// 배너넣기
+	void insertBanner(BannerDto bDto);
+
+	// 배너 상태 업데이트
+	void updateBanner(String key, String val);
+
+	// 배너 삭제
+	void deleteBanner(String key);
 }

@@ -13,4 +13,16 @@ public interface BannerDao {
 	List<BannerDto> selectAllBanner();
 
 	List<BannerDto> selectBanner();
+
+	// 배너 시퀀스 가져오기
+	String selectBannerSeq();
+
+	// 배너 insert
+	void insertBanner(BannerDto bDto);
+
+	// 배너 업데이트
+	void updateBanner(String key, String val);
+
+	// 배너 삭제
+	void deleteBanner(String key);
 }

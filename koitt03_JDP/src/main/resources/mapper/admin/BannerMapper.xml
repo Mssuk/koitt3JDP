@@ -2,10 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koitt.tim.dao.admin.BannerDao">
     <select id="selectAllBanner" resultType="BannerDto">
-        select * from BANNER
+        select * from BANNER order by banner_num
     </select>
     
     <select id="selectBanner"	resultType="BannerDto">
     	select * from banner where banner_exposure = 1
     </select>
+    
+    <select id="selectBannerSeq" resultType="string">
+    	select max(banner_num) from banner
+    </select>
+    
+    <insert id="insertBanner" parameterType="BannerDto">
+    	insert into banner values (concat('banner',lpad(banner_seq.nextval,3,0)),#{banner_title},#{banner_image},
+    	#{banner_link},#{banner_exposure})
+    </insert>
+    
+    <update id="updateBanner">
+    	update banner set banner_exposure = #{param2} where banner_num = #{param1}
+    </update>
+    
+    <delete id="deleteBanner">
+    	delete banner where banner_num = #{param1}
+    </delete>
 </mapper>
