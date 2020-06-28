@@ -55,6 +55,30 @@
 							</thead>
 							<tbody>
 								<c:forEach var="dtos" items="${list }">
+									<c:choose>
+										<c:when test="${dtos.pdto.amount==0||dtos.pdto.product_state=='품절'||fn:contains(dtos.pdto.product_name,'테스트') }">
+										<tr style="background-color:#e0e0e0;">
+											<td><input type="checkbox" disabled="disabled" value="${dtos.pdto.pro_num }" name="pro_num_not"/></td>
+											<td class="left">
+												<p class="img"><img src="${dtos.pdto.front_image1 }" alt="상품" width="66" height="66" /></p>
+		
+												<ul class="goods">
+													<li>
+														<a href="/product/detail?pro_num=${dtos.pdto.pro_num }">${dtos.pdto.product_name }</a>
+													</li>
+												</ul>
+											</td>
+											<td class="tnone"><span><fmt:formatNumber value="${dtos.pdto.sales_price }" pattern="#,###" /></span> 원</td>
+											<td>0</td>
+											<td>품절상품</td>
+											<td class="tnone">
+												<ul class="order">	
+													<li><a href="#" onclick="del_one('${dtos.pdto.pro_num }')" class="nbtnMini iw70">상품삭제</a></li>
+												</ul>
+											</td>
+										</tr>
+										</c:when>
+										<c:otherwise>
 										<tr>
 											<td><input type="checkbox" value="${dtos.pdto.pro_num }" name="pro_num" class="order_pro"/></td>
 											<td class="left">
@@ -76,6 +100,8 @@
 												</ul>
 											</td>
 										</tr>
+										</c:otherwise>
+									</c:choose>
 								</c:forEach>
 								
 								</tbody>

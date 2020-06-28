@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koitt.tim.dto.basket.BasketMemberDto;
@@ -84,4 +85,9 @@ public class PaymentCartController {
 		return check;
 	}
 
+	// 주문확인페이지
+	@RequestMapping("/orderConfirmC")
+	public String ordercartconfirm(@RequestParam(value = "o_num") String o_num) {
+		return "payment/order_cart_confirmation";
+	}
 }

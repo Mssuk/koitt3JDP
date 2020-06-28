@@ -189,7 +189,7 @@
 											<li><input type="text" class="w74" maxlength="4" value="${member.phone2 }" name="phone2" /> <span class="valign">-</span>&nbsp;</li>
 											<li class="r10"><input type="text" class="w74" maxlength="4" name="phone3"  value="${member.phone3 }"/> 
 											<c:if test="${member==null }">
-											<span style="color:#fe6124;">주문 조회시 사용됩니다</span>
+											<span style="color:#fe6124;display: inline-block;margin: 4px;">*주문 조회시 사용됩니다</span>
 											</c:if>
 											</li>
 										</ul>
@@ -830,7 +830,7 @@
     	        success : function (data) {
     	           if(data!= 0){ //리턴값이 ok일 경우
     	              alert('주문성공');
-    	           		location.href='/main';
+    	           	  location.href='/orderConfirmC?o_num='+data;
     	           }else if(data == 0){
     					alert('실패');
     				}
