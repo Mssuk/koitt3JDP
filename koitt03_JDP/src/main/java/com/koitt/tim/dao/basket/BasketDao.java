@@ -11,7 +11,7 @@ public interface BasketDao {
 	BasketMemberDto selectBasketMember(BasketMemberDto bdto);
 
 	// 장바구니 여럿 불러오기(회원용)
-	List<BasketMemberDto> seleBasketMembers(@RequestParam("id") String id);
+	List<BasketMemberDto> selectBasketMembers(@RequestParam("id") String id);
 
 	// 장바구니 업데이트
 	void updateBasketMember(BasketMemberDto bdto);

@@ -19,7 +19,7 @@
 
 		<div id="location">
 			<ol>
-				<li><a href="#">HOME</a></li>
+				<li><a href="/main">HOME</a></li>
 				<li class="last">장바구니</li>
 			</ol>
 		</div>
@@ -73,7 +73,7 @@
 											<td>품절상품</td>
 											<td class="tnone">
 												<ul class="order">	
-													<li><a href="#" onclick="del_one('${dtos.pdto.pro_num }')" class="nbtnMini iw70">상품삭제</a></li>
+													<li><a href="javascript:;" onclick="del_one('${dtos.pdto.pro_num }')" class="nbtnMini iw70">상품삭제</a></li>
 												</ul>
 											</td>
 										</tr>
@@ -95,8 +95,8 @@
 											<td class="cart_price"><span><fmt:formatNumber value="${dtos.pdto.sales_price*dtos.bmdto.count }" pattern="#,###" /></span> 원</td>
 											<td class="tnone">
 												<ul class="order">	
-													<li><a href="#" class="obtnMini iw70 buy">바로구매</a></li>
-													<li><a href="#" onclick="del_one('${dtos.pdto.pro_num }')" class="nbtnMini iw70">상품삭제</a></li>
+													<li><a href="javascript:;" class="obtnMini iw70 buy">바로구매</a></li>
+													<li><a href="javascript:;" onclick="del_one('${dtos.pdto.pro_num }')" class="nbtnMini iw70">상품삭제</a></li>
 												</ul>
 											</td>
 										</tr>
@@ -112,8 +112,8 @@
 						<div class="bRight">
 							<ul>
 								<li id="check_all2"><span class="selectbtn" style="cursor: pointer;">전체선택</span></li>
-								<li id="modis"><a href="#" class="selectbtn2">선택수정</a></li>
-								<li id="delis"><a href="#" class="selectbtn2">선택삭제</a></li>
+								<li id="modis"><a href="javascript:;" class="selectbtn2">선택수정</a></li>
+								<li id="delis"><a href="javascript:;" class="selectbtn2">선택삭제</a></li>
 							</ul>
 						</div>
 					</div>
@@ -145,8 +145,8 @@
 
 					<div class="cartarea">
 						<ul>
-							<li><a href="#" class="buys ty1">선택상품 <span>주문하기</span></a></li>
-							<li><a href="#" class="buy_all ty2">전체상품 <span>주문하기</span></a></li>
+							<li><a href="javascript:;" class="buys ty1">선택상품 <span>주문하기</span></a></li>
+							<li><a href="javascript:;" class="buy_all ty2">전체상품 <span>주문하기</span></a></li>
 							<li class="last"><a href="/product/list" class="ty3">쇼핑 <span>계속하기</span></a></li>
 						</ul>
 					</div>

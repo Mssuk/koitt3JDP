@@ -127,7 +127,7 @@
             <div class="btnArea">
                 <div class="bCenter">
                     <ul>
-                        <li><a href="#" onclick="reviewGo()" class="sbtnMini">확인</a></li>
+                        <li><a href="javascript:;" onclick="reviewGo()" class="sbtnMini">확인</a></li>
                         <li><a onclick="parent.$.fancybox.close();" href="javascript:;" class="nbtnbig">취소</a></li>
                     </ul>
                 </div>

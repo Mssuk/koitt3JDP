@@ -235,7 +235,7 @@ $(document).ready(function(){
 										<li class="name"><c:out value="${fn:substring(name, 0, 1) }**"/> <span>[<fmt:formatDate value="${re_dtos.event_re_modify }" pattern="yyyy-MM-dd  HH:mm:ss"/>]</span></li>
 									    <c:choose>
 									    	<c:when test="${re_dtos.pw!=null&&re_dtos.id!=authuser }">
-												<li class="txt"><a href="#"><span class="orange">※ 비밀글입니다.</span></a></li>
+												<li class="txt"><span class="orange">※ 비밀글입니다.</span></li>
 									    	</c:when>
 									    	<c:otherwise>
 											    <li class="txt">${re_dtos.event_re_content }</li>

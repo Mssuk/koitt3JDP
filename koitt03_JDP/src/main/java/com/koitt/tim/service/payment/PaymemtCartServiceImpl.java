@@ -107,7 +107,7 @@ public class PaymemtCartServiceImpl implements PaymentCartService {
 				MemberDto mdto = (MemberDto) session.getAttribute("loginInfo");
 				String id = mdto.getId();
 
-				List<BasketMemberDto> blist = bdao.seleBasketMembers(id);
+				List<BasketMemberDto> blist = bdao.selectBasketMembers(id);
 				if (blist != null) {
 					for (int j = 0; j < blist.size(); j++) {
 						for (int i = 0; i < pro_num.length; i++) {
@@ -436,7 +436,7 @@ public class PaymemtCartServiceImpl implements PaymentCartService {
 			// 회원 장바구니 제거 //로그인시 장바구니 업댓되믄..
 			for (int i = 0; i < plist.size(); i++) {
 				String pro_num = plist.get(i).getBmdto().getPro_num();
-				List<BasketMemberDto> blist = bdao.seleBasketMembers(id);
+				List<BasketMemberDto> blist = bdao.selectBasketMembers(id);
 				if (blist != null) {
 					for (int j = 0; j < blist.size(); j++) {
 						if (blist.get(j).getPro_num().equals(pro_num)) {

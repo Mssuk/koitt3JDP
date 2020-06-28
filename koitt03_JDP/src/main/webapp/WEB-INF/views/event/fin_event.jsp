@@ -9,7 +9,7 @@
 
 		<div id="location">
 			<ol>
-				<li><a href="#">HOME</a></li>
+				<li><a href="/main">HOME</a></li>
 				<li><a href="event">EVENT</a></li>
 				<li class="last">종료된 이벤트</li>
 			</ol>

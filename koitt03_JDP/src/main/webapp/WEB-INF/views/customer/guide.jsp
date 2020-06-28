@@ -8,7 +8,7 @@
 
 		<div id="location">
 			<ol>
-				<li><a href="#">HOME</a></li>
+				<li><a href="/main">HOME</a></li>
 				<li><a href="notice">CUSTOMER</a></li>
 				<li class="last">이용안내</li>
 			</ol>
