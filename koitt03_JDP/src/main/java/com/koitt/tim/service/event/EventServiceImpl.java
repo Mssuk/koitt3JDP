@@ -316,17 +316,19 @@ public class EventServiceImpl implements EventService {
 		String coupon_num = obj.get("coupon_num");
 		int check = 0;
 		// 쿠폰보유여부 조회
-		check = cdao.selectMemberCoupon(id, coupon_num);// 있으면 1
-		check = cdao.selectEndCoupon(coupon_num); // 기간이 경과하면 1
-		if (check != 1) {// 이미 보유 혹은 기간이 지남
-			try {
-				cdao.insertMemberCoupon(id, coupon_num);
-				check = 2;// 발급성공
-			} catch (Exception e) {
-				check = 0;// 발급오류
+		check = cdao.selectEndCoupon(coupon_num); // 쿠폰자체기간이 경과하면 1
+		if (check == 0) {
+			check = cdao.selectMemberCoupon(id, coupon_num);// 이미 보유중인 쿠폰이면 1
+			if (check == 0) {// 이미 보유 혹은 기간이 지남
+				try {
+					cdao.insertMemberCoupon(id, coupon_num);
+				} catch (Exception e) {
+					check = 3;// 3이면 발급오류
+				}
+			} else {
+				check = 2;// 2면 이미 발급 ㅇ
 			}
-		}
-
+		} // 1이면 발급기한 종료
 		return check;
 	}
 

@@ -1,20 +1,19 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2020-06-01
-  Time: 오후 3:19
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 
 <jsp:include page="../common/header.jsp" />
+
+
 
         <!-- container -->
         <div id="container">
 
-            <div id="location">2020062600016
+            <div id="location">
                 <ol>
-                    <li><a href="#">HOME</a></li>
+                    <li><a href="/main">HOME</a></li>
                     <li class="last">주문/결제</li>
                 </ol>
             </div>
@@ -65,26 +64,7 @@
                                     <td>123,400 원</td>
                                 </tr>
 
-                                <tr>
-                                    <td class="left">
-                                        <p class="img"><img src="images/img/sample_product.jpg" alt="상품" width="66" height="66" /></p>
-
-                                        <ul class="goods">
-                                            <li>
-                                                <a href="#">가나다라마바사아자차카타파하 가나다라마바사아자차카타파하 가나다라마바사아자차카타파하</a>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td class="tnone">
-                                        123,400 원
-
-                                        <!-- 회원일 시 -->
-                                        <br/><span class="pointscore">1,234 Point</span>
-                                        <!-- //회원일 시 -->
-                                    </td>
-                                    <td>1 개</td>
-                                    <td>123,400 원</td>
-                                </tr>
+                               
                                 </tbody>
                             </table>
                         </div>
@@ -290,9 +270,14 @@
 
 
                         <!-- Btn Area -->
-                        <div class="btnArea2">
-                            <a href="#" class="nbtnbig iw0140">확인</a>
-                        </div>
+                        <div class="btnArea">
+							<div class="orderCenter">
+								<ul>
+									<li><a href="/main" class="nbtnbig iw0140">확인</a></li>
+									<li><a href="/product/list"  class="sbtnMini iw0140">쇼핑 계속하기</a></li>								
+								</ul>
+							</div>
+						</div>
                         <!-- //Btn Area -->
 
 

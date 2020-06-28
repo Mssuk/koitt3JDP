@@ -23,6 +23,8 @@
   	 delete from basket_member where id=#{id} and pro_num=#{pro_num}
    </delete>
    
-   
+   <select id="selectBasketMembers" resultType="BasketMemberDto">
+   	select * from basket_member where id=#{id}
+   </select>
    
 </mapper>

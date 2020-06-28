@@ -14,7 +14,8 @@
 
     <!-- 이벤트글 리스트 search-->
     <select id="selectSearchEvent" resultMap="eventMap">
-       select *from (select ROWNUM rnum, e.*from (select *from event where (to_char(event_end, 'yyyy-MM-dd') <![CDATA[>= ]]>to_char(sysdate, 'yyyy-MM-dd'))
+       select *from (select ROWNUM rnum, e.*from (select *from event where (to_char(event_end, 'yyyy-MM-dd') <![CDATA[>= ]]>to_char(sysdate, 'yyyy-MM-dd')
+        and  (to_char(event_start, 'yyyy-MM-dd') <![CDATA[<= ]]>to_char(sysdate, 'yyyy-MM-dd')) ) 
           <choose>
 
           	<when test="opt!='' and opt.equals('all') and key!=''">
@@ -39,7 +40,8 @@
         select count(*)
         from event
         where 
-        to_char(event_end, 'yyyy-MM-dd')<![CDATA[ >= ]]> to_char(sysdate, 'yyyy-MM-dd')
+        to_char(event_end, 'yyyy-MM-dd')<![CDATA[ >= ]]> to_char(sysdate, 'yyyy-MM-dd') 
+        and  (to_char(event_start, 'yyyy-MM-dd') <![CDATA[<= ]]>to_char(sysdate, 'yyyy-MM-dd')) 
     	<choose>
           	<when test="opt!='' and opt.equals('all') and key!=''">
           	and (event_title like  '%' || #{key} || '%'  or event_content like  '%' || #{key} || '%' ) 
@@ -61,7 +63,8 @@
 		select * from ( select ROWNUM rnum, e.* from(
 		select *
 		from event
-		where to_char(event_end,'yyyy-MM-dd') <![CDATA[ >= ]]> to_char(sysdate,'yyyy-MM-dd')
+		where to_char(event_end,'yyyy-MM-dd') <![CDATA[ >= ]]> to_char(sysdate,'yyyy-MM-dd') 
+		and  (to_char(event_start, 'yyyy-MM-dd') <![CDATA[<= ]]>to_char(sysdate, 'yyyy-MM-dd')) 
 		ORDER BY event_start desc,event_regist desc) e)
 		where event_num=#{param1}
 	</select>
@@ -72,7 +75,8 @@
 		select * from ( select ROWNUM rnum, e.* from(
 		select *
 		from event
-		where to_char(event_end,'yyyy-MM-dd') <![CDATA[ >= ]]> to_char(sysdate,'yyyy-MM-dd')
+		where to_char(event_end,'yyyy-MM-dd') <![CDATA[ >= ]]> to_char(sysdate,'yyyy-MM-dd') 
+		and  (to_char(event_start, 'yyyy-MM-dd') <![CDATA[<= ]]>to_char(sysdate, 'yyyy-MM-dd')) 
 		ORDER BY event_start desc,event_regist desc) e)
 		where rnum=(#{rnum}+1)
 	</select>
@@ -81,7 +85,8 @@
 		select * from ( select ROWNUM rnum, e.* from(
 		select *
 		from event
-		where to_char(event_end,'yyyy-MM-dd') <![CDATA[ >= ]]> to_char(sysdate,'yyyy-MM-dd')
+		where to_char(event_end,'yyyy-MM-dd') <![CDATA[ >= ]]> to_char(sysdate,'yyyy-MM-dd') 
+		and  (to_char(event_start, 'yyyy-MM-dd') <![CDATA[<= ]]>to_char(sysdate, 'yyyy-MM-dd')) 
 		ORDER BY event_start desc,event_regist desc) e)
 		where rnum=(#{rnum}-1)
 	</select>

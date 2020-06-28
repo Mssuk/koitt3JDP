@@ -94,7 +94,7 @@
                             <ul>
                                 <li><a onclick="spinner()" class="ty1">바로 <span>구매하기</span></a></li>
                                 
-                                <li><a href="#" id="cartPut" class="ty2">장바구니 <span>담기</span></a></li>
+                                <li><a href="javascript:;" id="cartPut" class="ty2">장바구니 <span>담기</span></a></li>
                                 <li class="last"><a href="#" class="ty3">위시 <span>리스트</span></a></li>
                             </ul>
                             <script>

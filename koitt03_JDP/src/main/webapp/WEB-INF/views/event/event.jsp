@@ -10,7 +10,7 @@
 
 		<div id="location">
 			<ol>
-				<li><a href="#">HOME</a></li>
+				<li><a href="/main">HOME</a></li>
 				<li><a href="event">EVENT</a></li>
 				<li class="last">진행중 이벤트</li>
 			</ol>
@@ -53,10 +53,10 @@
 												<c:when test="${text!='' }">
 													<a href="event_view?event_num=${dtos.event_num }&pageNum=${pageNum}&search=${search}&text=${text}" title="${dtos.event_title }">	
 													<div class="img">
-														<img src="${dtos.event_image1 }" alt="종료된 이벤트" />
+														<img src="${dtos.event_image1 }" alt="진행중 이벤트" />
 													</div>
 													<div class="txt">
-														<div class="subject"><span class="finishbtn">종료</span>&nbsp;${dtos.event_title }</div>
+														<div class="subject">${dtos.event_title }</div>
 														<div class="day">이벤트 기간 : <fmt:formatDate value="${dtos.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dtos.event_end }" pattern="yyyy-MM-dd"/></div>
 													</div>
 													</a>
@@ -64,10 +64,10 @@
 												<c:otherwise>
 													<a href="event_view?event_num=${dtos.event_num }&pageNum=${pageNum}" title="${dtos.event_title }">
 														<div class="img">
-															<img src="${dtos.event_image1 }" alt="종료된 이벤트" />
+															<img src="${dtos.event_image1 }" alt="진행중 이벤트" />
 														</div>
 														<div class="txt">
-															<div class="subject"><span class="finishbtn">종료</span>&nbsp;${dtos.event_title }</div>
+															<div class="subject">${dtos.event_title }</div>
 															<div class="day">이벤트 기간 : <fmt:formatDate value="${dtos.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dtos.event_end }" pattern="yyyy-MM-dd"/></div>
 														</div>
 													</a>
@@ -141,7 +141,6 @@
 			<!-- //contents -->
 
 		</div>
-
 		<!-- quickmenu -->
 		<jsp:include page="../common/quickmenu.jsp" />
 		<!-- //quickmenu -->
