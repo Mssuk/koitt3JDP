@@ -128,7 +128,7 @@
                             <%--<c:choose>
                             <c:when test="${orderList != null}">--%>
                               <c:forEach var="order" items="${orderList}">
-                              	<c:forEach var="ordersub" items="${order }">
+                              	<c:forEach var="ordersub" items="${order}">
                                 <tr>
                                     <td>
                                  		<p class="day"><fmt:formatDate value="${ordersub.o_date}" pattern="yyyy-MM-dd"/></p>
@@ -155,7 +155,7 @@
 												<fmt:parseNumber value="${n_regist.time / (1000*60*60*24)}" integerOnly="true" var="regist"/>
 												<c:set value="${today - regist }" var="dayDiff" />
 												<span class="heavygray">배송완료</span>
-												<ul class="state">	
+												<ul class="state">
 													<c:choose>
 														<c:when test="${ordersub.o_status=='배송완료'}">
 															<c:if test="${dayDiff <= 14}">
@@ -168,8 +168,8 @@
 														</c:when>
 														<c:when test="${ordersub.o_status=='구매확정'}">
 															<c:if test="${dayDiff <= 14 && ordersub.reviewOk==0}">
-																<li><a href="review?num1=${ordersub.key }"  class="popBtn nbtnMini" style="cursor: pointer;">리뷰작성</a></li>
-															</c:if>
+																<li><a href="/product/review?orderListkey=${ordersub.key}"  class="popBtn nbtnMini" style="cursor: pointer;">리뷰작성</a></li>
+                                                            </c:if>
 														</c:when>
 													</c:choose>
 												</ul>
@@ -192,7 +192,7 @@
                                             <li class="r5"><a href="return" class="obtnMini iw40">교환</a></li>
                                             <li><a href="return" class="nbtnMini iw40">반품</a></li>
 
-                                            <li><a href=".writeReview?oNum=${ordersub.o_num}" class="reviewbtn">리뷰작성</a></li>
+                                            <li><a href=".writeReview?oNum=${ordersub.o_num}&pro_num=${ordersub.pro_num}" class="reviewbtn">리뷰작성</a></li>
                                             <li><a href="#" class="decidebtn">구매확정</a></li>
                                         </ul>
                                     </td>

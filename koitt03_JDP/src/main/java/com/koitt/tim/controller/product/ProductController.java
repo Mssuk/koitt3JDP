@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.lang.reflect.Member;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -106,8 +107,14 @@ public class ProductController {
     @RequestMapping("review")   //detail 페이지에서 상품 리뷰 페이지 띄우기
     public String writeReview(Model model, String pro_num,HttpSession session) {
 
+        String id="";
+        if(session.getAttribute("loginInfo")!=null){
+            MemberDto mDto = (MemberDto) session.getAttribute("loginInfo");
+            id = mDto.getId();
+        }
+        //session.setAttribute("admin","abcd1234");
 
-        session.setAttribute("admin","abcd1234");
+        model.addAttribute("id",id);
         model.addAttribute("pro_num", pro_num);
 
         return "mypage/ordercheck";

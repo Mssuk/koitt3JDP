@@ -119,6 +119,7 @@ public class MypageController {
 		return "mypage/coupon";
 	}
 
+
 	// 주문시 회원정보변경
 	@RequestMapping("updateMemInfo")
 	@ResponseBody
@@ -129,14 +130,19 @@ public class MypageController {
 		return result;
 	}
 	@RequestMapping(".writeReview")
-	public String writeReview(Model model, String oNum){
+	public String writeReview(HttpSession session,Model model, String oNum,String pro_num){
 
-		String key = mypageService.getReviewKey(oNum);		//주문번호로 주문리스트의 key 호출
-		String pro_num = mypageService.getReviewPro_num(oNum);	//주문번호로 주문리스트의 상품 번호 호출
+		String id="";
+		if(session.getAttribute("loginInfo")!=null){
+			MemberDto mDto = (MemberDto) session.getAttribute("loginInfo");
+			id=mDto.getId();
+		}
+
+		String key = mypageService.getReviewKey(oNum,pro_num,id);		//주문번호로 주문리스트의 key 호출
 
 		model.addAttribute("o_num",oNum);
 		model.addAttribute("key",key);
-		model.addAttribute("pro_num",pro_num);
+
 
 		return "product/photo";
 	}
