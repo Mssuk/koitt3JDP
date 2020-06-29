@@ -119,6 +119,7 @@ public class MypageController {
 		return "mypage/coupon";
 	}
 
+
 	// 주문시 회원정보변경
 	@RequestMapping("updateMemInfo")
 	@ResponseBody

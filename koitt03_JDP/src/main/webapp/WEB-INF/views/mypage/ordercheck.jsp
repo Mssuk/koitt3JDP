@@ -155,7 +155,7 @@
 												<fmt:parseNumber value="${n_regist.time / (1000*60*60*24)}" integerOnly="true" var="regist"/>
 												<c:set value="${today - regist }" var="dayDiff" />
 												<span class="heavygray">배송완료</span>
-												<ul class="state">	
+												<ul class="state">
 													<c:choose>
 														<c:when test="${ordersub.o_status=='배송완료'}">
 															<c:if test="${dayDiff <= 14}">

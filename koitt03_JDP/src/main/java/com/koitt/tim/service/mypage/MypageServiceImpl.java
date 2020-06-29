@@ -65,7 +65,7 @@ public class MypageServiceImpl implements MypageService {
 
 	@Override
 	public void subEmail(MemberDto mDto) {
-		
+
 	}
 
 	@Override
