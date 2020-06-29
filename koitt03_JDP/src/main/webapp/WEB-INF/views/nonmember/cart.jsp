@@ -46,7 +46,7 @@
 							<col width="14%" class="tnone" />
 							</colgroup>
 							<thead>
-								<th scope="col"><input type="checkbox" id="check_all"/></th>
+								<th scope="col"><input type="checkbox" id="check_all" checked="checked"/></th>
 								<th scope="col">상품명</th>
 								<th scope="col" class="tnone">가격</th>
 								<th scope="col">수량</th>
@@ -80,7 +80,7 @@
 										</c:when>
 										<c:otherwise>
 										<tr>
-											<td><input type="checkbox" value="${dtos.pdto.pro_num }" name="pro_num" class="order_pro"/></td>
+											<td><input type="checkbox" checked="checked" value="${dtos.pdto.pro_num }" name="pro_num" class="order_pro"/></td>
 											<td class="left">
 												<p class="img"><img src="${dtos.pdto.front_image1 }" alt="상품" width="66" height="66" /></p>
 		
@@ -177,6 +177,12 @@ $(function() {
 	       var chk = $(this).is(":checked");//.attr('checked');
 	       if(chk) $(".order_pro").prop('checked', true);
 	       else  $(".order_pro").prop('checked', false);
+	       var first=get_total();
+	  		 $( ".whole_total strong" ).text(first);
+	  		var f_deliver=get_deliver(first);
+	  		$( ".whole_deliver strong" ).text(f_deliver);
+	  		var f_total=get_re_total(first,f_deliver);
+	  		$( ".result_total span" ).text(f_total);
 	});
 	//전체체크2
 	 $("#check_all2").click(function(){
@@ -189,6 +195,12 @@ $(function() {
 	    	   $("#check_all").prop('checked', true);
 	    	   $(".order_pro").prop('checked', true);
 	    	}
+	       var first=get_total();
+	  		 $( ".whole_total strong" ).text(first);
+	  		var f_deliver=get_deliver(first);
+	  		$( ".whole_deliver strong" ).text(f_deliver);
+	  		var f_total=get_re_total(first,f_deliver);
+	  		$( ".result_total span" ).text(f_total);
 	});
 });
 
@@ -214,16 +226,34 @@ $(function() {
 		//변동 최종 금액
 		var last_total=get_re_total(last,last_del);
 		$( ".result_total span" ).text(last_total);
-		}
+	}
+	$(".order_pro").click(function(){
+		var chk = $("#check_all").is(":checked");//.attr('checked');
+	       if(chk) {
+	    	   $("#check_all").prop('checked', false);
+	       }
+		//변동합계
+		var last=get_total();
+		$( ".whole_total strong" ).text(last);
+		//변동배송비
+		var last_del=get_deliver(last);
+		$( ".whole_deliver strong" ).text(last_del);
+		//변동 최종 금액
+		var last_total=get_re_total(last,last_del);
+		$( ".result_total span" ).text(last_total);
+	})
+	
 	//전체 상품 금액합계
 	 function get_total() {
 			var cnt=$(".cart_price").length;
 			var sum=0;
 			for(var i=0;i<cnt;i++){
-			var cart=$(".cart_price").eq(i).text();
-			cart=cart.replace(/[^0-9]/g,'');
-			cart=Number(cart);
-			sum+=cart;
+				if($(".order_pro").eq(i).is(":checked")){
+					var cart=$(".cart_price").eq(i).text();
+					cart=cart.replace(/[^0-9]/g,'');
+					cart=Number(cart);
+					sum+=cart;
+				}
 			}
 			sum=sum.toLocaleString();
 			return sum;
@@ -233,7 +263,7 @@ $(function() {
 		var del=2500;
 		x=x.replace(/[^0-9]/g,'');
 		x=Number(x);
-		if(x>=15000){
+		if(x>=15000||x==0){
 			del=0;
 		}
 		if(del==0){
