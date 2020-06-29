@@ -141,7 +141,7 @@
                                     	<fmt:formatNumber value="${ordersub.price}" pattern="#,###,###"/>원 </td>
                                     <td class="tnone">${ordersub.o_quant}개</td>
                                     <td>
-                                        <span class="heavygray">${ordersub.o_status}</span>
+                                        <span class="heavygray"></span>
                                         <c:choose>
 											<c:when test="${ordersub.o_status=='취소신청' }">
 												<ul class="state">
