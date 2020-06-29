@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koitt.tim.dto.basket.BasketMemberDto;
 import com.koitt.tim.dto.basket.CartViewDto;
+import com.koitt.tim.dto.coupon.CouponMemBean;
+import com.koitt.tim.dto.order.DoOrderDto;
 import com.koitt.tim.service.payment.PaymentCartService;
 
 @Controller
@@ -59,4 +61,27 @@ public class PaymentCartController {
 		}
 		return "/payment/cart_payment";
 	}
+
+	// 주문중 버튼클릭시 회원에 해당하는 쿠폰 리스트를 뿌려줌
+	@RequestMapping("/coupon_cart_list")
+	public String coupon_cart_list(HttpSession session, Model model) {
+		List<CouponMemBean> coupons = pcServ.getCoupons(session);
+		model.addAttribute("list", coupons);
+		return "payment/coupon_cart_list";
+	}
+
+	// order로 들어옴 '0')/
+	@ResponseBody
+	@RequestMapping("/DoOrder")
+	public String do_order_cart(HttpSession session, DoOrderDto doOrderDto) {
+		String check = "1";
+		try {
+			String o_num = pcServ.doOrderCart(doOrderDto, session);
+			check = o_num;
+		} catch (Exception e) {
+			check = "0";
+		}
+		return check;
+	}
+
 }

@@ -5,6 +5,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <jsp:include page="../common/header.jsp"/>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<c:if test="${list==null }">
+	<script type="text/javascript">
+		alert('잘못된 접근입니다.');
+		location.href='/main';
+	</script>
+</c:if>
+
     <script type="text/javascript">
     function post(){
 	    new daum.Postcode({
@@ -24,6 +31,7 @@
 	        }
 	    }).open();
 	}
+    
     </script>
  <!-- container -->
 	<div id="container">
@@ -42,8 +50,7 @@
 				<div id="mypage">
 					<h2><strong>주문/결제</strong></h2>
 					
-					<!-- 주문 상품 -->
-					<form action="" name="product" method="post">
+					<!-- 주문 상품 --><%--주문상품은 session에서 정보를 가져온다 --%>
 					<h3 class="dep">주문 제품 확인</h3>
 					<div class="orderDivNm">
 						<table summary="주문 제품 확인 게시판으로 상품명, 가격, 수량, 합계순으로 조회 하실수 있습니다." class="orderTable" border="1" cellspacing="0">
@@ -72,9 +79,8 @@
 												</li>
 											</ul>
 										</td>
-										<td class="tnone cart_price">
+										<td class="tnone">
 											<em><fmt:formatNumber value="${dtos.pdto.sales_price }" pattern="#,###" /></em> 원
-											
 											<c:if test="${member!=null }">
 												<!-- 회원일 시 -->
 												<br/><span class="pointscore"><fmt:formatNumber value="${dtos.pdto.sales_price*0.01 }" pattern="#,###" /> Point</span>
@@ -82,7 +88,7 @@
 											</c:if>
 										</td>
 										<td><span>${dtos.bmdto.count }</span> 개</td>
-										<td><span><fmt:formatNumber value="${dtos.pdto.sales_price*dtos.bmdto.count }" pattern="#,###" /></span> 원</td>
+										<td class="cart_price"><span><fmt:formatNumber value="${dtos.pdto.sales_price*dtos.bmdto.count }" pattern="#,###" /></span> 원</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -95,18 +101,17 @@
 							<li class="result_total">= 총 합계 <strong>1,134,810</strong> 원</li>
 						</ul>
 					</div>
-					</form>
 					<!-- //주문 상품 -->
 					
 
 			<!-- 주문자 주소 입력 -->
-					<form action="" name="form1" method="post">
+					<form  action="/DoOrder" name="form1" method="post" class="ko_order">
 					<h3 class="diviLeft">주문자 주소 입력</h3>
 					<c:if test="${member!=null }">
 					<div class="diviRight">
 						<ul>
 							<li>수정 내용을 회원정보에도 반영합니다.&nbsp;&nbsp;</li>
-							<li><a href="#">회원정보반영</a></li>
+							<li  id="saveMemInfo"><a href="javascript:;">회원정보반영</a></li>
 						</ul>
 					</div>
 					</c:if>
@@ -120,7 +125,14 @@
 							<tbody>
 								<tr>
 									<th scope="row"><span>이름</span></th>
-									<td><input type="text" class="w134" value="" /></td>
+									<c:choose>
+									<c:when test="${member!=null }">
+										<td><input type="text" class="w134" value="${member.name }" name="name" readonly="readonly"/></td>
+									</c:when>
+									<c:otherwise>
+										<td><input type="text" class="w134" value="" name="name" /></td>
+									</c:otherwise>
+									</c:choose>
 								</tr>
 
 								<tr>
@@ -128,11 +140,11 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<input type="text" class="w134" id="zip1"/>&nbsp;
+												<input type="text" class="w134" id="zip1" value="${member.address1 }" readonly="readonly" name="address1"/>&nbsp;
 											</li>
 											<li><a href="javascript:;" onclick="post()" class="addressBtn"><span>우편번호 찾기</span></a></li>
-											<li class="pt5"><input type="text" class="addressType2" name="address2" id="address1"/></li>
-											<li class="pt5"><input type="text" class="addressType2" name="address3" id="address2" /></li>
+											<li class="pt5"><input type="text" class="addressType2" name="address2" id="address1" value="${member.address2 }" readonly="readonly"/></li>
+											<li class="pt5"><input type="text" class="addressType2" name="address3" id="address2" value="${member.address3 }" /></li>
 										</ul>
 									</td>
 								</tr>
@@ -140,30 +152,20 @@
 									<th scope="row"><span>이메일</span></th>
 									<td>
 										<ul class="pta">
-											<li><input type="text" class="w134" /></li>
+											<li><input type="text" class="w136" value="${member.email1 }" name="email1"/></li>
 											<li><span class="valign">&nbsp;@&nbsp;</span></li>
-											<li class="r10"><input type="text" class="w134" name="email2"/></li>
+											<li class="r10"><input type="text" class="w135" name="email2" value="${member.email2 }"/></li>
 											<li>
 												<select name="lstMail" class="select01" style="width: 150px"
                                     onchange="document.form1.email2.focus();
                               document.form1.email2.value =document.form1.lstMail[document.form1.lstMail.selectedIndex].value;
-                            ">
-													<option value="" selected="selected">직접입력</option>
+                            " id="emailOne">
+													<option value="">직접입력</option>
 													<option value="naver.com">naver.com</option>
-													<option value="daum.net">daum.net</option>
 													<option value="hanmail.net">hanmail.net</option>
 													<option value="nate.com">nate.com</option>    
 													<option value="yahoo.co.kr">yahoo.co.kr</option>    
-													<option value="paran.com">paran.com</option>    
-													<option value="empal.com">empal.com</option>    
-													<option value="hotmail.com">hotmail.com</option>    
-													<option value="korea.com">korea.com</option>    
-													<option value="lycos.co.kr">lycos.co.kr</option>    
-													<option value="dreamwiz.com">dreamwiz.com</option>    
-													<option value="hanafos.com">hanafos.com</option>    
-													<option value="chol.com">chol.com</option>    
 													<option value="gmail.com">gmail.com</option>    
-													<option value="empas.com">empas.com</option>
 												</select>&nbsp;&nbsp;&nbsp;
 											</li>
 										</ul>
@@ -174,8 +176,8 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<select>
-													<option value="010" selected="selected">010</option>
+												<select name="phone1" id="phoneOne">
+													<option value="010">010</option>
 													<option value="011">011</option>
 													<option value="016">016</option>
 													<option value="017">017</option>
@@ -184,8 +186,8 @@
 												</select>
 											</li>
 											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
-											<li class="r10"><input type="text" class="w74" maxlength="4" /></li>
+											<li><input type="text" class="w74" maxlength="4" value="${member.phone2 }" name="phone2" /> <span class="valign">-</span>&nbsp;</li>
+											<li class="r10"><input type="text" class="w74" maxlength="4" name="phone3"  value="${member.phone3 }"/></li>
 										</ul>
 									</td>
 								</tr>
@@ -194,8 +196,8 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<select>
-													<option value="02" selected="selected">02</option>
+												<select name="tel1" id="telOne">
+													<option value="02">02</option>
 													<option value="031">031</option>
 													<option value="032">032</option>
 													<option value="033">033</option>
@@ -215,25 +217,115 @@
 												</select>
 											</li>
 											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /></li>
+											<li><input type="text" class="w74" maxlength="4" value="${member.tel2 }" name="tel2"/> <span class="valign">-</span>&nbsp;</li>
+											<li><input type="text" class="w74" maxlength="4" value="${member.tel3 }"  name="tel3"/></li>
 										</ul>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
-					</form>
 			<!-- //주문자 주소 입력 -->
-
+   <script type="text/javascript">
+		$("#saveMemInfo").click(function(){
+		var ad=document.getElementById('zip1').value;
+    	var namech=/^[가-힣]{2,10}$/;
+    	if(form1.name.value==''){
+    		alert('주문자명이 입력되지 않았습니다.');
+    		form1.name.focus();
+    		return false;
+    	}
+    	if(!(namech.test(form1.name.value))){
+    		alert('이름의 형식이 잘못되었습니다.');
+    		form1.name.value='';
+    		form1.name.focus();
+    		return false;
+    	}
+    	if(ad==''){
+    		alert('주소가 입력되지않았습니다');
+    		form1.address2.focus();
+    		return false;
+    	}
+    	if(form1.email1.value==''){
+    		alert('이메일이 입력되지 않았습니다.');
+    		form1.email1.focus();
+    		return false;
+    	}
+    	if(form1.email2.value==''){
+    		alert('이메일이 입력되지 않았습니다.');
+    		form1.email2.focus();
+    		return false;
+    	}
+    	if(form1.phone2.value==''){
+    		alert('휴대폰번호가 입력되지 않았습니다.');
+    		form1.phone2.focus();
+    		return false;
+    	}
+    	if(form1.phone3.value==''){
+    		alert('휴대폰번호가 입력되지 않았습니다.');
+    		form1.phone3.focus();
+    		return false;
+    	}
+    	if(form1.tel2.value==''){
+    		alert('전화번호가 입력되지 않았습니다.');
+    		form1.tel2.focus();
+    		return false;
+    	}
+    	if(form1.tel3.value==''){
+    		alert('전화번호가 입력되지 않았습니다.');
+    		form1.tel3.focus();
+    		return false;
+    	}
+    	
+ 	       if(confirm("회원정보에 반영하시겠습니까?")){
+    		
+	 	       var ad1=document.getElementById('zip1').value;
+	 	       var ad2=document.getElementById('address1').value;
+    		$.ajax({
+    	        url : "/mypage/updateMemInfo",   // 받을 url
+    	        type : "POST",   
+    	        data: JSON.stringify({
+    	        	name:form1.name.value,
+    	        	address1:String(ad1),
+    	        	address2:String(ad2),
+    	        	address3:String(form1.address3.value),
+    	        	email1:String(form1.email1.value),
+    	        	email2:String(form1.email2.value),
+    	        	phone1:String(form1.phone1.value),
+    	        	phone2:String(form1.phone2.value),
+    	        	phone3:String(form1.phone3.value),
+    	        	tel1:String(form1.tel1.value),
+    	        	tel2:String(form1.tel2.value),
+    	        	tel3:String(form1.tel3.value)
+    	        }),  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
+    	        contentType: "application/json",
+    	        success : function (data) {
+    	           if(data== 1){ //리턴값이 ok일 경우
+    	              alert('회원정보가 업데이트 되었습니다');
+    	           }else if(data == 0){
+    					alert('업데이트 실패\n 잠시후 다시 시도해주세요');
+    				}
+    	        },
+    	        error : function(){ //오류일경우 경고창을 띄움
+    	           alert("통신 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.\n오류가 반복될 경우, 고객센터로 문의 부탁드립니다.\n(error_code: updateError)");
+    	        }
+    	     });
+    	}
+    	
+    })
+    
+    
+    </script>
 
 			<!-- 수취자 주소 입력 -->
-					<form action="" name="form2" method="post">
 					<h3 class="dep">
 						수취자 주소 입력
-						<input type="checkbox" id="infosame" onclick=""/>
+						<input type="checkbox" id="infosame" onclick="sameInfo()" />
 						<label for="infosame">주문자 정보와 동일</label>
 					</h3>
+					</form>
+					
+					<form  action="/DoOrder" name="form2" method="post" class="ko_order">
 					<div class="checkDiv">
 						<table summary="수취자 주소를 입력할 수 있는 란으로 이름, 주소, 이메일, 휴대폰 번호, 전화번호 순으로 입력 하실수 있습니다." class="checkTable" border="1" cellspacing="0">
 							<caption>수취자 주소 입력</caption>
@@ -252,11 +344,11 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<input type="text" class="w134" id="zip2" name="address1"/>&nbsp;
+												<input type="text" class="w134" id="zip2" name="p_address1" readonly="readonly"/>&nbsp;
 											</li>
 											<li><a href="javascript:;" onclick="post2()" class="addressBtn"><span>우편번호 찾기</span></a></li>
-											<li class="pt5"><input type="text" class="addressType2" name="address2" id="address3"/></li>
-											<li class="pt5"><input type="text" class="addressType2" name="address3" id="address4" /></li>
+											<li class="pt5"><input type="text" class="addressType2" name="p_address2" id="address3" readonly="readonly"/></li>
+											<li class="pt5"><input type="text" class="addressType2" name="p_address3" id="address4" /></li>
 										</ul>
 									</td>
 								</tr>
@@ -265,8 +357,8 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<select name="phone1">
-													<option value="010" selected="selected">010</option>
+												<select name="p_phone1" id="p_phone1">
+													<option value="010">010</option>
 													<option value="011">011</option>
 													<option value="016">016</option>
 													<option value="017">017</option>
@@ -275,8 +367,8 @@
 												</select>
 											</li>
 											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4"  name="phone2"/> <span class="valign">-</span>&nbsp;</li>
-											<li class="r10"><input type="text" class="w74" maxlength="4"  name="phone3" /></li>
+											<li><input type="text" class="w74" maxlength="4"  name="p_phone2"/> <span class="valign">-</span>&nbsp;</li>
+											<li class="r10"><input type="text" class="w74" maxlength="4"  name="p_phone3" /></li>
 										</ul>
 									</td>
 								</tr>
@@ -285,8 +377,8 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<select>
-													<option value="02" selected="selected">02</option>
+												<select name="p_tel1" id="p_tel1">
+													<option value="02">02</option>
 													<option value="031">031</option>
 													<option value="032">032</option>
 													<option value="033">033</option>
@@ -306,14 +398,14 @@
 												</select>
 											</li>
 											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /></li>
+											<li><input type="text" class="w74" maxlength="4" name="p_tel2"/> <span class="valign">-</span>&nbsp;</li>
+											<li><input type="text" class="w74" maxlength="4" name="p_tel3"/></li>
 										</ul>
 									</td>
 								</tr>
 								<tr>
-									<th scope="row"><span>배송시 <u>요구사항</u></span></th>
-									<td><textarea class="demandtta"></textarea></td>
+									<th scope="row"><span>배송시 요구사항</span></th>
+									<td><textarea class="demandtta" name="p_demand"></textarea></td>
 								</tr>
 							</tbody>
 						</table>
@@ -321,9 +413,9 @@
 					</div>
 					</form>
 			<!-- //수취자 주소 입력 -->
-
+		<!-- //주문자 주소 입력 -->
 			<c:if test="${member!=null }">
-					<form action="" method="post" name="coupoint">
+					<form  action="/DoOrder" method="post" name="coupoint"  class="ko_order">
 			<!-- 쿠폰 및 포인트 사용 -->
 					<h3 class="dep">쿠폰 및 포인트 사용</h3>
 					<div class="checkDiv">
@@ -336,22 +428,24 @@
 							<tbody>
 								<tr>
 									<th scope="row"><span>총 주문금액</span></th>
-									<td>1,132,310 원</td>
+									<td class="whole_total"><strong>1,132,310</strong> 원</td>
 								</tr>
 								<tr>
 									<th scope="row"><span>배송비</span></th>
-									<td>2,500 원 (선불)</td>
+									<td class="whole_deliver"><strong>2,500</strong> 원 (선불)</td>
 								</tr>
 								<tr>
 									<th scope="row"><span>쿠폰 할인</span></th>
 									<td>
 										<ul class="pta">
 											<li class="r10">
-												<input type="text" class="w134" />&nbsp;&nbsp;
-												<span class="valign"><strong>원</strong></span>
+												<input type="text" class="w134" id="topCou" value="" disabled="disabled"/>&nbsp;&nbsp;
+												<span class="valign"><strong></strong><input type="text" name="coupon_num" hidden=""  id="coucou" value="">원</span>
 											</li>
-											<li class="r10"><span class="valign">( 보유 쿠폰 내역 : 7장 )&nbsp;</span></li>
-											<li><a href="coupon_list.jsp" class="nbtn">쿠폰목록</a></li>
+											<li class="r10"><span class="valign">( 보유 쿠폰 내역 : ${member.couponCount }장 )&nbsp;</span></li>
+											<c:if test="${member.couponCount>0 }">
+												<li><a href="coupon_cart_list" class="nbtn">쿠폰목록</a></li>
+											</c:if>
 										</ul>
 									</td>
 								</tr>
@@ -362,12 +456,12 @@
 									<td>
 										<ul class="pta">
 											<li class="r10">
-												<input type="text" class="w134" />&nbsp;&nbsp;
+												<input type="text" class="w134" id="topPoin" value="" name="pay_point" onblur="changePoint(this)"/>&nbsp;&nbsp;
 												<span class="valign"><strong>Point</strong></span>
 											</li>
 											<li>
 												<span class="valign">( 사용 가능 포인트 : </span>
-												<span class="orange">15,000</span>
+												<span class="orange"><fmt:formatNumber value="${member.point }" pattern="#,###" /></span>
 												<span class="valign"> Point)</span>
 											</li>
 										</ul>
@@ -379,7 +473,8 @@
 									<th scope="row"><span>총 결제금액</span></th>
 									<td>
 										<ul class="pta">
-											<li><span class="valign"><strong>1,133,810 원</strong> (총주문금액 1,132,310원 + 배송비 2500원 - 포인트 1,000 = 1,133,801원)</li>
+											<li><span class="valign"><span class="money whole_total"><strong>1,133,810 </strong>원</span> (총주문금액 <span class="whole_total"><strong>1,132,310</strong></span>원 + 배송비 <span class="whole_deliver"><strong>1,132,310</strong></span>원
+											 - 포인트 <span><strong class="mempoint">0</strong></span>원 - 쿠폰할인 <span><strong id="midCou">0</strong></span>원 = <span class="money whole_total"><strong>1,133,801</strong></span>원)</span></li>
 										</ul>
 									</td>
 								</tr>
@@ -392,7 +487,6 @@
 			</c:if>
 
 			<!-- 총 주문금액 -->
-			<form name="orderTotal" method="post" >
 					<div class="amount">
 						
 						<c:choose>
@@ -420,11 +514,11 @@
 								<!-- 회원 일때만 -->
 								<li>
 									<span class="title">포인트 할인</span>
-									<span class="won"><strong>- 1,000</strong> P</span>
+									<span class="won">-<strong class="mempoint">0</strong> P</span>
 								</li>
 								<li>
 									<span class="title">쿠폰 할인</span>
-									<span class="won"><strong>- 1,000</strong> 원</span>
+									<span class="won">-<strong id="boCou">0</strong> 원</span>
 								</li>
 								<!-- //회원 일떄만 -->
 							</c:if>
@@ -441,15 +535,14 @@
 							</c:if>
 
 							<li class="txt"><strong>결제 예정 금액</strong></li>
-							<li class="money result_total"><span>1,134,810</span> 원</li>
+							<li class="money result_total"><span id="jardinTotal">1,134,810</span> 원</li>
 						</ul>
 					</div>
-				</form>	
 			<!-- //총 주문금액 -->
 
 
 			<!-- 결제수단 선택 -->
-				<form name="payMethod" method="post">
+				<form name="payMethod" method="post"  class="ko_order" action="/DoOrder">
 					<h3 class="dep">결제수단 선택</h3>
 					<div class="checkDiv">
 						<table summary="신용카드 결제, 실시간 계좌이체, 가상계좌, 가상계좌(에스크로), 무통장 입금 순으로 결제수단을 선택하실 수 있습니다." class="checkTable" border="1" cellspacing="0">
@@ -464,19 +557,19 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<input type="radio" id="method01" name="method" checked="checked" /><label for="method01">신용카드 결제</label>
+												<input type="radio" id="method01" name="method" checked="checked" value="card"/><label for="method01">신용카드 결제</label>
 											</li>
 											<li>
-												<input type="radio" id="method02" name="method" /><label for="method02">실시간 계좌이체</label>
+												<input type="radio" id="method02" name="method" value="bankpay"/><label for="method02">실시간 계좌이체</label>
 											</li>
 											<li>
-												<input type="radio" id="method03" name="method" /><label for="method03">가상계좌</label>
+												<input type="radio" id="method03" name="method" value="banktemp"/><label for="method03">가상계좌</label>
 											</li>
 											<li>
-												<input type="radio" id="method04" name="method" /><label for="method04">가상계좌(에스크로)</label>
+												<input type="radio" id="method04" name="method" value="banktemp2"/><label for="method04">가상계좌(에스크로)</label>
 											</li>
 											<li>
-												<input type="radio" id="method05" name="method" /><label for="method05">무통장 입금</label>
+												<input type="radio" id="method05" name="method" value="banktemp3"/><label for="method05">무통장 입금</label>
 											</li>
 										</ul>
 									</td>
@@ -514,7 +607,7 @@
 										<th scope="row"><span>입금은행</span></th>
 										<td>
 											<select name="bank">
-												<option value="" disabled="disabled" hidden="" selected="selected">선택하세요.</option>
+												<option value="" disabled="disabled" selected="selected">선택하세요.</option>
 												<option value="국민">국민</option>
 												<option value="신한">신한</option>
 												<option value="우리">우리</option>
@@ -525,7 +618,7 @@
 									</tr>
 									<tr>
 										<th scope="row"><span>입금자 명</span></th>
-										<td><input type="text" class="w134" /></td>
+										<td><input type="text" class="w134" name="bank_name"/></td>
 									</tr>
 									<tr>
 										<th scope="row"><span>영수증 신청</span></th>
@@ -547,18 +640,18 @@
 								<dt>발급방식</dt>
 								<dd>
 									<ul>
-										<li><input type="radio" name="individual" id="phone" checked="checked" /><label for="phone">휴대폰</label></li>
+										<li><input type="radio" name="individual" id="phone" checked="checked" value="phone" /><label for="phone">휴대폰</label></li>
 <!-- 										<li><input type="radio" name="individual" id="securitynumber" /><label for="securitynumber">주민등록번호</label></li> -->
-										<li><input type="radio" name="individual" id="cashreceipts" /><label class="fn" for="cashreceipts">현금영수증카드</label></li>
+										<li><input type="radio" name="individual" id="cashreceipts" value="cashreceipts"/><label class="fn" for="cashreceipts">현금영수증카드</label></li>
 									</ul>
 								</dd>
 							</dl>
 							
 							<ul class="inform phone"><!-- 휴대폰 -->
 								<li class="title">이름</li>
-								<li class="interval"><input type="text" class="w134" /></li>
+								<li class="interval"><input type="text" class="w134" name="phone_name"/></li>
 								<li class="title cb">휴대폰</li>
-								<li><input type="text" class="w134" /></li>
+								<li><input type="text" class="w134" name="phone_num"/></li>
 							</ul>
 
 <!-- 							<ul class="inform securitynumber">주민등록번호 -->
@@ -570,9 +663,9 @@
 
 							<ul class="inform cashreceipts"><!-- 현금영수증카드 -->
 								<li class="title">이름</li>
-								<li class="interval"><input type="text" class="w134" /></li>
+								<li class="interval"><input type="text" class="w134" name="cashreceipts_name"/></li>
 								<li class="title2 cb">현금영수증카드 번호</li>
-								<li><input type="text" class="w134" /></li>
+								<li><input type="text" class="w134" name="cashreceipts_num"/></li>
 							</ul>
 
 							<p class="txt">* 번호 입력시 하이픈(-)을 제외한 숫자만 입력하세요.</p>
@@ -585,24 +678,24 @@
 								<dt>발급방식</dt>
 								<dd>
 									<ul>
-										<li><input type="radio" name="corporate" id="corporatenumber" checked="checked" /><label for="corporatenumber">사업자번호</label></li>
-										<li><input type="radio" name="corporate" id="corporate_cash" /><label class="fn" for="corporate_cash">현금영수증카드</label></li>
+										<li><input type="radio" name="corporate" id="corporatenumber" checked="checked" value="corporatenumber"/><label for="corporatenumber">사업자번호</label></li>
+										<li><input type="radio" name="corporate" id="corporate_cash" value="corporate_cash" /><label class="fn" for="corporate_cash">현금영수증카드</label></li>
 									</ul>
 								</dd>
 							</dl>
 
 							<ul class="inform corporatenumber"><!-- 사업자번호 -->
 								<li class="title">이름</li>
-								<li class="interval"><input type="text" class="w134" /></li>
+								<li class="interval"><input type="text" class="w134" name="corporatenumber_name"/></li>
 								<li class="title2 cb">사업자등록 번호</li>
-								<li><input type="text" class="w134" /></li>
+								<li><input type="text" class="w134" name="corporatenumber_num"/></li>
 							</ul>
 
 							<ul class="inform corporate_cash"><!-- 현금영수증카드 -->
 								<li class="title">이름</li>
-								<li class="interval"><input type="text" class="w134" /></li>
+								<li class="interval"><input type="text" class="w134"  name="corporate_cash_name"/></li>
 								<li class="title2 cb">현금영수증카드 번호</li>
-								<li><input type="text" class="w134" /></li>
+								<li><input type="text" class="w134" name="corporate_cash_num"/></li>
 							</ul>
 
 							<p class="txt">* 번호 입력시 하이픈(-)을 제외한 숫자만 입력하세요.</p>
@@ -621,12 +714,132 @@
 						<div class="orderCenter">
 							<ul>
 								<li><a href="javascript:history.go(-1);" class="nbtnbig iw0140">뒤로가기</a></li>
-								<li><a href="#" class="sbtnMini iw0140">주문 / 결제</a></li>								
+								<li><a href="javascript:;" id="OrdergoGo" class="sbtnMini iw0140">주문 / 결제</a></li>								
 							</ul>
 						</div>
 					</div>
 					<!-- //Btn Area -->
-				
+					<script type="text/javascript">
+		$("#OrdergoGo").click(function(){
+    	
+    	var namech=/^[가-힣]{2,10}$/;
+    	 var ad1=document.getElementById('zip1').value;
+	       var ad2=document.getElementById('zip2').value;
+    	//주문자
+    	if(form1.name.value==''){
+    		alert('주문자명이 입력되지 않았습니다.');
+    		form1.name.focus();
+    		return false;
+    	}
+    	if(!(namech.test(form1.name.value))){
+    		alert('이름의 형식이 잘못되었습니다.');
+    		form1.name.value='';
+    		form1.name.focus();
+    		return false;
+    	}
+    	if(ad1==''){
+    		alert('주소가 입력되지않았습니다');
+    		form1.address3.focus();
+    		return false;
+    	}
+    	if(form1.email1.value==''){
+    		alert('이메일이 입력되지 않았습니다.');
+    		form1.email1.focus();
+    		return false;
+    	}
+    	if(form1.email2.value==''){
+    		alert('이메일이 입력되지 않았습니다.');
+    		form1.email2.focus();
+    		return false;
+    	}
+    	if(form1.phone2.value==''){
+    		alert('휴대폰번호가 입력되지 않았습니다.');
+    		form1.phone2.focus();
+    		return false;
+    	}
+    	if(form1.phone3.value==''){
+    		alert('휴대폰번호가 입력되지 않았습니다.');
+    		form1.phone3.focus();
+    		return false;
+    	}
+    	if(form1.tel2.value==''){
+    		alert('전화번호가 입력되지 않았습니다.');
+    		form1.tel2.focus();
+    		return false;
+    	}
+    	if(form1.tel3.value==''){
+    		alert('전화번호가 입력되지 않았습니다.');
+    		form1.tel3.focus();
+    		return false;
+    	}
+    	//수취자
+    	if(form2.p_name.value==''){
+    		alert('수취자명이 입력되지 않았습니다.');
+    		form2.p_name.focus();
+    		return false;
+    	}
+    	if(!(namech.test(form2.p_name.value))){
+    		alert('이름의 형식이 잘못되었습니다.');
+    		form2.p_name.value='';
+    		form2.p_name.focus();
+    		return false;
+    	}
+    	if(ad2==''){
+    		alert('주소가 입력되지않았습니다');
+    		form2.p_address3.focus();
+    		return false;
+    	}
+    	if(form2.p_phone2.value==''){
+    		alert('휴대폰번호가 입력되지 않았습니다.');
+    		form2.p_phone2.focus();
+    		return false;
+    	}
+    	if(form2.p_phone3.value==''){
+    		alert('휴대폰번호가 입력되지 않았습니다.');
+    		form2.p_phone3.focus();
+    		return false;
+    	}
+    	if(form2.p_tel2.value==''){
+    		alert('전화번호가 입력되지 않았습니다.');
+    		form2.p_tel2.focus();
+    		return false;
+    	}
+    	if(form2.p_tel3.value==''){
+    		alert('전화번호가 입력되지 않았습니다.');
+    		form2.p_tel3.focus();
+    		return false;
+    	}
+    	if(payMethod.method.value=='banktemp3'){
+    		if(payMethod.bank_name.value==''){
+    			alert('입금자명을 입력해주세오.');
+    			payMethod.bank_name.focus();
+        		return false;
+    		}
+    	}
+ 	    
+    	var params = $('form').serialize();
+ 	       
+    		$.ajax({
+    	        url : "/DoOrder",   // 받을 url
+    	        type : "POST",   
+    	        data: params,  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
+    	        success : function (data) {
+    	           if(data!= 0){ //리턴값이 ok일 경우
+    	              alert('주문성공');
+    	           		location.href='/main';
+    	           }else if(data == 0){
+    					alert('실패');
+    				}
+    	        },
+    	        error : function(){ //오류일경우 경고창을 띄움
+    	           alert("통신 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.\n오류가 반복될 경우, 고객센터로 문의 부탁드립니다.\n(error_code: orderError)");
+    	        }
+    	     });
+    	
+    })
+    
+    
+    </script>
 
 
 				</div>
@@ -638,6 +851,24 @@
 <link rel="stylesheet" type="text/css" href="../css/jquery.fancybox-1.3.4.css" />
 <script type="text/javascript">
 $(function(){
+	//전화형태
+	$('.w74').keyup(function() {
+		var c=$(this).val();
+		$(this).val(c.replace(/[^0-9]/g,""));
+	});
+	//이메일형태(뒷주소)
+	$('.w135').keyup(function() {
+		var c=$(this).val();
+		$(this).val(c.replace(/[^a-zA-Z.]/g,""));
+	});
+	//이메일형태(앞주소)
+	$('.w136').keyup(function() {
+		var c=$(this).val();
+		$(this).val(c.replace(/[^0-9a-zA-Z_]/g,""));
+	});
+	
+	
+	
 	// select, radio - display check
 
 	// 1 Step Radio
@@ -684,10 +915,6 @@ $(function(){
 		$("ul." + divchk).css("display","block");
 	});
 
-
-
-
-
 	// layer popup
 	var winWidth = $(window).width();
 	if(winWidth > 767){
@@ -721,49 +948,164 @@ $(function(){
 		var f_total=get_re_total(first,f_deliver);
 		$( ".result_total strong" ).text(f_total);
 		$( ".result_total span" ).text(f_total);
-		//전체 상품 금액합계
-		 function get_total() {
-				var cnt=$(".cart_price").length;
-				var sum=0;
-				for(var i=0;i<cnt;i++){
-				var cart=$(".cart_price em").eq(i).text();
-				cart=cart.replace(/[^0-9]/g,'');
-				cart=Number(cart);
-				sum+=cart;
+		//처음 포인트(적립예정)
+		var f_point=get_point(first);
+		$(".mileage strong").text(f_point);
+		
+		//쿠폰 적용
+		$(".nbtn").click(function(){
+			$("#topCou").focus();
+		})
+		
+		if($("#topCou").focus()){
+			$(window).scroll(function(){
+				if($("#topCou").val()!=''){
+					var point=$("#topPoin").val();
+		 			var coupon=$("#topCou").val();
+		 			var total=get_total();
+		 			var deliver=get_deliver(total);
+		 			//변동 최종 금액
+		 			var lastTotal=get_mem_total(total,deliver,coupon,point)
+		 			$( ".money span" ).text(lastTotal);
+		 			$( ".money strong" ).text(lastTotal);
 				}
-				sum=sum.toLocaleString();
-				return sum;
-		}
-		//배송비
-		function get_deliver(x){
-			var del=2500;
-			x=x.replace(/[^0-9]/g,'');
-			x=Number(x);
-			if(x>=15000){
-				del=0;
+			});
+		}//
+});
+</script>
+<c:if test="${member!=null }">
+	<script type="text/javascript">
+	$(function(){
+	//select박스
+	$('select[id="emailOne"]').find('option:contains("${member.email2}")').prop("selected",true);
+	$('select[id="phoneOne"]').find('option:contains("${member.phone1}")').prop("selected",true);
+	$('select[id="telOne"]').find('option:contains("${member.tel1}")').prop("selected",true);
+	
+		//사용포인트 변동확인
+		$('#topPoin').keyup(function() {
+			var c=$(this).val().replace(/(^0+)/, "");
+			$(this).val(c.replace(/[^0-9]/g,""));
+			var k=$(this).val();
+			if(parseInt(k)>'${member.point}'){
+				alert('보유 포인트를 넘을 수 없습니다');
+				$(this).val('');
 			}
-			if(del==0){
-				$( ".del_text strong" ).text("*15,000원 이상 구매시 배송비 무료");
-			}else{
-				$( ".del_text strong" ).text("");
-			}
-			
-			del=del.toLocaleString();
-			return del;
-		}
-		//최종합계
-		function get_re_total(a,b){
+		});
+	});
+	
+	</script>
+</c:if>
+
+<script type="text/javascript">
+		//회원 합계(합계+배송비-포인트-쿠폰가격)
+		function get_mem_total(a,b,c,d){
 			a=a.replace(/[^0-9]/g,'');
 			a=Number(a);
 			b=b.replace(/[^0-9]/g,'');
 			b=Number(b);
-			var result=a+b;
+			c=c.replace(/[^0-9]/g,'');
+			c=Number(c);
+			if(d==''){d=0;}else{
+			d=d.replace(/[^0-9]/g,'');}
+			d=Number(d);
+			var result=a+b-c-d;
+			if(result<0){
+				result=0;
+			}
 			result=result.toLocaleString();
 			return result;
 		}
+		//포인트 반영
+		function changePoint(a){
+			var point=a.value;
+			if(point==''){
+				point=0;
+			}
+			$(".mempoint").text(point);
+			var coupon=$("#topCou").val();
+			var total=get_total();
+			var deliver=get_deliver(total);
+			//변동 최종 금액
+			var lastTotal=get_mem_total(total,deliver,coupon,point)
+			$( ".money span" ).text(lastTotal);
+			$( ".money strong" ).text(lastTotal);
+		}	
+
+		
+//전체 상품 금액합계
+function get_total() {
+		var cnt=$(".cart_price").length;
+		var sum=0;
+		for(var i=0;i<cnt;i++){
+		var cart=$(".cart_price span").eq(i).text();
+		cart=cart.replace(/[^0-9]/g,'');
+		cart=Number(cart);
+		sum+=cart;
+		}
+		sum=sum.toLocaleString();
+		return sum;
+}
+//배송비
+function get_deliver(x){
+	var del=2500;
+	x=x.replace(/[^0-9]/g,'');
+	x=Number(x);
+	if(x>=15000){
+		del=0;
+	}
+	if(del==0){
+		$( ".del_text strong" ).text("*15,000원 이상 구매시 배송비 무료");
+	}else{
+		$( ".del_text strong" ).text("");
+	}
+	
+	del=del.toLocaleString();
+	return del;
+}
+//적립예정포인트
+function get_point(x){
+	x=x.replace(/[^0-9]/g,'');
+	x=Number(x);
+	var point=0.01*x;
+	point=parseInt(point);
+	point=point.toLocaleString();
+	return point;
+}
 
 
-});
+
+//합계(상품가격+배송비)
+function get_re_total(a,b){
+	a=a.replace(/[^0-9]/g,'');
+	a=Number(a);
+	b=b.replace(/[^0-9]/g,'');
+	b=Number(b);
+	var result=a+b;
+	result=result.toLocaleString();
+	return result;
+}
+
+
+//수취자 정보 동일
+function sameInfo(){
+	var chk = $("#infosame").is(":checked");//.attr('checked');
+    if(chk) {
+		form2.p_name.value=form1.name.value;
+	 	form2.p_address1.value=$("#zip1").val();
+	 	$("#zip2").attr( 'readonly', true ); 
+	 	form2.p_address2.value=$("#address1").val();
+	 	$("#address3").attr( 'readonly', true ); 
+		form2.p_address3.value=form1.address3.value;
+		$("#p_tel1 option[value="+form1.tel1.value+"]").prop("selected", true);
+		form2.p_tel2.value=form1.tel2.value;
+		form2.p_tel3.value=form1.tel3.value;
+		$("#p_phone1 option[value="+form1.phone1.value+"]").prop("selected", true);
+		form2.p_phone2.value=form1.phone2.value;
+		form2.p_phone3.value=form1.phone3.value;
+    }
+}
+
+	
 </script>
 
 

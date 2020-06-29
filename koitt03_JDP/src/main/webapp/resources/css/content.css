@@ -333,6 +333,15 @@
 .brandList ul li .price{font-size:22px; font-weight:600; color:#f15e23; text-align:center;}
 .brandList ul li:hover .img{border:7px #ffc7b1 solid;}
 
+.brandList .coffeeBack{width:100%; overflow:hidden;}
+.brandList .original{width:100%; overflow:hidden;}
+.brandList .mild{width:100%; overflow:hidden;}
+.brandList .cafeMori{width:100%; overflow:hidden;}
+.brandList .cafePort{width:100%; overflow:hidden;}
+.brandList .cafeReal{width:100%; overflow:hidden;}
+.brandList .waterCoffee{width:100%; overflow:hidden;}
+.brandList .classCoffee{width:100%; overflow:hidden;}
+
 
 
 /* PRODUCTLIST */
@@ -787,7 +796,10 @@
 
 
 /* SELECT CHANGE */
-span.searchStyleSelectBox{height:19px; font-size:12px;background:url('../images/bg/bg_select.gif') right center #fff no-repeat;padding:1px 20px 0 0; border-left:1px #dfdfdf solid;}
+select{height:19px; font-size:12px;
+padding:1px 20px 0 0; border-left:1px #dfdfdf solid;font-size:12px;white-space:nowrap; line-height:1.4; }
+span.searchStyleSelectBox{height:19px; font-size:12px;background:url('../images/bg/bg_select.gif') right center #fff no-repeat;background-size: contain;
+padding:1px 20px 0 0; border-left:1px #dfdfdf solid;}
 span.searchStyleSelectBox.changed{background-color: #fff;}
 .searchStyleSelectBoxInner{font-size:12px;white-space:nowrap; line-height:1.4; padding:0 40px 0 4px;}
 

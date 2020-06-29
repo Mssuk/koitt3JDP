@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koitt.tim.dao.point.PointDao">
 
+	<select id="selectPointSum" resultType="int">
+	select nvl(sum(point_member.point),0) from point_member where id=#{id}
+	</select>
+
+	<insert id="insertPointMemberOne">
+		insert into point_member values(#{id},#{point},sysdate,#{reason},#{o_num},point_seq.nextval)
+	</insert>
+
 </mapper>

@@ -45,11 +45,7 @@
     </select>
 
     <select id="selectReviewKey" resultType="String">
-        select ol.KEY from ORDER_LIST ol,"ORDER" o where o."o_num"=#{oNum} and o."o_num" = ol."o_num"
-    </select>
-
-    <select id="selectReviewPro_num" resultType="String">
-        select ol."pro_num" from "ORDER" o,ORDER_LIST ol where o."o_num"=#{oNum} and o."o_num"=ol."o_num"
+        select ol.KEY from ORDER_LIST ol,"ORDER" o where o."o_num"=ol."o_num" and o."o_num"=#{oNum} and o."id"=#{id} and ol."pro_num"=#{pro_num}
     </select>
 
 

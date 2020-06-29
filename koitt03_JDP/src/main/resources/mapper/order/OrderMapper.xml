@@ -25,8 +25,8 @@
 
     <insert id="insertOrderList" parameterType="OrderListDto">
         insert into "ORDER_LIST"
-        values (concat(#{convertedDate},
-            ORDER_SEQ.nextval),
+        values (concat(#{convertedDate},lpad(
+            ORDER_SEQ.nextval,5,0)),
                 #{orderNumber},
                 ${pro_num},
                 ${spinner},
@@ -36,12 +36,13 @@
 
 
     <select id="selectOrderCount" resultType="int">
+<!--         select count(*) from "ORDER" where "id"=#{id} -->
         select count(*) from "ORDER" where "id"=#{id}
     </select>
 
     <!-- 회원 주문조회 -->
     <select id="selectOrderList" resultType="orderListDto">
-        select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status
+        select col1.o_date, col1."o_num", col2.product_name, col2.PRICE, col2."o_quant", col1.o_status,col2."pro_num"
             from  ORDER_LIST col2, "ORDER" col1 where col1."o_num" = col2."o_num" and col2."o_num" = #{orderNum}
     </select>
 
@@ -104,4 +105,25 @@ c.key is null and ROWNUM <![CDATA[ >= ]]> #{p1}
     <select id="updateOrderStatus">
         update "ORDER" set O_STATUS = #{param2} where "o_num"=#{param1}
     </select>
+    
+    
+    
+    <!-- 장바구니형 구매>주문 -->
+    <insert id="insertOrderOne" parameterType="GetOrderNum">
+    	insert into "ORDER" ("o_num","id","o_point",o_status,"o_name","o_tel","o_cost",o_date,o_update_date) values(concat(#{orderDay},lpad(ORDER_SEQ.nextval,5,0)),#{id},#{o_point},#{o_status},#{o_name},#{o_tel},#{o_cost},sysdate,sysdate)
+    	<selectKey keyProperty="num"  resultType="int" order="AFTER">
+    		SELECT ORDER_SEQ.currval AS num FROM DUAL
+    	</selectKey>
+    </insert>
+    <!-- 주문리스트 생성 -->
+    <insert id="insertOrderlistOne">
+    	insert into ORDER_LIST values(
+    	concat(#{orderDay},lpad(ORDERLIST_SEQ.nextval,5,0)),
+                #{o_num},
+                #{pro_num},
+                #{o_quant},
+                #{product_price},
+                #{product_name})
+    </insert>
+    
 </mapper>

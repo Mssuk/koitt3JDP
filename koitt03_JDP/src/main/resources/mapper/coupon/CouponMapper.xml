@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koitt.tim.dao.coupon.CouponDao">
-
+	
 	<select id="selectAllMemCoupon" resultType="CouponDto">
 		select COUPON.COUPON_NUM,COUPON.COUPON_NAME,COUPON.COUPON_TYPE,COUPON.COUPON_PAY from COUPON, COUPON_MEMBER where COUPON_MEMBER.ID = #{id} and COUPON_MEMBER.COUPON_NUM = COUPON.COUPON_NUM
 	</select>
-
+	<!-- 유효기한 안지난 쿠폰만 들고옴 -->
+	<select id="selectCountCouponP" resultType="int">
+		select count(*) from (select col1.* from COUPON_MEMBER col1,coupon col2 where col2.coupon_num=col1.coupon_num and col1.id= #{id} and <![CDATA[ col2.endday>=sysdate ]]> and col1.use_date is null)
+	</select>
+	<select id="selectMemberCoupons" resultType="CouponMemBean">
+		select rownum,col1.id,col1.regist_coupon,col1.use_date,col2.coupon_num,col2.coupon_name,col2.coupon_type,col2.coupon_pay,col2.startday,col2.endday from COUPON_MEMBER col1,coupon col2 where col2.coupon_num=col1.coupon_num and col1.id= #{id} and <![CDATA[ col2.endday>=sysdate ]]> and col1.use_date is null order by col2.endday desc, col2.coupon_num desc, rownum desc
+	</select>
+	<!-- 유효기한 안지난 쿠폰만 들고옴 -->
+	
+	
 	<select id="selectCountCoupon" resultType="int">
-		select count(*) from COUPON_MEMBER where COUPON_MEMBER.ID = #{id}
+		select count(*) from COUPON_MEMBER where id= #{id}
 	</select>
 
 	<select id="selectAllMemberCoupon" resultType="CouponDto">
 		select * from COUPON_MEMBER
 	</select>
-
+	
 	<!-- 쿠폰리스트 다불러오는거 -->
 	<select id="selectAllCoupon" resultType="CouponDto">
 		select * from COUPON
@@ -35,4 +44,18 @@
 		sysdate,
 		'')
 	</insert>
+	<!-- 적용한 쿠폰 -->
+	<select id="selectCouponOne"  resultType="CouponMemBean">
+		select col1.id,col1.regist_coupon,col1.use_date,col2.coupon_num,col2.coupon_name,col2.coupon_type,col2.coupon_pay,col2.startday,col2.endday from COUPON_MEMBER col1,coupon col2 where col2.coupon_num=col1.coupon_num and col1.id= #{id} and col1.coupon_num=#{coupon_num}
+	</select>
+	
+	<!-- 쿠폰사용상태 변경 -->
+	<update id="updateMemberCoupon">
+		update coupon_member set use_date=sysdate where coupon_num=#{coupon_num} and id=#{id}
+	</update>
+	
+	<select id="selectCouponNum" resultType="String">
+		select * from coupon_member where id=#{id} 
+	</select>
+	
 </mapper>

@@ -26,7 +26,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@SessionAttributes("admin")
+
 @Controller
 @RequestMapping("payment")
 public class PaymentController {
@@ -40,6 +40,14 @@ public class PaymentController {
         ProductDto pDto = paymentServ.selectOne(pro_num);
         MemberDto memDto = paymentServ.selectOneMember((String) session.getAttribute("admin"));
         ObjectMapper objectMapper = new ObjectMapper();
+        String id="";
+
+        if(session.getAttribute("loginInfo")!=null){
+            MemberDto mDto = (MemberDto) session.getAttribute("loginInfo");
+            id=mDto.getId();
+        }
+
+        
 
         String mDtoValue = objectMapper.writeValueAsString(memDto);   //JSON으로 바꿔줌.
         int count = paymentServ.couponListSum((String)session.getAttribute("admin"));

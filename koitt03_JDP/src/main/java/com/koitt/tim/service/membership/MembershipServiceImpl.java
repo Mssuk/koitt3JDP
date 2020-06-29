@@ -1,5 +1,9 @@
 package com.koitt.tim.service.membership;
 
+import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -99,6 +103,37 @@ public class MembershipServiceImpl implements MembershipService {
 	@Override
 	public void modifyMember(MemberDto mDto) {
 		memberDao.updateMember(mDto);
+	}
+
+	// 주문시 회원정보변경
+	@Override
+	public int orderModifyMember(HashMap<String, String> obj, HttpSession session) {
+
+		MemberDto mdto = (MemberDto) session.getAttribute("loginInfo");
+		String id = mdto.getId();
+		String name = obj.get("name");
+		String address1 = obj.get("address1");
+		String address2 = obj.get("address2");
+		String address3 = obj.get("address3");
+		String phone1 = obj.get("phone1");
+		String phone2 = obj.get("phone2");
+		String phone3 = obj.get("phone3");
+		String phone = phone1 + "-" + phone2 + "-" + phone3;
+		String tel1 = obj.get("tel1");
+		String tel2 = obj.get("tel2");
+		String tel3 = obj.get("tel3");
+		String tel = tel1 + "-" + tel2 + "-" + tel3;
+		String email1 = obj.get("email1");
+		String email2 = obj.get("email2");
+		String email = email1 + "@" + email2;
+		int check = 1;
+		try {
+			memberDao.modifyMember(id, name, address1, address2, address3, phone, tel, email);
+		} catch (Exception e) {
+			check = 0;
+		}
+
+		return check;
 	}
 
 }

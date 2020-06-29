@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koitt.tim.dao.order.ReceiptDao">
+
+	<insert id="insertReceiptOne">
+		insert into receipt values(#{o_num},#{r_way},#{r_type},#{r_name},#{r_num},'대기')
+	</insert>
+
+
+
+
+</mapper>

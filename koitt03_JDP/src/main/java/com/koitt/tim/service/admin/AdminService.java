@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.koitt.tim.dto.admin.AnswerDto;
+import com.koitt.tim.dto.admin.BannerDto;
 import com.koitt.tim.dto.admin.MallDto;
 import com.koitt.tim.dto.board.FaqDto;
 import com.koitt.tim.dto.board.NoticeDto;
@@ -12,9 +13,7 @@ import com.koitt.tim.dto.category.CategoryDept2Dto;
 import com.koitt.tim.dto.coupon.CouponDto;
 import com.koitt.tim.dto.event.EventDto;
 import com.koitt.tim.dto.member.MemberDto;
-import com.koitt.tim.dto.order.OrderDto;
-import com.koitt.tim.dto.order.OrderListDto;
-import com.koitt.tim.dto.order.PaymentDto;
+import com.koitt.tim.dto.order.*;
 import com.koitt.tim.dto.product.MainProductDto;
 import com.koitt.tim.dto.product.ProductAnswerDto;
 import com.koitt.tim.dto.product.ProductDto;
@@ -168,4 +167,16 @@ public interface AdminService {
 
 	//order에 대한 결제내역 가져오기
 	List<PaymentDto> getPaymentInfo(String o_num);
+
+	//order에 대한 수취자 정보 가져오기
+	List<PayeeDto> getPayeeInfo(String o_num);
+
+	//반품리스트 가져오기
+	List<ChangeDto> getChangeList();
+
+	//반품정보 업데이트
+	void updateChangeInfo(String key, String c_type, String c_state);
+
+	//모든 배너 가져오기
+	List<BannerDto> getAllBanner();
 }

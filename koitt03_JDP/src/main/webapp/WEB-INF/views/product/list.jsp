@@ -23,34 +23,74 @@
 
                 <div class="brandTab">
                     <ul>
-                        <li><a onclick="return false;" >드립커피백</a></li>
-                        <li><a onclick="return false;">오리지널 커피백</a></li>
-                        <li><a onclick="return false;">마일드 커피백</a></li>
-                        <li><a onclick="return false;">카페모리</a></li>
-                        <li><a onclick="return false;">카페포드</a></li>
-                        <li><a onclick="return false;">카페리얼</a></li>
-                        <li><a onclick="return false;">워터커피</a></li>
-                        <li><a onclick="return false;">클래스</a></li>
+                        <li><a onclick="return false;" id="coffeeBack" >드립커피백</a></li>
+                        <li><a onclick="return false;" id="original">오리지널 커피백</a></li>
+                        <li><a onclick="return false;" id="mild">마일드 커피백</a></li>
+                        <li><a onclick="return false;" id="cafeMori">카페모리</a></li>
+                        <li><a onclick="return false;" id="cafePort">카페포드</a></li>
+                        <li><a onclick="return false;" id="cafeReal">카페리얼</a></li>
+                        <li><a onclick="return false;" id="waterCoffee">워터커피</a></li>
+                        <li><a onclick="return false;" id="classCoffee">클래스</a></li>
                         <script type="text/javascript">$(function(){$(".brandTab ul li a:eq(2)").click();});</script>
-                    </ul>
+                    </ul><script type="text/javascript">$(function(){$(".detailTab ul li a:eq(${initVal})").click();});</script>
                 </div>
 
                 <div class="brandList">
-                    <ul>
-                        <!-- 반복 -->
-                        <c:forEach var="dto" items="${dtos}">
-                        <li>
-                            <a href="detail?pro_num=${dto.pro_num}">
-                                <div class="img"><img src="${dto.front_image1}" alt="제품이미지" /></div>
-                                <div class="name">쟈뎅 바리스타 벨벳<br/>${dto.product_name}</div>
-                                <div class="price">${dto.product_price}원</div>
-                            </a>
-                        </li>
-                        <!-- //반복 -->
-                        </c:forEach>
 
-                    </ul>
+                    <%--  드립커피백                  --%>
+                    <div class = "coffeeBack disnone">
+                        <ul>
+                            <!-- 반복 -->
+                            <c:forEach var="dto" items="${dtos}">
+                            <li>
+                                <a href="detail?pro_num=${dto.pro_num}">
+                                    <div class="img"><img src="${dto.front_image1}" alt="제품이미지" /></div>
+                                    <div class="name">쟈뎅 바리스타 벨벳<br/>${dto.product_name}</div>
+                                    <div class="price">${dto.product_price}원</div>
+                                </a>
+                            </li>
+                            <!-- //반복 -->
+                            </c:forEach>
+
+                        </ul>
+                    </div>
+
+                        <%--  오리지널                  --%>
+                    <div class="original disnone">
+
+                    </div>
+
+                        <%--  마일드                  --%>
+                    <div class="mild disnone">
+
+                    </div>
+
+                        <%--  카페모리                  --%>
+                        <div class="cafeMori disnone">
+
+                        </div>
+
+                        <%-- 카페포트                --%>
+                        <div class="cafePort disnone">
+
+                        </div>
+
+                        <%--  카페리얼                  --%>
+                        <div class="cafeReal disnone">
+
+                        </div>
+
+                        <%--  워터커피                  --%>
+                        <div class="waterCoffee disnone">
+
+                        </div>
+
+                        <%--  클래스                 --%>
+                        <div class="classCoffee disnone">
+
+                        </div>
                 </div>
+
 
                 <!-- quickmenu -->
                 <div id="quick">

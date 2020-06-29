@@ -1,15 +1,19 @@
 package com.koitt.tim.dto.coupon;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class CouponDto {
-
-	private String coupon_type;
-	private String coupon_name;
+public class CouponMemBean {
+	private int rownum;
 	private String coupon_num;
-	private Timestamp startday;
-	private Timestamp endday;
-	private int coupon_pay;
+	private String coupon_name;
+	private String coupon_type;//
+	private int coupon_pay;// 쿠폰 할인금액
+	private Timestamp startday;//
+	private Timestamp endday;//
+	private Timestamp regist_coupon;// 발급일
+	private Timestamp use_date;// 사용일
 
 	public String getCoupon_num() {
 		return coupon_num;
@@ -48,6 +52,8 @@ public class CouponDto {
 	}
 
 	public void setStartday(Timestamp startday) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		String string = dateFormat.format(new Date());
 		this.startday = startday;
 	}
 
@@ -59,4 +65,27 @@ public class CouponDto {
 		this.endday = endday;
 	}
 
+	public Timestamp getUse_date() {
+		return use_date;
+	}
+
+	public void setUse_date(Timestamp use_date) {
+		this.use_date = use_date;
+	}
+
+	public int getRownum() {
+		return rownum;
+	}
+
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
+
+	public Timestamp getRegist_coupon() {
+		return regist_coupon;
+	}
+
+	public void setRegist_coupon(Timestamp regist_coupon) {
+		this.regist_coupon = regist_coupon;
+	}
 }

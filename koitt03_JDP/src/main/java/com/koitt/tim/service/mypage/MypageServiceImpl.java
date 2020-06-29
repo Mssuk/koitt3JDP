@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.koitt.tim.dao.review.ReviewDao;
+import com.koitt.tim.dto.member.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.koitt.tim.dao.coupon.CouponDao;
 import com.koitt.tim.dao.member.MemberDao;
 import com.koitt.tim.dao.order.OrderDao;
-import com.koitt.tim.dto.member.MemberDto;
+import com.koitt.tim.dto.coupon.CouponMemBean;
 import com.koitt.tim.dto.order.OrderListDto;
 
 @Service
@@ -57,13 +58,14 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public void subEmail(MemberDto mDto) {
+	public List<CouponMemBean> getMemberCoupons(String id) {
+		return couponDao.selectMemberCoupons(id);
 
-		String email = mDto.getEmail();
-		String email1 = email.substring(0, email.lastIndexOf("@"));
-		String email2 = email.substring(email.lastIndexOf("@") + 1);
-		mDto.setEmail1(email1);
-		mDto.setEmail2(email2);
+	}
+
+	@Override
+	public void subEmail(MemberDto mDto) {
+		
 	}
 
 	@Override
@@ -111,12 +113,8 @@ public class MypageServiceImpl implements MypageService {
 	}
 	//리뷰 작성중 주문내역 key 호출  -이준희
 	@Override
-	public String getReviewKey(String oNum) {
-		return reviewDao.selectReviewKey(oNum);
+	public String getReviewKey(String oNum,String pro_num,String id) {
+		return reviewDao.selectReviewKey(oNum,pro_num,id);
 	}
-	//리뷰 작성중 상품번호 호출  -이준희
-	@Override
-	public String getReviewPro_num(String oNum) {
-		return reviewDao.selectReviewPro_num(oNum);
-	}
+
 }

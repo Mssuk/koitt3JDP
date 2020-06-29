@@ -7,9 +7,9 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
-import com.koitt.tim.dto.order.OrderDto;
-import com.koitt.tim.dto.order.OrderListDto;
-import com.koitt.tim.dto.order.PaymentDto;
+import com.koitt.tim.dao.payment.PayeeDao;
+import com.koitt.tim.dto.admin.BannerDto;
+import com.koitt.tim.dto.order.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -466,4 +466,27 @@ public class AdminController {
         return adminService.getPaymentInfo(o_num);
     }
 
+    //order에 대한 payee 정보 가져오기
+    @GetMapping("payeelist/{key}")
+    public List<PayeeDto> payeeList(@PathVariable("key") String o_num){
+        return adminService.getPayeeInfo(o_num);
+    }
+
+    //반품리스트 가져오기
+    @GetMapping("clist")
+    public List<ChangeDto> cList(){
+        return adminService.getChangeList();
+    }
+
+    //반품상태 업데이트
+    @PatchMapping("clist/{code}/{val1}/{val2}")
+    public void cList(@PathVariable("code") String key, @PathVariable("val1") String c_type, @PathVariable("val2") String c_state){
+        adminService.updateChangeInfo(key, c_type, c_state);
+    }
+
+    //배너정보 가져오기
+    @GetMapping("blist")
+    public List<BannerDto> bList(){
+        return adminService.getAllBanner();
+    }
 }
