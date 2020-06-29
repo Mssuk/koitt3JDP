@@ -427,20 +427,20 @@ public class PaymemtCartServiceImpl implements PaymentCartService {
 					System.out.println("사용포인트 업댓 실패");
 				}
 			}
-			// 적립포인트 업데이트
-			if (increpoint > 0) {
-				// reason = "구매적립(예정)"; //마이페이지랑 엮여서..예정 사용불가
-				// 카드랑 실시간계좌이체만 결제완료이므로 포인트를 준다 >>관리자에서 결제완료 누르면 업댓필요..
-				if (o_way.equals("카드결제") || o_way.equals("실시간계좌이체")) {
-					reason = "구매적립";
-					try {
-						podao.insertPointMemberOne(id, o_num, increpoint, reason);
-					} catch (Exception e) {
-						check = -8;//
-						System.out.println("적립포인트 업댓 실패");
-					}
-				}
-			}
+//			// 적립포인트 업데이트 (구매확정시 반영되게 변경 '3'!
+//			if (increpoint > 0) {
+//				// reason = "구매적립(예정)"; //마이페이지랑 엮여서..예정 사용불가
+//				// 카드랑 실시간계좌이체만 결제완료이므로 포인트를 준다 >>관리자에서 결제완료 누르면 업댓필요..
+//				if (o_way.equals("카드결제") || o_way.equals("실시간계좌이체")) {
+//					reason = "구매적립";
+//					try {
+//						podao.insertPointMemberOne(id, o_num, increpoint, reason);
+//					} catch (Exception e) {
+//						check = -8;//
+//						System.out.println("적립포인트 업댓 실패");
+//					}
+//				}
+//			}
 
 			// 회원 장바구니 제거 //로그인시 장바구니 업댓되믄..
 			for (int i = 0; i < plist.size(); i++) {
