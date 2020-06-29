@@ -255,7 +255,7 @@ $("#cartPut").click(function(){
                             <ul>
                                 <c:forEach var="relProduct" items="${relProduct}">
                                     <li>
-                                        <div class="img"><img src="${relProduct.front_image1}" alt="관련상품 이미지" /></div>
+                                        <a href="/product/detail?pro_num=${relProduct.pro_num }"><div class="img"><img src="${relProduct.front_image1}" alt="관련상품 이미지" /></div></a>
                                         <div class="name"><a href="#">${relProduct.product_name}</a></div>
                                         <div class="price">${relProduct.product_price}원</div>
                                     </li>

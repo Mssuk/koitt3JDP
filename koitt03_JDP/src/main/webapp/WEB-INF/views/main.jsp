@@ -103,7 +103,7 @@ $(document).ready(function() {
 					<c:forEach var="hit" items="${hitPro }">
 						<c:forEach var="hitPro" items="${hit }">
 						<div class="swiper-slide">
-							<div class="img"><a href="/product/detail?pro_num=${hitPro.pro_num }"><img src="${hitPro.front_image1 }" alt="Best seller 상품" height="100%"/></a></div>
+							<a href="/product/detail?pro_num=${hitPro.pro_num }"><div class="img"><img src="${hitPro.front_image1 }" alt="Best seller 상품" height="100%"/></div></a>
 							<div class="name"><br/>${hitPro.product_name }</div>
 							<div class="price"><fmt:formatNumber value="${hitPro.sales_price }" pattern="##,###"/></div>
 						</div>
@@ -179,7 +179,7 @@ $(document).ready(function() {
 				<c:forEach var="sale" items="${salePro }">
 					<c:forEach var="salePro" items="${sale }">
 						<div class="swiper-slide">
-							<div class="img"><a href="/product/detail?pro_num=${salePro.pro_num }"><img src="${salePro.front_image1 }" alt="sale 상품" height="100%"/></a></div>
+							<a href="/product/detail?pro_num=${salePro.pro_num }"><div class="img"><img src="${salePro.front_image1 }" alt="sale 상품" height="100%"/></div></a>
 							<div class="name" width="100%">${salePro.product_name }</div>
 							<div class="price"><fmt:formatNumber value="${salePro.sales_price }" pattern="##,###"/></div>
 							<div class="discount">20%</div>
