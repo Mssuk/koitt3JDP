@@ -8,7 +8,7 @@
 %>
 <jsp:include page="../common/header.jsp" />
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-<script>
+<script> 
 	function id_ch(form) {
 
 		var ch_id = /^[a-zA-Z][0-9][_]{4,16}$/;
@@ -67,10 +67,10 @@
 			return false;
 		}
 
-		else if (id_ch() == false) {
+		/* else if (id_ch() == false) {
 			alert('중복체크를 확인하세요')
 			return false;
-		}
+		} */
 
 		else if (join.pw.value == "") {
 			alert('비밀번호를 입력하세요');
@@ -81,6 +81,41 @@
 			alert('비밀번호 확인란을 입력하세요');
 			return false;
 		}
+
+		else if (join.email1.value == "" || join.email2.value == ""){
+			alert('이메일을 입력하세요');
+			return false;
+			}
+		
+		else if (join.tel2.value == ""){
+			alert('전화번호를 입력하세요');
+			return false;
+			}
+		
+		else if (join.tel3.value == ""){
+			alert('전화번호를 입력하세요');
+			return false;
+			}
+
+		else if(join.phone2.value == ""){
+			alert('휴대전화 번호를 입력하세요');
+			return false;
+			}
+		
+		else if(join.phone3.value == ""){
+			alert('휴대전화 번호를 입력하세요');
+			return false;
+			}
+
+		else if(join.address1.value == ""){
+			alert('우편번호를 입력하세요');
+			return false;
+			}
+
+		else if(join.address3.value == ""){
+			alert('상세주소를 입력하세요');
+			return false;
+			}
 
 		/*if (join.email_check.value == "") {
 			alert('이메일 수신 여부를 선택하세요');
@@ -422,7 +457,7 @@
 									</td>
 								</tr>
 								<tr>
-									<th scope="row"><span>유선전화</span></th>
+									<th scope="row"><span>유선전화 *</span></th>
 									<td>
 										<ul class="pta">
 											<li><select name="tel1">
