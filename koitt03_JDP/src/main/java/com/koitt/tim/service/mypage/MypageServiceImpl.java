@@ -65,7 +65,7 @@ public class MypageServiceImpl implements MypageService {
 
 	@Override
 	public void subEmail(MemberDto mDto) {
-		
+
 	}
 
 	@Override
@@ -113,12 +113,8 @@ public class MypageServiceImpl implements MypageService {
 	}
 	//리뷰 작성중 주문내역 key 호출  -이준희
 	@Override
-	public String getReviewKey(String oNum) {
-		return reviewDao.selectReviewKey(oNum);
+	public String getReviewKey(String oNum,String pro_num,String id) {
+		return reviewDao.selectReviewKey(oNum,pro_num,id);
 	}
-	//리뷰 작성중 상품번호 호출  -이준희
-	@Override
-	public String getReviewPro_num(String oNum) {
-		return reviewDao.selectReviewPro_num(oNum);
-	}
+
 }

@@ -23,8 +23,7 @@ public interface ReviewDao {
 	int selectCountReview(String pro_num);	//해당 상품 리뷰 카운트
 	int selectCountReviewPhoto(String pro_num);	//해당 상품 포토리뷰 카운트
 
-	String selectReviewKey(String oNum);		//리뷰 작성중 주문내역 key 호출  -이준희
-	String selectReviewPro_num(String oNum);	//리뷰 작성중 상품번호 호출  -이준희
+	String selectReviewKey(@Param("oNum") String oNum,@Param("pro_num") String pro_num,@Param("id") String id);		//리뷰 작성중 주문내역 key 호출  -이준희
 
 
 	// 모든 제품리뷰 불러오기 (admin)
