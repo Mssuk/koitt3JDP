@@ -47,7 +47,5 @@ label{vertical-align:middle; font-size:14px; cursor:pointer;}
 select {height:24px; margin:0; border: 1px solid #dcdcdc; padding:0; font-size:13px; vertical-align:middle; color:#666;}
 textarea {border:1px solid #dcdcdc; color:#888; font-size:13px; line-height:18px; padding:5px; overflow-y:auto; resize:none;}
 
-
-
 /* html5 reset */
 header, footer, section, article, aside, nav, hgroup, details, menu, figure, figcaption, canvas{display:block; margin:0; padding:0; border:0; font-size:100%; font:inherit; vertical-align:baseline;}
