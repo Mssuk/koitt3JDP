@@ -31,9 +31,9 @@
 
         <div class="inputBody">
             <div class="title">사유 보기
-            
+            <c:if test="${type=='신청'}">
             <span style="font-size: 12px;color:#f7703c;">*변경 후 수정버튼 클릭시 수정가능합니다.</span>
-            
+            </c:if>
             </div>
             <p class="close"><a onclick="parent.$.fancybox.close();" href="javascript:;" style="display: inline-block;"><img
                     src="../images/btn/btn_input_close.gif" alt="닫기"/></a></p>

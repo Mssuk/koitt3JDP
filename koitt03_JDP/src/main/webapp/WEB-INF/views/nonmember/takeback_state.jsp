@@ -144,7 +144,14 @@
 										</c:if>
 										</td>
 										<td class="tnone">
-											<a href="reason?num1=${dtos.key }&type=${dtos.c_state }" class="nbtnbig iwc80">사유보기</a>
+											<c:choose>
+												<c:when test="${dtos.c_state=='신청' }">
+													<a href="reason?num1=${dtos.key }&type=${dtos.c_state }" class="nbtnbig iwc80">사유수정</a>
+												</c:when>
+												<c:otherwise>
+													<a href="reason?num1=${dtos.key }&type=${dtos.c_state }" class="nbtnbig iwc80">사유보기</a>
+												</c:otherwise>
+											</c:choose>
 										</td>
 									</tr>
 								</c:forEach>
