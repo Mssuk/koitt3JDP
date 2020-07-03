@@ -263,6 +263,10 @@
                                     <th scope="row"><span>요구사항</span></th>
                                     <td>${confirm.payee.p_demand }</td>
                                 </tr>
+                                 <tr>
+                                    <th scope="row"><span>주문상태</span></th>
+                                    <td colspan="3">${confirm.orderInfo.o_status }</td>
+                                </tr>
 								<c:if test="${confirm.payment.o_way=='무통장입금' }">
 	                                <tr>
 	                                    <th scope="row"><span>입금은행</span></th>
@@ -274,7 +278,7 @@
 								<c:if test="${fn:contains(confirm.payment.o_way,'가상계좌') }">
 									<tr>
 	                                    <th scope="row"><span>입금은행</span></th>
-	                                    <td>신한은행 1234-45-786135 (주)쟈뎅</td>
+	                                    <td colspan="3">신한은행 1234-45-786135 (주)쟈뎅</td>
 	                                </tr>    
 								</c:if>
                                 </tbody>
