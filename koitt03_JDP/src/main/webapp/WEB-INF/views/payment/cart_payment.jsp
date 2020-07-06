@@ -828,11 +828,13 @@
     	        type : "POST",   
     	        data: params,  // 넘길값을 지정해 준다(예시는 두개의 값을 남길경우)
     	        success : function (data) {
-    	           if(data!= 0){ //리턴값이 ok일 경우
+    	           if(data!= 0&&data!=9){ //리턴값이 ok일 경우
     	              alert('주문성공');
     	           	  location.href='/orderConfirmC?o_num='+data;
     	           }else if(data == 0){
-    					alert('실패');
+    					alert('통신오류로 주문실패');
+    			   }else if(data == 9){
+    					alert('일부 상품이 재고가 부족합니다.');
     				}
     	        },
     	        error : function(){ //오류일경우 경고창을 띄움

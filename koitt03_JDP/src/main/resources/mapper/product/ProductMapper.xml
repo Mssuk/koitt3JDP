@@ -8,12 +8,12 @@
         select * from PRODUCT order by UPDATE_DATE desc
     </select>
 
-    <select id="selectProductOne" resultType="ProductDto">
+    <select id="selectProductOne" resultType="com.koitt.tim.dto.product.ProductDto">
         select * from PRODUCT where PRO_NUM=#{pro_num}
     </select>
 
 	<!--  product insert -->
-	<insert id="insertProduct" parameterType="ProductDto">
+	<insert id="insertProduct" parameterType="com.koitt.tim.dto.product.ProductDto">
 		insert into product 
 		values(#{pro_num},#{product_name},#{supply_price},#{product_price},#{sales_price},#{amount},
 		#{product_state},#{manufacturer},#{nutrient},#{product_kcal},#{shelf_life},#{packing},#{capacity},
@@ -27,7 +27,7 @@
 	</delete>
 	
 	<!--  product update -->
-	<update id="updateProduct" parameterType="ProductDto">
+	<update id="updateProduct" parameterType="com.koitt.tim.dto.product.ProductDto">
 		update product
 		<trim prefix="set" suffixOverrides=",">
 			<if test="product_name!=null">product_name=#{product_name},</if>
@@ -51,5 +51,12 @@
 		where pro_num = #{pro_num}
 		
 	</update>
-
+	<!-- 재고확인 -->
+	<select id="selectProductCount" resultType="int">
+		select count(*) from product where pro_num=#{pro_num} and 	PRODUCT_STATE!='품절' and AMOUNT <![CDATA[>= ]]> #{count}
+	</select>
+	<!-- 재고반영 -->
+	<update id="updateProductAmount">
+		update product set AMOUNT=AMOUNT-#{count} where pro_num=#{pro_num}
+	</update>
 </mapper>
