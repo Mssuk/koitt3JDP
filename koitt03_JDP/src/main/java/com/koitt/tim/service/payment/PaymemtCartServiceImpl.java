@@ -200,7 +200,7 @@ public class PaymemtCartServiceImpl implements PaymentCartService {
 	@Override
 	public String doOrderCart(DoOrderDto doOrderDto, HttpSession session) {
 		// 반환
-		String o_num = null;
+		String o_num = "";
 		// 주문 리스트
 		List<CartViewDto> plist = getCartProduct(getCart(session));
 		int result = 0;
@@ -211,6 +211,8 @@ public class PaymemtCartServiceImpl implements PaymentCartService {
 			int geago = pdao.selectProductCount(pro_num, count);// 재고부족시 0으로 리턴
 			if (geago <= 0) {
 				result++;// 품절 혹은 재고부족시 result++이 된다.
+				o_num += plist.get(i).getPdto().getProduct_name() + "는 " + (count + geago) + "개 까지 주문가능합니다\n";
+				System.out.println(o_num);
 			}
 		}
 		if (result == 0) {
@@ -520,7 +522,7 @@ public class PaymemtCartServiceImpl implements PaymentCartService {
 			}
 
 		} else {
-			o_num = "9"; // 재고부족
+			System.out.println("재고부족");
 		}
 		return o_num;
 	}

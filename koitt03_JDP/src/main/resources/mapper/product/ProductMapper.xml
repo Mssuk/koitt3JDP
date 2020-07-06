@@ -53,10 +53,10 @@
 	</update>
 	<!-- 재고확인 -->
 	<select id="selectProductCount" resultType="int">
-		select count(*) from product where pro_num=#{pro_num} and 	PRODUCT_STATE!='품절' and AMOUNT <![CDATA[>= ]]> #{count}
+		select case product_state when '품절' then 0 else amount-#{count} end as amount from product where pro_num=#{pro_num} 
 	</select>
 	<!-- 재고반영 -->
 	<update id="updateProductAmount">
-		update product set AMOUNT=AMOUNT-#{count} where pro_num=#{pro_num}
+		update product set PRODUCT_STATE=case when AMOUNT-#{count} <![CDATA[<= ]]>0 then '품절' else PRODUCT_STATE end ,amount=amount-#{count} where pro_num=#{pro_num}
 	</update>
 </mapper>

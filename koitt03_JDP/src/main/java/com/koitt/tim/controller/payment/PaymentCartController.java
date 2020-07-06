@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -74,7 +75,7 @@ public class PaymentCartController {
 
 	// order로 들어옴 '0')/
 	@ResponseBody
-	@RequestMapping("/DoOrder")
+	@RequestMapping(value = "/DoOrder", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public String do_order_cart(HttpSession session, DoOrderDto doOrderDto) {
 		String check = "1";
 		try {
