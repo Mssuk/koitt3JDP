@@ -56,7 +56,7 @@
 														<img src="${dtos.event_image1 }" alt="진행중 이벤트" />
 													</div>
 													<div class="txt">
-														<div class="subject">${dtos.event_title }</div>
+														<div class="subject"><span class="ingbtn">진행중</span>&nbsp;&nbsp;${dtos.event_title }</div>
 														<div class="day">이벤트 기간 : <fmt:formatDate value="${dtos.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dtos.event_end }" pattern="yyyy-MM-dd"/></div>
 													</div>
 													</a>
@@ -67,7 +67,7 @@
 															<img src="${dtos.event_image1 }" alt="진행중 이벤트" />
 														</div>
 														<div class="txt">
-															<div class="subject">${dtos.event_title }</div>
+															<div class="subject"><span class="ingbtn">진행중</span>&nbsp;&nbsp;${dtos.event_title }</div>
 															<div class="day">이벤트 기간 : <fmt:formatDate value="${dtos.event_start }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${dtos.event_end }" pattern="yyyy-MM-dd"/></div>
 														</div>
 													</a>

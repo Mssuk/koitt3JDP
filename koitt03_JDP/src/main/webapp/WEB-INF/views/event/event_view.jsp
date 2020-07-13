@@ -98,7 +98,7 @@ $(document).ready(function(){
 						<div class="viewHead">
 							<div class="subject">
 								<ul>
-									<li>${event_view.eventDto.event_title }</li>
+									<li><span class="ingbtn">진행중</span>&nbsp;&nbsp;${event_view.eventDto.event_title }</li>
 								</ul>
 							</div>
 							<div class="day">
