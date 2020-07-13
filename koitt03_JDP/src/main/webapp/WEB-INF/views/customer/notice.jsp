@@ -86,7 +86,7 @@
 											<fmt:parseDate value="${dtos.n_regist}" var="n_regist" pattern="yyyy-MM-dd"/>
 											<fmt:parseNumber value="${n_regist.time / (1000*60*60*24)}" integerOnly="true" var="regist"/>
 											<c:set value="${today - regist }" var="dayDiff" />
-											<c:if test="${dayDiff < 2}">
+											<c:if test="${dayDiff < 3}">
 												<img src="../images/ico/ico_new.gif" alt="NEW">
 											</c:if>
 											</td>
