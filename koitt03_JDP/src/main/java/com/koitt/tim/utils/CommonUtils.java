@@ -20,9 +20,9 @@ public class CommonUtils {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	// Cloudinary cloud_name, API_Key and API_Secret
-	private static final String CLOUDINARY_CLOUD_NAME = "dbtw8youc";
-	private static final String CLOUDINARY_API_KEY = "166432243782593";
-	private static final String CLOUDINARY_API_SECRET = "BS2QSJxghfGCj_twUpKqWpyYJZQ";
+	private static final String CLOUDINARY_CLOUD_NAME = //보안
+	private static final String CLOUDINARY_API_KEY = ""; //보안
+	private static final String CLOUDINARY_API_SECRET = "";//보안
 
 	private static final String SAVE_PATH = "C:\\upload\\";
 	private static final String PREFIX_URL = "/upload/";
