@@ -95,11 +95,11 @@
 													<option value=3>nate.com</option>
 													<option value=4>gmail.com</option>
 												</select>
+											</li>
 												<script type="text/javascript">
-													//select박스
+													<%--select박스--%>
 													$('select[id="emailList"]').find('option:contains("${mdto.email2}")').prop("selected",true);
 												</script>
-											</li>
 										</ul>
 									</td>
 								</tr>
@@ -149,11 +149,11 @@
 													<option value="018">018</option>    
 													<option value="019">019</option>    
 												</select>
+											</li>
 												<script type="text/javascript">
-													//select박스
+													<%--select박스--%>
 													$('select[id="phone"]').find('option:contains("${mdto.phone1}")').prop("selected",true);
 												</script>
-											</li>
 											<li><span class="valign">-</span></li>
 											<li><input type="text" name="phone2"class="w74" maxlength="4" value="${mdto.phone2 }"/> <span class="valign">-</span>&nbsp;</li>
 											<li class="r10"><input type="text" name="phone3" class="w74" maxlength="4" value="${mdto.phone3 }"/></li>
@@ -202,11 +202,11 @@
 													<option value="064">064</option>
 													<option value="070">070</option>
 												</select>
+											</li>
 												<script type="text/javascript">
-													//select박스
+													<!--select박스-->
 													$('select[id="tel1"]').find('option:contains("${mdto.tel1}")').prop("selected",true);
 												</script>
-											</li>
 											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
 											<li><input type="text" name="tel2" class="w74" maxlength="4" value="${mdto.tel2 }"/>
 												<span class="valign">-</span>&nbsp;</li>

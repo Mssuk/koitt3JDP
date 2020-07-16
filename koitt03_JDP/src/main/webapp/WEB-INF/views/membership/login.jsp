@@ -128,7 +128,7 @@ $(function(){
 				<div class="informbox">
 					<div class="inform">
 					<!-- form -->
-					<form action="loginOk" method="post">
+					<form name="form" action="loginOk" method="post">
 						<ul>
 							<li><input type="text" class="loginType" id="id"
 								onfocus="this.className='mfocus'"
@@ -142,8 +142,9 @@ $(function(){
 
 						<div class="btn">
 							<!-- <a href="#" class="sbtn">로그인</a> -->
-							<button type="button" onclick='idCheck(this.form)' class="sbtn">로그인</button>
+							<a href="#" onclick='idCheck(this.form)' class="sbtn">로그인</a>
 						</div>
+						<br/>
 							<span style="color:#ff0000" id="login_ch"></span>  <!-- session으로 id, pw 검증 후 안내 코멘트 -->
 						<div class="chk">
 							<input type="checkbox" id="idsave" /><label for="idsave">아이디

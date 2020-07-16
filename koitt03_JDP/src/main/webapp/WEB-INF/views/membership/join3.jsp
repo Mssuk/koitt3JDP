@@ -227,8 +227,7 @@
 											<li class="r10"><input type="text" class="w134"
 												name="id" id="id"/></li>
 											<li>
-												<button type="button" class="nbtnMini" onclick="id_ch(this.form)">중복
-													확인</button>
+												<a class="nbtnMini" onclick="id_ch(this.form)">중복 확인</a>
 											</li>
 											<!-- <li><a href="#" class="nbtnMini">중복확인</a></li> -->
 											<li class="pt5"><span class="mvalign">첫 글자는 영문으로
@@ -274,6 +273,9 @@
 																$("#alert-danger").show();
 																$("#submit").attr("disabled","disabled");
 															}
+														} else{
+															$("#alert-success").hide();
+															$("#alert-danger").hide();
 														}
 													});
 												});
@@ -343,9 +345,9 @@
 									<th scope="row"><span>주소 *</span></th>
 									<td>
 										<ul class="pta">
-											<li><input type="text" id="address1" class="w134" name="address1" readonly="readonly" value="우편번호"/>&nbsp;</li>
+											<li><input type="text" id="address1" class="w134" name="address1" readonly="readonly" placeholder="우편번호"/>&nbsp;</li>
 											<li><input type="button" class="addressBtn" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"></li>
-											<li class="pt5"><input type="text" id="address2" class="addressType" name="address2" value="주소" readonly/></li>
+											<li class="pt5"><input type="text" id="address2" class="addressType" name="address2" placeholder="주소" readonly/></li>
 											<li class="pt5"><input type="text" id="address3" class="addressType" name="address3" placeholder="상세주소"/></li>
 											<li class="cb">
 												<span class="mvalign">
@@ -404,14 +406,10 @@
 													// iframe을 넣은 element의 위치를 화면의 가운데로 이동시킨다.
 													initLayerPosition();
 												}
-
-												// 브라우저의 크기 변경에 따라 레이어를 가운데로 이동시키고자 하실때에는
-												// resize이벤트나, orientationchange이벤트를 이용하여 값이 변경될때마다 아래 함수를 실행 시켜 주시거나,
-												// 직접 element_layer의 top,left값을 수정해 주시면 됩니다.
 												function initLayerPosition(){
 													var width = 300; //우편번호서비스가 들어갈 element의 width
 													var height = 400; //우편번호서비스가 들어갈 element의 height
-													var borderWidth = 5; //샘플에서 사용하는 border의 두께
+													var borderWidth = 5;  
 
 													// 위에서 선언한 값들을 실제 element에 넣는다.
 													element_layer.style.width = width + 'px';
@@ -570,8 +568,8 @@
 							<div class="bCenter">
 								<ul>
 									<li><a href="#" class="nbtnbig">취소하기</a></li>
-									<li><button type="button" class="sbtnMini"
-											onclick="page_ch()">가입하기</button></li>
+									<li><a type="button" class="sbtnMini"
+											onclick="page_ch()">가입하기</a></li>
 									<!--<li><a href="" role="submit" class="sbtnMini">가입하기</a></li>-->
 								</ul>
 							</div>
@@ -580,7 +578,6 @@
 					</div>
 				</form>
 			</div>
-
 		</div>
 	</div>
 	<!-- //contents -->
